@@ -1,0 +1,29 @@
+Super admin
+admin
+
+
+entroproner
+    - education
+    - experience
+    - personal site (social link)
+simple user
+    - 
+
+
+
+
+add this section in home page : https://prnt.sc/vok6zl & https://prnt.sc/vok857
+- add three blogs in home page below footer
+
+
+
+For admin
+- simple user management
+- entreprenuer management
+- jobtitle management
+- questions management
+- category management for ask a question
+- category management for post job
+- jobs management
+- ideas management
+- blogs management
