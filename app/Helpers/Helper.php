@@ -270,14 +270,14 @@ class Helper
             ),
             "6" => array( // Category (Ask a question)
                 "is_menu" => TRUE,
-                "url" => '',//route('business-category.index'),
+                "url" => route('question-category.index'),
                 "is_access" => TRUE,
                 "privilege_key" => "6",
                 "privilege_require" => "1",
                 "full_title" => "Category Management (Ask Question)",
                 "short_title" => "Categories (Ask Question)",
                 "icon" => "icon-stack3",
-                "active_menu" => array(),//array('business-category.index','business-category.create','business-category.edit'),
+                "active_menu" => array('question-category.index','question-category.create','question-category.edit'),
                 "child" => array(),
             ),
             "7" => array( // Business Category

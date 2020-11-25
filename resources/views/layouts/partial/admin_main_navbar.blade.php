@@ -38,6 +38,7 @@
 
 		<ul class="navbar-nav">
 			@if(Auth::check())
+			@php $user = Auth::user(); @endphp
 			<li class="nav-item dropdown dropdown-user admin-nav-dropdown">
 				<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
 					{{-- <img src="{{ $profilePhoto }}" class="rounded-circle" alt="Profile">

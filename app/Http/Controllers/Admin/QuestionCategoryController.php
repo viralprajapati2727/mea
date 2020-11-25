@@ -4,32 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\DanceType;
+use App\Models\QuestionCategory;
 use DB;
 use Auth;
 use Helper;
 use Illuminate\Support\Str;
 use Validator;
 
-class DanceTypeController extends Controller
+class QuestionCategoryController extends Controller
 {
-    //View Dance/Music Type Listing Page
     public function index(){
-        $danceType = DanceType::orderBy('created_at','desc')->get();
-        return view('admin.dance-type.index',compact('danceType'));
+        $danceType = QuestionCategory::orderBy('created_at','desc')->get();
+        return view('admin.question-category.index',compact('danceType'));
     }
 
-    //Filter the dance and music types
     public function ajaxData(Request $request){
-        // dd($request->all());
 
         $keyword = "";
         if(!empty($request->keyword)){
             $keyword = $request->keyword;
         }
 
-        $Query = DanceType::orderBy('id','desc')->with('getUserDanceType','challengeDanceType');
-        // echo "<pre>";print_r($Query);exit;
+        $Query = QuestionCategory::orderBy('id','desc');
         if(!empty($keyword)){
             $Query->where('title','like','%'.$keyword.'%');
         }
@@ -37,10 +33,6 @@ class DanceTypeController extends Controller
         $data = datatables()->of($Query)
         ->addColumn('title', function ($Query) {
             return $Query->title;
-        })
-        ->addColumn('src', function ($Query) {
-            $icon = Helper::images(config('constant.dance_type_url')).$Query->src;
-            return "<a class='fancy-pop-image' data-fancybox='images".$Query->id."'  href='".$icon."'><img class='custom-image' src='".$icon."'></a>";
         })
         ->addColumn('status', function ($Query) {
             $text = "<span class='badge badge-danger'><a href='javascript:;' class='type-status' data-active='1' data-id='".$Query->id."'>INACTIVE</a></span>";
@@ -51,11 +43,11 @@ class DanceTypeController extends Controller
         })
         ->addColumn('action', function ($Query) {
             $action_link = "";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_dance_type openDanceTypePopoup' data-title = '".$Query->title."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_dance_type'></i></a>&nbsp;&nbsp;";
-            $action_link .= "<a href='javascript:;' class='dancetype_deleted' data-id='".$Query->id . "' data-active='2' data-inuse='".$Query->getUserDanceType."' data-challengedancetype='".$Query->challengeDanceType."'><i class='icon-trash mr-3 text-danger'></i></a>";
+            $action_link .= "<a href='javascript:;' class='edit_category' data-title = '".$Query->title."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_dance_type'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='javascript:;' class='deleted' data-id='".$Query->id . "' data-active='2'><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })
-        ->rawColumns(['action','status','src'])
+        ->rawColumns(['action','status'])
         ->make(true);
         return $data;
     }
@@ -84,7 +76,7 @@ class DanceTypeController extends Controller
                     Helper::checkFileExists(config('constant.dance_type_url') . $request->old_src, true, true);
                 }
             }
-            DanceType::updateOrCreate(['id' => $request->id], $danceMusicTypes);
+            QuestionCategory::updateOrCreate(['id' => $request->id], $danceMusicTypes);
             DB::commit();
             if($request->id){
                 return redirect()->route('dance-type.index')->with('success','Dance/Music Type has been updated Successfully');
@@ -98,7 +90,7 @@ class DanceTypeController extends Controller
     }
 
     public function edit($id){
-        $danceType = DanceType::where('id',$id)->first();
+        $danceType = QuestionCategory::where('id',$id)->first();
         return view('admin.dancemusic.index',compact('danceType'));
     }
 
@@ -107,7 +99,7 @@ class DanceTypeController extends Controller
             DB::beginTransaction();
             try{
                 $user = Auth::user();
-                $DanceTypes = DanceType::find($id);
+                $DanceTypes = QuestionCategory::find($id);
                 $DanceTypes->delete();
                 $DanceTypes->deleted_by = $user->id;
                 $DanceTypes->save();
@@ -124,7 +116,7 @@ class DanceTypeController extends Controller
     public function changeStatus(Request $request){
         DB::beginTransaction();
         try {
-            $danceType = DanceType::findOrFail($request->id);
+            $danceType = QuestionCategory::findOrFail($request->id);
             if ($danceType->status == 0) {
                 $danceType->status = '1';
                 $danceType->update();

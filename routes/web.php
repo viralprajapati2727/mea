@@ -56,6 +56,11 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::get('change-password', 'Admin\AdminController@changePassword')->name('admin.change-password');
         Route::post('update-password', 'Admin\AdminController@updatePassword')->name('admin.update-password');
 
+        //Question Category Management
+        Route::resource('question-category','Admin\QuestionCategoryController');
+        Route::post('question-category-filter', 'Admin\QuestionCategoryController@ajaxData')->name('question-category-filter');
+        Route::post('change-question-category-status', 'Admin\QuestionCategoryController@changeStatus')->name('admin.change-question-category-status');
+
     });        
 });
 
