@@ -20,12 +20,9 @@
     <link href="{{ Helper::assets('css/layout.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ Helper::assets('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ Helper::assets('css/components.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ Helper::assets('css/daterangepicker.min.css') }} " rel="stylesheet" type="text/css">
     <link href="{{ Helper::assets('css/owl.carousel.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ Helper::assets('css/owl.theme.default.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ Helper::assets('css/owl.theme.default.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ Helper::assets('css/jquery.fancybox.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ Helper::assets('css/styles.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ Helper::assets('css/font/font-style/font.css') }}" rel="stylesheet" type="text/css">  
 
     <link href="{{ Helper::assets('css/style.css') }}" rel="stylesheet" type="text/css">
     
@@ -42,7 +39,7 @@
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/validation/validate.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/validation/additional_methods.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/wizards/steps.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/owl.carousel.min.js') }}" defer></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/main/owl.carousel.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/uniform.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap-datetimepicker.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/switchery.min.js') }}" defer></script>
@@ -51,11 +48,7 @@
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/notifications/sweet_alert.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.inputmask.bundle.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.livequery.min.js') }}" defer></script>
-
-    <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.fancybox.js') }}" ></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/validation/validate.min.js') }}" defer></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/mea_custom.js') }}" defer></script>
     @yield('content_head')
     <script language="javascript" type="text/javascript">
         $(window).on('load', function () {
