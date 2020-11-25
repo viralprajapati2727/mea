@@ -120,3 +120,21 @@ ul{
     width: 100%;
     height: auto;
 }
+.solutions-section {
+    padding: 60px 0;
+}
+
+.solutions-section .solution-content h2 {
+    font-size: 35px;
+    color: #707070;
+    font-weight: 900;
+}
+
+.solutions-section .solution-content p {
+    font-size: 18px;
+    color: #707070;
+}
+
+.solution-content {
+    margin-bottom: 40px;
+}
