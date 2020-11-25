@@ -1,13 +1,55 @@
-@if (Route::has('login'))
-<div class="top-right links">
-    @auth
-        <a href="{{ url('/home') }}">Home</a>
-    @else
-        <a href="{{ route('login') }}">Login</a>
+<header class="site-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
+            <div class="row w-100">
+                <div class="col-md-4">
+                    <div class="navbar-brand">
+                        <img src="{{ Helper::assets('images/logo.png') }}" class="logo" alt="">
+                        <h1>MUSLIM ENTREPRENEUR ASSOCISTION</h1>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="header-right">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Community</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Members</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Browse Jobs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Resources</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Startup Portal</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="login-links">
+                        <ul>
+                            <li>
+                            @auth
+                                <a href="#">Logout</a>
+                            @else
+                                <a href="{{ route('login') }}">Login Or Register</a>
+                            @endauth
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
 
-        @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-        @endif
-    @endauth
-</div>
-@endif
+<br/><br/><br/>

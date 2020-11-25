@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+body{
+    font-family: 'Oswald', sans-serif;
+    background-color: transparent;
+}
+
+@media screen and (min-width: 1470px){
+    .container{
+        max-width: 1470px;
+    }
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+/*===============Header Css====================*/
+.site-header {
+    background: #75D2FA;
+    padding: 50px 0;
+}
+.navbar-brand {
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.navbar-brand h1 {
+    margin: 0;
+    font-size: 25px;
+    line-height: 34px;
+    color: #000;
+    font-weight: 900;
+}
+.navbar-brand img {
+    margin-right: 30px;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    font-size: 22px;
+    line-height: 34px;
+    color: #474747;
+    font-weight: 500;
+    padding: 10px;
+}
+.login-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.login-links li a {
+    font-size: 22px;
+    color: #4A4A4A;
+    font-weight: bold;
+}
+.header-right .collapse{
+    padding-left: 100px;
+}
+/*========================Footer CSS=========================*/
+.site-footer{
+    background-color: #F9F9F9;
+    padding: 35px 0;
+}
+.site-footer .f-title, .footer-links li a{
+    font-size: 20px;
+    line-height: 27px;
+    color: #8C8C8C;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.footer-links li a{
+    margin-bottom: 0;
+}
+.newsletter-wrap {
+    margin-bottom: 15px;
+}
+.newsletter-wrap .form-control{
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    width: 80%;
+    position: relative;
+}
+.newsletter-wrap .form-control input {
+    width: 100%;
+    border: 0;
+    height: 35px;
+    padding: 5px 10px;
+}
+.newsletter-wrap .form-control button {
+    position: absolute;
+    right: 0;
+    width: 70px;
+    height: 35px;
+    border: 0;
+    background: #ffaf31;
+    color: #fff;
+    font-size: 14px;
+}
+.footer-socials ul {
+    display: flex;
+    align-items: center;
+}
+.footer-socials li a {
+    display: inline-block;
+    color: #0088FF;
+}
+.footer-socials li a i {
+    font-size: 22px;
+}
+.footer-socials li {
+    padding-right: 20px;
+}
+#owl-demo .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
