@@ -12,9 +12,9 @@
     <link rel="shortcut icon" href="{{ Helper::assets('images/favicon.ico') }}">
     <title>{{ config('app.name') }}</title>
 
-     <link href="{{ Helper::assets('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ Helper::assets('css/icons/flat-icon/flaticon.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ Helper::assets('css/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
+     <link href="{{ Helper::assets('css/font/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ Helper::assets('css/font/flaticons/flaticon.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ Helper::assets('css/font/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ Helper::assets('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ Helper::assets('css/bootstrap_limitless.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ Helper::assets('css/layout.min.css') }}" rel="stylesheet" type="text/css">
@@ -27,9 +27,7 @@
     <link href="{{ Helper::assets('css/styles.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ Helper::assets('css/font/font-style/font.css') }}" rel="stylesheet" type="text/css">  
 
-    <link href="{{ Helper::assets('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ Helper::assets('css/icons/flat-icon/flaticon.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ Helper::assets('css/FFG789hytgheaders448ji90GGHDF567GFDVB.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ Helper::assets('css/style.css') }}" rel="stylesheet" type="text/css">
     
     <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.ui.min.js')}}"></script>
