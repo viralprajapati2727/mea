@@ -58,3 +58,15 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 
     });        
 });
+
+
+
+
+//html only
+Route::get('html-all-pages',function () {
+    return view('html.all-pages');
+})->name('html.all-pages');
+
+Route::get('html-members',function (){
+    return view('html.members');
+});
