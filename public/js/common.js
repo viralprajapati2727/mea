@@ -48,11 +48,11 @@ $(function () {
 
 $(document).ready(function() {
  
-    $("#owl-demo").owlCarousel({
+    $("#owl-demo").owlCarousel({ 
    
         navigation : true, // Show next and prev buttons
         slideSpeed : 300,
-        paginationSpeed : 400,
+        paginationSpeed : 400, 
         singleItem:true
    
         // "singleItem:true" is a shortcut for:
