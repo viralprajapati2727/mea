@@ -75,3 +75,6 @@ Route::get('html-all-pages',function () {
 Route::get('html-members',function (){
     return view('html.members');
 });
+Route::get('html-profile',function (){
+    return view('html.profile');
+});
