@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('refresh-csrf', function(){ return csrf_token(); });
 
 Route::group(['middleware' => ['prevent-back-history']], function () {
     Auth::routes();
@@ -60,6 +60,13 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::resource('question-category','Admin\QuestionCategoryController');
         Route::post('question-category-filter', 'Admin\QuestionCategoryController@ajaxData')->name('question-category-filter');
         Route::post('change-question-category-status', 'Admin\QuestionCategoryController@changeStatus')->name('admin.change-question-category-status');
+        Route::post('check-unique-q-category','Admin\QuestionCategoryController@checkUniqueCategory')->name('check_unique_category');
+
+        //Business Category Management
+        Route::resource('business-category','Admin\BusinessCategoryController');
+        Route::post('business-category-filter', 'Admin\BusinessCategoryController@ajaxData')->name('business-category-filter');
+        Route::post('change-business-category-status', 'Admin\BusinessCategoryController@changeStatus')->name('admin.change-business-category-status');
+        Route::post('check-unique-b-category','Admin\BusinessCategoryController@checkUniqueCategory')->name('check_unique_b_category');
 
     });        
 });

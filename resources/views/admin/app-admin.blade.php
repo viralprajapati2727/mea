@@ -31,15 +31,15 @@
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
-    <script src="{{ Helper::assets('js/main/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{Helper::assets('js/main/jquery.ui.min.js')}}"></script>
-    <script src="{{ Helper::assets('js/main/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ Helper::assets('js/plugins/loaders/blockui.min.js') }}"></script>
-    <script src="{{ Helper::assets('js/plugins/forms/styling/uniform.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/plugins/loaders/blockui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/validation/validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/tables/datatables/datatables.min.js') }}"></script>
-
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/tables/datatables/extensions/responsive.min.js') }}"></script>
+
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/selects/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/switchery.min.js') }}"></script>
@@ -48,9 +48,8 @@
     <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.fancybox.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/notifications/sweet_alert.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/ui/moment/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/jquery.form.min.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ Helper::assets('js/plugins/pickers/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script> --}}
-    <script src="{{ Helper::assets('js/plugins/forms/tags/tokenfield.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.form.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/tags/tokenfield.min.js') }}"></script>
 
     <!-- /core JS files -->
 

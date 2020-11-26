@@ -38,16 +38,12 @@
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/loaders/blockui.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/validation/validate.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/validation/additional_methods.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/wizards/steps.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/owl.carousel.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/uniform.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap-datetimepicker.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/switchery.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/switch.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/selects/select2.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/notifications/sweet_alert.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.inputmask.bundle.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.livequery.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/mea_custom.js') }}" defer></script>
     @yield('content_head')
     <script language="javascript" type="text/javascript">

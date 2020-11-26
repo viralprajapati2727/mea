@@ -22,7 +22,8 @@ h6 {
     padding-top: 0 !important;
 }
 .admin .navbar-brand img {
-    height: 100%;
+    width: 40px;
+    /* height: 100%; */
 }
 .sidebar-light .nav-sidebar .nav-item > .nav-link.active,
 .sidebar-light .nav-sidebar > .nav-item-open > .nav-link:not(.disabled),
@@ -796,4 +797,7 @@ button.owl-prev i:before {
 }
 .header-content a {
     color: #658ac3;
+}
+.dataTables_info, .dataTables_paginate, .dataTables_length{
+    padding: 5px 20px;
 }

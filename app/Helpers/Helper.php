@@ -282,14 +282,14 @@ class Helper
             ),
             "7" => array( // Business Category
                 "is_menu" => TRUE,
-                "url" => '',//route('business-category.index'),
+                "url" => route('business-category.index'),
                 "is_access" => TRUE,
                 "privilege_key" => "7",
                 "privilege_require" => "1",
                 "full_title" => "Business Category Management",
                 "short_title" => "Business Category",
                 "icon" => "icon-cogs",
-                "active_menu" => array(),//array('business-category.index','business-category.create','business-category.edit'),
+                "active_menu" => array('business-category.index','business-category.create','business-category.edit'),
                 "child" => array(),
             ),
             "8" => array( // Job Title
