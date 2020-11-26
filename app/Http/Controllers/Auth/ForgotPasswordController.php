@@ -24,17 +24,6 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails, CanResetPassword;
 
-
-    /**
-     * Display the form to request a password reset link.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showLinkRequestForm()
-    {
-        return redirect('/');
-    }
-
     /**
      * Send a reset link to the given user.
      *

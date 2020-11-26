@@ -66,7 +66,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::resource('business-category','Admin\BusinessCategoryController');
         Route::post('business-category-filter', 'Admin\BusinessCategoryController@ajaxData')->name('business-category-filter');
         Route::post('change-business-category-status', 'Admin\BusinessCategoryController@changeStatus')->name('admin.change-business-category-status');
-        Route::post('check-unique-b-category','Admin\BusinessCategoryController@checkUniqueCategory')->name('check_unique_b_category');
+        Route::post('check-unique-business-category','Admin\BusinessCategoryController@checkUniqueCategory')->name('check_unique_b_category');
 
     });        
 });
@@ -81,4 +81,7 @@ Route::get('html-all-pages',function () {
 
 Route::get('html-members',function (){
     return view('html.members');
+});
+Route::get('html-profile',function (){
+    return view('html.profile');
 });

@@ -38,7 +38,7 @@ class BusinessCategoryController extends Controller
             return $Query->title;
         })
         ->addColumn('src', function ($Query) {
-            $icon = $Query->src; //Helper::images(config('constant.dance_type_url')).
+            $icon = Helper::images(config('constant.business_category_url')).$Query->src;
             return "<a class='fancy-pop-image' data-fancybox='images".$Query->id."'  href='".$icon."'><img class='custom-image' src='".$icon."'></a>";
         })
         ->addColumn('status', function ($Query) {
@@ -50,8 +50,8 @@ class BusinessCategoryController extends Controller
         })
         ->addColumn('action', function ($Query) {
             $action_link = "";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_dance_type openDanceTypePopoup' data-title = '".$Query->title."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_dance_type'></i></a>&nbsp;&nbsp;";
-            $action_link .= "<a href='javascript:;' class='dancetype_deleted' data-id='".$Query->id . "' data-active='2' data-inuse='".$Query->getUserDanceType."' data-challengedancetype='".$Query->challengeDanceType."'><i class='icon-trash mr-3 text-danger'></i></a>";
+            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_business_category openCategoryPopoup' data-title = '".$Query->title."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_business_category'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='javascript:;' class='category_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })
         ->rawColumns(['action','status','src'])
@@ -69,26 +69,26 @@ class BusinessCategoryController extends Controller
                 $status = 1;
             }
             $image = $request->file('src');
-            $danceMusicTypes = [
+            $categoryData = [
                 'title' => $request->title,
                 'status' => $status,
             ];
             $fileName = $request->id;
             if($request->hasFile('src')){
                 $fileName = 'Img-' . time() . '.' . $image->getClientOriginalExtension();
-                Helper::uploaddynamicFile(config('constant.dance_type_url'), $fileName,$image);
-                $danceMusicTypes['src'] = $fileName;
+                Helper::uploaddynamicFile(config('constant.business_category_url'), $fileName,$image);
+                $categoryData['src'] = $fileName;
 
                 if(isset($request->old_src)){
-                    Helper::checkFileExists(config('constant.dance_type_url') . $request->old_src, true, true);
+                    Helper::checkFileExists(config('constant.business_category_url') . $request->old_src, true, true);
                 }
             }
-            BusinessCategory::updateOrCreate(['id' => $request->id], $danceMusicTypes);
+            BusinessCategory::updateOrCreate(['id' => $request->id], $categoryData);
             DB::commit();
             if($request->id){
-                return redirect()->route('dance-type.index')->with('success','Dance/Music Type has been updated Successfully');
+                return redirect()->route('business-category.index')->with('success','Business Category has been updated Successfully');
             }
-            return redirect()->route('dance-type.index')->with('success','Dance/Music Type has been added Successfully');
+            return redirect()->route('business-category.index')->with('success','Business Category has been added Successfully');
         } catch(Exception $e){
             \Log::info($e);
             DB::rollback();
@@ -97,8 +97,8 @@ class BusinessCategoryController extends Controller
     }
 
     public function edit($id){
-        $danceType = BusinessCategory::where('id',$id)->first();
-        return view('admin.dancemusic.index',compact('danceType'));
+        $category = BusinessCategory::where('id',$id)->first();
+        return view('admin.business-category.index',compact('category'));
     }
 
     public function destroy($id){
@@ -106,12 +106,12 @@ class BusinessCategoryController extends Controller
             DB::beginTransaction();
             try{
                 $user = Auth::user();
-                $DanceTypes = BusinessCategory::find($id);
-                $DanceTypes->delete();
-                $DanceTypes->deleted_by = $user->id;
-                $DanceTypes->save();
+                $category = BusinessCategory::find($id);
+                $category->delete();
+                $category->deleted_by = $user->id;
+                $category->save();
                 DB::commit();
-                return array('status' => '200', 'msg_success' => 'Dance/Music Type has been deleted Successfully');
+                return array('status' => '200', 'msg_success' => 'Business Category has been deleted Successfully');
             } catch(Exception $e){
                 DB::rollback();
                 return array('status' => '0', 'msg_fail' => 'Something went wrong');
@@ -123,22 +123,39 @@ class BusinessCategoryController extends Controller
     public function changeStatus(Request $request){
         DB::beginTransaction();
         try {
-            $danceType = BusinessCategory::findOrFail($request->id);
-            if ($danceType->status == 0) {
-                $danceType->status = '1';
-                $danceType->update();
+            $category = BusinessCategory::findOrFail($request->id);
+            if ($category->status == 0) {
+                $category->status = '1';
+                $category->update();
                 DB::commit();
-                return array('status' => '200', 'msg_success' => "DanceType has been activated successfully");
+                return array('status' => '200', 'msg_success' => "Business Category has been activated successfully");
             } else {
-                $danceType->status = '0';
-                $danceType->update();
+                $category->status = '0';
+                $category->update();
                 DB::commit();
-                return array('status' => '200', 'msg_success' => "DanceType has been inactivated successfully");
+                return array('status' => '200', 'msg_success' => "Business Category has been inactivated successfully");
             }
         } catch (Exception $e) {
             DB::rollback();
             echo $e->getMessage();
         }
     }
+    //Check category unique
+    public function checkUniqueCategory(Request $request){
+        try{
+            $title = $request->title;
+        
+            $exists = BusinessCategory::where('title', $title)->where('id','!=', $request->id)->exists();
 
+            if($exists){
+                return "false";
+            } else {
+                return "true";
+            }
+            
+        } catch(Exception $e){
+            \Log::info($e);
+            return response()->json(['status' => 400,'msg_fail' => 'Something Went Wrong']);
+        }
+    }
 }

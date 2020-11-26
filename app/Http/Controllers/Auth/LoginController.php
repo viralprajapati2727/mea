@@ -57,16 +57,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showLoginForm()
-    {
-        return redirect('/');
-    }
-
-    /**
      * Get the needed authorization credentials from the request.
      *
      * @param  \Illuminate\Http\Request  $request

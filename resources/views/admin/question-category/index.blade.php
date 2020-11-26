@@ -90,10 +90,7 @@
 <script src="{{ Helper::assets('js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
 <script>
 
-    var faqTable = "";
-    var addDanceType = "{{ route('question-category.create') }}";
-    var storeDanceType = "{{ route('question-category.store') }}";
-    var redirect_link = "{{ route('question-category.index') }}";
+    var categoryTable = "";
     var active_link = "{{ route('admin.change-question-category-status') }}";
 
     var filter = "{{ route('question-category-filter') }}";
@@ -102,7 +99,7 @@
 
 
 $(document).ready( function () {
-    faqTable = $('#datatable').DataTable({
+    categoryTable = $('#datatable').DataTable({
         serverSide: true,
         bFilter:false,
         ajax: {
@@ -265,7 +262,7 @@ $(document).ready( function () {
         if(deleted != ''){
             dialog_title = 'This category is already in use, Are you sure want to delete this category?'
         }
-        var faqTable_row = $(this).closest("tr");
+        var categoryTable_row = $(this).closest("tr");
         swal({
             title: dialog_title,
             type: 'warning',
@@ -305,7 +302,7 @@ $(document).ready( function () {
                                 confirmButtonText: 'OK',
                                 confirmButtonClass: 'btn btn-success',
                             }).then(function (){
-                                faqTable.row(faqTable_row).remove().draw(false);
+                                categoryTable.row(categoryTable_row).remove().draw(false);
                             });
                         } else if(response.status == 201){
                             swal({

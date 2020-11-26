@@ -801,3 +801,6 @@ button.owl-prev i:before {
 .dataTables_info, .dataTables_paginate, .dataTables_length{
     padding: 5px 20px;
 }
+.admin .navbar{
+    padding: 0 20px;
+}

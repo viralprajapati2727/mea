@@ -85,67 +85,28 @@ class Helper
     }
     public static function images($path, $secure = null)
     {
-        $url = Storage::disk('s3')->url("/");
-            $url = rtrim($url, '/');
-            return $url . '/' . $path;
-
-        // if (env('APP_ENV') != "local") {
-        //     $url = Storage::disk('s3')->url("/");
-        //     $url = rtrim($url, '/');
-        //     return $url . '/' . $path;
-        // } else {
-        //     $path = str_replace('local', '', $path);
-        //     /*
-        //      * change by kaushik ::When we give path of static image than "//" issue occured thats why
-        //      * dothis "#/#" and replace this, if we do direct replace"//" with "/" than http:// also effected thats why
-        //      * */
-        //     $path = app('url')->asset($path, $secure) . '#/#';
-
-        //     $path = str_replace('#/#', '/', str_replace('/#/#', '/', $path));
-        //     return $path;
-        // }
+        return app('url')->asset($path)."/";
     }
-
+    public static function uploaddynamicFile($path, $name, $data = null) {
+        $path = public_path().$path;
+        $data->move($path, $name);
+    }
     public static function checkFileExists($path, $is_image = true, $is_deleted = false)
     {
-        $original_path = config('constant.profile_url');
-        // if (env('APP_ENV') != "local") {
-            if (Storage::disk('s3')->exists($path)) {
-                $original_path = config('constant.profile_url');
-                if ($is_deleted) {
-                    Storage::disk('s3')->delete($path);
-                    return true;
-                }
-                return self::images($path);
+        $return_path = $path;
+        $path = public_path().$path;
+        if (file_exists($path)) {
+            if ($is_deleted) {
+                unlink($path);
+                return true;
             }
-        // } else {
-        //     $return_path = str_replace('local', '', $path);
-        //     $original_path = str_replace('local', '', config('constant.profile_url'));
-        //     $path = str_replace('local', public_path(), $path);
-        //     if (file_exists($path)) {
-        //         if ($is_deleted) {
-        //             unlink($path);
-        //             return true;
-        //         }
-        //         return self::images($return_path);
-        //     }
-        // }
+            return self::images($return_path);
+        }
         if ($is_image) {
             return self::images($original_path . 'default.png');
         }
         return true;
     }
-    public static function copyDynamicImage($newpath, $oldpath)
-    {
-        if (env('APP_ENV') != "local") {
-            $oldlink = Storage::disk('s3')->url($oldpath);
-            Storage::disk('s3')->put($newpath, file_get_contents($oldlink), 'public');
-        } else {
-            copy($newpath, $oldpath);
-        }
-        return true;
-    }
-
     public static function ageCalculate($dateOfBirth)
     {
         $years = Carbon::parse($dateOfBirth)->age;

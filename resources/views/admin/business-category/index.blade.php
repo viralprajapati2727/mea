@@ -70,7 +70,7 @@
                         <div class="photo-band col-md-12">
                             <input type="file" class="file-input dance_type_image" name="src" data-focus/>
                         </div>
-                        <input type="hidden" name="id" class="dance_type_id" id="d_type_id" value="">
+                        <input type="hidden" name="id" class="category_id" id="d_type_id" value="">
                         <input type="hidden" name="old_src" class="old_src" value="">
                         <div class="append-image" style="display: none"></div>
                         <div class="input-group title-error-msg"></div>
@@ -100,10 +100,7 @@
 <script src="{{ Helper::assets('js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
 <script>
 
-    var faqTable = "";
-    var addDanceType = "{{ route('business-category.create') }}";
-    var storeDanceType = "{{ route('business-category.store') }}";
-    var redirect_link = "{{ route('business-category.index') }}";
+    var categoryTable = "";
     var active_link = "{{ route('admin.change-business-category-status') }}";
 
     var filter = "{{ route('business-category-filter') }}";
@@ -112,7 +109,7 @@
 
 
 $(document).ready( function () {
-    faqTable = $('#datatable').DataTable({
+    categoryTable = $('#datatable').DataTable({
         serverSide: true,
         bFilter:false,
         ajax: {
@@ -157,10 +154,10 @@ $(document).ready( function () {
         $('.add_modal').modal({backdrop: 'static', keyboard: false});
         var path = "{{ Helper::images(config('constant.business_category_url')) }}";
         var final = path+src;
-        $('.add_modal .dance_type_id').val(id);
-        var danceId = $('.dance_type_id').val();
+        $('.add_modal .category_id').val(id);
+        var categoryId = $('.category_id').val();
         var oldSrc = $('.old_src').val(src);
-        if(danceId){
+        if(categoryId){
             $('.add_modal .dance_music_type').val(title);
             $('.append-image').append('<a class="fancy-pop-image" data-fancybox="images" href='+final+'><img class="image-preview-logo mt-3 ml-2" name="previewpic" id="previewpic"  src='+final+'></a>');
             $('.append-image').css('display','block');
@@ -171,7 +168,7 @@ $(document).ready( function () {
         setTimeout(function(){
             $('.validation-invalid-label').remove();
             $("#business_category_form").trigger("reset");
-            $('.dance_type_id').val(null);
+            $('.category_id').val(null);
             $('.add_modal .dance_music_type').val('');
             $('.add_modal .old_src').val('');
             $('.append-image').html('');
@@ -183,7 +180,7 @@ $(document).ready( function () {
         $('.category_label').html('Add Business Category: <span class="text-danger">*</span>');
     })
 
-    $(document).on('click','.edit_dance_type',function(){
+    $(document).on('click','.edit_business_category',function(){
         var $this = $(this);
         $('.category_title').text('Edit Business Category');
         $('.category_label').html('Edit Business Category: <span class="text-danger">*</span>');
@@ -210,7 +207,7 @@ $(document).ready( function () {
         var active = $this.attr('data-active');
         var deactive = (active == 1 ? 0 : 1);
         var active_label = (active == 1 ? "ACTIVE" : "INACTIVE");
-        var dialog_title = (active == 1 ? "Are you sure you want to active dance type?" : "Are you sure you want to deactive dance type?");
+        var dialog_title = (active == 1 ? "Are you sure you want to active business category?" : "Are you sure you want to deactive business category?");
 
         swal({
             title: dialog_title,
@@ -279,93 +276,81 @@ $(document).ready( function () {
 
 
 
-    $(document).on('click','.dancetype_deleted', function() {
+    $(document).on('click','.category_deleted', function() {
         var id= $(this).data('id');
         var deleted= $(this).data('inuse');
-        var challengeDanceType = $(this).data('challengedancetype');
-        if(challengeDanceType != ""){
-            swal({
-                title: "This dance type is used in one of the active challenges, you can't delete it!",
-                type: 'warning',
-                confirmButtonText: 'OK',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false
-            }).then(function (confirm) {
-            });
-        }else{
-
-            var dialog_title = 'Are you sure want to delete this dance type ?';
-            if(deleted != ''){
-                dialog_title = 'This dance type is already in use, Are you sure want to delete this dance type?'
-            }
-            var faqTable_row = $(this).closest("tr");
-            swal({
-                title: dialog_title,
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
-                confirmButtonClass: 'btn btn-success',
-                cancelButtonClass: 'btn btn-danger',
-                buttonsStyling: false
-            }).then(function (confirm) {
-                if(confirm.value !== "undefined" && confirm.value){
-                    $.ajax({
-                        url: 'dance-type/'+id,
-                        type: 'DELETE',
-                        data: { id : id, },
-                        beforeSend: function(){
-                            $('body').block({
-                                message: '<div id="loading"><i class="icon-spinner6 spinner id="loading-image""></i></div><br>Please Wait...',
-                                overlayCSS: {
-                                    backgroundColor: '#000',
-                                    opacity: 0.15,
-                                    cursor: 'wait'
-                                },
-                                css: {
-                                    border: 0,
-                                    padding: 0,
-                                    backgroundColor: 'transparent'
-                                }
-                            });
-                        },
-                        success: function(response) {
-                            if(response.status == 200){
-                                swal({
-                                    title: response.msg_success,
-                                    confirmButtonColor: "#66BB6A",
-                                    type: "success",
-                                    confirmButtonText: 'OK',
-                                    confirmButtonClass: 'btn btn-success',
-                                }).then(function (){
-                                    faqTable.row(faqTable_row).remove().draw(false);
-                                });
-                            } else if(response.status == 201){
-                                swal({
-                                    title: response.msg_success,
-                                    confirmButtonColor: "#FF7043",
-                                    confirmButtonClass: 'btn btn-warning',
-                                    type: "warning",
-                                    confirmButtonText: 'OK',
-                                });
-                            }else{
-                                swal({
-                                    title: response.msg_fail,
-                                    confirmButtonColor: "#EF5350",
-                                    confirmButtonClass: 'btn btn-danger',
-                                    type: "error",
-                                    confirmButtonText: 'OK',
-                                });
-                            }
-                        },
-                        complete: function(){
-                            $('body').unblock();
-                        }
-                    });
-                }
-            }, function (dismiss) {
-            });
+        
+        var dialog_title = 'Are you sure want to delete this category ?';
+        if(deleted != ''){
+            dialog_title = 'This category is already in use, Are you sure want to delete this category?'
         }
+        var categoryTable_row = $(this).closest("tr");
+        swal({
+            title: dialog_title,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false
+        }).then(function (confirm) {
+            if(confirm.value !== "undefined" && confirm.value){
+                $.ajax({
+                    url: 'dance-type/'+id,
+                    type: 'DELETE',
+                    data: { id : id, },
+                    beforeSend: function(){
+                        $('body').block({
+                            message: '<div id="loading"><i class="icon-spinner6 spinner id="loading-image""></i></div><br>Please Wait...',
+                            overlayCSS: {
+                                backgroundColor: '#000',
+                                opacity: 0.15,
+                                cursor: 'wait'
+                            },
+                            css: {
+                                border: 0,
+                                padding: 0,
+                                backgroundColor: 'transparent'
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        if(response.status == 200){
+                            swal({
+                                title: response.msg_success,
+                                confirmButtonColor: "#66BB6A",
+                                type: "success",
+                                confirmButtonText: 'OK',
+                                confirmButtonClass: 'btn btn-success',
+                            }).then(function (){
+                                categoryTable.row(categoryTable_row).remove().draw(false);
+                            });
+                        } else if(response.status == 201){
+                            swal({
+                                title: response.msg_success,
+                                confirmButtonColor: "#FF7043",
+                                confirmButtonClass: 'btn btn-warning',
+                                type: "warning",
+                                confirmButtonText: 'OK',
+                            });
+                        }else{
+                            swal({
+                                title: response.msg_fail,
+                                confirmButtonColor: "#EF5350",
+                                confirmButtonClass: 'btn btn-danger',
+                                type: "error",
+                                confirmButtonText: 'OK',
+                            });
+                        }
+                    },
+                    complete: function(){
+                        $('body').unblock();
+                    }
+                });
+            }
+        }, function (dismiss) {
+        });
     });
 
     // Modal template
@@ -432,7 +417,7 @@ $(document).ready( function () {
         fileActionSettings: fileActionSettings
     });
 
-    var danceId = $('.dance_type_id').val();
+    var categoryId = $('.category_id').val();
     var oldSrc = $('.old_src').val();
     $(function () {
         $.validator.addMethod("alpha", function (value, element) {
@@ -489,7 +474,7 @@ $(document).ready( function () {
                 title: {
                     required: true,
                     remote:{
-                        url: base_url + 'check-unique-types',
+                        url: base_url + 'check-unique-business-category',
                         type:'POST',
                         data:{flag:flag, id:function() { return $('#d_type_id').val(); }},
                     },

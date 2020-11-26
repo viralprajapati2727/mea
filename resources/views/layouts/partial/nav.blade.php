@@ -37,12 +37,21 @@
                     </div>
                     <div class="login-links">
                         <ul>
-                            <li>
+                            <li style="display: none;">
                             @auth
                                 <a href="#">Logout</a>
                             @else
                                 <a href="{{ route('login') }}">Login Or Register</a>
                             @endauth
+                            </li>
+                            <!-- After Login -->
+                            <li>
+                                <div class="logout-wrap">
+                                    <a href="#">Logout</a>
+                                    <div class="profile-image">
+                                    <img src="{{ Helper::assets('images/blog/blog03.jpg') }}" alt="" class="w-100">
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
