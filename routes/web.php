@@ -85,3 +85,6 @@ Route::get('html-members',function (){
 Route::get('html-profile',function (){
     return view('html.profile');
 });
+Route::get('html-edit-profile',function (){
+    return view('html.edit-profile');
+});
