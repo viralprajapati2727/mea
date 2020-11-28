@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'admin-access' => \App\Http\Middleware\Admin::class,
         'simpleuser-access' => \App\Http\Middleware\simpleUser::class,
         'entrepreneur-access' => \App\Http\Middleware\Entrepreneur::class,
+        'fill-profile-access' => \App\Http\Middleware\FillProfileAccess::class,
     ];
 }

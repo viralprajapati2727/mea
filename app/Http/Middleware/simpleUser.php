@@ -16,7 +16,8 @@ class simpleUser {
 	public function handle($request, Closure $next) {
 		if(Auth::check()){
 			$user = Auth::user();
-			if ($user->type == 2){
+
+			if ($user->type == config('constant.USER.TYPE.SIMPLE_USER')){
 				if($user->is_active != 1) {
 					Auth::logout();
 					return redirect('/')->with('error',trans('auth.Your_account_is_not_deactivated'));
@@ -25,6 +26,6 @@ class simpleUser {
 				}
 			}
 		}
-		return redirect('/')->with('error',trans('auth.permission'));
+		return redirect('/')->with('error',trans('auth.permission11'));
 	}
 }

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\PasswordReset;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Auth, DB, Log;
 use Carbon\Carbon;
+use App\User;
+use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\SendMailController;
 
 class ResetPasswordController extends Controller
 {
