@@ -97,6 +97,8 @@ ul{
     font-size: 22px;
     color: #4A4A4A;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 .header-right .collapse{
     padding-left: 100px;
@@ -114,6 +116,7 @@ ul{
     position: relative;
     object-fit: cover;
     margin-left: 13px;
+    margin-right: 10px;
 }
 
 .logout-wrap .profile-image img {
@@ -124,6 +127,50 @@ ul{
     height: 100%;
     left: 0;
     top: 0;
+}
+.profile-menu{
+    position: relative;
+}
+.profile-menu .profile-dropdown {
+    min-width: 400px;
+    right: 0;
+    left: auto;
+    transition: all 0.5s;
+}
+.profile-menu:hover > .profile-dropdown{
+    display: block;
+}
+.profile-menu .profile-dropdown .profile-bg-image{
+    width: 60px;
+    height: 60px;
+    background-position: center;
+    border-radius: 100%;
+    background-size: cover;
+    border: 2px solid #75d2fa;
+}
+.profile-menu .profile-dropdown .card-body{padding: 10px 20px;}
+.login-links li .profile-links a {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: normal;
+    padding-right: 20px;
+    color: #41A0E1;
+    position: relative;
+}
+
+.login-links li .profile-links a:after {content: "";width: 5px;height: 5px;background: #ddd;border-radius: 100%;position: absolute;top: 11px;right: 7px;}
+.login-links li .profile-links a:last-child:after{display: none;}
+.profile-overflow {
+    border-top: 1px solid #ddd;
+    padding: 10px 20px;
+}
+
+.profile-overflow li a {
+    font-size: 15px;
+    color: #707070;
+    font-weight: normal;
+    padding: 7px 0;
+    display: inline-block;
 }
 /*========================Footer CSS=========================*/
 .site-footer{
