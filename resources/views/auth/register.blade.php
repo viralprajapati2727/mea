@@ -7,18 +7,19 @@
         <div class="col-md-5 register-form">
             <div class="card">
                 <div class="card-header">{{ __('Welcome! to MEA.') }}</div>
-
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" name="SignupForm" class="SignupForm">
                         @csrf
                         <div class="form-group row">
                             <div class="form-radio-group">
                                 <label class="radio-inline active">
                                     <i class="flaticon-man"></i>
-                                    <input type="radio" class="" name="user_type" value="2" checked="">Candidate</label>
+                                    <input type="radio" class="" name="user_type" value="2" checked="">User
+                                </label>
                                 <label class="radio-inline">
                                     <i class="flaticon-company"></i>
-                                    <input type="radio" class="" name="user_type" value="3">Company</label>
+                                    <input type="radio" class="" name="user_type" value="3">Entrepreneur
+                                </label>
                             </div>   
                         </div>
                         <div class="form-group row">
@@ -67,7 +68,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-12">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" placeholder="Confirm Password">
                             </div>
                         </div>
 
@@ -92,4 +93,11 @@
     </div>
 </div>
 </div>
+@endsection
+@section('footer_script')  
+<script type="text/javascript" src="{{ Helper::assets('js/pages/account/register.js') }}"></script>
+<script type="text/javascript">
+    var base_url = "{{ url('/') }}/";
+</script>
+
 @endsection

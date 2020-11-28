@@ -22,12 +22,38 @@ input:focus{
     margin-left: -15px;
     margin-right: -15px;
 }
+.error {
+    color: red;
+    font-weight: 300;
+    font-size: 14px;
+    text-transform: inherit;
+    display: block;
+}
 ul{
     list-style: none;
     margin: 0;
     padding: 0;
 }
 /*===============Header Css====================*/
+.home-globle-error .alert {
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translate(-50%, -0%);
+    z-index: 99;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+.home-globle-error .alert-success button.close,
+.home-globle-error .alert-danger button.close,
+.home-globle-error .alert-warning button.close,
+.home-globle-error .alert-info button.close {
+    position: absolute;
+    top: -2px;
+	right: 5px;
+	font-size: 20px;
+}
 .site-header {
     background: #75D2FA;
     padding: 50px 0;

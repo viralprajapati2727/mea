@@ -22,7 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('refresh-csrf', function(){ return csrf_token(); });
 
 Route::group(['middleware' => ['prevent-back-history']], function () {
-    Auth::routes();
+    Auth::routes(['verify' => true]);
+    Route::post('email-exists', 'Auth\RegisterController@emailExists')->name('email-exists');
+    Route::post('check-email', 'Auth\RegisterController@checkEmail')->name('check-email');
     Route::get('/', 'GeneralController@index')->name('index');
 
 
@@ -31,7 +33,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 
         });
 
-        Route::group(['middleware' => ['entreprenuer-access']], function () {
+        Route::group(['middleware' => ['entrepreneur-access']], function () {
 
         });
     }); 
@@ -67,6 +69,12 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('business-category-filter', 'Admin\BusinessCategoryController@ajaxData')->name('business-category-filter');
         Route::post('change-business-category-status', 'Admin\BusinessCategoryController@changeStatus')->name('admin.change-business-category-status');
         Route::post('check-unique-business-category','Admin\BusinessCategoryController@checkUniqueCategory')->name('check_unique_b_category');
+
+
+
+
+        // Email templates
+        Route::resource('emails', 'Admin\EmailController');
 
     });        
 });

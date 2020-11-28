@@ -4,7 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\SendMailController;
+use Illuminate\Auth\Events\Verified;
+use App\Models\Crash;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use App\User;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class VerificationController extends Controller
 {
@@ -35,7 +43,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
@@ -45,27 +53,6 @@ class VerificationController extends Controller
      * @return (array) redirect
      */
     public function verify(Request $request){
-        $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
-        if(stripos($ua,'android') !== false && stripos($ua,'mobile') !== false) {
-            $post = $request->all();
-
-            if(!empty($post) && $request->m !== true){
-                $full_url = url()->full();
-                // $full_url = str_replace('http','https',$full_url);
-                $url = stripslashes($full_url);
-                $afterQ = explode('?',$url);
-                $beforeQ = explode('/',$afterQ[0]);
-                unset($beforeQ[0]);
-                unset($beforeQ[1]);
-                array_pop($beforeQ);
-                $before_url = implode('/', $beforeQ);
-
-                $redirect_url = $full_url."?m=true";
-                Log::info('Verify from mobile phone intent'.'intent://'.$before_url.'?url='.$full_url.'#Intent;scheme=https;package=com.dancero.dance;S.browser_fallback_url='.$redirect_url.';end');
-                return redirect('intent://'.$before_url.'?url='.$full_url.'#Intent;scheme=https;package=com.dancero.dance;S.browser_fallback_url='.$redirect_url.';end')->with(['verified'=> true, 'status' => trans('auth.account_verified') ]);
-            }
-        }
-
         $user = User::findOrFail($request->route('id'));
 
         if (! hash_equals((string) $request->route('id'), (string) $user->getKey())) {

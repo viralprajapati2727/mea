@@ -9,7 +9,7 @@
                 <div class="card-header">{{ __('Welcome again, Please login.') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" id="SigninForm">
                         @csrf
 
                         <div class="form-group row">
@@ -72,4 +72,7 @@
     </div>
 </div>
 </div>
+@endsection
+@section('footer_script')  
+<script type="text/javascript" src="{{ Helper::assets('js/pages/account/login.js') }}"></script>
 @endsection

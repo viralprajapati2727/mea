@@ -12,5 +12,11 @@ $(document).ready(function() {
     $( ".owl-prev").html('<i class="fa fa-arrow-left"></i>');
     $( ".owl-next").html('<i class="fa fa-arrow-right"></i>');
     
-    
+    //for register form
+    $(document).on('click','input[name=user_type]',function(){
+        $(this).parents('.form-radio-group').find('label.radio-inline').removeClass('active');
+        $(this).parents('label.radio-inline').addClass('active');
+    });
+
+    $('div.alert').not('.alert-important').delay(5000).fadeOut(350);
 });

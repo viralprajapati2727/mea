@@ -55,11 +55,26 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,NULL,id,deleted_at,NULL'],
+    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
+    //     ]);
+    // }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,NULL,id,deleted_at,NULL'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ],[
+            'name.required' => "Please provide name",
+            'email.required' => "Please provide email",
+            'email.email' => "Please enter valid email address",
+            'email.unique' => "This email is already exists",
+            'password.required' => "Please provide password",
         ]);
     }
 
@@ -78,7 +93,7 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
                 'name' => $data['name'],
                 'is_register_with_platform' => 1,
-                'type' => isset($data['is_simpleuser'] ) && $data['is_simpleuser'] == 1 ? config('constant.USER.TYPE.SIMPLE_USER'):config('constant.USER.TYPE.ENTREPRENUER'),
+                'type' => isset($data['user_type'] ) && $data['user_type'] == 2 ? config('constant.USER.TYPE.SIMPLE_USER'):config('constant.USER.TYPE.ENTREPRENEUR'),
                 'ip_address' => \Request::ip(),
                 'logo' => '',
             ];
@@ -115,7 +130,6 @@ class RegisterController extends Controller
      * @return string
      */
     public function redirectTo() {
-        exit('here');
         $redirectTo = '/';
         if (isset($this->redirectTo1) && $this->redirectTo1 != "") {
             $redirectTo = '/' . $this->redirectTo1;
@@ -125,5 +139,26 @@ class RegisterController extends Controller
             Auth::logout();
         }
         return $redirectTo;
+    }
+    public function emailExists(Request $request) {
+        
+        $email = User::where('email', $request->email)->whereNotNull('email_verified_at')->count();
+        
+		if ($email) {
+            return "false";
+        } else {
+            return "true";
+		}
+		exit;
+    }
+    public function checkEmail(Request $request) {       
+        $email = User::where('email', $request->email)->count();
+        
+        if ($email) {
+			return "true";
+		} else {
+			return "false";
+		}
+		exit;
     }
 }

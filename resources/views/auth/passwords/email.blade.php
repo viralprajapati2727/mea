@@ -15,14 +15,14 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" action="{{ route('password.email') }}" id="ForgotpasswordForm">
                         @csrf
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-12">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email Id" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Email Id" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -46,4 +46,10 @@
     </div>
 </div>
 </DIV>
+@endsection
+@section('footer_script')  
+<script type="text/javascript" src="{{ Helper::assets('js/pages/account/forgot.js') }}"></script>
+<script type="text/javascript">
+    var base_url = "{{ url('/') }}/";
+</script>
 @endsection

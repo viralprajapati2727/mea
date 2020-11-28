@@ -5,7 +5,7 @@ return [
             "TYPE" => [
                 "ADMIN" => 1,
                 "SIMPLE_USER" => 2,
-                "ENTREPRENUER" => 3,
+                "ENTREPRENEUR" => 3,
                 "STAFF" => 4,
             ],
             "STATUS" => [

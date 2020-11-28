@@ -40,15 +40,13 @@ class ForgotPasswordController extends Controller
         ])->first();
 
         if(isset($user->id)){
-            if($user->type == config('constant.USER.TYPE.ADMIN') || $user->type == config('constant.USER.TYPE.EVENT_MANAGER') || $user->type == config('constant.USER.TYPE.STAFF')) {
+            if($user->type == config('constant.USER.TYPE.ADMIN') || $user->type == config('constant.USER.TYPE.STAFF')) {
                 return redirect()->back()->with('error', trans('auth.permission'));
-            }else if (($user->type == config('constant.USER.TYPE.DANCER') || $user->type == config('constant.USER.TYPE.PROFESSIONAL')) && ($user->is_active == config('constant.USER.STATUS.Deactive') || ($user->deleted_at != null && $user->deleted_at != '') )) {
+            }else if (($user->type == config('constant.USER.TYPE.SIMPLE_USER') || $user->type == config('constant.USER.TYPE.ENTREPRENEUR')) && ($user->is_active == config('constant.USER.STATUS.Deactive') || ($user->deleted_at != null && $user->deleted_at != '') )) {
                 return redirect()->back()->with('error', trans('auth.Your_account_is_not_deactivated'));
-            }else if (($user->type == config('constant.USER.TYPE.DANCER') || $user->type == config('constant.USER.TYPE.PROFESSIONAL')) && $user->is_active == config('constant.USER.STATUS.Pending')) {
+            }else if (($user->type == config('constant.USER.TYPE.SIMPLE_USER') || $user->type == config('constant.USER.TYPE.ENTREPRENEUR')) && $user->is_active == config('constant.USER.STATUS.Pending')) {
                 return redirect()->back()->with('error', trans('auth.Your_account_is_not_activated_please_activated_first'));
-            }else if (($user->type == config('constant.USER.TYPE.DANCER') || $user->type == config('constant.USER.TYPE.PROFESSIONAL')) && ($user->is_active == config('constant.USER.STATUS.Suspended') || $user->is_active == config('constant.USER.STATUS.Suspended By Admin'))){
-                return redirect()->back()->with('error', trans('auth.Your_account_is_suspended'));
-            }else if (($user->type == config('constant.USER.TYPE.DANCER') || $user->type == config('constant.USER.TYPE.PROFESSIONAL')) && ($user->is_active == config('constant.USER.STATUS.Active'))){
+            }else if (($user->type == config('constant.USER.TYPE.SIMPLE_USER') || $user->type == config('constant.USER.TYPE.ENTREPRENEUR')) && ($user->is_active == config('constant.USER.STATUS.Active'))){
                 $response = $this->broker()->sendResetLink(
                     ["email" => $request->only('email')]
                 );
@@ -59,7 +57,6 @@ class ForgotPasswordController extends Controller
                 return back()->with(
                     ['error' => trans($response)]
                 );
-                dd("here");
             }
         } else{
             return redirect('/')->with('error',trans('auth.email_not_identified'));

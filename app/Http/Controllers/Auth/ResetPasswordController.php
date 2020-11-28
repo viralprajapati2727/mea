@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Auth, DB, Log;
+use Carbon\Carbon;
 
 class ResetPasswordController extends Controller
 {
@@ -39,34 +42,17 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
-        $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
-        if(stripos($ua,'android') !== false && stripos($ua,'mobile') !== false) {
-            $post = $request->all();
-
-            if(!empty($post) && $request->m !== true){
-                $full_url = url()->full();
-                // $full_url = str_replace('http','https',$full_url);
-                $url = stripslashes($full_url);
-                $afterQ = explode('?',$url);
-                $beforeQ = explode('/',$afterQ[0]);
-                unset($beforeQ[0]);
-                unset($beforeQ[1]);
-                array_pop($beforeQ);
-                $before_url = implode('/', $beforeQ);
-
-                $redirect_url = $full_url."?m=true";
-                Log::info('Verify from mobile phone intent'.'intent://'.$before_url.'?url='.$full_url.'#Intent;scheme=https;package=com.dancero.dance;S.browser_fallback_url='.$redirect_url.';end');
-                return redirect('intent://'.$before_url.'?url='.$full_url.'#Intent;scheme=https;package=com.dancero.dance;S.browser_fallback_url='.$redirect_url.';end')->with(['verified'=> true, 'status' => trans('auth.account_verified') ]);
-            }
+        $check_token = DB::table('password_resets')
+                ->where('email','=',$request->email)
+                ->where('created_at','>',Carbon::now()->subMinutes(config('auth.passwords.users.expire')))
+                ->count();
+        if($check_token > 0){
+            return view('auth.passwords.reset')->with(
+                ['token' => $token, 'email' => $request->email]
+            );
+        }else{
+            return redirect()->route('index')->with('error','This password reset token is expired.');
         }
-
-        if (Auth::check()) {
-            return redirect('/');
-        }
-        return redirect()->route('index',['token' => $token, 'email' => $request->email, 'popup_open' => 'reset']);
-        // return view('welcome')->with(
-        //     ['token' => $token, 'email' => $request->email, 'popup_open' => 'reset']
-        // );
     }
 
     /**
@@ -89,17 +75,6 @@ class ResetPasswordController extends Controller
         }
         );
         $userData = User::select('id','type','email','name')->where('email',$request->email)->first();
-        if($userData->type == 5){
-            SendMailController::dynamicEmail([
-                'email_id' => 24,
-                'user_id' => 1,
-                'type' => $userData->type,
-                'user_name' => $userData->name,
-                'email' => $request->email,
-                'password' => $request->password,
-            ]);
-        }
-// echo"<pre>";print_r($request->all());exit;
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
