@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Mail\DynamicEmail;
-use App\Model\EmailTemplate;
+use App\Models\EmailTemplate;
 use App\User;
 use Carbon;
 use DB;
@@ -20,7 +20,7 @@ class SendMailController extends Controller {
 		$email_body = $email_subject = $user_email = $attachment  = '' ;
 		$param = array();
 		$email = EmailTemplate::findorfail($data['email_id']);
-		$user = User::select('*', DB::raw("name, is_nickname_use, nick_name"))
+		$user = User::select('*', DB::raw("name"))
             ->where('id', $data['user_id'])
             ->where('deleted_at', null)
 			->first();
@@ -32,8 +32,7 @@ class SendMailController extends Controller {
 			$email_body = $email->emat_email_message;
 
 			$user_email = $user->email;
-			if($user->is_nickname_use == 1) $user_name = ucwords($user->nick_name);
-			else $user_name = ucwords($user->name);
+			$user_name = ucwords($user->name);
 
 			// Get email template body content as per requirement
 			switch ($email->id) {

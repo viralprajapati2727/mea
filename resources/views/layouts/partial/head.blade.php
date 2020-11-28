@@ -2,10 +2,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="x-ua-compatible" content="IE=10">
-    <meta name="author" content="Muslim Entreprenuer Association">
-    <meta name="title" content="Muslim Entreprenuer Association">
-    <meta name="keywords" content="Muslim Entreprenuer Association">
-    <meta name="description" content="Muslim Entreprenuer Association">
+    <meta name="author" content="Muslim Entrepreneur Association">
+    <meta name="title" content="Muslim Entrepreneur Association">
+    <meta name="keywords" content="Muslim Entrepreneur Association">
+    <meta name="description" content="Muslim Entrepreneur Association">
     <meta property="og:type" content="website" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->tinyInteger('type')->default(2)->comment('1 = Admin, 2 = simple-user, 3 = entreprenuer, 4 = staff');
+            $table->tinyInteger('type')->default(2)->comment('1 = Admin, 2 = simple-user, 3 = entrepreneur, 4 = staff');
             $table->tinyInteger('is_register_with_platform')->default(1)->comment('1:Yes, 0:No');
             $table->string('provider_id')->nullable();
             $table->string('provider_name')->nullable();

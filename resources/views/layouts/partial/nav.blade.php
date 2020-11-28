@@ -37,21 +37,24 @@
                     </div>
                     <div class="login-links">
                         <ul>
-                            <li style="display: none;">
+                            <li>
                             @auth
-                                <a href="#">Logout</a>
+                                <li>
+                                    <div class="logout-wrap">
+                                        <a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;" autocomplete="off">
+                                            @csrf
+                                        </form>
+                                        <div class="profile-image">
+                                        <img src="{{ Helper::assets('images/blog/blog03.jpg') }}" alt="" class="w-100">
+                                        </div>
+                                    </div>
+                                </li>
                             @else
                                 <a href="{{ route('login') }}">Login Or Register</a>
                             @endauth
-                            </li>
-                            <!-- After Login -->
-                            <li>
-                                <div class="logout-wrap">
-                                    <a href="#">Logout</a>
-                                    <div class="profile-image">
-                                    <img src="{{ Helper::assets('images/blog/blog03.jpg') }}" alt="" class="w-100">
-                                    </div>
-                                </div>
                             </li>
                         </ul>
                     </div>

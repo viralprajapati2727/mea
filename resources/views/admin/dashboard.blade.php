@@ -34,14 +34,11 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6 col-md-6 mx-auto text-justify">
-                    <p>
-                        Welcome to <strong>Dancero</strong>, your number one source for dancing. A market place for dancing classes and events, on addition to social media of dancing. We're dedicated to giving you the very best of our services, with a focus on connecting dancers together, search for dance places, and win dancing challenges.
-                    </p><br>
-                    <p>
-                        Founded in 2019 by Harmony Academy, <strong>Dancero</strong> has come a long way from its beginnings in 12th floor, Sharqia Tower, Jaber Al-Mubarak Street, Block 2, Sharq, Kuwait City, and Kuwait. Post code: 15300. When Harmony Academy first started out, his passion for training dance online, drove him create this website so that <strong>Dancero</strong> can offer you the world's best dancing website. We now serve customers all over the world, and are thrilled that we're able to turn our passion into our own website.
-                    </p><br>
-                    <p>
-                        We hope you enjoy our services as much as we enjoy offering them to you.
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+                        Why do we use it?
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                        
                     </p>
                 </div>
             </div>

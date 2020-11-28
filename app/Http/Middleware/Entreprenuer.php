@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Auth;
 use Closure;
 
-class Entreprenuer {
+class Entrepreneur {
 	/**
 	 * Handle an incoming request.
 	 *

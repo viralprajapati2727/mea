@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
@@ -15,8 +16,9 @@ use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\SendMailController;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\Access\Authorizable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail, ShouldQueue
 {
     use Notifiable, Sluggable;
     use SoftDeletes;
