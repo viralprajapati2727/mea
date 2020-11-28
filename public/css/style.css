@@ -34,6 +34,9 @@ ul{
     margin: 0;
     padding: 0;
 }
+.page-main {
+    padding: 50px 0;
+}
 /*===============Header Css====================*/
 .home-globle-error .alert {
     position: absolute;
@@ -628,4 +631,92 @@ ul{
 
 .contact-details ul li:first-child {
     margin-bottom: 10px;
+}
+/*===========================Business Ideas=============================*/
+.business-ideas-wraper .top-title-wrap h1 {
+    font-size: 44px;
+    text-align: center;
+    font-weight: 900;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 35px;
+}
+.business-ideas-wraper .top-title-wrap h1:after {content: "";width: 50%;height: 2px;background: #707070;position: absolute;bottom: 0;left: 50%;transform: translateX(-50%);}
+.our-process {
+    padding-bottom: 50px;
+    text-align: center;
+}
+.title h2 {
+    font-size: 28px;
+    font-weight: 500;
+    color: #474747;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.our-process .process-icon {
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    line-height: 120px;
+    background: #5079d3;
+    border-radius: 100%;
+    margin: 0 auto;
+    border: 2px solid transparent;
+    transition: all 0.5s;
+}
+.our-process .process-icon i {
+    color: #fff;
+}
+.our-process .process-icon i:before {
+    margin: 0;
+    font-size: 60px;
+}
+.process-inner:hover .process-icon {
+    background: transparent;
+    border-color: #5079d3;
+}
+.process-inner:hover .process-icon i {
+    color: #5079d3;
+}
+.our-process .proceess-step {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.our-process .process-title h3 {
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 20px;
+    padding: 0 15px;
+}
+.our-process .process-bottom {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.building-plan {
+    padding-bottom: 50px;
+    text-align: center;
+}
+.building-plan p{max-width: 800px; margin: 0 auto;}
+.get-started-wrap {
+    background: #f1f1f1;
+    padding: 50px 0;
+    margin-bottom: 50px;
+}
+.get-started-wrap .left-content h2 {
+    font-size: 32px;
+    font-weight: 600;
+}
+.get-started-wrap .right-button a {
+    display: inline-block;
+    color: #fff;
+    padding: 10px 55px;
+    border: 2px solid #238BF1;
+    background: #238BF1;
+    font-size: 20px;
+    transition: all 0.5s;
+}
+.get-started-wrap .right-button a:hover{
+    background: transparent;
+    color: #238BF1;
 }
