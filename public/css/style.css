@@ -41,7 +41,7 @@ ul{
 .home-globle-error .alert {
     position: absolute;
     left: 50%;
-    top: 15%;
+    top: 6%;
     transform: translate(-50%, -0%);
     z-index: 99;
     width: fit-content;

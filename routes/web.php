@@ -29,13 +29,26 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 
 
     Route::group(['middleware' => ['verified','auth']], function () {
+        
         Route::group(['middleware' => ['simpleuser-access']], function () {
-
+            Route::get('user-fill-profile', 'UserController@fillProfile')->name('user.fill-profile');
+            Route::post('user-store-profile', 'UserController@updateProfile')->name('user.store-profile');
         });
 
         Route::group(['middleware' => ['entrepreneur-access']], function () {
-
+            Route::get('entrepreneue-fill-profile', 'EntrepreneurController@fillProfile')->name('entrepreneur.fill-profile');
+            Route::post('entrepreneue-store-profile', 'EntrepreneurController@updateProfile')->name('entrepreneur.store-profile');
         });
+
+        Route::group(['middleware' => ['fill-profile-access']], function () {
+            Route::group(['middleware' => ['simpleuser-access']], function () {
+            
+            });
+    
+            Route::group(['middleware' => ['entrepreneur-access']], function () {
+                
+            }); 
+        }); 
     }); 
     
 

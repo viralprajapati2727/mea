@@ -16,7 +16,7 @@ class Entrepreneur {
 	public function handle($request, Closure $next) {
 		if(Auth::check()){
 			$user = Auth::user();
-			if ($user->type == 3){
+			if ($user->type == config('constant.USER.TYPE.ENTREPRENEUR')){
 				if($user->is_active != 1) {
 					Auth::logout();
 					return redirect('/')->with('error',trans('auth.Your_account_is_not_deactivated'));

@@ -120,4 +120,8 @@ class User extends Authenticatable implements MustVerifyEmail, ShouldQueue
             ]
         ];
     }
+
+    public function userProfile(){
+        return $this->hasOne('App\Models\UserProfile', 'user_id');
+    }
 }
