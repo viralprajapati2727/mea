@@ -41,14 +41,47 @@
                             @auth
                                 <li>
                                     <div class="logout-wrap">
-                                        <a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                        <!-- <a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                             Logout
-                                        </a>
+                                        </a> -->
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;" autocomplete="off">
                                             @csrf
                                         </form>
-                                        <div class="profile-image">
-                                        <img src="{{ Helper::assets('images/blog/blog03.jpg') }}" alt="" class="w-100">
+                                        <div class="profile-menu">
+                                            <a href="%" class="profile-menu-link">
+                                                <div class="profile-image">
+                                                    <img src="{{ Helper::assets('images/blog/blog03.jpg') }}" alt="" class="w-100">
+                                                </div>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <div class="profile-dropdown dropdown-menu">
+                                                <div class="card-body">
+                                                    <div class="media align-items-center d-flex d-lg-flex">
+                                                        <div class="profile-icon-menu pr-2">
+                                                            <a href="#" class="d-inline-block">
+                                                                <div class="profile-bg-image" style="background-image: url('https://dancero-images.s3.eu-west-1.amazonaws.com/production/upload/user/chandani/profile/thumbnail/profile_5f293ab5138a00.218904631596537525.png');"></div>
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-body mea-content">
+                                                            <a href="#" class="d-inline-block">
+                                                                <h3 class="text-black username">Cherry</h3>
+                                                            </a>
+                                                            <div class="profile-links d-flex">
+                                                                <a href="#" class="">Edit Profile</a>
+                                                                <a href="#" class="">Settings</a>
+                                                                <a href="javascript:void(0);" class="">Logout</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-overflow">
+                                                    <ul>
+                                                        <li><a href="#">Change Password</a></li>
+                                                        <li><a href="#">My Jobs</a></li>
+                                                        <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

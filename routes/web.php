@@ -109,3 +109,6 @@ Route::get('html-profile',function (){
 Route::get('html-edit-profile',function (){
     return view('html.edit-profile');
 });
+Route::get('html-business-ideas',function (){
+    return view('html.business-ideas');
+});

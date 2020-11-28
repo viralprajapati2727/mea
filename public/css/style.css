@@ -34,6 +34,9 @@ ul{
     margin: 0;
     padding: 0;
 }
+.page-main {
+    padding: 50px 0;
+}
 /*===============Header Css====================*/
 .home-globle-error .alert {
     position: absolute;
@@ -94,6 +97,8 @@ ul{
     font-size: 22px;
     color: #4A4A4A;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 .header-right .collapse{
     padding-left: 100px;
@@ -111,6 +116,7 @@ ul{
     position: relative;
     object-fit: cover;
     margin-left: 13px;
+    margin-right: 10px;
 }
 
 .logout-wrap .profile-image img {
@@ -121,6 +127,50 @@ ul{
     height: 100%;
     left: 0;
     top: 0;
+}
+.profile-menu{
+    position: relative;
+}
+.profile-menu .profile-dropdown {
+    min-width: 400px;
+    right: 0;
+    left: auto;
+    transition: all 0.5s;
+}
+.profile-menu:hover > .profile-dropdown{
+    display: block;
+}
+.profile-menu .profile-dropdown .profile-bg-image{
+    width: 60px;
+    height: 60px;
+    background-position: center;
+    border-radius: 100%;
+    background-size: cover;
+    border: 2px solid #75d2fa;
+}
+.profile-menu .profile-dropdown .card-body{padding: 10px 20px;}
+.login-links li .profile-links a {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: normal;
+    padding-right: 20px;
+    color: #41A0E1;
+    position: relative;
+}
+
+.login-links li .profile-links a:after {content: "";width: 5px;height: 5px;background: #ddd;border-radius: 100%;position: absolute;top: 11px;right: 7px;}
+.login-links li .profile-links a:last-child:after{display: none;}
+.profile-overflow {
+    border-top: 1px solid #ddd;
+    padding: 10px 20px;
+}
+
+.profile-overflow li a {
+    font-size: 15px;
+    color: #707070;
+    font-weight: normal;
+    padding: 7px 0;
+    display: inline-block;
 }
 /*========================Footer CSS=========================*/
 .site-footer{
@@ -677,5 +727,92 @@ ul{
     left: 0px;
     font-size: 60px;
     z-index: 100;
+}
+/*===========================Business Ideas=============================*/
+.business-ideas-wraper .top-title-wrap h1 {
+    font-size: 44px;
+    text-align: center;
+    font-weight: 900;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 35px;
+}
+.business-ideas-wraper .top-title-wrap h1:after {content: "";width: 50%;height: 2px;background: #707070;position: absolute;bottom: 0;left: 50%;transform: translateX(-50%);}
+.our-process {
+    padding-bottom: 50px;
+    text-align: center;
+}
+.title h2 {
+    font-size: 28px;
+    font-weight: 500;
+    color: #474747;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.our-process .process-icon {
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    line-height: 120px;
+    background: #5079d3;
+    border-radius: 100%;
+    margin: 0 auto;
+    border: 2px solid transparent;
+    transition: all 0.5s;
+}
+.our-process .process-icon i {
+    color: #fff;
+}
+.our-process .process-icon i:before {
+    margin: 0;
+    font-size: 60px;
+}
+.process-inner:hover .process-icon {
+    background: transparent;
+    border-color: #5079d3;
+}
+.process-inner:hover .process-icon i {
+    color: #5079d3;
+}
+.our-process .proceess-step {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.our-process .process-title h3 {
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 20px;
+    padding: 0 15px;
+}
+.our-process .process-bottom {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.building-plan {
+    padding-bottom: 50px;
+    text-align: center;
+}
+.building-plan p{max-width: 800px; margin: 0 auto;}
+.get-started-wrap {
+    background: #f1f1f1;
+    padding: 50px 0;
+    margin-bottom: 50px;
+}
+.get-started-wrap .left-content h2 {
+    font-size: 32px;
+    font-weight: 600;
+}
+.get-started-wrap .right-button a {
+    display: inline-block;
+    color: #fff;
+    padding: 10px 55px;
+    border: 2px solid #238BF1;
+    background: #238BF1;
+    font-size: 20px;
+    transition: all 0.5s;
+}
+.get-started-wrap .right-button a:hover{
+    background: transparent;
     color: #238BF1;
 }
