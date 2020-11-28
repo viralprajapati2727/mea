@@ -7,9 +7,7 @@
     <body class="body" id="body">
         @include('layouts.partial.nav')
         <div id="loading">
-            <div class="loader-content positin-relative">
-                <img src="{{ Helper::assets('images/loding_original.gif') }} " class="loading-image  mx-auto">
-            </div>
+            <i class="icon-spinner10 spinner mx-auto" id="loading-image"></i><br>
         </div>
         @include('layouts.flash-message')
         @yield('content')

@@ -27,20 +27,20 @@ class EntrepreneurController extends Controller
         
         try {
 
-            // // //Logged-in user's profile
-            // $profile = User::select('*')
-            //     ->where('id',Auth::id())->with([
-            //         'userProfile' => function($query){
-            //             $query->select('id','user_id','dob','phone','gender','address','latitude','longitude','wallet_unique_id','fb_link','web_link','description','country_id','state_id','city_id','total_wallet');
-            //         },
-            //     ])
-            //     ->first();
-            // if(!$profile->id){
-            //     return redirect()->route('index')->with('error','User doesn`t exists');
-            // }
-            return view('entrepreneur.fill-profile');
+            //Logged-in user's profile
+            $profile = User::select('*')
+                ->where('id',Auth::id())->with([
+                    'userProfile' => function($query){
+                        $query->select('id','user_id','dob','phone','gender','address','latitude','longitude','wallet_unique_id','fb_link','web_link','description','country_id','state_id','city_id','total_wallet');
+                    },
+                ])
+                ->first();
+            if(!$profile->id){
+                return redirect()->route('index')->with('error','User doesn`t exists');
+            }
+            return view('entrepreneur.fill-profile',compact('profile'));
         } catch(\Exception $e){
-            echo "<pre>"; print_r($e->getMessage()); exit;
+            // echo "<pre>"; print_r($e->getMessage()); exit;
             Log::info('EntrepreneurController fillProfile catch exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
             DB::rollback();
             return redirect()->route('index')->with('error','Something went wrong! Please try again.');

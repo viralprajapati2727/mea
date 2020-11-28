@@ -17,12 +17,10 @@ return [
         'admin_email' => ['viralprajapatilive2727@gmail.com'],
         'contact_email' => 'viralprajapatilive2727@gmail.com',
         'business_category_url' =>  "/images/business-category/",
+        'profile_url' =>  "/images/profile/",
         // 'default_video_icon' =>  "/images/challenge/",
-        // 'previous_url' => url()->previous(),
-
         // 'pages_img_url' => "/upload/page/",
         
-        // 'video_url' => "/videos/",
         'assets_url' => "/",
 
         'email_template_tag' => ['{user_name}', '{email}', '{password}','{name}','{message}'],
