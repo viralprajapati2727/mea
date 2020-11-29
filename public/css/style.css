@@ -816,3 +816,9 @@ ul{
     background: transparent;
     color: #238BF1;
 }
+.date-of-birth-icon {
+    position: absolute;
+    top: 37px;
+    right: 10px;
+    color: #767676;
+}

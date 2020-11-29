@@ -19,4 +19,10 @@ $(document).ready(function() {
     });
 
     $('div.alert').not('.alert-important').delay(5000).fadeOut(350);
+
+    $('.select2').select2({
+        // minimumResultsForSearch: Infinity
+    });
+
+    
 });

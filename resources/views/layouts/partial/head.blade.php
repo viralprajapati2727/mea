@@ -31,20 +31,19 @@
     <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.fancybox.js') }}" ></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/ui/moment/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/main/daterangepicker.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/uploaders/fileinput/plugins/purify.min.js') }}" defer></script>
 	<script type="text/javascript" src="{{ Helper::assets('js/plugins/uploaders/fileinput/plugins/sortable.min.js') }}" defer></script>
 	<script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/tags/tokenfield.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/loaders/blockui.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/validation/validate.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/validation/additional_methods.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/main/owl.carousel.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/uniform.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap-datetimepicker.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/selects/select2.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/plugins/notifications/sweet_alert.min.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.inputmask.bundle.js') }}" defer></script>
-    <script type="text/javascript" src="{{ Helper::assets('js/mea_custom.js') }}" defer></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/main/owl.carousel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/styling/uniform.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/selects/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/plugins/notifications/sweet_alert.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.inputmask.bundle.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/mea_custom.js') }}"></script>
     @yield('content_head')
     <script language="javascript" type="text/javascript">
         $(window).on('load', function () {
