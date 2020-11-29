@@ -112,3 +112,6 @@ Route::get('html-edit-profile',function (){
 Route::get('html-business-ideas',function (){
     return view('html.business-ideas');
 });
+Route::get('html-job-portal',function (){
+    return view('html.job-portal');
+});

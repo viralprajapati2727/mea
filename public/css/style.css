@@ -460,6 +460,11 @@ ul{
  .radio-inline.active {
     color: #fff;
 }
+.login-form .bottom-links{padding-top: 5px;}
+.login-form .bottom-links p, .login-form .bottom-links a{
+    margin: 0;
+    padding: 0;
+}
 /*====================Profile Page===========================*/
 .profile-top-detial {
     padding-bottom: 45px;
@@ -821,4 +826,132 @@ ul{
     top: 37px;
     right: 10px;
     color: #767676;
+/*===================Job Portal CSS===============
+
+===============================================*/
+.jp-front-banner{
+    padding: 80px 0;
+    margin-bottom: 80px;
+    background-image: url('../images/job-portal/banner01.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jp-job-category .title h2,
+.recent-jobs .title h2 {
+    font-size: 42px;
+    margin-bottom: 40px;
+}
+.recent-jobs .title h2{margin-bottom: 0px;}
+.jp-front-banner .jp-banner-content h1 {
+    font-size: 50px;
+    line-height: 68px;
+    color: #fff;
+    font-weight: 900;
+    margin: 0;
+}
+.jp-front-banner .jp-banner-content p {
+    line-height: 34px;
+    font-size: 25px;
+    color: #fff;
+}
+.jp-front-banner .jp-banner-content {
+    margin-bottom: 55px;
+}
+.jp-job-category-listing{
+    margin-bottom: 50px;
+}
+.jp-job-category-listing ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.jp-job-category-listing ul .jp-job-cat-lwrp {
+    width: 20%;
+    display: flex;
+    min-height: 285px;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 10px;
+    border-right: 1px solid #d8d8d8;
+}
+.jp-job-category-listing ul .jp-job-cat-lwrp:hover{
+    -webkit-box-shadow: 0px 0px 20px -3px rgba(0,0,0,0.24);
+    -moz-box-shadow: 0px 0px 20px -3px rgba(0,0,0,0.24);
+    box-shadow: 0px 0px 20px -3px rgba(0,0,0,0.24);
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.jp-job-category-listing ul .jp-job-cat-lwrp:nth-child(5),
+.jp-job-category-listing ul .jp-job-cat-lwrp:last-child{border-right: 0;}
+.jp-job-category-listing ul .jp-job-cat-lwrp:nth-child(-n+5){
+    border-bottom: 1px solid #d8d8d8;
+}
+.jp-job-category-listing .jp-job-cat-icon i {
+    font-size: 82px;
+    color: #41A0E1;
+}
+.jp-job-category-listing .jp-job-cat-icon {
+    margin-bottom: 10px;
+}
+.jp-job-category-listing .jp-job-cat-title {
+    font-size: 20px;
+    color: #707070;
+    font-weight: 500;
+}
+.recent-jobs .title h2{margin-bottom: 0px;}
+.recent-jobs .title{margin-bottom: 30px;}
+.recent-jobs .title p{
+    font-size: 22px;
+}
+.job-lists-wrap .card {
+    padding: 20px 30px;
+}
+.job-lists-wrap .job-detail-left .job-media {
+    width: 150px;
+    margin-right: 20px;
+}
+.job-lists-wrap .job-detail-left .job-media img {
+    width: 100%;
+}
+.job-lists-wrap .job-detail-left {
+    display: flex;
+    flex-wrap: wrap;
+}
+.job-description {
+    width: calc(100% - 170px);
+}
+
+.job-description .job-title a {
+    color: #4A4A4A;
+    font-weight: 500;
+}
+
+.job-description .job-title {
+    margin: 0;
+}
+
+.job-company-location p {
+    margin-bottom: 4px;
+}
+.job-lists-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.job-lists-wrap.job-actions li a {
+    width: 100%;
+    max-width: 140px;
+    display: inline-block;
+    text-align: center;
+    padding: 8px 5px;
+    border: 2px solid #41A0E1;
+    border-radius: 6px;
+    margin-bottom: 9px;
+    font-size: 15px;
+}
+
+.job-lists-wrap .job-actions li a.job-detail-btn {
+    background: #41A0E1;
+    color: #fff;
 }
