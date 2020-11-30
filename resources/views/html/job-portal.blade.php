@@ -25,7 +25,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/technical-support.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">Technical Support</h5>
                         </a>
@@ -33,7 +33,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/business-development.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">Business Development</h5>
                         </a>
@@ -41,7 +41,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/real-estate.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">Real Estate Business</h5>
                         </a>
@@ -49,7 +49,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/share-market-analysis.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">Share Market Analysis</h5>
                         </a>
@@ -57,7 +57,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/weather.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">Weather & Environment</h5>
                         </a>
@@ -65,7 +65,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/finance.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">Finance & banking Service</h5>
                         </a>
@@ -73,7 +73,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/networking.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">IT & Networking Services</h5>
                         </a>
@@ -81,7 +81,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/restaurant.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">Restaurant Services</h5>
                         </a>
@@ -89,7 +89,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/fire.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">Defence & Fire Service</h5>
                         </a>
@@ -97,9 +97,9 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <i class="fa fa-cog"></i>
+                                <img src="{{ Helper::assets('images/business-category/real-estate.png') }}" alt="">
                             </div>
-                            <h5 class="jp-job-cat-title">Home Delivery Service</h5>
+                            <h5 class="jp-job-cat-title">delivery</h5>
                         </a>
                     </li>
                 </ul>

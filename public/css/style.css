@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body{
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: transparent;
     color: #707070;
     font-size: 15px;
@@ -68,6 +69,7 @@ ul{
 }
 .navbar-brand h1 {
     margin: 0;
+    font-family: 'Oswald', sans-serif;
     font-size: 25px;
     line-height: 34px;
     color: #000;
@@ -82,7 +84,7 @@ ul{
     justify-content: space-between;
 }
 .navbar-expand-lg .navbar-nav .nav-link {
-    font-size: 22px;
+    font-size: 18px;
     line-height: 34px;
     color: #474747;
     font-weight: 500;
@@ -94,14 +96,14 @@ ul{
     padding: 0;
 }
 .login-links li a {
-    font-size: 22px;
+    font-size: 18px;
     color: #4A4A4A;
     font-weight: bold;
     display: flex;
     align-items: center;
 }
 .header-right .collapse{
-    padding-left: 100px;
+    padding-left: 30px;
 }
 .logout-wrap {
     display: flex;
@@ -177,8 +179,15 @@ ul{
     background-color: #F9F9F9;
     padding: 35px 0;
 }
-.site-footer .f-title, .footer-links li a{
+.site-footer .f-title{
     font-size: 20px;
+    line-height: 27px;
+    color: #333333;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.footer-links li a{
+    font-size: 18px;
     line-height: 27px;
     color: #8C8C8C;
     margin-bottom: 20px;
@@ -207,7 +216,7 @@ ul{
 .newsletter-wrap .form-control button {
     position: absolute;
     right: 0;
-    width: 70px;
+    width: 90px;
     height: 35px;
     border: 0;
     background: #ffaf31;
@@ -255,9 +264,10 @@ ul{
     border-bottom: 1px solid #e3e3e3;
 }
 .solutions-section .solution-content h2 {
-    font-size: 35px;
-    color: #6B6B6B;
+    font-size: 32px;
+    color: #333333;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 .solutions-section .solution-content p {
     font-size: 18px;
@@ -285,18 +295,20 @@ ul{
     font-size: 20px;
     line-height: 22px;
     margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
 }
 .solutions-box .desc {
-    font-size: 15px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 28px;
     margin-bottom: 20px;
 }
 .solutions-box .more-link {
     display: inline-block;
     padding: 5px 25px;
-    border: 1px solid #0088FF;
+    border: 2px solid #0088FF;
     color: #0088FF;
-    font-size: 15px;
+    font-size: 16px;
 }
 .solutions-box .more-link:hover{
     color: #fff;
@@ -308,9 +320,10 @@ ul{
     border-bottom: 1px solid #e3e3e3;
 }
 .home-features-inner .features-content h2 {
-    font-size: 35px;
-    color: #6B6B6B;
+    font-size: 32px;
+    color: #333;
     margin-bottom: 30px;
+    font-weight: 600;
 }
 .home-features-inner  .features-content {
     padding: 20px 0;
@@ -335,9 +348,10 @@ ul{
     box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.15);
 }
 .home-blog-section .blog-title {
-    font-size: 35px;
-    color: #6B6B6B;
+    font-size: 32px;
+    color: #333;
     margin-bottom: 30px;
+    font-weight: 600;
 }
 .blog-wrap .blog-image {
     position: relative;
@@ -354,8 +368,10 @@ ul{
     padding: 10px 15px;
 }
 .home-blog-section .blog-content h2 {
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
 }
 .home-blog-section .author h6 {
     margin: 0;
@@ -379,11 +395,12 @@ ul{
     max-width: 500px;
 }
 .form-wrap .card-header {
-    font-size: 29px;
+    font-size: 28px;
     text-align: center;
-    font-weight: 900;
+    font-weight: bold;
     margin-bottom: 20px;
     padding: 0 !important;
+    color: #333;
 }
 .form-wrap .form-group .col-form-label {
     display: none;
@@ -400,9 +417,10 @@ ul{
 .form-wrap .btn.btn-primary{
     width: 100%;
     background: #75d2fa;
-    color: #4A4A4A;
+    color: #333333;
     border-radius: 0;
     font-size: 19px;
+    font-weight: 600;
 }
 .form-wrap .btn-link{
     float: right;
@@ -469,12 +487,11 @@ ul{
 .profile-top-detial {
     padding-bottom: 45px;
 }
-.user-profile-wraper {padding: 50px 0;}
 .user-title-wrap .title {
-    font-size: 46px;
+    font-size: 40px;
     line-height: 68px;
     font-weight: bold;
-    color: #4A4A4A;
+    color: #333;
     margin-bottom: 40px;
 }
 .personal-details .profile-image {
@@ -503,7 +520,7 @@ ul{
 .user-profile-wraper .user-detials h2 {
     font-size: 32px;
     font-weight: 600;
-    color: #4A4A4A;
+    color: #333;
     margin-bottom: 10px;
 }
 .user-profile-wraper .user-detials .location label {
@@ -515,7 +532,7 @@ ul{
     color: #238BF1;
 }
 .user-profile-wraper .about-desc p {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 26px;
     margin-bottom: 15px;
 }
@@ -531,7 +548,7 @@ ul{
     color: #fff;
     border-radius: 50px;
     padding: 4px 25px;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 22px;
 }
 .user-profile-wraper .socials li i {
@@ -557,6 +574,7 @@ ul{
     font-size: 20px;
     line-height: 27px;
     margin-bottom: 5px;
+    font-weight: 600;
 }
 .profile-advance-details .skills,
 .profile-advance-details .intersts{
@@ -586,6 +604,7 @@ ul{
     line-height: 22px;
     color: #1F97F2;
     margin-bottom: 0;
+    font-weight: 500;
 }
 .user-question-answer-wrap ul li span {
     font-size: 12px;
@@ -644,21 +663,21 @@ ul{
     display: inline;
 }
 .member-detail .name {
-    font-size: 30px;
-    color: #4A4A4A;
-    font-weight: bold;
+    font-size: 26px;
+    color: #333;
+    font-weight: 600;
     line-height: 36px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .member-detail div label {
-    font-size: 18px;
+    font-size: 16px;
     width: 45px;
 }
 
 .member-detail div p {
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
     color: #238BF1;
 }
 .contact-details {
@@ -735,9 +754,10 @@ ul{
 }
 /*===========================Business Ideas=============================*/
 .business-ideas-wraper .top-title-wrap h1 {
-    font-size: 44px;
+    font-size: 32px;
+    color: #333;
     text-align: center;
-    font-weight: 900;
+    font-weight: 600;
     position: relative;
     padding-bottom: 15px;
     margin-bottom: 35px;
@@ -748,11 +768,12 @@ ul{
     text-align: center;
 }
 .title h2 {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 500;
-    color: #474747;
+    color: #333;
     margin-bottom: 20px;
     text-align: center;
+    font-weight: 600;
 }
 .our-process .process-icon {
     width: 120px;
@@ -788,6 +809,7 @@ ul{
     line-height: 22px;
     margin-top: 20px;
     padding: 0 15px;
+    font-weight: 500;
 }
 .our-process .process-bottom {
     max-width: 800px;
@@ -805,8 +827,10 @@ ul{
     margin-bottom: 50px;
 }
 .get-started-wrap .left-content h2 {
-    font-size: 32px;
+    font-size: 29px;
     font-weight: 600;
+    color: #333;
+    margin: 0;
 }
 .get-started-wrap .right-button a {
     display: inline-block;
