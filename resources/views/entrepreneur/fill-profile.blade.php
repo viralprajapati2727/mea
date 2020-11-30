@@ -2,6 +2,7 @@
 @section('content')
 @php
     $ProfileUrl = Helper::images(config('constant.profile_url'));
+    $exp_count = $edu_count  = 0;
 @endphp
     <div class="container">
         <div class="user_profile_form_page fill-profile">
@@ -25,7 +26,7 @@
                             @endphp
                             <input type="hidden" name="old_logo" value="{{ $profile->logo }}">
                         @endif
-                        <div class="account-img-content text-center text-md-left">
+                        <div class="form-group account-img-content text-center text-md-left pb-2">
                             <div class="card-img-actions d-inline-block mt-2">
                                 <img src="{{ $img_url }}" class="img-fluid rounded-circle account-img" alt="Photo">
                                 <a href="javascript:void(0)" class="btn-upload d-flex justify-content-center align-items-center position-absolute" id="profile-photo-add-btn">
@@ -157,7 +158,112 @@
                             <div class="col-12">
                                 <h2>Work Experience</h2>
                             </div>
-                            
+                            <div class="col-lg-9 col-md-12" id="work-eperieance">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" name="is_experience" id="is_experience" class="form-check-input-styled" data-fouc="" value="1">I have no experience
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row or_add">
+                                    <div class="col-md-12 mt-3 mb-3">
+                                        <b>OR</b>
+                                    </div>
+                                </div>
+                                @php $exp_count = 0; @endphp
+                                @php $is_experience = false; @endphp
+                                <div class="work-exp-details">
+                                    <div class="work-exp-item">
+                                        <div class="d-flex align-items-center">
+                                            <a href="javascript:;" class="ml-auto delete-work-exp"><i class="icon-cross2"></i></a>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Company Name <span class="font-color">*</span></label>
+                                                    <input type="text" name="exp[{{ $exp_count }}][company_name]" placeholder="Company Name" class="form-control company_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Designation <span class="font-color">*</span></label>
+                                                    <input type="text" name="exp[{{ $exp_count }}][designation]" placeholder="Designation" class="form-control designation">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Year <span class="font-color">*</span></label>
+                                                    <input type="number" name="exp[{{ $exp_count }}][year]" placeholder="Year" class="form-control year">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-check form-check-inline">
+                                        <button type="button" class="btn btn-primary btn-sm btn-add-more-exp"><i class="icon-plus2"></i> Add More</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-md-2">
+                            <div class="col-12">
+                                <h2>Education Details</h2>
+                            </div>
+                            <div class="col-lg-9 col-md-12 mt-2" id="education-details">
+                                @php $edu_count = 0; @endphp
+                                <div class="education-details">
+                                    <div class="education-item">
+                                        <div class="d-flex align-items-center">
+                                            <a href="javascript:;" class="ml-auto delete-edu-exp"><i class="icon-cross2"></i></a>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Course Name <span class="font-color">*</span></label>
+                                                    <input type="text" name="edu[{{ $edu_count }}][course_name]" placeholder="Course Name" class="form-control course_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">College Name / Organization Name <span class="font-color">*</span></label>
+                                                    <input type="text" name="edu[{{ $edu_count }}][organization_name]" placeholder="College Name / Organization Name" class="form-control organization_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Grade <span class="font-color">*</span></label>
+                                                    <input type="text" name="edu[{{ $edu_count }}][percentage]" placeholder="Grade" class="form-control percentage">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Year <span class="font-color">*</span></label>
+                                                    <input type="text" name="edu[{{ $edu_count }}][year]" placeholder="Year" class="form-control year">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-check form-check-inline">
+                                            <button type="button" class="btn btn-primary btn-sm btn-add-more-edu"><i class="icon-plus2"></i> Add More</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="mt-4 btn-section d-md-flex d-lg-flex align-items-center position-relative pb-2 text-center text-md-left">
                             <button type="submit" class="btn custom-btn member-login-btn justify-content-center text-white px-5 rounded-lg submit-btn"><i class="flaticon-save-file-option mr-2 submit-icon"></i>SAVE
@@ -174,5 +280,11 @@
 @section('footer_script')
 <script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/tags/tokenfield.min.js') }}"></script>
+<script>
+    var is_form_edit = false;
+    var ex_count = parseInt("{{ $exp_count }}");
+    var ed_count = parseInt("{{ $edu_count }}");
+    var is_profile_exists = true;
+</script>
 <script type="text/javascript" src="{{ Helper::assets('js/pages/entrepreneur_profile_form.js') }}"></script>
 @endsection
