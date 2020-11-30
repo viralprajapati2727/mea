@@ -153,6 +153,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt-md-2">
+                            <div class="col-12">
+                                <h2>Work Experience</h2>
+                            </div>
+                            
+                        </div>
                         <div class="mt-4 btn-section d-md-flex d-lg-flex align-items-center position-relative pb-2 text-center text-md-left">
                             <button type="submit" class="btn custom-btn member-login-btn justify-content-center text-white px-5 rounded-lg submit-btn"><i class="flaticon-save-file-option mr-2 submit-icon"></i>SAVE
                             @if(isset($profile->is_profile_filled) && $profile->is_profile_filled == 1)
