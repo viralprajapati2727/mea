@@ -115,3 +115,6 @@ Route::get('html-business-ideas',function (){
 Route::get('html-job-portal',function (){
     return view('html.job-portal');
 });
+Route::get('html-resources',function (){
+    return view('html.resources');
+});
