@@ -24,5 +24,14 @@ $(document).ready(function() {
         // minimumResultsForSearch: Infinity
     });
 
+    jQuery(window).scroll(function(){
+        var navHeight = jQuery('.site-header').height();
+        var sticky = jQuery('.site-header');
+        if (jQuery(window).scrollTop() > 0) {
+            sticky.addClass("sticky")
+        } else {
+            sticky.removeClass("sticky");
+        }
+    });
     
 });

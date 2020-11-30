@@ -60,7 +60,17 @@ ul{
 }
 .site-header {
     background: #75D2FA;
-    padding: 50px 0;
+    padding: 20px 0;
+}
+.sticky {
+    position: fixed !important;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    -webkit-box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
+    -moz-box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
+    box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
+    background-color: #75D2FA;
 }
 .navbar-brand {
     padding: 0;
