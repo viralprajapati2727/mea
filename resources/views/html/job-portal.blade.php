@@ -97,7 +97,7 @@
                     <li class="text-center jp-job-cat-lwrp">
                         <a href="#">
                             <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/real-estate.png') }}" alt="">
+                                <img src="{{ Helper::assets('images/business-category/delivery.png') }}" alt="">
                             </div>
                             <h5 class="jp-job-cat-title">delivery</h5>
                         </a>

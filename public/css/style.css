@@ -864,7 +864,7 @@ ul{
 }
 .jp-job-category .title h2,
 .recent-jobs .title h2 {
-    font-size: 42px;
+    font-size: 32px;
     margin-bottom: 40px;
 }
 .recent-jobs .title h2{margin-bottom: 0px;}
@@ -918,11 +918,14 @@ ul{
     color: #41A0E1;
 }
 .jp-job-category-listing .jp-job-cat-icon {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+.jp-job-category-listing .jp-job-cat-icon img {
+    width: 100px;
 }
 .jp-job-category-listing .jp-job-cat-title {
     font-size: 20px;
-    color: #707070;
+    color: #41A0E1;
     font-weight: 500;
 }
 .recent-jobs .title h2{margin-bottom: 0px;}
@@ -949,8 +952,8 @@ ul{
 }
 
 .job-description .job-title a {
-    color: #4A4A4A;
-    font-weight: 500;
+    color: #333;
+    font-weight: 600;
 }
 
 .job-description .job-title {
@@ -964,12 +967,12 @@ ul{
     max-width: 1200px;
     margin: 0 auto;
 }
-.job-lists-wrap.job-actions li a {
+.job-lists-wrap .job-actions li a {
     width: 100%;
-    max-width: 140px;
+    max-width: 130px;
     display: inline-block;
     text-align: center;
-    padding: 8px 5px;
+    padding: 6px 5px;
     border: 2px solid #41A0E1;
     border-radius: 6px;
     margin-bottom: 9px;
@@ -979,4 +982,64 @@ ul{
 .job-lists-wrap .job-actions li a.job-detail-btn {
     background: #41A0E1;
     color: #fff;
+}
+/*====================Resources CSS=============================*/
+.resources-main .title h1 {
+    font-size: 32px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+.rs-content .rs-title {
+    font-size: 22px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+.rs-content p {
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 30px;
+}
+.rs-content .rs-link {
+    display: inline-block;
+    padding: 10px 25px;
+    border: 2px solid #41A0E1;
+    font-weight: 500;
+    border-radius: 25px;
+    background: #41A0E1;
+    color: #fff;
+    transition: all 0.5s;
+}
+.rs-content .rs-link:hover {
+    background: transparent;
+    color: #41A0E1;
+}
+.resources-wrap {
+    margin-bottom: 60px;
+}
+.rs-image-wrap img {
+    border: 1px solid #ddd;
+}
+.resources-wrap.even .rs-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    order: 2;
+}
+.rs-image-wrap {
+    padding-bottom: 55%;
+    position: relative;
+    overflow: hidden;
+}
+
+.rs-image-wrap img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
