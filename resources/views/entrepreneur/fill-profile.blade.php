@@ -135,84 +135,89 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-md-2">
-                            <div class="col-12">
-                                <h2>Suevey Questions</h2>
-                            </div>
-                            <div class="col-12 questions">
-                                <div class="form-group">
-                                    <p>What question would it be and why if..?</p>
-                                    <input type="text" class="form-control answer" name="ans[1]" id="ans1" placeholder="Enter Answer" value="" >
+                        <div class="profile-inner">
+                            <div class="row mt-md-2">
+                                <div class="col-12">
+                                    <h2>Suevey Questions</h2>
                                 </div>
-                                <div class="form-group">
-                                    <p>Discuss your business idea here!</p>
-                                    <input type="text" class="form-control answer" name="ans[2]" id="ans2" placeholder="Enter Answer" value="" >
-                                </div>
-                                <div class="form-group">
-                                    <p>Application has been rejected or not...?</p>
-                                    <input type="text" class="form-control answer" name="ans[3]" id="ans3" placeholder="Enter Answer" value="" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-md-2">
-                            <div class="col-12">
-                                <h2>Work Experience</h2>
-                            </div>
-                            <div class="col-lg-9 col-md-12" id="work-eperieance">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" name="is_experience" id="is_experience" class="form-check-input-styled" data-fouc="" value="1">I have no experience
-                                            </label>
-                                        </div>
+                                <div class="col-12 questions">
+                                    <div class="form-group">
+                                        <p>What question would it be and why if..?</p>
+                                        <input type="text" class="form-control answer" name="ans[1]" id="ans1" placeholder="Enter Answer" value="" >
                                     </div>
-                                </div>
-                                <div class="row or_add">
-                                    <div class="col-md-12 mt-3 mb-3">
-                                        <b>OR</b>
+                                    <div class="form-group">
+                                        <p>Discuss your business idea here!</p>
+                                        <input type="text" class="form-control answer" name="ans[2]" id="ans2" placeholder="Enter Answer" value="" >
                                     </div>
-                                </div>
-                                @php $exp_count = 0; @endphp
-                                @php $is_experience = false; @endphp
-                                <div class="work-exp-details">
-                                    <div class="work-exp-item">
-                                        <div class="d-flex align-items-center">
-                                            <a href="javascript:;" class="ml-auto delete-work-exp"><i class="icon-cross2"></i></a>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Company Name <span class="font-color">*</span></label>
-                                                    <input type="text" name="exp[{{ $exp_count }}][company_name]" placeholder="Company Name" class="form-control company_name">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Designation <span class="font-color">*</span></label>
-                                                    <input type="text" name="exp[{{ $exp_count }}][designation]" placeholder="Designation" class="form-control designation">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Year <span class="font-color">*</span></label>
-                                                    <input type="number" name="exp[{{ $exp_count }}][year]" placeholder="Year" class="form-control year">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-check form-check-inline">
-                                        <button type="button" class="btn btn-primary btn-sm btn-add-more-exp"><i class="icon-plus2"></i> Add More</button>
-                                        </div>
+                                    <div class="form-group">
+                                        <p>Application has been rejected or not...?</p>
+                                        <input type="text" class="form-control answer" name="ans[3]" id="ans3" placeholder="Enter Answer" value="" >
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="profile-inner">
+                            <div class="row mt-md-2">
+                                <div class="col-12">
+                                    <h2>Work Experience</h2>
+                                </div>
+                                <div class="col-lg-9 col-md-12" id="work-eperieance">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" name="is_experience" id="is_experience" class="form-check-input-styled" data-fouc="" value="1">I have no experience
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row or_add">
+                                        <div class="col-md-12 mt-2 mb-2">
+                                            <b>OR</b>
+                                        </div>
+                                    </div>
+                                    @php $exp_count = 0; @endphp
+                                    @php $is_experience = false; @endphp
+                                    <div class="work-exp-details">
+                                        <div class="work-exp-item">
+                                            <div class="d-flex align-items-center">
+                                                <a href="javascript:;" class="ml-auto delete-work-exp"><i class="icon-cross2"></i></a>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Company Name <span class="font-color">*</span></label>
+                                                        <input type="text" name="exp[{{ $exp_count }}][company_name]" placeholder="Company Name" class="form-control company_name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Designation <span class="font-color">*</span></label>
+                                                        <input type="text" name="exp[{{ $exp_count }}][designation]" placeholder="Designation" class="form-control designation">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Year <span class="font-color">*</span></label>
+                                                        <input type="number" name="exp[{{ $exp_count }}][year]" placeholder="Year" class="form-control year">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-check form-check-inline">
+                                            <button type="button" class="btn btn-primary btn-sm btn-add-more-exp"><i class="icon-plus2"></i> Add More</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-inner">
                         <div class="row mt-md-2">
                             <div class="col-12">
                                 <h2>Education Details</h2>
@@ -265,7 +270,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-4 btn-section d-md-flex d-lg-flex align-items-center position-relative pb-2 text-center text-md-left">
+                        </div>
+                        <div class="mt-4 btn-section d-md-flex d-lg-flex align-items-center position-relative pb-2 text-center text-md-left justify-content-end">
                             <button type="submit" class="btn custom-btn member-login-btn justify-content-center text-white px-5 rounded-lg submit-btn"><i class="flaticon-save-file-option mr-2 submit-icon"></i>SAVE
                             @if(isset($profile->is_profile_filled) && $profile->is_profile_filled == 1)
                                 <span class="pl-3 d-md-inline-block d-lg-inline-block pt-4 pt-md-0 pt-lg-0 text-center"><a href="{{route('index')}}" class="text-common-color font-semi-bold entry-cancel">CANCEL</a></span>

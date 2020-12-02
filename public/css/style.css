@@ -1053,3 +1053,45 @@ ul{
     object-fit: cover;
     object-position: center;
 }
+/*====================Edit Profile=====================*/
+.user_profile_form_page{padding: 60px 0;}
+.entrepreneur_profile_form .form-group .form-control-label{
+    font-size: 14px;
+    color: #333333;
+    font-weight: 600;
+}
+.entrepreneur_profile_form .select2-selection--single{padding: 5.5px 0;}
+.entrepreneur_profile_form .form-control:not(.border-1):not(.border-2):not(.border-3):focus{
+    border-color: #75D2FA;
+}
+.entrepreneur_profile_form .profile-inner {
+    border: 1px solid #ddd;
+    border-radius: .1875rem;
+    padding: 10px;
+    background: #eeeeee1f;
+    margin-bottom: 20px;
+}
+.entrepreneur_profile_form .profile-inner h2{
+    font-size: 22px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.entrepreneur_profile_form .delete-work-exp,
+.entrepreneur_profile_form .delete-edu-exp {
+    position: absolute;
+    right: 0;
+    z-index: 9999;
+}
+.entrepreneur_profile_form .btn{
+    background-color: #0088FF;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.5s;
+}
+.entrepreneur_profile_form .btn:hover{
+    background-color: #ffaf31;
+}
+.entrepreneur_profile_form .btn i{
+    font-weight: normal;
+}
