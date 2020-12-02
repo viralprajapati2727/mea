@@ -267,14 +267,14 @@ class Helper
             ),
             "9" => array( // Questions
                 "is_menu" => TRUE,
-                "url" => '',//route('job-title.index'),
+                "url" => route('profile-question.index'),
                 "is_access" => TRUE,
                 "privilege_key" => "9",
                 "privilege_require" => "1",
-                "full_title" => "Questions  Management",
-                "short_title" => "Questions",
+                "full_title" => "Profile Questions",
+                "short_title" => "Profile Questions",
                 "icon" => "icon-question7",
-                "active_menu" => array(),//array('job-title.index','job-title.create','job-title.edit'),
+                "active_menu" => array('profile-question.index','profile-question.create','profile-question.edit'),
                 "child" => array(),
             ),
             "10" => array( // Ideas

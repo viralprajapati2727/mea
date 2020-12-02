@@ -82,8 +82,11 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('business-category-filter', 'Admin\BusinessCategoryController@ajaxData')->name('business-category-filter');
         Route::post('change-business-category-status', 'Admin\BusinessCategoryController@changeStatus')->name('admin.change-business-category-status');
         Route::post('check-unique-business-category','Admin\BusinessCategoryController@checkUniqueCategory')->name('check_unique_b_category');
-
-
+        
+        //Profile Question Management
+        Route::resource('profile-question','Admin\ProfileQuestionController');
+        Route::post('profile-question-filter', 'Admin\ProfileQuestionController@ajaxData')->name('profile-question-filter');
+        Route::post('change-profile-question-status', 'Admin\ProfileQuestionController@changeStatus')->name('admin.change-profile-question-status');
 
 
         // Email templates

@@ -31,7 +31,7 @@ class EntrepreneurController extends Controller
             $profile = User::select('*')
                 ->where('id',Auth::id())->with([
                     'userProfile' => function($query){
-                        $query->select('id','user_id','dob','phone','gender','address','latitude','longitude','wallet_unique_id','fb_link','web_link','description','country_id','state_id','city_id','total_wallet');
+                        $query->select('*');
                     },
                 ])
                 ->first();
