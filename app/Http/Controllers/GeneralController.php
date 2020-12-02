@@ -68,7 +68,7 @@ class GeneralController extends Controller {
 			
 			// get profile data if exists
             $profile = User::where('id',$user->id)
-                ->select('id','name','logo','is_profile_filled','slug')
+                ->select('id','name','logo','is_profile_filled','slug','email')
                 ->with([
                     'userProfile',
                 ])
@@ -77,7 +77,6 @@ class GeneralController extends Controller {
             if(empty($profile)){
                 $preprofile = false;
 			}
-
 
 			if($user->type == config('constant.USER.TYPE.SIMPLE_USER')){
 				return view('user.fill-profile',compact('profile','questions'));

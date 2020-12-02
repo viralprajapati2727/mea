@@ -124,4 +124,19 @@ class User extends Authenticatable implements MustVerifyEmail, ShouldQueue
     public function userProfile(){
         return $this->hasOne('App\Models\UserProfile', 'user_id');
     }
+    public function answers(){
+        return $this->hasMany('App\Models\UserAnswer', 'user_id','user_id');
+    }
+    public function interests(){
+        return $this->hasMany('App\Models\UserInterest', 'user_id','user_id');
+    }
+    public function skills(){
+        return $this->hasMany('App\Models\UserSkill', 'user_id','user_id');
+    }
+    public function educationDetails(){
+        return $this->hasMany('App\Models\UserEducationDetail', 'user_id','user_id');
+    }
+    public function workExperience(){
+        return $this->hasMany('App\Models\UserWorkExperience', 'user_id','user_id');
+    }
 }

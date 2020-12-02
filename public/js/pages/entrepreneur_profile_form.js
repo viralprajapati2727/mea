@@ -284,8 +284,8 @@ $(document).ready(function(){
         },
         submitHandler: function (form) {
             CKEDITOR.instances.about.updateElement();
-            // $(form).find('button[type="submit"]').attr('disabled', 'disabled');
-            // form.submit();
+            $(form).find('button[type="submit"]').attr('disabled', 'disabled');
+            form.submit();
         }
     });
 
@@ -342,7 +342,7 @@ $(document).on('click','.btn-add-more-edu',function(){
     validateEducationExtraField();
 
     var is_valid = true;
-    $('#work-eperieance input').each(function() {
+    $('#education-details input').each(function() {
         $('.entrepreneur_profile_form').validate().element(this);
         if(!$(this).valid()){
             is_valid = $(this).valid();

@@ -89,6 +89,7 @@ class Helper
     }
     public static function uploaddynamicFile($path, $name, $data = null) {
         $path = public_path().$path;
+
         $data->move($path, $name);
     }
     public static function checkFileExists($path, $is_image = true, $is_deleted = false)
