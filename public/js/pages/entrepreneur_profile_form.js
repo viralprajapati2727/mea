@@ -294,7 +294,7 @@ $(document).ready(function(){
     $('.questions .answer').each(function () {
         $(this).rules('add', {
             required: true,
-            minlength: 5,
+            minlength: 3,
             maxlength : 100,
             messages: {
                 required:  "Please enter answer",

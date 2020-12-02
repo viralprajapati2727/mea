@@ -18,36 +18,6 @@ use stdClass;
 class EntrepreneurController extends Controller
 {
     /**
-     * opening dancer fill profile form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function fillProfile()
-    {
-        
-        try {
-
-            //Logged-in user's profile
-            $profile = User::select('*')
-                ->where('id',Auth::id())->with([
-                    'userProfile' => function($query){
-                        $query->select('*');
-                    },
-                ])
-                ->first();
-            if(!$profile->id){
-                return redirect()->route('index')->with('error','User doesn`t exists');
-            }
-            return view('entrepreneur.fill-profile',compact('profile'));
-        } catch(\Exception $e){
-            // echo "<pre>"; print_r($e->getMessage()); exit;
-            Log::info('EntrepreneurController fillProfile catch exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
-            DB::rollback();
-            return redirect()->route('index')->with('error','Something went wrong! Please try again.');
-        }
-    }
-
-    /**
      * Store a newly created and updated dancer profile.
      *
      * @param  \Illuminate\Http\Request  $request

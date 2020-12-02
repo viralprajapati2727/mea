@@ -135,25 +135,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-md-2">
-                            <div class="col-12">
-                                <h2>Suevey Questions</h2>
-                            </div>
-                            <div class="col-12 questions">
-                                <div class="form-group">
-                                    <p>What question would it be and why if..?</p>
-                                    <input type="text" class="form-control answer" name="ans[1]" id="ans1" placeholder="Enter Answer" value="" >
+                        @if(!empty($questions))
+                            <div class="row mt-md-2">
+                                <div class="col-12">
+                                    <h2>Suevey Questions</h2>
                                 </div>
-                                <div class="form-group">
-                                    <p>Discuss your business idea here!</p>
-                                    <input type="text" class="form-control answer" name="ans[2]" id="ans2" placeholder="Enter Answer" value="" >
-                                </div>
-                                <div class="form-group">
-                                    <p>Application has been rejected or not...?</p>
-                                    <input type="text" class="form-control answer" name="ans[3]" id="ans3" placeholder="Enter Answer" value="" >
+                                <div class="col-12 questions">
+                                    @forelse ($questions as $key => $question)
+                                        <div class="form-group">
+                                            <p>{{ $question->title }}</p>
+                                            <input type="text" class="form-control answer" name="ans[{{ $key }}]" id="ans{{ $key }}" placeholder="Enter Answer" value="" >
+                                        </div>
+                                    @empty
+                                    @endforelse
                                 </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="row mt-md-2">
                             <div class="col-12">
                                 <h2>Work Experience</h2>

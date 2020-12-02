@@ -12,6 +12,7 @@ use Validator;
 use App;
 use Route;
 use PHPUnit\Framework\Exception;
+use App\Models\ProfileQuestion;
 
 class GeneralController extends Controller {
 	public function index() {
@@ -50,4 +51,42 @@ class GeneralController extends Controller {
 			return back()->with('error',trans('app.something_went_wrong'));
 		}
 	}
+	 /**
+     * opening user fill profile form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fillProfile()
+    {
+        try{
+            $user = Auth::user();
+            $preprofile = true;
+            //Get active dance type
+            $where['active'] = true;
+
+			$questions = ProfileQuestion::where('deleted_at',null)->get();
+			
+			// get profile data if exists
+            $profile = User::where('id',$user->id)
+                ->select('id','name','logo','is_profile_filled','slug')
+                ->with([
+                    'userProfile',
+                ])
+                ->first();
+
+            if(empty($profile)){
+                $preprofile = false;
+			}
+
+
+			if($user->type == config('constant.USER.TYPE.SIMPLE_USER')){
+				return view('user.fill-profile',compact('profile','questions'));
+			}
+
+			return view('entrepreneur.fill-profile',compact('profile','questions'));
+        }catch(Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('warning',$e->getMessage());
+        }
+    }
 }

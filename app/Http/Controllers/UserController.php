@@ -10,42 +10,9 @@ use DB;
 use Carbon\Carbon;
 use Validator;
 
+
 class UserController extends Controller
 {
-    /**
-     * opening dancer fill profile form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function fillProfile()
-    {
-        try{
-            $user_id = Auth::id();
-            $preprofile = true;
-            //Get active dance type
-            $where['active'] = true;
-
-            //get profile data if exists
-            // $Profile = User::where('id',$user_id)
-            //     ->select('id','name','nick_name','is_nickname_use','logo','is_profile_filled','slug')
-            //     ->with([
-            //         'countryList',
-            //         'cityList',
-            //         'userProfile:id,user_id,dob,phone,gender,address,wallet_unique_id,country_id,city_id,total_wallet,latitude,longitude',
-            //         'userDanceMusicTypes:id,user_id,dance_type_id'
-            //     ])
-            //     ->first();
-
-            // if(empty($Profile)){
-            //     $preprofile = false;
-            // }
-            return view('user.fill-profile');
-        }catch(Exception $e){
-            DB::rollback();
-            return redirect()->back()->with('warning',$e->getMessage());
-        }
-    }
-
     /**
      * Store a newly created and updated dancer profile.
      *
