@@ -56,8 +56,8 @@
                                     <label class="form-control-label">Gender </label>
                                     <select name="gender" id="gender" class="form-control select2 no-search-select2" data-placeholder="Select Gender">
                                         <option></option>
-                                        <option value="1" {{ (old("gender") == 1 || (isset($profile->userProfile->gender) && $profile->userProfile->gender == 'Male')) ? 'selected' : '' }}>Male</option>
-                                        <option value="2" {{ (old("gender") == 2 || (isset($profile->userProfile->gender) && $profile->userProfile->gender == 'Female')) ? 'selected' : '' }}>Female</option>
+                                        <option value="1" {{ (old("gender") == 'Male' || (isset($profile->userProfile->gender) && $profile->userProfile->gender == 'Male')) ? 'selected' : '' }}>Male</option>
+                                        <option value="2" {{ (old("gender") == 'Female' || (isset($profile->userProfile->gender) && $profile->userProfile->gender == 'Female')) ? 'selected' : '' }}>Female</option>
                                     </select>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Skills</label>
-                                    <input type="text" name="skills" id="skills" class="form-control tokenfield" placeholder="Add skill" value="Finance Strategy,Product Management,Technical Programming" data-fouc>
+                                    <input type="text" name="skills" id="skills" class="form-control tokenfield" value="" data-fouc>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Interests</label>
-                                    <input type="text" name="interests" id="interests" class="form-control tokenfield" placeholder="Add interest" value="CEO,Business Development" data-fouc>
+                                    <input type="text" name="interests" id="interests" class="form-control tokenfield" value="" data-fouc>
                                 </div>
                             </div>
                         </div>
@@ -139,18 +139,18 @@
                             <div class="col-12">
                                 <h2>Suevey Questions</h2>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 questions">
                                 <div class="form-group">
                                     <p>What question would it be and why if..?</p>
-                                    <input type="text" class="form-control" name="ans[1]" id="ans1" placeholder="Enter Answer" value="" >
+                                    <input type="text" class="form-control answer" name="ans[1]" id="ans1" placeholder="Enter Answer" value="" >
                                 </div>
                                 <div class="form-group">
                                     <p>Discuss your business idea here!</p>
-                                    <input type="text" class="form-control" name="ans[1]" id="ans1" placeholder="Enter Answer" value="" >
+                                    <input type="text" class="form-control answer" name="ans[2]" id="ans2" placeholder="Enter Answer" value="" >
                                 </div>
                                 <div class="form-group">
                                     <p>Application has been rejected or not...?</p>
-                                    <input type="text" class="form-control" name="ans[1]" id="ans1" placeholder="Enter Answer" value="" >
+                                    <input type="text" class="form-control answer" name="ans[3]" id="ans3" placeholder="Enter Answer" value="" >
                                 </div>
                             </div>
                         </div>
