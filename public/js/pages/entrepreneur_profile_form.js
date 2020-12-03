@@ -284,8 +284,15 @@ $(document).ready(function(){
         },
         submitHandler: function (form) {
             CKEDITOR.instances.about.updateElement();
-            $(form).find('button[type="submit"]').attr('disabled', 'disabled');
-            form.submit();
+            // $(form).find('button[type="submit"]').attr('disabled', 'disabled');
+            // form.submit();
+            $('.entrepreneur_profile_form').ajaxSubmit(
+                {
+                    beforeSubmit:  showRequest_pro_profile,  // pre-submit callback
+                    success:       showResponse_pro_profile,  // post-submit callback
+                    error: errorResponse_pro_profile,
+                }
+            );
         }
     });
 
@@ -511,4 +518,66 @@ function readURL(element) {
             reader.readAsDataURL(element.files[0]);
         }
     }
+}
+
+
+
+// pre-submit callback
+function showRequest_pro_profile(formData, jqForm, options) {
+    jqForm.find('.submit-btn').attr("disabled",true);
+    jqForm.find('.submit-icon').removeClass('flaticon-save');
+    jqForm.find('.submit-icon').addClass('fa fa-lg fa-refresh fa-spin');
+}
+
+// post-submit callback
+function showResponse_pro_profile(responseText, statusText, xhr, jqForm)  {
+
+    if(responseText.status == '1') {
+        if(typeof(responseText.redirect) != "undefined" && responseText.redirect !== null ){
+            location.href = responseText.redirect;
+        }else{
+            location.href = base_url;
+        }
+    }else{
+        jqForm.find('.submit-btn').attr("disabled",false);
+        jqForm.find('.submit-icon').addClass('flaticon-save');
+        jqForm.find('.submit-icon').removeClass('fa fa-lg fa-refresh fa-spin');
+        jqForm.find('.validation-error-label').remove();
+
+        if(Object.keys(responseText.errors).length > 0){
+            $.each(responseText.errors, function(idx, obj) {
+                if(idx.indexOf('[]') != -1 || idx == 'gender'){
+                    idx = idx.replace(/\[]/g, "");
+                    obj[0] = obj[0].replace(/\[]/g, "");
+                    if(idx == 'gallery-photo-add'){
+                        $(".gallary-validation-server").html(obj[0]).show();
+                    }else{
+                        $("#"+idx).addClass('error-border')
+                        $("#"+idx).parent('div').append('<span id="' + idx + '-error" class="validation-error-label server-error">' + obj[0] + '</span></div>')
+                    }
+                }else {
+                    $("input[name='" + idx + "']").addClass('error-border')
+                    $("input[name='" + idx + "']").parent('div').append('<span id="' + idx + '-error" class="validation-error-label server-error">' + obj[0] + '</span></div>')
+                }
+            });
+        }else{
+            $('.flash-messages').html('<div class="d-block error-message custom-error">\n' +
+                '<div class="alert alert-danger alert-block">\n' +
+                '\t<button type="button" class="close" data-dismiss="alert">×</button>\n' +
+                '    <span>'+responseText.message+'</span>\n' +
+                '</div>\n' +
+                '</div>');
+            window.scrollTo(0,0);
+        }
+        jqForm.find('.server-error:first').parent('div').find('input').focus()
+    }
+
+}
+
+function errorResponse_pro_profile(xhr, textStatus, errorThrown, jqForm) {
+    console.log(errorThrown);
+    // location.href = base_url;
+    jqForm.find('.submit-btn').attr("disabled",false);
+    jqForm.find('.submit-btn').addClass('flaticon-save');
+    jqForm.find('.submit-btn').removeClass('fa fa-lg fa-refresh fa-spin');
 }

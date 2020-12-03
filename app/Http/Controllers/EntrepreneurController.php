@@ -158,7 +158,7 @@ class EntrepreneurController extends Controller
                 if(!empty($request->exp)){
                     $user->workExperience()->delete();
                     foreach ($request->exp as $key => $experience) {
-                        $userExperiences[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'is_experience' => 1,'company_name' => $experience['company_name'], 'designation' => $experience['designation'], 'year	' => $experience['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
+                        $userExperiences[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'is_experience' => 1,'company_name' => $experience['company_name'], 'designation' => $experience['designation'], 'year' => $experience['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
                     }
 
                     $user->workExperience()->insert($userExperiences);
@@ -170,18 +170,18 @@ class EntrepreneurController extends Controller
                 if(!empty($request->edu)){
                     $user->educationDetails()->delete();
                     foreach ($request->edu as $key => $education) {
-                        $educationDetails[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'course_name' => $education['course_name'], 'organization_name' => $education['organization_name'], 'percentage' => $education['percentage'], 'year	' => $education['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
+                        $educationDetails[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'course_name' => $education['course_name'], 'organization_name' => $education['organization_name'], 'percentage' => $education['percentage'], 'year' => $education['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
                     }
 
                     $user->educationDetails()->insert($educationDetails);
                 }
 
                 // DB::commit();
-                // $responseData['status'] = 1;
+                $responseData['status'] = 1;
                 // $responseData['redirect'] = url('professional/'.$user->slug);
-                // $responseData['message'] = trans('page.Profile_saved_successfully');
-                // Session::flash('success', $responseData['message']);
-                // return $this->commonResponse($responseData, 200);
+                $responseData['message'] = trans('page.Profile_saved_successfully');
+                Session::flash('success', $responseData['message']);
+                return $this->commonResponse($responseData, 200);
             }
 
         } catch(Exception $e){
