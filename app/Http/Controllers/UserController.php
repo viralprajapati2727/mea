@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use Image;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Auth;
-use Helper;
 use DB;
+use App\Helpers\Helper;
+use Illuminate\Support\Facades\Validator;
+use Session;
 use Carbon\Carbon;
-use Validator;
+use stdClass;
+
 
 
 class UserController extends Controller
@@ -22,130 +27,148 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
-        // dd($request->all());
+        // echo "<pre>"; print_r($request->all()); exit;
+        $user = Auth::user();
+        $responseData = array();
+        $responseData['status'] = 0;
+        $responseData['message'] = '';
+        $responseData['errors'] = array();
+        $responseData['data'] = [];
         DB::beginTransaction();
         try{
-            $dob = Carbon::createFromFormat('d/m/Y', $request->birthdate)->format('Y-m-d');
-            $validator = Validator::make($request->all(), [
-                'dancer_name' => "required",
-                'dancer_nickname' => "required",
-                'birthdate' => "required",
-                'phone' => "required",
-                'gender' => "required",
-                'dance_music_type' => "required",
-                'country' => "required",
-                'city' => "required",
-			],[
-                'dancer_name' => "Please enter your name",
-                'dancer_nickname' => "Please enter your nick name",
-                'birthdate' => "Please select birthdate",
-                'phone' => "Please enter contact number",
-                'gender' => "Please select gender",
-                'dance_music_type' => "Please choose dance music type",
-                'country' => "Please select country",
-                'city' => "Please select city",
-            ]);
+            $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->format('Y-m-d');
+            // $request['dob'] =  date('Y-m-d', strtotime($request->dob));
+            $validationArray = [
+                // 'name' => 'required|min:2|max:255',
+                // 'nick_name' => 'required|min:2|max:255',
+                // 'expertise' => 'required',
+                // 'gender' => 'required',
+                // 'dob' => 'required',
+                // 'phone' => 'required', 'max:15',
+                // 'danceMusicTypes' => 'required',
+                // 'fb_link' => 'nullable',
+                // 'web_link' => 'nullable',
+                // 'country' => 'required',
+                // 'city' => 'required',
+            ];
+            // if(Auth::user()->is_profile_filled != 1){
+            //     $validationSettingArray = [
+            //         'bank_account_number' => 'required|max:40|min:6',
+            //         'bank_name' => 'required|max:100',
+            //         'bank_ifsc_code' => 'required|max:12',
+            //         'bank_country' => 'required|max:100',
+            //     ];
+            //     $validationArray = array_merge($validationArray, $validationSettingArray);
+            // }
 
+            $validator = Validator::make($request->all(), $validationArray);
             if ($validator->fails()) {
-				return redirect()->back()->withErrors($validator)->withInput();
-            }
-            
+                DB::rollback();
+                $responseData['message'] = $validator->errors()->first();
+                $responseData['errors'] = $validator->errors()->toArray();
+                return $this->commonResponse($responseData, 200);
+            } else {                
 
-            $user_id = Auth::id();
-            $nickname_use = 0;
-
-            /*
-            * Profile image upload also check for old uploaded image
-            */
-
-            $logo_name = "";
-            if ($request->input('profile_picture') != "") {
-                $file = $request->input('profile_picture');
-                $ext = explode('/',explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-                $image_data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file));
-                $logo_name = "profile_".time().'.'.$ext;
-                // Helper::uploadEncodedDynamicFile($profilePicOrgDynamicUrl, $logo_name, $image_data, true, $profilePicThumbDynamicUrl);
-                // if (isset($request->old_logo) && $request->old_logo != "" && $request->old_logo != '') {
-                //     Helper::checkFileExists($profilePicOrgDynamicUrl . $request->old_logo, true, true);
-                //     //delete thumbnail
-                //     Helper::checkFileExists($profilePicThumbDynamicUrl . $request->old_logo, true, true);
-                // }
-            } else {
-                $logo_name = $request->old_logo;
-            }
-            if(isset($request->is_nickname_use)){
-                $nickname_use = $request->is_nickname_use;
-            }
-
-            //Check Country and City Exists in its table
-            $country = ucfirst(strtolower($request->country));
-            $newCountry = Country::firstOrCreate(['name' => $country]);
-            // $countryExists = Country::where('name',$country)->first();
-            // $newCountry = '';
-            // if(is_null($countryExists)){
-            //     $newCountry = Country::create([
-            //         'name' => $country,
-            //     ]);
-            // } else {
-            //     $newCountry = $countryExists;
-            // }
-            // dd($newCountry);
-            \Log::info($newCountry);
-            $city = ucfirst(strtolower($request->city));
-            $newCity = City::firstOrCreate(['name' => $city,'country_id' => $newCountry->id]);
-            // // $cityExists = City::where(['name' => $city,'country_id' => $newCountry->id])->first();       
-            // if(is_null($cityExists) && $newCountry->id){
-            //     $newCity = City::create([
-            //         'country_id' => $newCountry->id,
-            //         'name' => $city,
-            //     ]);
-            // } else {
-            //     $newCity = $cityExists;
-            // }
-
-            /*
-            * save user profile data
-            */
-
-            $dancerProfile = User::updateOrCreate(['id' => $user_id],['name' => $request->dancer_name, 'nick_name' => $request->dancer_nickname, 'is_nickname_use' =>  $nickname_use, 'logo' => $logo_name,'is_profile_filled' => 1]);
-            
-            $profilePicOrgDynamicUrl = str_replace('{userSlug}', $dancerProfile->slug, config('constant.profile_url'));
-            $profilePicThumbDynamicUrl = str_replace('{userSlug}', $dancerProfile->slug, config('constant.profile_thumb_url'));
-            if ($request->input('profile_picture') != "") {
-                Helper::uploadEncodedDynamicFile($profilePicOrgDynamicUrl, $logo_name, $image_data, true, $profilePicThumbDynamicUrl);
-                if (isset($request->old_logo) && $request->old_logo != "" && $request->old_logo != '') {
-                    Helper::checkFileExists($profilePicOrgDynamicUrl . $request->old_logo, true, true);
-                    //delete thumbnail
-                    Helper::checkFileExists($profilePicThumbDynamicUrl . $request->old_logo, true, true);
+                /*
+                 * Profile image upload also check for old uploaded image
+                 */
+                $file = $logo_name = "";
+                if($request->file('profile_image') != ''){
+                    $file = $request->file('profile_image');                    
+                    $ext = $file->getClientOriginalName();
+                    $logo_name = uniqid('profile_', true) . time() . '.' . $ext;
+                } else {
+                    $logo_name = $request->old_logo;
                 }
-            } else {
-                $logo_name = $request->old_logo;
-            }
 
-            $dancerProfile->userProfile()->updateOrCreate(
-                [ "user_id" => $user_id ],
-                [ "dob" => $dob, "phone" => $request->phone, "gender" => $request->gender, 'address' =>$request->city_country, 'country_id' => $newCountry->id , 'city_id' => $newCity->id, "latitude" => $request->latitude, "longitude" => $request->longitude]
-            );
-            /*
-            * save user dance type data
-            */
-            $danceMusicTypes = array();
-            foreach ($request->dance_music_type as $values) {
-                // $dancerProfile->userDanceMusicTypes()->create(['user_id' => $user_id,'dance_type_id' => $values ]);
-                $danceMusicTypes[] = ['user_id' => $user_id,'dance_type_id' => $values, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s') ];
-            }
-            $dancerProfile->userDanceMusicTypes()->delete();
-            $dancerProfile->userDanceMusicTypes()->insert($danceMusicTypes);
+                $user = Auth::user();
+                $user->name = $request->name;
+                $user->logo = $logo_name;
+                $user->is_profile_filled = 1;
+                $user->save();
 
-            DB::commit();
-            if(isset($dancerProfile->id)){
-                return redirect()->route('index')->with('success',trans('page.Profile_saved_successfully'));
+                /*
+                 * Profile image upload also check for old uploaded image
+                 */
+                if($request->hasFile('profile_image')){
+                    Helper::uploaddynamicFile(config('constant.profile_url'), $logo_name, $file);
+                    if(isset($request->old_profile_image)){
+                        Helper::checkFileExists(config('constant.profile_url') . $request->old_profile_image, true, true);
+                    }
+                }
+
+                $is_experience = 0;
+                /*
+                 * save user profile data
+                 */
+                $user->userProfile()->updateOrCreate(
+                    ['user_id' => Auth::user()->id],[
+                    "dob" => $dob,
+                    "phone" => $request->phone,
+                    "gender" => $request->gender,
+                    'description' => $request->about,
+                    'fb_link' => $request->fb_link,
+                    'insta_link' => $request->insta_link,
+                    'tw_link' => $request->tw_link,
+                    'web_link' => $request->web_link,
+                    'city' => $request->city,                    
+                    'is_experience' => $is_experience,                    
+                ]);
+
+                /*
+                 * save user interest data
+                 */
+                if(!empty($request->interests)){
+                    $user->interests()->delete();
+                    $interest_explode = explode(', ', $request->interests);
+
+                    foreach ($interest_explode as $key => $interest) {
+                        $userInterests[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'title' => $interest, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
+                    }
+
+                    $user->interests()->insert($userInterests);
+                }
+
+                /*
+                 * save user skills data
+                 */
+                if(!empty($request->skills)){
+                    $user->skills()->delete();
+                    $interest_explode = explode(', ', $request->skills);
+
+                    foreach ($interest_explode as $key => $skill) {
+                        $userSkills[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'title' => $skill, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
+                    }
+
+                    $user->skills()->insert($userSkills);
+                }
+                
+                /*
+                 * save user answers data
+                 */
+                if(!empty($request->ans)){
+                    $user->answers()->delete();
+                    foreach ($request->ans as $key => $answer) {
+                        $userAnswers[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'question_id' => $key, 'title' => $answer, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
+                    }
+
+                    $user->answers()->insert($userAnswers);
+                }
+                
+                DB::commit();
+                $responseData['status'] = 1;
+                $responseData['redirect'] = route('user.view-profile',['slug' => $user->slug]);
+                $responseData['message'] = trans('page.Profile_saved_successfully');
+                Session::flash('success', $responseData['message']);
+                return $this->commonResponse($responseData, 200);
             }
 
         } catch(Exception $e){
-            Log::info('Dancer profile save Exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
+            Log::emergency('Professional profile save Exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
             DB::rollback();
-            return redirect()->back()->with('warning',$e->getMessage());
+            $code = ($e->getCode() != '')?$e->getCode():500;
+            $responseData['message'] = trans('common.something_went_wrong');
+            return $this->commonResponse($responseData, $code);
         }
     }
 }

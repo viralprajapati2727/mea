@@ -81,33 +81,15 @@ class LoginController extends Controller
      * @return Redirect
      */
     public function authenticated(Request $request, $user) {
-        if($user->type == config('constant.USER.TYPE.ADMIN') || $user->type == config('constant.USER.TYPE.STAFF') || $user->type == config('constant.USER.TYPE.EVENT_MANAGER')) {
+        if($user->type == config('constant.USER.TYPE.ADMIN') || $user->type == config('constant.USER.TYPE.STAFF')) {
             Auth::logout();
             return redirect()->back()->with('error', trans('auth.permission'));
-        }else if (($user->type == config('constant.USER.TYPE.DANCER') || $user->type == config('constant.USER.TYPE.PROFESSIONAL')) && ($user->is_active == config('constant.USER.STATUS.Deactive') || ($user->deleted_at != null && $user->deleted_at != '') )) {
+        }else if (($user->type == config('constant.USER.TYPE.SIMPLE_USER') || $user->type == config('constant.USER.TYPE.ENTREPRENEUR')) && ($user->is_active == config('constant.USER.STATUS.Deactive') || ($user->deleted_at != null && $user->deleted_at != '') )) {
             Auth::logout();
             return redirect()->back()->with('error', trans('auth.Your_account_is_not_deactivated'));
-        }else if (($user->type == config('constant.USER.TYPE.DANCER') || $user->type == config('constant.USER.TYPE.PROFESSIONAL')) && $user->is_active == config('constant.USER.STATUS.Pending')) {
+        }else if (($user->type == config('constant.USER.TYPE.SIMPLE_USER') || $user->type == config('constant.USER.TYPE.ENTREPRENEUR')) && $user->is_active == config('constant.USER.STATUS.Pending')) {
             Auth::logout();
             return redirect()->back()->with('error', trans('auth.Your_account_is_not_activated_please_activated_first'));
-        }else if (($user->type == config('constant.USER.TYPE.DANCER') || $user->type == config('constant.USER.TYPE.PROFESSIONAL')) && ($user->is_active == config('constant.USER.STATUS.Suspended') || $user->is_active == config('constant.USER.STATUS.Suspended By Admin'))){
-            if (($user->suspended_till != null && $user->suspended_till != '')){
-                $suspended_till =Carbon::parse($user->suspended_till);
-                $today = Carbon::now();
-                if($suspended_till < $today){
-                    $user->forceFill([
-                        'suspended_till' => null,
-                        'is_active' => config('constant.USER.STATUS.Active'),
-                    ])->save();
-                    return;
-                } else {
-                    $suspended_till =Carbon::createFromFormat('Y-m-d',$user->suspended_till)->format('d/m/Y');
-                    Auth::logout();
-                    return redirect()->back()->with('error', sprintf(trans('auth.Your_account_is_suspended_till'),$suspended_till));
-                }
-            }
-            Auth::logout();
-            return redirect()->back()->with('error', trans('auth.Your_account_is_suspended'));
         }
     }
 
@@ -127,12 +109,12 @@ class LoginController extends Controller
                 $redirectTo = 'admin';
             } else {
                 if($user->is_profile_filled == 1){
-                    $redirectTo = url()->previous();
+                    $redirectTo = 'profile/'.$user->slug;
                 } else {
-                    if ($user->type == config('constant.USER.TYPE.DANCER')) { //dancer
-                        $redirectTo = 'fill-profile';
-                    } else if ($user->type == config('constant.USER.TYPE.PROFESSIONAL')) { //professional
-                        $redirectTo = 'professional-fill-profile';
+                    if ($user->type == config('constant.USER.TYPE.SIMPLE_USER')) { //simple user
+                        $redirectTo = 'user-fill-profile';
+                    } else if ($user->type == config('constant.USER.TYPE.ENTREPRENEUR')) { //entrepreneur
+                        $redirectTo = 'entrepreneur-fill-profile';
                     }
                 }
             }
@@ -342,12 +324,5 @@ class LoginController extends Controller
             DB::rollback();
             return redirect()->route('index')->with('error',trans('common.something_went_wrong'));
         }
-    }
-
-    public function mobileHandleProvider(Request $request){
-        Log::info($request->all());
-        return redirect()->route('mobile-apple-response',
-                        ['success' => 'true', 'code' => $request->code, 'state' => $request->state, 'client_secret' => env('SIGN_IN_WITH_APPLE_CLIENT_SECRET')]
-                    );
     }
 }

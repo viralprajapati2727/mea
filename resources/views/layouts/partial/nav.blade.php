@@ -41,16 +41,17 @@
                             @auth
                                 <li>
                                     <div class="logout-wrap">
-                                        <!-- <a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a> -->
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;" autocomplete="off">
                                             @csrf
                                         </form>
+                                        @php
+                                            $ProfileUrl = Helper::images(config('constant.profile_url'));
+                                            $img_url = (isset(Auth::user()->logo) && Auth::user()->logo != '') ? $ProfileUrl . Auth::user()->logo : $ProfileUrl.'default.png';
+                                        @endphp 
                                         <div class="profile-menu">
-                                            <a href="%" class="profile-menu-link">
+                                            <a href="javascript:;" class="profile-menu-link">
                                                 <div class="profile-image">
-                                                    <img src="{{ Helper::assets('images/blog/blog03.jpg') }}" alt="" class="w-100">
+                                                    <img src="{{ $img_url }}" alt="" class="w-100">
                                                 </div>
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
@@ -59,7 +60,7 @@
                                                     <div class="media align-items-center d-flex d-lg-flex">
                                                         <div class="profile-icon-menu pr-2">
                                                             <a href="#" class="d-inline-block">
-                                                                <div class="profile-bg-image" style="background-image: url('https://dancero-images.s3.eu-west-1.amazonaws.com/production/upload/user/chandani/profile/thumbnail/profile_5f293ab5138a00.218904631596537525.png');"></div>
+                                                                <div class="profile-bg-image" style="background-image: url({{ $img_url }});"></div>
                                                             </a>
                                                         </div>
                                                         <div class="media-body mea-content">
@@ -67,9 +68,9 @@
                                                                 <h3 class="text-black username">Cherry</h3>
                                                             </a>
                                                             <div class="profile-links d-flex">
-                                                                <a href="#" class="">Edit Profile</a>
+                                                                <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="">Edit Profile</a>
                                                                 <a href="#" class="">Settings</a>
-                                                                <a href="javascript:void(0);" class="">Logout</a>
+                                                                <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logoutconfirm">Logout</a>
                                                             </div>
                                                         </div>
                                                     </div>

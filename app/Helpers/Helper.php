@@ -4,35 +4,11 @@ namespace App\Helpers;
 
 use App;
 use Validator;
-use App\Models\City;
-use App\Models\CmsPages;
-use App\Models\Country;
-use App\Models\DanceType;
-use App\Models\EventType;
 use App\Models\UserProfile;
-use App\Models\NotificationUserType;
-use Illuminate\Support\Facades\Redis;
-use App\Models\ProfessionalType;
-use App\Models\MetaNotification;
-use App\Models\ChallengeEntry;
-use App\Models\Challenge;
-use App\Models\EntryHashtag;
-use App\Models\HashTag;
-use App\Models\Event;
-use App\Models\NotificationReceiver;
-use App\Models\MessageReceiver;
-use App\Models\Feed;
-use App\Models\FeedImage;
-use App\Models\FeedLike;
-use App\Models\FeedWith;
-use App\Models\FeedComment;
 use Illuminate\Support\Str;
-use App\Models\WalletLog;
 use App\User;
 use Auth;
 use App\Jobs\SendPushNotification;
-use App\Models\Notification;
-use App\Models\NotificationSettings;
 use Illuminate\Support\Arr;
 use Cache;
 use Carbon\Carbon;
@@ -42,38 +18,14 @@ use Image;
 use Log;
 use Route;
 use Storage;
-use App\Models\UserGallery;
-use App\Models\EventGallery;
-use App\Models\Setting;
-use App\Models\SponsorEvent;
 use File;
 use Illuminate\Http\Request;
-use App\Models\EventBooking;
-use App\Models\EventBookingTicketType;
-use App\Models\EventAttendee;
-use App\Models\EntryVote;
 use stdClass;
 use App\Http\Controllers\SendMailController;
-use FFMpeg;
-use FFMpeg\Format\Video\X264;
-use App\Jobs\ImageMoveDraftToOriginalDestination;
-use App\Jobs\VideoMoveDraftToOrignalDestination;
-use App\Jobs\VideoCompression;
-use App\Models\UserFollower;
 use Carbon\CarbonPeriod;
 use Mockery\Exception;
 use Session;
 use Illuminate\Http\Testing\MimeType;
-use App\Events\EntryVote as EntryVoteSocket;
-use App\Events\LikePostEvent as LikePostEventSocket;
-use App\Events\DeletePostEvent as DeletePostEventSocket;
-use App\Events\DeletePostCommentEvent as DeletePostCommentEventSocket;
-use App\Events\CommentPostEvent as CommentPostEventSocket;
-use App\Events\AddPostEvent as AddPostEventSocket;
-use App\Events\EditPostEvent as EditPostEventSocket;
-use FFMpeg\Coordinate\Dimension;
-use Illuminate\Console\Scheduling\Schedule;
-
 
 
 class Helper
@@ -158,14 +110,14 @@ class Helper
             ),
             "3" => array( // entrepreneur management
                 "is_menu" => true,
-                "url" => '',//route('admin.professional.index'),
+                "url" => route('admin.entrepreneur.index'),
                 "is_access" => true,
                 "privilege_key" => "3",
                 "privilege_require" => "1",
                 "full_title" => "Entrepreneur",
                 "short_title" => "Entrepreneur",
                 "icon" => "icon-collaboration",
-                "active_menu" => array(),//array('admin.professional.index', 'admin.professional.details',(Str::contains(url()->previous(), 'professional-details') == true) ? 'admin.view.order.summary' : ''),
+                "active_menu" => array('admin.entrepreneur.index', 'admin.entrepreneur.details'),
                 "child" => array(),
 
             ),
@@ -387,105 +339,114 @@ class Helper
     }
     public static function timeAgoFeed($timestamp){
   
-            $time_ago        = strtotime($timestamp);
-            $current_time    = time();
-            $time_difference = $current_time - $time_ago;
-            $seconds         = $time_difference;
-            
-            $minutes = round($seconds / 60); // value 60 is seconds  
-            $hours   = round($seconds / 3600); //value 3600 is 60 minutes * 60 sec  
-            $days    = round($seconds / 86400); //86400 = 24 * 60 * 60;  
-            $weeks   = round($seconds / 604800); // 7*24*60*60;  
-            $months  = round($seconds / 2629440); //((365+365+365+365+366)/5/12)*24*60*60  
-            $years   = round($seconds / 31553280); //(365+365+365+365+366)/5 * 24 * 60 * 60
-                            
-            if ($seconds <= 60){
+        $time_ago        = strtotime($timestamp);
+        $current_time    = time();
+        $time_difference = $current_time - $time_ago;
+        $seconds         = $time_difference;
+        
+        $minutes = round($seconds / 60); // value 60 is seconds  
+        $hours   = round($seconds / 3600); //value 3600 is 60 minutes * 60 sec  
+        $days    = round($seconds / 86400); //86400 = 24 * 60 * 60;  
+        $weeks   = round($seconds / 604800); // 7*24*60*60;  
+        $months  = round($seconds / 2629440); //((365+365+365+365+366)/5/12)*24*60*60  
+        $years   = round($seconds / 31553280); //(365+365+365+365+366)/5 * 24 * 60 * 60
+                        
+        if ($seconds <= 60){
 
-                return "Just Now";
+            return "Just Now";
 
-            } else if ($minutes <= 60){
+        } else if ($minutes <= 60){
 
-                if ($minutes == 1){
+            if ($minutes == 1){
 
-                return "one minute ago";
+            return "one minute ago";
 
-                } else {
+            } else {
 
-                return "$minutes minutes ago";
+            return "$minutes minutes ago";
 
-                }
-
-            } else if ($hours <= 24){
-
-                if ($hours == 1){
-
-                return "an hour ago";
-
-                } else {
-
-                return "$hours hrs ago";
-
-                }
-
-            } else{
-                // if(1){
-                    $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('M d Y');
-                    $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('h:i A');
-                // }else{
-                //     $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('M d Y');
-                //     $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('h:i A');
-                // }
-                return $rDate;
             }
-            
-            // else if ($days <= 7){
 
-            //     if ($days == 1){
+        } else if ($hours <= 24){
 
-            //     return "yesterday";
+            if ($hours == 1){
 
-            //     } else {
+            return "an hour ago";
 
-            //     return "$days days ago";
+            } else {
 
-            //     }
+            return "$hours hrs ago";
 
-            // } else if ($weeks <= 4.3){
+            }
 
-            //     if ($weeks == 1){
-
-            //     return "a week ago";
-
-            //     } else {
-
-            //     return "$weeks weeks ago";
-
-            //     }
-
-            // } else if ($months <= 12){
-
-            //     if ($months == 1){
-
-            //     return "a month ago";
-
-            //     } else {
-
-            //     return "$months months ago";
-
-            //     }
-
-            // } else {
-                
-            //     if ($years == 1){
-
-            //     return "one year ago";
-
-            //     } else {
-
-            //     return "$years years ago";
-
-            //     }
+        } else{
+            // if(1){
+                $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('M d Y');
+                $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('h:i A');
+            // }else{
+            //     $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('M d Y');
+            //     $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('h:i A');
             // }
+            return $rDate;
         }
+        
+        // else if ($days <= 7){
 
+        //     if ($days == 1){
+
+        //     return "yesterday";
+
+        //     } else {
+
+        //     return "$days days ago";
+
+        //     }
+
+        // } else if ($weeks <= 4.3){
+
+        //     if ($weeks == 1){
+
+        //     return "a week ago";
+
+        //     } else {
+
+        //     return "$weeks weeks ago";
+
+        //     }
+
+        // } else if ($months <= 12){
+
+        //     if ($months == 1){
+
+        //     return "a month ago";
+
+        //     } else {
+
+        //     return "$months months ago";
+
+        //     }
+
+        // } else {
+            
+        //     if ($years == 1){
+
+        //     return "one year ago";
+
+        //     } else {
+
+        //     return "$years years ago";
+
+        //     }
+        // }
     }
+    public static function userProfile($slug){
+        $profile = User::where('slug',$slug)->where('is_profile_filled',1)
+            ->select('id','name','logo','is_profile_filled','slug','email')
+            ->with([
+                'userProfile',
+            ])
+            ->first();
+
+        return $profile;
+    }
+}

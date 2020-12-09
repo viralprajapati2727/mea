@@ -28,6 +28,8 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('/', 'GeneralController@index')->name('index');
 
 
+    Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
+
     Route::group(['middleware' => ['verified','auth']], function () {
         
         Route::group(['middleware' => ['simpleuser-access']], function () {
@@ -36,8 +38,8 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         });
 
         Route::group(['middleware' => ['entrepreneur-access']], function () {
-            Route::get('entrepreneue-fill-profile', 'GeneralController@fillProfile')->name('entrepreneur.fill-profile');
-            Route::post('entrepreneue-store-profile', 'EntrepreneurController@updateProfile')->name('entrepreneur.store-profile');
+            Route::get('entrepreneur-fill-profile', 'GeneralController@fillProfile')->name('entrepreneur.fill-profile');
+            Route::post('entrepreneur-store-profile', 'EntrepreneurController@updateProfile')->name('entrepreneur.store-profile');
         });
 
         Route::group(['middleware' => ['fill-profile-access']], function () {
@@ -88,7 +90,14 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('profile-question-filter', 'Admin\ProfileQuestionController@ajaxData')->name('profile-question-filter');
         Route::post('change-profile-question-status', 'Admin\ProfileQuestionController@changeStatus')->name('admin.change-profile-question-status');
 
+       // entrepreneur
+        Route::get('entrepreneur','Admin\EntrepreneurController@index')->name('admin.entrepreneur.index');
+        Route::post('entrepreneur-filter','Admin\EntrepreneurController@ajaxData')->name('admin.entrepreneur.filter');
+        Route::get('entrepreneur-details/{slug','Admin\EntrepreneurController@viewDetails')->name('admin.entrepreneur.details');
 
+        Route::post('remove-user','Admin\AdminController@removeUser')->name('remove-user');
+        Route::post('user-status','Admin\AdminGeneralController@userStatus')->name('admin.user.status');
+		
         // Email templates
         Route::resource('emails', 'Admin\EmailController');
 

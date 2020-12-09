@@ -87,5 +87,18 @@ class GeneralController extends Controller {
             DB::rollback();
             return redirect()->back()->with('warning',$e->getMessage());
         }
-    }
+	}
+	public function viewProfile($slug){
+		if(empty($slug)){
+			return redirect()->route('index');
+		}
+
+		$profile = Helper::userProfile($slug);
+		$questions = ProfileQuestion::where('deleted_at',null)->get();
+		if(empty($profile)){
+			return redirect()->route('index')->with('error', 'No user details found!');
+		}
+
+		return view('profile',compact('profile','questions'));
+	}
 }

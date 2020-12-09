@@ -13,11 +13,11 @@
                         <div class="form-group row">
                             <div class="form-radio-group">
                                 <label class="radio-inline active">
-                                    <i class="flaticon-man"></i>
+                                    <i class="flaticon-employee"></i>
                                     <input type="radio" class="" name="user_type" value="2" checked="">User
                                 </label>
                                 <label class="radio-inline">
-                                    <i class="flaticon-company"></i>
+                                    <i class="flaticon-entrepreneur"></i>
                                     <input type="radio" class="" name="user_type" value="3">Entrepreneur
                                 </label>
                             </div>   

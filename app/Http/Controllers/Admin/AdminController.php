@@ -48,7 +48,44 @@ class AdminController extends Controller {
 	}
 
 	public function dashboard() {
-		return view('admin.dashboard');
+		$from_date = $to_date = "";
+		$from_date_temp = $to_date_temp = null;
+		if(isset($_GET['from_date']) && !empty($_GET['from_date'])){
+			$from_date = $_GET['from_date'];
+			$from_date_temp = Carbon::createFromFormat('d/m/Y', $_GET['from_date'])->format('Y-m-d');
+        }
+        if(isset($_GET['to_date']) && !empty($_GET['to_date'])){
+            $to_date = $_GET['to_date'];
+            $to_date_temp = Carbon::createFromFormat('d/m/Y', $_GET['to_date'])->format('Y-m-d');
+		}
+
+		//dancer Count
+		$users = User::where('type',config('constant.USER.TYPE.SIMPLE_USER'))->where('deleted_at',NULL)->select('*');
+
+		if (isset($from_date_temp) && $from_date_temp != null && isset($to_date_temp) && $to_date_temp != null) {
+			$users->whereDate('created_at', '>=', $from_date_temp);
+            $users->whereDate('created_at', '<=', $to_date_temp);
+		} elseif (isset($from_date_temp) && $from_date_temp != null) {
+            $users->whereDate('created_at', $from_date_temp);
+        } elseif (isset($to_date_temp) && $to_date_temp != null) {
+            $users->whereDate('created_at', $to_date_temp);
+		}
+		$users = $users->count();
+
+		//entrepreneurs Count
+		$entrepreneurs = User::where('type',config('constant.USER.TYPE.ENTREPRENEUR'))->where('deleted_at',NULL)->select('*');
+
+		if (isset($from_date_temp) && $from_date_temp != null && isset($to_date_temp) && $to_date_temp != null) {
+			$entrepreneurs->whereDate('created_at', '>=', $from_date_temp);
+            $entrepreneurs->whereDate('created_at', '<=', $to_date_temp);
+		} elseif (isset($from_date_temp) && $from_date_temp != null) {
+            $entrepreneurs->whereDate('created_at', $from_date_temp);
+        } elseif (isset($to_date_temp) && $to_date_temp != null) {
+            $entrepreneurs->whereDate('created_at', $to_date_temp);
+		}
+		$entrepreneurs = $entrepreneurs->count();
+
+        return view('admin.dashboard',compact('users','entrepreneurs','from_date','to_date'));
 	}
 
 	public function changePassword() {
@@ -125,41 +162,6 @@ class AdminController extends Controller {
 			return redirect()->route('admin.index')->with('success', 'Profile has been updated successfully');
 		} catch (Exception $e) {
 			return redirect()->route('admin.index')->with('error', 'Sorry something went worng. Please try again.');
-		}
-	}
-
-	public function paymentSettings(){
-		$settings = Setting::where('id',1)->first();
-        return view('admin.payment-settings.create',compact('settings'));
-	}
-
-	public function storePaymentSetting(Request $request){
-		try {
-			$validator = Validator::make($request->all(), [
-				'platform_commission' => 'required',
-				'commission_amount' => 'required',
-				'sponser_per_click_price' => 'required',
-				'sponser_per_notification_price' => 'required',
-				'sponser_per_banner_price' => 'required',
-			]);
-
-			if ($validator->fails()) {
-				return redirect()->back()->withErrors($validator)->withInput();
-			}
-			$user = Auth::user();
-			$settings = [
-				'commision_percentage' => $request->platform_commission,
-				'commision_fix_amount' => $request->commission_amount,
-				'sponser_per_click_price' => $request->sponser_per_click_price,
-				'sponser_per_notification_price' => $request->sponser_per_notification_price,
-				'sponser_banner_price' => $request->sponser_per_banner_price,
-				'created_by' => $user->id,
-				'updated_by' => $user->id,
-			];
-			$set = Setting::where("id", 1)->update($settings);
-			return redirect()->route('admin.payment.settings')->with('success', 'Settings has been updated successfully');
-		} catch (Exception $e) {
-			return redirect()->route('admin.payment.settings')->with('error', 'Sorry something went worng. Please try again.');
 		}
 	}
 

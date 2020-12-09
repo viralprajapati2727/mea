@@ -3,12 +3,13 @@
 @php
     $is_same_profile_photo = false;
     $ProfileUrl = Helper::images(config('constant.profile_url'));
-    $exp_count = $edu_count  =  $is_profile = 0;
+    $exp_count = $edu_count  =  $is_profile = $is_experience = 0;
 
     $skills = $interests = "";
     $answers = [];
     if($profile->is_profile_filled == 1){
         $is_profile = 1;
+        $is_experience = $profile->userProfile->is_experience;
         $skillsArr = $profile->skills->pluck('title')->toArray();
         $skills = implode(', ',$skillsArr);
 
@@ -186,7 +187,7 @@
                                         <div class="col-md-12">
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" name="is_experience" id="is_experience" class="form-check-input-styled" data-fouc="" value="1">I have no experience
+                                                    <input type="checkbox" name="is_experience" id="is_experience" class="form-check-input-styled" data-fouc="" value="1" {{ $is_experience == 0 ? 'checked' : '' }}>I have no experience
                                                 </label>
                                             </div>
                                         </div>
@@ -197,14 +198,10 @@
                                         </div>
                                     </div>
                                     @php $exp_count = 0; @endphp
-                                    @php $is_experience = false; @endphp
                                     <div class="work-exp-details">
-                                        @if(isset($WorkExperience) && !empty($WorkExperience))
+                                        @if(isset($WorkExperience) && !empty($WorkExperience) && $WorkExperience->count())
                                             @php $exp_total = count($WorkExperience) - 1; @endphp
                                             @foreach($WorkExperience as $work)
-                                                @if($work->is_experience)
-                                                    @php $is_experience = true; @endphp
-                                                @endif
                                                 <div class="work-exp-item">
                                                     <div class="d-flex align-items-center">
                                                         <a href="javascript:;" class="ml-auto delete-work-exp"><i class="icon-cross2"></i></a>
@@ -372,7 +369,7 @@
                         </div>
                         </div>
                         <div class="mt-4 btn-section d-md-flex d-lg-flex align-items-center position-relative pb-2 text-center text-md-left justify-content-end">
-                            <button type="submit" class="btn custom-btn member-login-btn justify-content-center text-white px-5 rounded-lg submit-btn"><i class="flaticon-save-file-option mr-2 submit-icon"></i>SAVE
+                            <button type="submit" class="btn custom-btn member-login-btn justify-content-center text-white px-5 rounded-lg submit-btn"><i class="flaticon-save-file-option mr-2 submit-icon"></i>SAVE</button>
                             @if(isset($profile->is_profile_filled) && $profile->is_profile_filled == 1)
                                 <span class="pl-3 d-md-inline-block d-lg-inline-block pt-4 pt-md-0 pt-lg-0 text-center"><a href="{{route('index')}}" class="text-common-color font-semi-bold entry-cancel">CANCEL</a></span>
                             @endif
@@ -390,6 +387,7 @@
     var is_form_edit = false;
     var ex_count = parseInt("{{ $exp_count }}");
     var ed_count = parseInt("{{ $edu_count }}");
+    var is_experience = "{{ $is_experience }}";
     var is_profile_exists = {!! $is_same_profile_photo ? 'false' : 'true' !!};
     var is_profile_filled = '@if(isset($profile->is_profile_filled) && $profile->is_profile_filled == 1) {{1}} @else {{0}} @endif';
 </script>

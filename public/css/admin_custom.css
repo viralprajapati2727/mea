@@ -502,8 +502,7 @@ a.text-primary:hover {
 .icon-trash.text-danger {
     color: #ca4137 !important;
 }
-.badge-danger a,
-.badge-success a {
+.badge a{
     color: #fff;
 }
 .setting-toggle-switch {
@@ -803,4 +802,13 @@ button.owl-prev i:before {
 }
 .admin .navbar{
     padding: 0 20px;
+}
+.counter-icon::before {
+    font-size: 2.5rem;
+    margin-left: 0;
+}
+.subscribe-send-icon {
+    position: absolute;
+    top: 4px;
+    right: 16px;
 }

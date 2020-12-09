@@ -26,14 +26,14 @@ class EntrepreneurController extends Controller
 
     public function updateProfile(Request $request)
     {
-
+        // echo "<pre>"; print_r($request->all()); exit;
         $user = Auth::user();
         $responseData = array();
         $responseData['status'] = 0;
         $responseData['message'] = '';
         $responseData['errors'] = array();
         $responseData['data'] = [];
-        // DB::beginTransaction();
+        DB::beginTransaction();
         try{
             $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->format('Y-m-d');
             // $request['dob'] =  date('Y-m-d', strtotime($request->dob));
@@ -95,6 +95,11 @@ class EntrepreneurController extends Controller
                         Helper::checkFileExists(config('constant.profile_url') . $request->old_profile_image, true, true);
                     }
                 }
+
+                $is_experience = 1;
+                if($request->has('is_experience')){
+                    $is_experience = 0;
+                }
                 
                 /*
                  * save user profile data
@@ -110,6 +115,7 @@ class EntrepreneurController extends Controller
                     'tw_link' => $request->tw_link,
                     'web_link' => $request->web_link,
                     'city' => $request->city,                    
+                    'is_experience' => $is_experience,                    
                 ]);
 
                 /*
@@ -157,11 +163,13 @@ class EntrepreneurController extends Controller
                  */
                 if(!empty($request->exp)){
                     $user->workExperience()->delete();
-                    foreach ($request->exp as $key => $experience) {
-                        $userExperiences[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'is_experience' => 1,'company_name' => $experience['company_name'], 'designation' => $experience['designation'], 'year' => $experience['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
-                    }
+                    if($is_experience){
+                        foreach ($request->exp as $key => $experience) {
+                            $userExperiences[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'is_experience' => $is_experience,'company_name' => $experience['company_name'], 'designation' => $experience['designation'], 'year' => $experience['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
+                        }
 
-                    $user->workExperience()->insert($userExperiences);
+                        $user->workExperience()->insert($userExperiences);
+                    }
                 }
                 
                 /*
@@ -176,7 +184,7 @@ class EntrepreneurController extends Controller
                     $user->educationDetails()->insert($educationDetails);
                 }
 
-                // DB::commit();
+                DB::commit();
                 $responseData['status'] = 1;
                 // $responseData['redirect'] = url('professional/'.$user->slug);
                 $responseData['message'] = trans('page.Profile_saved_successfully');
@@ -192,74 +200,6 @@ class EntrepreneurController extends Controller
             return $this->commonResponse($responseData, $code);
         }
     }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function followProfessional(Request $request){
-        // dd($request->all());
-        $responseData = array();
-        $responseData['status'] = 0;
-        $responseData['message'] = '';
-        $responseData['errors'] = array();
-        $responseData['data'] = [];
-        try {
-            if(Auth::check() && (Auth::user()->type == config('constant.USER.TYPE.PROFESSIONAL') || Auth::user()->type == config('constant.USER.TYPE.DANCER'))) {
-                $following_user = User::where(array('slug' => $request->input('following-user')))->first();
-                $following_user_name = ($following_user->is_nickname_use == 1)?$following_user->nick_name:$following_user->name;
-                if(Auth::user()->is_profile_filled != 1){
-                    Session::flash('error', trans('page.please_fill_profile'));
-                    $responseData['message'] = trans('page.please_fill_profile');
-                }else  if($following_user->id != Auth::user()->id) {
-                    DB::beginTransaction();
-                    if ($request->input('request-for') == 'follow') {
-                        $userFollowers = UserFollower::updateOrCreate(
-                            ['followers_id' => Auth::user()->id,'user_id' => $following_user->id],[
-                            'followers_id' => Auth::user()->id,
-                            'user_id' => $following_user->id
-                        ]);
-                        $responseData['status'] = 1;
-                        $responseData['message'] = sprintf(trans('page.successfully_follow'), $following_user_name);
-                    } else if ($request->input('request-for') == 'un-follow') {
-                        UserFollower::where(array(
-                            'followers_id' => Auth::user()->id,
-                            'user_id' => $following_user->id
-                        ))->delete();
-                        $responseData['status'] = 1;
-                        $responseData['message'] =  sprintf(trans('page.successfully_unfollow'), $following_user_name);
-                    }
-                    DB::commit();
-                }else {
-                    $responseData['message'] = trans('page.cant_follow_your_self');
-                }
-                // $followers = UserFollower::where('user_id', $following_user->id)
-                // ->select(DB::raw("count(id) as totalFollowers"))->get()->first();
-                $followers = UserFollower::where(['user_followers.user_id' => $following_user->id, 'users.deleted_at' => null, 'users.is_active' => 1])
-                ->whereIn('users.type',[config('constant.USER.TYPE.DANCER'),config('constant.USER.TYPE.PROFESSIONAL')])
-                ->select(DB::raw("count(user_followers.id) as totalFollowers"))
-                ->join('users', function($join) {
-                    $join->on('user_followers.followers_id', '=', 'users.id');
-                })->first();
-            }else {
-                $responseData['status'] = 2;
-                $responseData['message'] = trans('auth.login_first');
-
-                $followers = UserFollower::where('user_id', DB::raw("(select id from users where slug = '{$request->input('following-user')}')"))->select(DB::raw("count(id) as totalFollowers"))->get()->first();
-            }
-
-            $responseData['totalFollowers'] = $followers->totalFollowers;
-
-            return $this->commonResponse($responseData, 200);
-        } catch(Exception $e){
-            Log::emergency('followProfessional Exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
-            DB::rollback();
-            $code = ($e->getCode() != '')?$e->getCode():500;
-            $responseData['message'] = trans('common.something_went_wrong');
-            return $this->commonResponse($responseData, $code);
-        }
-    }
-
     /**
      * @param string $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View

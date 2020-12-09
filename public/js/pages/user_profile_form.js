@@ -147,7 +147,7 @@ $(document).ready(function(){
         return this.optional(element) || /^[+-]?\d+$/.test(value);
     }, "Please enter a valid phone number");
 
-    var validator = $('.entrepreneur_profile_form').validate({
+    var validator = $('.user_profile_form').validate({
         ignore: 'input[type=hidden], .select2-search__field' ,
         errorElement: 'span',
         errorClass: 'error',
@@ -292,7 +292,7 @@ $(document).ready(function(){
             CKEDITOR.instances.about.updateElement();
             // $(form).find('button[type="submit"]').attr('disabled', 'disabled');
             // form.submit();
-            $('.entrepreneur_profile_form').ajaxSubmit(
+            $('.user_profile_form').ajaxSubmit(
                 {
                     beforeSubmit:  showRequest_pro_profile,  // pre-submit callback
                     success:       showResponse_pro_profile,  // post-submit callback
@@ -316,194 +316,7 @@ $(document).ready(function(){
             }
         });
     });
-
-    validateExtraField();
-    validateEducationExtraField();
-
 })    
-
-$(document).on('click','.btn-add-more-exp',function(){
-    validateExtraField();
-
-    var is_valid = true;
-    $('#work-eperieance input').each(function() {
-        $('.entrepreneur_profile_form').validate().element(this);
-        if(!$(this).valid()){
-            is_valid = $(this).valid();
-        }
-    });
-    if(is_valid){
-        $.uniform.restore(".work-exp-details .work-exp-item .form-check-input-styled");
-        var workDetails = $(".work-exp-details .work-exp-item").eq(0).clone();
-        ex_count++;
-        
-        workDetails.find('.exp_to_date input').prop('disabled',false);
-        workDetails.find('.validation-error-label').remove();
-        workDetails.find('.form-check-input-styled').prop('checked',false);
-        workDetails.find('input.id').remove();
-        workDetails.find('input').each(function() {
-            this.name = this.name.replace(/\[\d\]+/, '[' + ex_count + ']');
-            this.value = "";
-        });
-        $('.work-exp-details').append(workDetails);
-        $('.work-exp-details .form-check-input-styled').uniform();
-        workDetails.find('.work_is_present').attr('value', 1);
-    }
-});
-
-$(document).on('click','.btn-add-more-edu',function(){
-    validateEducationExtraField();
-
-    var is_valid = true;
-    $('#education-details input').each(function() {
-        $('.entrepreneur_profile_form').validate().element(this);
-        if(!$(this).valid()){
-            is_valid = $(this).valid();
-        }
-    });
-
-    if(is_valid){
-        $.uniform.restore(".education-details .education-item .form-check-input-styled");
-        var eduDetails = $(".education-details .education-item").eq(0).clone();
-        ed_count++;
-        eduDetails.find('.edu_to_date input').prop('disabled',false);
-        eduDetails.find('.validation-error-label').remove();
-        eduDetails.find('.form-check-input-styled').prop('checked',false);
-        eduDetails.find('input.id').remove();
-        eduDetails.find('input').each(function() {
-            this.name = this.name.replace(/\[\d\]+/, '[' + ed_count + ']');
-            this.value = "";
-        });
-        $('.education-details').append(eduDetails);
-        $('.education-details .form-check-input-styled').uniform();
-        eduDetails.find('.edu_is_present').attr('value', 1);
-    }
-});
-
-$(document).on('click','.delete-work-exp',function(e){
-    var data_id = $(this).parents('.work-exp-item').find("input[type='hidden'].id").val();
-    if($('#is_experience').is(":checked") || $('.work-exp-item').length > 1){
-        $(this).parents('.work-exp-item').remove();
-
-        if(data_id != "") {
-            exp_array.push(data_id);
-            $('#exp_remove_arr').val(JSON.stringify(exp_array));
-        }
-    }else{
-        swal({
-            title: "At least one required",
-            // confirmButtonColor: "#FF7043",
-            confirmButtonClass: 'btn btn-primary',
-            type: "warning",
-            confirmButtonText: "OK",
-        });
-    }
-});
-
-$(document).on('click','.delete-edu-exp',function(){
-    var data_id = $(this).parents('.education-item').find("input[type='hidden'].id").val();
-    if($('.education-item').length > 1){
-        $(this).parents('.education-item').remove();
-
-        if(data_id != "") {
-            edu_array.push(data_id);
-            $('#edu_remove_arr').val(JSON.stringify(edu_array));
-        }
-    }else{
-        swal({
-            title: "At least one required",
-            // confirmButtonColor: "#FF7043",
-            confirmButtonClass: 'btn btn-primary',
-            type: "warning",
-            confirmButtonText: "OK",
-        });
-    }
-});
-
-
-function validateExtraField(){
-    $('.company_name').each(function() {
-        $(this).rules('add', {
-            required: { depends: function(element) { return !$('#is_experience').is(":checked") } },
-            normalizer: function(value) {return $.trim(value);},
-            maxlength: 100,
-            messages: {
-                required:  "Please enter company name",
-                maxlength: "Maximum {0} characters are allowed",
-            }
-        });
-    });
-
-    $('.designation').each(function() {
-        $(this).rules('add', {
-            required: { depends: function(element) { return !$('#is_experience').is(":checked") } },
-            normalizer: function(value) {return $.trim(value);},
-            maxlength: 100,
-            messages: {
-                required:  "Please enter designation",
-                maxlength: "Maximum {0} characters are allowed",
-            }
-        });
-    });
-    $('.year').each(function() {
-        $(this).rules('add', {
-            required: { depends: function(element) { return !$('#is_experience').is(":checked") } },
-            normalizer: function(value) {return $.trim(value);},
-            maxlength: 100,
-            messages: {
-                required:  "Please enter year of experience",
-                maxlength: "Maximum {0} characters are allowed",
-            }
-        });
-    });
-}
-
-function validateEducationExtraField(){
-    $('.course_name').each(function() {
-        $(this).rules('add', {
-            required: true,
-            normalizer: function(value) {return $.trim(value);},
-            maxlength: 100,
-            messages: {
-                required:  "Please enter course name",
-                maxlength: "Maximum {0} characters are allowed",
-            }
-        });
-    });
-    $('.organization_name').each(function() {
-        $(this).rules('add', {
-            required: true,
-            normalizer: function(value) {return $.trim(value);},
-            maxlength: 100,
-            messages: {
-                required:  "Please enter college/organization name",
-                maxlength: "Maximum {0} characters are allowed",
-            }
-        });
-    });
-    $('.percentage').each(function() {
-        $(this).rules('add', {
-            required: true,
-            normalizer: function(value) {return $.trim(value);},
-            maxlength: 50,
-            messages: {
-                required:  "Please enter your grade",
-                maxlength: "Maximum {0} characters are allowed",
-            }
-        });
-    });
-    $('.education-details .year').each(function() {
-        $(this).rules('add', {
-            required: true,
-            normalizer: function(value) {return $.trim(value);},
-            maxlength: 50,
-            messages: {
-                required:  "Please enter total year of education",
-                maxlength: "Maximum {0} characters are allowed",
-            }
-        });
-    });
-}
 
 function readURL(element) {
     var permitted = ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/jpg'];

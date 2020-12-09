@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 29/11/2020 18:15
+  	Creation date: 05/12/2020 09:10
   	*/
 
 @font-face {
@@ -34,11 +34,16 @@ margin-left: 20px;
 .flaticon-question:before { content: "\f101"; }
 .flaticon-accounting:before { content: "\f102"; }
 .flaticon-cloud:before { content: "\f103"; }
-.flaticon-checklist:before { content: "\f104"; }
-.flaticon-employee:before { content: "\f105"; }
-.flaticon-company:before { content: "\f106"; }
-.flaticon-balance:before { content: "\f107"; }
-.flaticon-camera:before { content: "\f108"; }
-.flaticon-calendar:before { content: "\f109"; }
-.flaticon-paper-plane:before { content: "\f10a"; }
-.flaticon-save-file-option:before { content: "\f10b"; }
+.flaticon-balance:before { content: "\f104"; }
+.flaticon-camera:before { content: "\f105"; }
+.flaticon-calendar:before { content: "\f106"; }
+.flaticon-paper-plane:before { content: "\f107"; }
+.flaticon-save-file-option:before { content: "\f108"; }
+.flaticon-cake:before { content: "\f109"; }
+.flaticon-phone-call:before { content: "\f10a"; }
+.flaticon-email:before { content: "\f10b"; }
+.flaticon-placeholder:before { content: "\f10c"; }
+.flaticon-gender-equality:before { content: "\f10d"; }
+.flaticon-entrepreneur:before { content: "\f10e"; }
+.flaticon-group:before { content: "\f10f"; }
+.flaticon-job-search:before { content: "\f110"; }
