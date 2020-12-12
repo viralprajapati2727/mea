@@ -130,3 +130,12 @@ Route::get('html-job-portal',function (){
 Route::get('html-resources',function (){
     return view('html.resources');
 });
+Route::get('html-contact-us',function (){
+    return view('html.contact-us');
+});
+Route::get('html-about-us',function (){
+    return view('html.about-us');
+});
+Route::get('html-faq',function (){
+    return view('html.faq');
+});

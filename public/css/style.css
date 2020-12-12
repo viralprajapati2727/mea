@@ -1105,3 +1105,182 @@ ul{
     margin: 0;
     padding: 0;
 }
+/*==================Contact us Page================*/
+.front-banner{
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.front-banner.contact-us{
+    background-image: url('../images/banner/contact-us.jpg');
+    background-position-x: 70%;
+}
+.front-banner .content-wraper{width: 100%;}
+.front-banner .content h1 {
+    font-size: 62px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 70px;
+}
+.front-banner .content p {
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #333;
+}
+.contact-outer-wraper{width: 100%; padding: 60px 0;}
+.contact-form-wraper{
+    padding: 50px;
+    background: #ffffff;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+}
+.contact-form-wraper .contact-heading h2,
+.contact-right .title{
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+.contact-right .title{text-align: left;}
+.contact-form-wraper .contact-heading{margin-bottom: 30px;}
+.contact-form-wraper .form-group .btn {
+    background: #0088FF;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.contact-right {
+    padding: 30px;
+}
+.contact_detail_icons .media .contact-icon{
+    color: #ffffff;
+    background: #0088FF;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    padding: 10px;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 16px;
+    display: inline-block;
+}
+.contact_detail_icons .media .contact-icon i {
+    font-size: 18px;
+    line-height: 21px;
+}
+.contact_detail_icons .media a, .contact_detail_icons .media address{
+    font-size: 16px;
+    color: #707070;
+}
+.contact-socials {
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    margin-top: 50px;
+}
+.contact-socials ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+.contact-socials ul li a {
+    color: #fff;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background: #000;
+    margin-right: 10px;
+    border-radius: 100%;
+}
+.contact-socials ul li a.twitter{background: #00aced;}
+.contact-socials ul li a.facebook{background: #3b5998;}
+.contact-socials ul li a.linkedin{background: #007bb6;}
+.contact-socials ul li a.insta{background: #517fa4;}
+.contact-socials ul li a.google{background: #dd4b39;}
+.contact-socials ul li a.youtube{background: #bb0000;}
+/*===================About Us===============================*/
+.front-banner.about-us{
+    background-image: url('../images/banner/about-us.jpg');
+}
+.who-we-are {
+    padding: 70px 0;
+}
+.who-we-are .heading h2 {
+    font-size: 30px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.who-we-are .content p {
+    font-size: 17px;
+}
+.who-we-are .content {
+    padding: 0;
+    max-width: 950px;
+    margin: 0 auto;
+    text-align: center;
+}
+.about-column .content-wraper .title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 32px;
+}
+.about-column .content-wraper .text p {
+    font-size: 17px;
+}
+.about-column .content-wraper {
+    padding-left: 60px;
+}
+.our-vision.about-column .content-wraper {
+    padding-left: 0;
+    padding-right: 60px;
+}
+.about-column .image-wrap img {
+    border: 1px solid #ddd;
+    width: 100%;
+}
+.page-wraper .about-column{padding-bottom: 70px;}
+.page-wraper .about-column{
+    padding: 60px 0;
+    background: #f1f1f1;
+}
+.page-wraper .our-vision.about-column {
+    background: transparent;
+}
+.front-banner.faq{
+    background-image: url('../images/banner/faq-banner.jpg');
+}
+/*=====================FAQ Page=========================*/
+.faq-wraper {
+    padding: 70px 0;
+}
+.faq-wraper .card {
+    box-shadow: none;
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+}
+.faq-wraper .card .card-header {
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
+}
+.faq-wraper .card .card-header .card-title {
+    font-size: 18px;
+    color: #333;
+}
+.faq-wraper .card .card-header .card-title a {
+    color: #333;
+    font-weight: 600;
+}
+.faq-wraper .card .card-header .card-title a.collapsed {
+    font-weight: normal;
+}
