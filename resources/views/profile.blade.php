@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="about-desc">
-                            {!! $profile->userProfile->ddescription !!}
+                            {!! $profile->userProfile->description !!}
                         </div>
                         <div class="contact-details-wrap d-flex align-items-center">
                             <ul class="contact-links">
@@ -135,7 +135,6 @@
                 </div>
                 @endif
             </div>
-
             @if($profile->type == config('constant.USER.TYPE.ENTREPRENEUR'))
                 <div class="col-12">
                     <div class="row">

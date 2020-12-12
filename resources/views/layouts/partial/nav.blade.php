@@ -65,7 +65,7 @@
                                                         </div>
                                                         <div class="media-body mea-content">
                                                             <a href="#" class="d-inline-block">
-                                                                <h3 class="text-black username">Cherry</h3>
+                                                                <h3 class="text-black username">{{ Auth::user()->name }}</h3>
                                                             </a>
                                                             <div class="profile-links d-flex">
                                                                 <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="">Edit Profile</a>
@@ -77,7 +77,8 @@
                                                 </div>
                                                 <div class="profile-overflow">
                                                     <ul>
-                                                        <li><a href="#">Change Password</a></li>
+                                                        <li><a href="{{ route('user.change-password') }}">Change Password</a></li>
+                                                        <li><a href="{{ route('job.fill-job') }}">Post Job</a></li>
                                                         <li><a href="#">My Jobs</a></li>
                                                         <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
                                                     </ul>

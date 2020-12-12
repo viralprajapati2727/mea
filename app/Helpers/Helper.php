@@ -98,14 +98,14 @@ class Helper
             ),
             "2" => array( // user management
                 "is_menu" => true,
-                "url" => '',//route('admin.dancer.index'),
+                "url" => route('admin.user.index'),
                 "is_access" => true,
                 "privilege_key" => "2",
                 "privilege_require" => "1",
                 "full_title" => "Users",
                 "short_title" => "Users",
                 "icon" => "icon-users",
-                "active_menu" => array(),//array('admin.dancer.index', 'admin.dancer.details',(Str::contains(url()->previous(), 'dancer-details') == true) ? 'admin.view.order.summary' : ''),
+                "active_menu" => array('admin.user.index', 'admin.user.details'),
                 "child" => array(),
             ),
             "3" => array( // entrepreneur management
@@ -208,21 +208,33 @@ class Helper
             ),
             "8" => array( // Job Title
                 "is_menu" => TRUE,
-                "url" => '',//route('job-title.index'),
+                "url" => route('job-title.index'),
                 "is_access" => TRUE,
                 "privilege_key" => "8",
                 "privilege_require" => "1",
                 "full_title" => "Job Title  Management",
                 "short_title" => "Job Title",
                 "icon" => "icon-graduation2",
-                "active_menu" => array(),//array('job-title.index','job-title.create','job-title.edit'),
+                "active_menu" => array('job-title.index','job-title.create','job-title.edit'),
                 "child" => array(),
             ),
-            "9" => array( // Questions
+            "9" => array( // Currency
+                "is_menu" => TRUE,
+                "url" => route('currency.index'),
+                "is_access" => TRUE,
+                "privilege_key" => "8",
+                "privilege_require" => "1",
+                "full_title" => "Currency  Management",
+                "short_title" => "Currency",
+                "icon" => "icon-coins",
+                "active_menu" => array('currency.index','currency.create','currency.edit'),
+                "child" => array(),
+            ),
+            "10" => array( // Questions
                 "is_menu" => TRUE,
                 "url" => route('profile-question.index'),
                 "is_access" => TRUE,
-                "privilege_key" => "9",
+                "privilege_key" => "10",
                 "privilege_require" => "1",
                 "full_title" => "Profile Questions",
                 "short_title" => "Profile Questions",
@@ -230,11 +242,11 @@ class Helper
                 "active_menu" => array('profile-question.index','profile-question.create','profile-question.edit'),
                 "child" => array(),
             ),
-            "10" => array( // Ideas
+            "11" => array( // Ideas
                 "is_menu" => TRUE,
                 "url" => '',//route('job-title.index'),
                 "is_access" => TRUE,
-                "privilege_key" => "9",
+                "privilege_key" => "11",
                 "privilege_require" => "1",
                 "full_title" => "Ideas  Management",
                 "short_title" => "Ideas",
@@ -242,11 +254,11 @@ class Helper
                 "active_menu" => array(),//array('job-title.index','job-title.create','job-title.edit'),
                 "child" => array(),
             ),
-            "11" => array( // Blog
+            "12" => array( // Blog
                 "is_menu" => TRUE,
                 "url" => "javascript:;",
                 "is_access" => TRUE,
-                "privilege_key" => "11",
+                "privilege_key" => "12",
                 "privilege_require" => "1",
                 "full_title" => "Blog Management",
                 "short_title" => "Blog",
@@ -257,7 +269,7 @@ class Helper
                         "is_menu" => TRUE,
                         "url" => '',//route('blog-category.index'),
                         "is_access" => TRUE,
-                        "privilege_key" => "11",
+                        "privilege_key" => "12",
                         "privilege_require" =>"1",
                         "full_title" => "Blog Category",
                         "short_title" => "Blog Category",
@@ -269,7 +281,7 @@ class Helper
                         "is_menu" => TRUE,
                         "url" => '',//route('blog.index'),
                         "is_access" => TRUE,
-                        "privilege_key" => "11",
+                        "privilege_key" => "12",
                         "privilege_require" =>"1",
                         "full_title" => "Blog",
                         "short_title" => "Blog",
@@ -279,11 +291,11 @@ class Helper
                     ),
                 ),
             ),
-            "12" => array( // Dynamic Email management
+            "13" => array( // Dynamic Email management
                 "is_menu" => true,
                 "url" => route('emails.index'),
                 "is_access" => true,
-                "privilege_key" => "12",
+                "privilege_key" => "13",
                 "privilege_require" => "1",
                 "full_title" => "Email Templates",
                 "short_title" => "Email Templates",
@@ -291,11 +303,11 @@ class Helper
                 "active_menu" => array('emails.index', 'emails.create', 'emails.edit'),
                 "child" => array(),
             ),
-            "13" => array( // Settings
+            "14" => array( // Settings
                 "is_menu" => TRUE,
                 "url" => '',//route('admin.settings'),
                 "is_access" => TRUE,
-                "privilege_key" => "13",
+                "privilege_key" => "14",
                 "privilege_require" => "1",
                 "full_title" => "Settings",
                 "short_title" => "Settings",
@@ -441,7 +453,7 @@ class Helper
     }
     public static function userProfile($slug){
         $profile = User::where('slug',$slug)->where('is_profile_filled',1)
-            ->select('id','name','logo','is_profile_filled','slug','email')
+            ->select('id','name','logo','is_profile_filled','slug','email','type','is_active')
             ->with([
                 'userProfile',
             ])

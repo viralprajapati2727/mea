@@ -19,13 +19,13 @@ class GeneralController extends Controller {
         return view('welcome');
 	}
 	public function changePassword() {
-		return view('pages.change_password');
+		return view('auth.change_password');
     }
     public function updatePassword(Request $request) {
 		try {
 			$loggedInUser = Auth::user();
 			$validator = Validator::make($request->all(), [
-				'current_password' => 'required',
+				'confirm_password' => 'required',
 				'new_password' => 'required|min:6',
 				'confirm_password' => 'required|same:new_password'
 			], [
@@ -61,7 +61,6 @@ class GeneralController extends Controller {
         try{
             $user = Auth::user();
             $preprofile = true;
-            //Get active dance type
             $where['active'] = true;
 
 			$questions = ProfileQuestion::where('deleted_at',null)->get();
