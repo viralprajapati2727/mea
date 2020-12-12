@@ -1,5 +1,5 @@
 @extends('admin.app-admin')
-@section('title') Entrepreneur Management @endsection
+@section('title') User Management @endsection
 @section('page-header')
     @php
     $is_experience = $profile->userProfile->is_experience;
@@ -11,8 +11,8 @@
         <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
             <div class="d-flex">
                 <div class="breadcrumb">
-                    <a href="{{ route('admin.entrepreneur.index') }}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Entrepreneur</a>
-                    <span class="breadcrumb-item active">Entrepreneur Listing</span>
+                    <a href="{{ route('admin.user.index') }}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>User</a>
+                    <span class="breadcrumb-item active">Users Listing</span>
                 </div>
                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
             </div>
@@ -20,7 +20,7 @@
     </div>
 @endsection
 @section('content')
-    <h6 class="card-title text-center">Entrepreneur Details</h6>
+    <h6 class="card-title text-center">User Details</h6>
     <div class="card">
         <div class="card-body custom-tabs">
             <div class="row">
@@ -173,44 +173,6 @@
                             </ul>
                         </div>
                     </div>
-                    @endif
-                    @if($profile->type == config('constant.USER.TYPE.ENTREPRENEUR'))
-                        <div class="col-12">
-                            <div class="row">
-                                <ul class="nav nav-tabs nav-tabs-bottom candidate-profile-tab w-100">
-                                    <li class="nav-item"><a href="#experience" class="nav-link active show" data-toggle="tab">Work EXPERIENCE</a></li>
-                                    <li class="nav-item ml-2 ml-lg-4 ml-sm-3"><a href="#education" class="nav-link" data-toggle="tab">EDUCATION</a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    <ul class="timeline tab-pane fade active show" id="experience">
-                                        @if(isset($WorkExperience) && !empty($WorkExperience) && $WorkExperience->count())
-                                            @foreach($WorkExperience as $work)
-                                                <li>
-                                                    <div class="title-text">{{ $work->company_name }}</div>
-                                                    <div class="inner-text font-gray">{{ $work->designation }}</div>
-                                                    <div class="inner-text font-gray">{{ $work->year }}- Year</div>
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                        @if($is_experience)
-                                            <li><div class="title-text">No experience</div></li>
-                                        @endif
-                                    </ul>
-                                    <ul class="timeline tab-pane fade" id="education">
-                                        @if(isset($EducationDetail) && !empty($EducationDetail) && $EducationDetail->count())
-                                            @foreach($EducationDetail as $education)    
-                                                <li>
-                                                    <div class="title-text">{{ $education->course_name }}</div>
-                                                    <div class="inner-text font-gray">{{ $education->organization_name }}</div>
-                                                    <div class="inner-text font-gray">{{ $education->percentage }}</div>
-                                                    <div class="inner-text font-gray">{{ $education->year }} Year</div>
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     @endif
                 </div>
                 <div class="col-md-4">

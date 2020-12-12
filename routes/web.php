@@ -31,6 +31,9 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
 
     Route::group(['middleware' => ['verified','auth']], function () {
+
+        Route::get('change-password', 'GeneralController@changePassword')->name('user.change-password');
+		Route::post('update-password', 'GeneralController@updatePassword')->name('user.update-password');
         
         Route::group(['middleware' => ['simpleuser-access']], function () {
             Route::get('user-fill-profile', 'GeneralController@fillProfile')->name('user.fill-profile');
@@ -43,6 +46,12 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         });
 
         Route::group(['middleware' => ['fill-profile-access']], function () {
+
+            //post job
+            Route::get('fill-job', 'JobController@fillJob')->name('job.fill-job');
+            Route::post('update-job', 'JobController@updateJob')->name('job.update-job');
+            
+
             Route::group(['middleware' => ['simpleuser-access']], function () {
             
             });
@@ -84,6 +93,18 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('business-category-filter', 'Admin\BusinessCategoryController@ajaxData')->name('business-category-filter');
         Route::post('change-business-category-status', 'Admin\BusinessCategoryController@changeStatus')->name('admin.change-business-category-status');
         Route::post('check-unique-business-category','Admin\BusinessCategoryController@checkUniqueCategory')->name('check_unique_b_category');
+
+        //Job Title Management
+        Route::resource('job-title','Admin\JobTitleController');
+        Route::post('job-title-filter', 'Admin\JobTitleController@ajaxData')->name('job-title-filter');
+        Route::post('change-job-title-status', 'Admin\JobTitleController@changeStatus')->name('admin.change-job-title-status');
+        Route::post('check-unique-job-title','Admin\JobTitleController@checkUniqueJobTitle')->name('check_unique_job_title');
+
+        //Currency Management
+        Route::resource('currency','Admin\CurrencyController');
+        Route::post('currency-filter', 'Admin\CurrencyController@ajaxData')->name('currency-filter');
+        Route::post('change-currency-status', 'Admin\CurrencyController@changeStatus')->name('admin.change-currency-status');
+        Route::post('check-unique-currency','Admin\CurrencyController@checkUniqueCurrency')->name('check_unique_currency');
         
         //Profile Question Management
         Route::resource('profile-question','Admin\ProfileQuestionController');
@@ -93,7 +114,12 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
        // entrepreneur
         Route::get('entrepreneur','Admin\EntrepreneurController@index')->name('admin.entrepreneur.index');
         Route::post('entrepreneur-filter','Admin\EntrepreneurController@ajaxData')->name('admin.entrepreneur.filter');
-        Route::get('entrepreneur-details/{slug','Admin\EntrepreneurController@viewDetails')->name('admin.entrepreneur.details');
+        Route::get('entrepreneur-details/{slug}','Admin\EntrepreneurController@viewDetails')->name('admin.entrepreneur.details');
+
+        // simple user
+        Route::get('user','Admin\UserController@index')->name('admin.user.index');
+        Route::post('user-filter','Admin\UserController@ajaxData')->name('admin.user.filter');
+        Route::get('user-details/{slug}','Admin\UserController@viewDetails')->name('admin.user.details');
 
         Route::post('remove-user','Admin\AdminController@removeUser')->name('remove-user');
         Route::post('user-status','Admin\AdminGeneralController@userStatus')->name('admin.user.status');

@@ -171,14 +171,6 @@ class AdminController extends Controller {
 				DB::beginTransaction();
 				$user = User::where('id',$request->id)->first();
 				if($user->is_active != 2){
-				// if($user->is_active != 0 && $user->is_active != 2){
-				
-					if($user->type == 3){
-						$eventManager = EventManager::where('created_by',$user->id)->select('user_id')->groupBy('user_id')->pluck('user_id')->toArray();
-						if(count($eventManager) > 0){
-							$eventManager = User::whereIn('id',$eventManager)->delete();
-						}
-					}
 					$user->delete();
 					$user->is_active = 2;
 					$user->save();

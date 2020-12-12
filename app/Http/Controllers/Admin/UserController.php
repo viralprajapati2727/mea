@@ -11,10 +11,10 @@ use Helper;
 use DB;
 use App\Models\ProfileQuestion;
 
-class EntrepreneurController extends Controller
+class UserController extends Controller
 {
     public function index(){
-        return view('admin.entrepreneur.index');
+        return view('admin.user.index');
     }
 
     //Filter the professional
@@ -25,7 +25,7 @@ class EntrepreneurController extends Controller
             $keyword = $request->keyword;
         }
 
-        $Query = User::where('type',config('constant.USER.TYPE.ENTREPRENEUR'))->select('id','name','email','logo','is_profile_filled','is_active','slug')->with([
+        $Query = User::where('type',config('constant.USER.TYPE.SIMPLE_USER'))->select('id','name','email','logo','is_profile_filled','is_active','slug')->with([
             'userProfile' => function($query){
             $query->select('id','user_id','city','gender');
         }])
@@ -50,7 +50,7 @@ class EntrepreneurController extends Controller
 
         $data = datatables()->of($Query)
             ->addColumn('name', function ($Query) {
-                $text = "<a class='text-primary' href='".route('admin.entrepreneur.details',['slug' => $Query->slug])."'>".$Query->name."</a>";
+                $text = "<a class='text-primary' href='".route('admin.user.details',['slug' => $Query->slug])."'>".$Query->name."</a>";
                 return $text;
             })
             ->addColumn('email', function ($Query) {
@@ -80,7 +80,7 @@ class EntrepreneurController extends Controller
             ->addColumn('action', function ($Query) {
                 $action_link = '';
                 if($Query->is_profile_filled){
-                    $action_link .= "<a href='".route('admin.entrepreneur.details',['slug'=>$Query->slug])."' title='View Profile' class='view'><i class='icon-eye mr-3 text-primary'></i></a>";
+                    $action_link .= "<a href='".route('admin.user.details',['slug'=>$Query->slug])."' title='View Profile' class='view'><i class='icon-eye mr-3 text-primary'></i></a>";
                 }
 
                 $action_link .= "<a href='javascript:;' title='Remove User' class='remove_user' data-status='".$Query->is_active."' data-id='".$Query->id . "'><i class='icon-trash
@@ -108,7 +108,7 @@ class EntrepreneurController extends Controller
                 return redirect()->route('index')->with('error', 'No user details found!');
             }
 
-            return view('admin.entrepreneur.detail',compact('profile','questions'));
+            return view('admin.user.detail',compact('profile','questions'));
 
         } catch(Exception $e){
             \Log::info($e);

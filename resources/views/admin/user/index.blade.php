@@ -1,13 +1,13 @@
 @extends('admin.app-admin')
-@section('title') Entrepreneur Management @endsection
+@section('title') User Management @endsection
 @section('page-header')
 <!-- Page header -->
 <div class="page-header page-header-light">
     <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
         <div class="d-flex">
             <div class="breadcrumb">
-                <a href="{{ route('admin.entrepreneur.index') }}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Entrepreneur</a>
-                <span class="breadcrumb-item active">Entrepreneur Listing</span>
+                <a href="{{ route('admin.user.index') }}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>User</a>
+                <span class="breadcrumb-item active">User Listing</span>
             </div>
             <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
         </div>
@@ -17,7 +17,7 @@
 @section('content')
 <div class="card">
     <div class="card-header bg-white header-elements-inline">
-        <h5>Entrepreneur Management</h5>
+        <h5>User Management</h5>
     </div>
     <div class="card-body">
         <div class="row">
@@ -63,17 +63,16 @@
 @endsection
 @section('footer_content')
 <script src="{{ Helper::assets('js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
-<script src="{{ Helper::assets('js/pages/admin/admin_entrepreneur_common.js') }}"></script>
 <script>
-    var entrepreneurTable = "";
+    var userTable = "";
     var is_detail = 0;
-    var filter = "{{ route('admin.entrepreneur.filter') }}";
-    var entrepreneur_list = "{{ route('admin.entrepreneur.index') }}";
+    var filter = "{{ route('admin.user.filter') }}";
+    var entrepreneur_list = "{{ route('admin.user.index') }}";
     var change_status_link = "{{ route('admin.user.status') }}";
     var remove_user = "{{ route('remove-user') }}";
     
 $(document).ready(function () {
-    entrepreneurTable = $('#datatable').DataTable({
+    userTable = $('#datatable').DataTable({
         serverSide: true,
         bFilter: false,
         ajax: {
@@ -133,7 +132,7 @@ $(document).ready(function () {
         var active = $this.attr('data-active');
         var deactive = (active == 1 ? 0 : 1);
         var active_label = (active == 1 ? "ACTIVE" : "INACTIVE");
-        var dialog_title = (active == 1 ? "Are you sure you want to active this entrepreneur?" : "Are you sure you want to deactive entrepreneur?");
+        var dialog_title = (active == 1 ? "Are you sure you want to active this user?" : "Are you sure you want to deactive user?");
 
         swal({
             title: dialog_title,
@@ -188,8 +187,8 @@ $(document).ready(function () {
         var id= $(this).data('id');
         var deleted= $(this).data('inuse');
         
-        var dialog_title = 'Are you sure want to delete this entrepreneur ?';
-        var entrepreneur_row = $(this).closest("tr");
+        var dialog_title = 'Are you sure want to delete this user ?';
+        var userTable_row = $(this).closest("tr");
         swal({
             title: dialog_title,
             type: 'warning',
@@ -229,7 +228,7 @@ $(document).ready(function () {
                                 confirmButtonText: 'OK',
                                 confirmButtonClass: 'btn btn-success',
                             }).then(function (){
-                                entrepreneurTable.row(entrepreneurTable_row).remove().draw(false);
+                                userTable.row(userTable_row).remove().draw(false);
                             });
                         } else if(response.status == 201){
                             swal({
