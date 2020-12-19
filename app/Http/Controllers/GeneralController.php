@@ -13,6 +13,7 @@ use App;
 use Route;
 use PHPUnit\Framework\Exception;
 use App\Models\ProfileQuestion;
+use App\Models\Faq;
 
 class GeneralController extends Controller {
 	public function index() {
@@ -99,5 +100,31 @@ class GeneralController extends Controller {
 		}
 
 		return view('profile',compact('profile','questions'));
+	}
+	public function aboutUs() {
+		return view('pages.about-us');
+    }
+	public function resource() {
+		return view('pages.resources');
+    }
+	public function members() {
+		return view('pages.members');
+    }
+	public function community() {
+		return view('pages.community');
+    }
+	public function faq() {
+		$faqs = Faq::where('deleted_at',null)->get();
+		return view('pages.faq',compact('faqs'));
+	}
+	public function contactUs() {
+		return view('pages.contact-us');
+	}
+	public function contactRequest(Request $request){
+		$email_param = ['email_id' => 4,'user_id' => 1,'name' => $request->name,'email'=>$request->email,'subject'=>$request->subject,'message' => $request->message];
+
+		SendMailController::dynamicEmail($email_param);
+
+		return redirect()->back()->with('success',trans('Sent Successfully!'));
 	}
 }

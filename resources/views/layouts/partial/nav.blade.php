@@ -19,16 +19,16 @@
                                 <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Community</a>
+                                <a class="nav-link" href="{{ route('page.community') }}">Community</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Members</a>
+                                <a class="nav-link" href="{{ route('page.members') }}">Members</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Browse Jobs</a>
+                                <a class="nav-link" href="{{ route('job.search-job') }}">Browse Jobs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Resources</a>
+                                <a class="nav-link" href="{{ route('page.resource') }}">Resources</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Startup Portal</a>

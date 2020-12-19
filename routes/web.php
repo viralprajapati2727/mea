@@ -26,6 +26,14 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::post('email-exists', 'Auth\RegisterController@emailExists')->name('email-exists');
     Route::post('check-email', 'Auth\RegisterController@checkEmail')->name('check-email');
     Route::get('/', 'GeneralController@index')->name('index');
+    Route::get('page/faq', 'GeneralController@faq')->name('page.faq');
+    Route::get('page/about-us', 'GeneralController@aboutUs')->name('page.about-us');
+    Route::get('page/contact-us', 'GeneralController@contactUs')->name('page.contact-us');
+    Route::post('page/contact-us', 'GeneralController@contactRequest')->name('contact-us-request');
+    Route::get('page/resource', 'GeneralController@resource')->name('page.resource');
+    Route::get('members', 'GeneralController@members')->name('page.members');
+    Route::get('community', 'GeneralController@community')->name('page.community');
+    Route::get('search-job', 'JobController@searchJob')->name('job.search-job');
 
 
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');

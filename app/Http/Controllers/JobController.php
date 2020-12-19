@@ -162,5 +162,7 @@ class JobController extends Controller
             return $this->commonResponse($responseData, $code);
         }
     }
-    
+    public function searchJob(){
+        return view('job.search-job');
+    }
 }

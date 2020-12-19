@@ -5,9 +5,9 @@
                 <div class="footer-col">
                     <h3 class="f-title">Company</h3>
                     <ul class="footer-links">
-                        <li><a href="javascript:;">About</a></li>
+                        <li><a href="{{ route('page.about-us') }}">About</a></li>
                         <li><a href="javascript:;">Team</a></li>
-                        <li><a href="javascript:;">Contact</a></li>
+                        <li><a href="{{ route('page.contact-us') }}">Contact</a></li>
                         <li><a href="javascript:;">Blog</a></li>
                         <li><a href="javascript:;">Career opportunities</a></li>
                     </ul>   
@@ -19,7 +19,7 @@
                     <ul class="footer-links">
                         <li><a href="javascript:;">Pricing</a></li>
                         <li><a href="javascript:;">Member benefits</a></li>
-                        <li><a href="javascript:;">Help</a></li>
+                        <li><a href="{{ route('page.faq') }}">FAQ</a></li>
                     </ul>     
                 </div>
             </div>
