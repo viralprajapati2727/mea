@@ -141,6 +141,25 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('faq-filter', 'Admin\FaqController@ajaxData')->name('faq-filter');
         Route::post('check-unique-faq-question','Admin\FaqController@checkUniqueQuestion')->name('check_unique_question');
 
+        //job
+		Route::get('job/pending', 'Admin\JobController@pendingJob')->name('admin.job.pending');
+		Route::post('admin-pending-job-filter', 'Admin\JobController@pendingAjaxData')->name('admin.pending-job-filter');
+		Route::get('job/active', 'Admin\JobController@activeJob')->name('admin.job.active');
+		Route::post('admin-active-job-filter', 'Admin\JobController@activeAjaxData')->name('admin.active-job-filter');
+		Route::get('job/sponsored', 'Admin\JobController@sponsoredJob')->name('admin.job.sponsored');
+		Route::post('admin-sponsored-job-filter', 'Admin\JobController@sponsoredAjaxData')->name('admin.sponsored-job-filter');
+		Route::post('job-sponsor-status', 'Admin\JobController@jobSponsorStatus')->name('admin.job.active-pending');
+		Route::get('job/archived', 'Admin\JobController@archivedJob')->name('admin.job.archived');
+		Route::post('admin-archived-job-filter', 'Admin\JobController@archivedAjaxData')->name('admin.archived-job-filter');
+		Route::post('job-status', 'Admin\JobController@jobStatus')->name('admin.job.approve-reject');
+		Route::post('job-destroy', 'Admin\JobController@destroy')->name('admin.job.destroy');
+		Route::get('job/{status}/{id}', 'Admin\JobController@detail')->name('admin.job.detail');
+		Route::get('job-translation/{status}/{id}', 'Admin\JobController@translation')->name('admin.job.translation');
+		Route::post('job-translation-store', 'Admin\JobController@storeTranslation')->name('admin.job.translation.store');
+		Route::get('edit-job/{status}/{uniqueId}/{language}', 'Admin\JobController@editJob')->name('admin.job.edit-job');
+		Route::post('edit-job-store', 'Admin\JobController@updateJob')->name('admin.job.edit-job-store');
+        Route::post('status-job-action', 'Admin\JobController@actionStatus')->name('admin.job.action-status');
+
     });        
 });
 

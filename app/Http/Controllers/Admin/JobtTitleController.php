@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JobTitle;
-use DB;
+use DB, Log;
 use Auth;
 use Helper;
 use Illuminate\Support\Str;
@@ -124,8 +124,6 @@ class JobTitleController extends Controller
                 return array('status' => '200', 'msg_success' => "Job Title has been inactivated successfully");
             }
         } catch (Exception $e) {
-            DB::rollback();
-            echo $e->getMessage();
         }
     }
 

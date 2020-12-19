@@ -93,10 +93,7 @@
     @endif
 @endsection
 @section('footer_content')
-<script src="{{ Helper::assets('js/owlcarousel/owl.carousel.min.js') }}"></script>
 <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap-datetimepicker.min.js') }}"></script>
-<link href="{{ Helper::assets('css/owlcarousel/owl.carousel.min.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ Helper::assets('css/owlcarousel/owl.theme.default.css') }}" rel="stylesheet" type="text/css">
 <script type="text/javascript">
     $(document).ready(function(){
         $(".datetimepicker").datetimepicker({
