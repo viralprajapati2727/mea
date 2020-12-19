@@ -186,7 +186,7 @@ class EntrepreneurController extends Controller
 
                 DB::commit();
                 $responseData['status'] = 1;
-                // $responseData['redirect'] = url('professional/'.$user->slug);
+                $responseData['redirect'] = route('user.view-profile',['slug' => $user->slug]);
                 $responseData['message'] = trans('page.Profile_saved_successfully');
                 Session::flash('success', $responseData['message']);
                 return $this->commonResponse($responseData, 200);

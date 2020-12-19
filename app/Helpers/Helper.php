@@ -26,7 +26,7 @@ use Carbon\CarbonPeriod;
 use Mockery\Exception;
 use Session;
 use Illuminate\Http\Testing\MimeType;
-
+use App\Models\PostJob;
 
 class Helper
 {
@@ -303,11 +303,23 @@ class Helper
                 "active_menu" => array('emails.index', 'emails.create', 'emails.edit'),
                 "child" => array(),
             ),
-            "14" => array( // Settings
+            "14" => array( // Dynamic Email management
+                "is_menu" => true,
+                "url" => route('faq.index'),
+                "is_access" => true,
+                "privilege_key" => "14",
+                "privilege_require" => "1",
+                "full_title" => "FAQ",
+                "short_title" => "FAQ",
+                "icon" => "icon-question7",
+                "active_menu" => array('faq.index', 'faq.create', 'faq.edit'),
+                "child" => array(),
+            ),
+            "15" => array( // Settings
                 "is_menu" => TRUE,
                 "url" => '',//route('admin.settings'),
                 "is_access" => TRUE,
-                "privilege_key" => "14",
+                "privilege_key" => "15",
                 "privilege_require" => "1",
                 "full_title" => "Settings",
                 "short_title" => "Settings",
@@ -349,7 +361,7 @@ class Helper
         }
         return $obj;
     }
-    public static function timeAgoFeed($timestamp){
+    public static function timeAgo($timestamp){
   
         $time_ago        = strtotime($timestamp);
         $current_time    = time();
@@ -460,5 +472,47 @@ class Helper
             ->first();
 
         return $profile;
+    }
+    public static function getJobData($user_id = null, $job_id = null, $job_status = null, $all = true, $paginate = null) {
+        $selectedFields = ['*'];
+        if(is_null($job_id)){
+            $selectedFields = ['id','user_id','job_title_id','job_type_id','job_unique_id','job_status','job_count','location','created_at'];
+        }
+
+        $data = PostJob::select($selectedFields)->with([
+            
+            'jobTitle'=> function($query){
+
+            },
+            'currency'=> function($query){
+
+            }
+        ])->has('user');
+
+        if(!is_null($job_id)){
+            $data->where(function ($Query1) use ($job_id) {
+                $Query1->where('id',$job_id);
+                $Query1->orWhere('job_unique_id',$job_id);
+            });
+        }
+
+        if(!is_null($job_status)){
+            $data->where('job_status',$job_status);
+        }
+
+        if(!is_null($user_id)){
+            $data->where('user_id',$user_id);
+        }
+
+        $data = $data->orderBy('id','DESC');
+
+        if($all === false){
+            return $data->first();
+        }
+
+        if(!is_null($paginate)){
+            return $data->paginate($paginate);
+        }
+        return $data->get();
     }
 }

@@ -12,10 +12,6 @@ $(document).ready(function(){
         locale: 'en',
     });  
 
-    $('.tokenfield').tokenfield({
-        createTokensOnBlur: true
-    });
-
     CKEDITOR.replace('description', {
         height: '200px',
         removeButtons: 'Subscript,Superscript,Image',
@@ -145,7 +141,6 @@ $(document).ready(function(){
             },
             currency_id: {
                 required: true,
-                currencyRequired:true,
             },
             min_salary: {
                 required: true,

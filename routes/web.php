@@ -48,10 +48,10 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::group(['middleware' => ['fill-profile-access']], function () {
 
             //post job
-            Route::get('fill-job', 'JobController@fillJob')->name('job.fill-job');
+            Route::get('fill-job/{job_unique_id?}', 'JobController@fillJob')->name('job.fill-job');
             Route::post('update-job', 'JobController@updateJob')->name('job.update-job');
+            Route::get('my-jobs', 'JobController@index')->name('job.my-jobs');
             
-
             Route::group(['middleware' => ['simpleuser-access']], function () {
             
             });
@@ -126,6 +126,12 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 		
         // Email templates
         Route::resource('emails', 'Admin\EmailController');
+
+        //FAQ Management
+        Route::resource('faq', 'Admin\FaqController');
+        Route::post('faq-change-status', 'Admin\FaqController@changeStatus')->name('faq-change-status');
+        Route::post('faq-filter', 'Admin\FaqController@ajaxData')->name('faq-filter');
+        Route::post('check-unique-faq-question','Admin\FaqController@checkUniqueQuestion')->name('check_unique_question');
 
     });        
 });
