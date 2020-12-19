@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\KeySkill;
 
 class PostJob extends Model
 {
@@ -38,5 +39,11 @@ class PostJob extends Model
     }
     public static function jobIdExists($jobId) {
         return self::where('job_unique_id',$jobId)->exists();
+    }
+
+    public function getKeySkillsAttribute($value){
+        $data = KeySkill::selectRaw('GROUP_CONCAT(title) As skills')->whereIn('id',explode(',',$value))->first()->toArray();
+  
+        return explode(',',$data['skills']);
     }
 }

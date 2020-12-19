@@ -79,7 +79,7 @@
                                                     <ul>
                                                         <li><a href="{{ route('user.change-password') }}">Change Password</a></li>
                                                         <li><a href="{{ route('job.fill-job') }}">Post Job</a></li>
-                                                        <li><a href="#">My Jobs</a></li>
+                                                        <li><a href="{{ route('job.my-jobs') }}">My Jobs</a></li>
                                                         <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
                                                     </ul>
                                                 </div>

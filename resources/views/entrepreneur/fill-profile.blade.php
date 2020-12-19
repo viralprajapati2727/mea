@@ -58,7 +58,7 @@
                         <div class="row mt-md-2">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Name</label>
+                                    <label class="form-control-label">Name <span class="required-star-color">*</span></label>
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ old('name', isset($profile->name) ? $profile->name:'' ) }}" >
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                         <div class="row mt-md-2">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label">Gender </label>
+                                    <label class="form-control-label">Gender <span class="required-star-color">*</span></label>
                                     <select name="gender" id="gender" class="form-control select2 no-search-select2" data-placeholder="Select Gender">
                                         <option></option>
                                         <option value="Male" {{ (old("gender") == 'Male' || (isset($profile->userProfile->gender) && $profile->userProfile->gender == 'Male')) ? 'selected' : '' }}>Male</option>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group position-relative">
-                                    <label class="form-control-label">Date of Birth</label>
+                                    <label class="form-control-label">Date of Birth <span class="required-star-color">*</span></label>
                                     <input type="text" class="form-control birthdate" name="dob" id="dob" placeholder="Select Your Date of Birth" value="{{ old('dob', isset($profile->userProfile->dob)? (\Carbon\Carbon::createFromFormat('Y-m-d',$profile->userProfile->dob)->format('d/m/Y')):'' ) }}" >
                                     <div class="date-of-birth-icon">
                                         <i class="flaticon-calendar"></i>
@@ -91,7 +91,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label">City</label>
+                                    <label class="form-control-label">City <span class="required-star-color">*</span></label>
                                     <input type="text" class="form-control" name="city" id="search_city" placeholder="Enter City" value="{{ old('city', isset($profile->userProfile->city) ? $profile->userProfile->city : '' ) }}" >
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                         <div class="row mt-md-2">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label">Contact Number</label>
+                                    <label class="form-control-label">Contact Number <span class="required-star-color">*</span></label>
                                     <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Your Contact Number" value="{{ old('phone', isset($profile->userProfile->phone) ? $profile->userProfile->phone:'' ) }}" maxlength="15" >
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                         <div class="row mt-md-2">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label class="form-control-label">Skills</label>
+                                    <label class="form-control-label">Skills <span class="required-star-color">*</span></label>
                                     <input type="text" name="skills" id="skills" class="form-control tokenfield" value="{{ $skills }}" data-fouc>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                         <div class="row mt-md-2">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label class="form-control-label">Interests</label>
+                                    <label class="form-control-label">Interests <span class="required-star-color">*</span></label>
                                     <input type="text" name="interests" id="interests" class="form-control tokenfield" value="{{ $interests }}" data-fouc>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                         <div class="profile-inner">
                             <div class="row mt-md-2">
                                 <div class="col-12">
-                                    <h2>Suevey Questions</h2>
+                                    <h2>Suevey Questions <span class="required-star-color">*</span></h2>
                                 </div>
                                 <div class="col-12 questions">
                                     @forelse ($questions as $key => $question)
@@ -180,7 +180,7 @@
                         <div class="profile-inner">
                             <div class="row mt-md-2">
                                 <div class="col-12">
-                                    <h2>Work Experience</h2>
+                                    <h2>Work Experience <span class="required-star-color">*</span></h2>
                                 </div>
                                 <div class="col-lg-9 col-md-12" id="work-eperieance">
                                     <div class="row">
@@ -275,7 +275,7 @@
                         <div class="profile-inner">
                         <div class="row mt-md-2">
                             <div class="col-12">
-                                <h2>Education Details</h2>
+                                <h2>Education Details <span class="required-star-color">*</span></h2>
                             </div>
                             <div class="col-lg-9 col-md-12 mt-2" id="education-details">
                                 @php $edu_count = 0; @endphp
