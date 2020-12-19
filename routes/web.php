@@ -204,3 +204,9 @@ Route::get('html-job-detail',function (){
 Route::get('html-community',function (){
     return view('html.community');
 });
+Route::get('html-our-team',function (){
+    return view('html.our-team');
+});
+Route::get('html-blog',function (){
+    return view('html.blog');
+});
