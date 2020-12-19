@@ -1307,3 +1307,113 @@ ul{
 .faq-wraper .card .card-header .card-title a.collapsed {
     font-weight: normal;
 }
+/*==============Job Detail Page=================*/
+.job-top-details .job-inner-wrap{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+.job-details-inner .job-title{
+    color: #333;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+}
+.job-details-inner .job-title a{color: #333;}
+.job-details-inner .company{color: #41A0E1;}
+.job-details-right .apply-btn{
+    width: 100%;
+    max-width: 130px;
+    display: inline-block;
+    text-align: center;
+    padding: 6px 5px;
+    border: 2px solid #41A0E1;
+    border-radius: 6px;
+    margin-bottom: 9px;
+    font-size: 15px;
+    background: #41A0E1;
+    color: #fff;
+}
+.job-description-wrap .title, .job-details .title {
+    font-size: 24px;
+    color: #333;
+    font-weight: 600;
+}
+
+.job-description-wrap .text p {
+    font-size: 15px;
+    line-height: 25px;
+}
+.job-description-wrap{
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px !important;
+}
+.job-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.job-detail-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.job-detail-list .lable {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    width: 90px;
+}
+.job-detail-list ul, .job-detail-list p {
+    width: calc(100% - 90px);
+}
+.job-detail-list .skills {
+    display: flex;
+    flex-wrap: wrap;
+}
+.job-detail-list .skills li {
+    background: #f1f1f1;
+    padding: 5px 20px;
+    border-radius: 50px;
+    margin-right: 10px;
+}
+.job-detail-list{margin-bottom: 10px;}
+.community-wraper .page-title{
+    font-size: 32px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.community-wraper .form-control{
+    padding: 0;
+    border: 0;
+}
+.community-wraper .top-search input{
+    max-width: 100%;
+    width: calc(100% - 250px);
+    font-size: 16px;
+}
+.community-wraper .top-search .search-btn{
+    display: inline-block;
+    color: #fff;
+    height: 50px;
+    border: 0;
+    background: #238BF1;
+    font-size: 20px;
+    transition: all 0.5s;
+    width: 200px;
+    text-align: center;
+    border-radius: 50px;
+    margin-left: 40px;
+}
+.community-wraper .global-search{margin-bottom: 60px;}
+.add-que-wrap .btn {
+    width: 300px;
+    background: #fff;
+    color: #fff;
+    font-size: 17px;
+    border: 2px solid #238bf1;
+    color: #238bf1;
+    border-radius: 50px;
+}

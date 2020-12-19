@@ -179,3 +179,9 @@ Route::get('html-about-us',function (){
 Route::get('html-faq',function (){
     return view('html.faq');
 });
+Route::get('html-job-detail',function (){
+    return view('html.job-detail');
+});
+Route::get('html-community',function (){
+    return view('html.community');
+});
