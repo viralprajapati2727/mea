@@ -1417,3 +1417,74 @@ ul{
     color: #238bf1;
     border-radius: 50px;
 }
+.community-wraper .com-que-list {
+    border: 1px solid #ddd;
+    margin-top: 49px;
+}
+.community-wraper .com-que-list .com-que.header{border-bottom: 1px solid #ddd;}
+.community-wraper .com-que-list .com-que.header h2{
+    font-size: 18px;
+    color: #000;
+    font-weight: 600;
+    margin: 0;
+}
+.community-wraper .community-que, .community-wraper .views,
+.community-wraper .answer, .community-wraper .votes{
+    padding: 10px 5px;
+}
+/*==========Our Team=============*/
+.front-banner.our-team{
+    background-image: url('../images/banner/our-team.png');
+}
+.front-banner.our-blog{
+    background-image: url('../images/banner/Blog-banner.jpg');
+}
+.our-team-wraper {
+    padding: 60px 0;
+}
+.our-team-wraper .team-wraper{
+    background-color: #f4f4f5;
+    margin-bottom: 30px;
+}
+.team-wraper .team-content{
+    padding: 50px 55px;
+    text-align: center;
+}
+.team-wraper .team-content .title{
+    font-size: 26px;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.team-wraper .team-content .designation{
+    font-size: 16px;
+    color: #0088FF;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 15px;
+}
+.team-wraper .team-social-icons ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.team-wraper .team-social-icons ul li a{
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    background-color: #fff;
+    text-align: center;
+    line-height: 35px;
+    transition: all 0.5s;
+}
+.team-wraper .team-social-icons ul li a:hover i{color: #fff !important;}
+.team-wraper .team-social-icons ul li:first-child a i{color: #507cbe;}
+.team-wraper .team-social-icons ul li:nth-child(2) a i{color: #00abef;}
+.team-wraper .team-social-icons ul li:last-child a i{color: #3371b7;}
+.team-wraper .team-social-icons ul li a i{font-size: 16px;}
+.team-wraper .team-social-icons ul li{margin: 0 5px;}
+.team-wraper .team-social-icons ul li:first-child a:hover{background-color: #507cbe;}
+.team-wraper .team-social-icons ul li:nth-child(2) a:hover{background-color: #00abef;}
+.team-wraper .team-social-icons ul li:last-child a:hover{background-color: #3371b7;}
