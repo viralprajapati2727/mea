@@ -115,7 +115,43 @@
     </div>
 </section>
 <Section>
-    <div class="home-blog-section">
+    @if(!empty($blogs) && $blogs->count())
+        <div class="home-blog-section">
+            <div class="container">
+                <h2 class="blog-title text-center">Our Latest Blog</h2>
+                <div class="row">
+                    @forelse ($blogs as $blog)
+                    <div class="col-md-4">
+                        <div class="blog-wrap">
+                            <div class="blog-image">
+                                @php
+                                    $blogurl = Helper::images(config('constant.blog_url'));
+                                    $img_url = $blogurl.$blog->src;
+                                @endphp
+                                <img src="{{ $img_url }}" alt="" class="w-100">
+                            </div>
+                            <div class="blog-header d-flex flex-wrap justify-content-between">
+                                <div class="author">
+                                    <h6><span>-</span> by H. Rackham</h6>
+                                </div>
+                                <div class="blog-date">
+                                    <i class="icon-calendar"></i>
+                                    <span class="date_time">04 Aug 2020</span>
+                                </div>
+                            </div>
+                            <div class="blog-content">
+                                <h2>{{ $blog->title }}</h2>
+                                <p>{{ $blog->short_description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    @endif
+    {{-- <div class="home-blog-section">
         <div class="container">
             <h2 class="blog-title text-center">Our Latest Blog</h2>
             <div class="row">
@@ -184,7 +220,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </section>
 @endsection
 @section('footer_script')

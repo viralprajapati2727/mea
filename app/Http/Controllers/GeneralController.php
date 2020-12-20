@@ -14,10 +14,12 @@ use Route;
 use PHPUnit\Framework\Exception;
 use App\Models\ProfileQuestion;
 use App\Models\Faq;
+use App\Models\Blog;
 
 class GeneralController extends Controller {
 	public function index() {
-        return view('welcome');
+		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','DESC')->limit(3)->get();
+        return view('welcome',compact('blogs'));
 	}
 	public function changePassword() {
 		return view('auth.change_password');
