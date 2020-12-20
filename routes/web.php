@@ -28,9 +28,13 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('/', 'GeneralController@index')->name('index');
     Route::get('page/faq', 'GeneralController@faq')->name('page.faq');
     Route::get('page/about-us', 'GeneralController@aboutUs')->name('page.about-us');
+    Route::get('page/team', 'GeneralController@team')->name('page.team');
     Route::get('page/contact-us', 'GeneralController@contactUs')->name('page.contact-us');
     Route::post('page/contact-us', 'GeneralController@contactRequest')->name('contact-us-request');
-    Route::get('page/resource', 'GeneralController@resource')->name('page.resource');
+    Route::get('page/resource', 'GeneralController@resource')->name('page.resources');
+    Route::get('resource/{slug}', 'GeneralController@resourceDetail')->name('page.resource-detail');
+    Route::get('blogs', 'GeneralController@blogs')->name('page.blogs');
+    Route::get('blog/{slug}', 'GeneralController@blogDetail')->name('page.blog-detail');
     Route::get('members', 'GeneralController@members')->name('page.members');
     Route::get('community', 'GeneralController@community')->name('page.community');
     Route::get('search-job', 'JobController@searchJob')->name('job.search-job');
@@ -160,6 +164,11 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 		Route::resource('blog','Admin\BlogController');
         Route::post('blog-filter', 'Admin\BlogController@ajaxData')->name('blog-filter');
         Route::post('change-blog-status', 'Admin\BlogController@changeStatus')->name('admin.change-blog-status');
+
+        //Resource
+		Route::resource('resource','Admin\ResourceController');
+        Route::post('resource-filter', 'Admin\ResourceController@ajaxData')->name('resource-filter');
+        Route::post('change-resource-status', 'Admin\ResourceController@changeStatus')->name('admin.change-resource-status');
     });        
 });
 

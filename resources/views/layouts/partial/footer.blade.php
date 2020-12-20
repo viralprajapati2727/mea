@@ -6,9 +6,9 @@
                     <h3 class="f-title">Company</h3>
                     <ul class="footer-links">
                         <li><a href="{{ route('page.about-us') }}">About</a></li>
-                        <li><a href="javascript:;">Team</a></li>
+                        <li><a href="{{ route('page.team') }}">Team</a></li>
                         <li><a href="{{ route('page.contact-us') }}">Contact</a></li>
-                        <li><a href="javascript:;">Blog</a></li>
+                        <li><a href="{{ route('page.blogs') }}">Blog</a></li>
                         <li><a href="javascript:;">Career opportunities</a></li>
                     </ul>   
                 </div>

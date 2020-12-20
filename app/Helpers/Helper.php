@@ -265,11 +265,22 @@ class Helper
                 "icon" => "icon-blog",
                 "active_menu" => array('blog.index','blog.create','blog.edit'),
             ),
-            "13" => array( // Dynamic Email management
+            "13" => array( // Resource
+                "is_menu" => TRUE,
+                "url" => route('resource.index'),
+                "is_access" => TRUE,
+                "privilege_key" => "132",
+                "privilege_require" => "1",
+                "full_title" => "Resource Management",
+                "short_title" => "Resource",
+                "icon" => "icon-blog",
+                "active_menu" => array('resource.index','resource.create','resource.edit'),
+            ),
+            "14" => array( // Dynamic Email management
                 "is_menu" => true,
                 "url" => route('emails.index'),
                 "is_access" => true,
-                "privilege_key" => "13",
+                "privilege_key" => "14",
                 "privilege_require" => "1",
                 "full_title" => "Email Templates",
                 "short_title" => "Email Templates",
@@ -277,11 +288,11 @@ class Helper
                 "active_menu" => array('emails.index', 'emails.create', 'emails.edit'),
                 "child" => array(),
             ),
-            "14" => array( // Dynamic Email management
+            "15" => array( // Dynamic Email management
                 "is_menu" => true,
                 "url" => route('faq.index'),
                 "is_access" => true,
-                "privilege_key" => "14",
+                "privilege_key" => "15",
                 "privilege_require" => "1",
                 "full_title" => "FAQ",
                 "short_title" => "FAQ",
@@ -289,11 +300,11 @@ class Helper
                 "active_menu" => array('faq.index', 'faq.create', 'faq.edit'),
                 "child" => array(),
             ),
-            "15" => array( // Settings
+            "16" => array( // Settings
                 "is_menu" => TRUE,
                 "url" => '',//route('admin.settings'),
                 "is_access" => TRUE,
-                "privilege_key" => "15",
+                "privilege_key" => "16",
                 "privilege_require" => "1",
                 "full_title" => "Settings",
                 "short_title" => "Settings",

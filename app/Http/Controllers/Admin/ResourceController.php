@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Blog;
+use App\Models\Resource;
 use DB;
 use Auth;
 use Helper;
 use Illuminate\Support\Str;
 use Validator;
 
-class BlogController extends Controller
+class ResourceController extends Controller
 {
     //View Dance/Music Type Listing Page
     public function index(){
-        $blog = Blog::orderBy('created_at','desc')->get();
-        return view('admin.blog.index',compact('blog'));
+        $resource = Resource::orderBy('created_at','desc')->get();
+        return view('admin.resource.index',compact('resource'));
     }
 
     //Filter the dance and music types
@@ -28,7 +28,7 @@ class BlogController extends Controller
             $keyword = $request->keyword;
         }
 
-        $Query = Blog::orderBy('id','desc');
+        $Query = Resource::orderBy('id','desc');
         if(!empty($keyword)){
             $Query->where('title','like','%'.$keyword.'%');
         }
@@ -38,7 +38,7 @@ class BlogController extends Controller
             return $Query->title;
         })
         ->addColumn('src', function ($Query) {
-            $icon = Helper::images(config('constant.blog_url')).$Query->src;
+            $icon = Helper::images(config('constant.resource_url')).$Query->src;
             return "<a class='fancy-pop-image' data-fancybox='images".$Query->id."'  href='".$icon."'><img class='custom-image' src='".$icon."'></a>";
         })
         ->addColumn('status', function ($Query) {
@@ -50,8 +50,8 @@ class BlogController extends Controller
         })
         ->addColumn('action', function ($Query) {
             $action_link = "";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_blog openBlogPopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_business_category'></i></a>&nbsp;&nbsp;";
-            $action_link .= "<a href='javascript:;' class='blog_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
+            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='javascript:;' class='resource_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })
         ->rawColumns(['action','status','src'])
@@ -69,7 +69,7 @@ class BlogController extends Controller
                 $status = 1;
             }
             $image = $request->file('src');
-            $blogData = [
+            $resourceData = [
                 'title' => $request->title,
                 'short_description' => $request->short_description,
                 'description' => $request->description,
@@ -77,27 +77,27 @@ class BlogController extends Controller
             ];
 
             if($request->id){
-                $blogData['updated_by'] = Auth::id();
+                $resourceData['updated_by'] = Auth::id();
             } else {
-                $blogData['created_by'] = Auth::id();
+                $resourceData['created_by'] = Auth::id();
             }
 
             $fileName = $request->id;
             if($request->hasFile('src')){
                 $fileName = 'Img-' . time() . '.' . $image->getClientOriginalExtension();
-                Helper::uploaddynamicFile(config('constant.blog_url'), $fileName,$image);
-                $blogData['src'] = $fileName;
+                Helper::uploaddynamicFile(config('constant.resource_url'), $fileName,$image);
+                $resourceData['src'] = $fileName;
 
                 if(isset($request->old_src)){
-                    Helper::checkFileExists(config('constant.blog_url') . $request->old_src, true, true);
+                    Helper::checkFileExists(config('constant.resource_url') . $request->old_src, true, true);
                 }
             }
-            Blog::updateOrCreate(['id' => $request->id], $blogData);
+            Resource::updateOrCreate(['id' => $request->id], $resourceData);
             DB::commit();
             if($request->id){
-                return redirect()->route('blog.index')->with('success','Blog has been updated Successfully');
+                return redirect()->route('resource.index')->with('success','Resource has been updated Successfully');
             }
-            return redirect()->route('blog.index')->with('success','Blog has been added Successfully');
+            return redirect()->route('resource.index')->with('success','Resource has been added Successfully');
         } catch(Exception $e){
             \Log::info($e);
             DB::rollback();
@@ -106,8 +106,8 @@ class BlogController extends Controller
     }
 
     public function edit($id){
-        $blog = Blog::where('id',$id)->first();
-        return view('admin.blog.index',compact('blog'));
+        $resource = Resource::where('id',$id)->first();
+        return view('admin.resource.index',compact('resource'));
     }
 
     public function destroy($id){
@@ -115,12 +115,12 @@ class BlogController extends Controller
             DB::beginTransaction();
             try{
                 $user = Auth::user();
-                $blog = Blog::find($id);
-                $blog->delete();
-                $blog->deleted_by = $user->id;
-                $blog->save();
+                $resource = Resource::find($id);
+                $resource->delete();
+                $resource->deleted_by = $user->id;
+                $resource->save();
                 DB::commit();
-                return array('status' => '200', 'msg_success' => 'Blog has been deleted Successfully');
+                return array('status' => '200', 'msg_success' => 'Resource has been deleted Successfully');
             } catch(Exception $e){
                 DB::rollback();
                 return array('status' => '0', 'msg_fail' => 'Something went wrong');
@@ -132,17 +132,17 @@ class BlogController extends Controller
     public function changeStatus(Request $request){
         DB::beginTransaction();
         try {
-            $blog = Blog::findOrFail($request->id);
-            if ($blog->status == 0) {
-                $blog->status = '1';
-                $blog->update();
+            $resource = Resource::findOrFail($request->id);
+            if ($resource->status == 0) {
+                $resource->status = '1';
+                $resource->update();
                 DB::commit();
-                return array('status' => '200', 'msg_success' => "Blog has been activated successfully");
+                return array('status' => '200', 'msg_success' => "Resource has been activated successfully");
             } else {
-                $blog->status = '0';
-                $blog->update();
+                $resource->status = '0';
+                $resource->update();
                 DB::commit();
-                return array('status' => '200', 'msg_success' => "Blog has been inactivated successfully");
+                return array('status' => '200', 'msg_success' => "Resource has been inactivated successfully");
             }
         } catch (Exception $e) {
             DB::rollback();

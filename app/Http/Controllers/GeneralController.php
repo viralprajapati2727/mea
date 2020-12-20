@@ -15,6 +15,7 @@ use PHPUnit\Framework\Exception;
 use App\Models\ProfileQuestion;
 use App\Models\Faq;
 use App\Models\Blog;
+use App\Models\Resource;
 
 class GeneralController extends Controller {
 	public function index() {
@@ -106,15 +107,41 @@ class GeneralController extends Controller {
 	public function aboutUs() {
 		return view('pages.about-us');
     }
-	public function resource() {
-		return view('pages.resources');
+	public function team() {
+		return view('pages.our-team');
     }
+	public function resource() {
+		$resources = Resource::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','ASC')->get();
+		return view('pages.resources',compact('resources'));
+	}
+	public function resourceDetail($slug = null){
+		if(is_null($slug)){
+			return redirect()->route('page.resources');
+		}
+
+		$resource = Resource::where('deleted_at',null)->where('slug',$slug)->first();
+		return view('pages.resource-detail',compact('resource'));
+
+	}
 	public function members() {
 		return view('pages.members');
     }
 	public function community() {
 		return view('pages.community');
     }
+	public function blogs() {
+		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','DESC')->paginate(9);
+		return view('pages.blogs',compact('blogs'));
+	}
+	public function blogDetail($slug = null){
+		if(is_null($slug)){
+			return redirect()->route('page.blogs');
+		}
+
+		$blog = Blog::where('deleted_at',null)->where('slug',$slug)->first();
+		return view('pages.blog-detail',compact('blog'));
+
+	}
 	public function faq() {
 		$faqs = Faq::where('deleted_at',null)->get();
 		return view('pages.faq',compact('faqs'));

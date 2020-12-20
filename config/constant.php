@@ -18,6 +18,7 @@ return [
         'contact_email' => 'viralprajapatilive2727@gmail.com',
         'business_category_url' =>  "/images/business-category/",
         'blog_url' =>  "/images/blog/",
+        'resource_url' =>  "/images/resources/",
         'profile_url' =>  "/images/profile/",
         // 'default_video_icon' =>  "/images/challenge/",
         // 'pages_img_url' => "/upload/page/",

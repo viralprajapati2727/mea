@@ -1488,3 +1488,14 @@ ul{
 .team-wraper .team-social-icons ul li:first-child a:hover{background-color: #507cbe;}
 .team-wraper .team-social-icons ul li:nth-child(2) a:hover{background-color: #00abef;}
 .team-wraper .team-social-icons ul li:last-child a:hover{background-color: #3371b7;}
+/*=====================Pagination=========================*/
+
+.pagination nav{
+    margin: 0 auto;
+}
+.pagination .page-item{
+    margin: 0 10px;
+}
+.pagination .page-item span, .pagination .page-item a{
+    border-radius: 6px;
+}

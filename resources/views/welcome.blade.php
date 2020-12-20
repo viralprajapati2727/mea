@@ -128,19 +128,19 @@
                                     $blogurl = Helper::images(config('constant.blog_url'));
                                     $img_url = $blogurl.$blog->src;
                                 @endphp
-                                <img src="{{ $img_url }}" alt="" class="w-100">
+                                <a href="{{ route('page.blog-detail',['slug' => $blog->slug]) }}"><img src="{{ $img_url }}" alt="" class="w-100"></a>
                             </div>
                             <div class="blog-header d-flex flex-wrap justify-content-between">
                                 <div class="author">
-                                    <h6><span>-</span> by H. Rackham</h6>
+                                    <h6><span>-</span> by {{ $blog->user->name }}</h6>
                                 </div>
                                 <div class="blog-date">
                                     <i class="icon-calendar"></i>
-                                    <span class="date_time">04 Aug 2020</span>
+                                    <span class="date_time">{{ Carbon\Carbon::parse($blog->updated_at)->format('j M Y') }}</span>
                                 </div>
                             </div>
                             <div class="blog-content">
-                                <h2>{{ $blog->title }}</h2>
+                                <a href="{{ route('page.blog-detail',['slug' => $blog->slug]) }}"><h2>{{ $blog->title }}</h2></a>
                                 <p>{{ $blog->short_description }}</p>
                             </div>
                         </div>
@@ -151,76 +151,6 @@
             </div>
         </div>
     @endif
-    {{-- <div class="home-blog-section">
-        <div class="container">
-            <h2 class="blog-title text-center">Our Latest Blog</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="blog-wrap">
-                        <div class="blog-image">
-                            <img src="{{ Helper::assets('images/blog/Blog-1599029856.jpg') }}" alt="" class="w-100">
-                        </div>
-                        <div class="blog-header d-flex flex-wrap justify-content-between">
-                            <div class="author">
-                                <h6><span>-</span> by H. Rackham</h6>
-                            </div>
-                            <div class="blog-date">
-                                <i class="icon-calendar"></i>
-                                <span class="date_time">04 Aug 2020</span>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <h2>The Key Drivers for Success</h2>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, 
-                            or randomised words which don't look even slightly believable.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="blog-wrap">
-                        <div class="blog-image">
-                            <img src="{{ Helper::assets('images/blog/blog02.png') }}" alt="" class="w-100">
-                        </div>
-                        <div class="blog-header d-flex flex-wrap justify-content-between">
-                            <div class="author">
-                                <h6><span>-</span> by H. Rackham</h6>
-                            </div>
-                            <div class="blog-date">
-                                <i class="icon-calendar"></i>
-                                <span class="date_time">04 Aug 2020</span>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <h2>The Key Drivers for Success</h2>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, 
-                            or randomised words which don't look even slightly believable.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="blog-wrap">
-                        <div class="blog-image">
-                            <img src="{{ Helper::assets('images/blog/blog03.jpg') }}" alt="" class="w-100">
-                        </div>
-                        <div class="blog-header d-flex flex-wrap justify-content-between">
-                            <div class="author">
-                                <h6><span>-</span> by H. Rackham</h6>
-                            </div>
-                            <div class="blog-date">
-                                <i class="icon-calendar"></i>
-                                <span class="date_time">04 Aug 2020</span>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                                <h2>The Key Drivers for Success</h2>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, 
-                                     or randomised words which don't look even slightly believable.</p>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 </section>
 @endsection
 @section('footer_script')
