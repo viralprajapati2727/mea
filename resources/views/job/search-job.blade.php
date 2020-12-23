@@ -22,86 +22,20 @@
             </div>
             <div class="jp-job-category-listing">
                 <ul class="m-auto">
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/technical-support.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">Technical Support</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/business-development.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">Business Development</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/real-estate.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">Real Estate Business</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/share-market-analysis.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">Share Market Analysis</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/weather.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">Weather & Environment</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/finance.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">Finance & banking Service</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/networking.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">IT & Networking Services</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/restaurant.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">Restaurant Services</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/fire.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">Defence & Fire Service</h5>
-                        </a>
-                    </li>
-                    <li class="text-center jp-job-cat-lwrp">
-                        <a href="#">
-                            <div class="jp-job-cat-icon">
-                                <img src="{{ Helper::assets('images/business-category/delivery.png') }}" alt="">
-                            </div>
-                            <h5 class="jp-job-cat-title">delivery</h5>
-                        </a>
-                    </li>
+                    @forelse ($business_categories as $category)
+                        <li class="text-center jp-job-cat-lwrp">
+                            <a href="#">
+                                <div class="jp-job-cat-icon">
+                                    @php
+                                        $bcategoryUrl = Helper::images(config('constant.business_category_url'));
+                                    @endphp
+                                    <img src="{{ $bcategoryUrl.$category->src }}" alt="">
+                                </div>
+                                <h5 class="jp-job-cat-title">{{ $category->title }}</h5>
+                            </a>
+                        </li>
+                    @empty
+                    @endforelse
                 </ul>
             </div>
         </div>

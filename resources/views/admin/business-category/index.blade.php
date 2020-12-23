@@ -297,7 +297,7 @@ $(document).ready( function () {
         }).then(function (confirm) {
             if(confirm.value !== "undefined" && confirm.value){
                 $.ajax({
-                    url: 'dance-type/'+id,
+                    url: 'business-category/'+id,
                     type: 'DELETE',
                     data: { id : id, },
                     beforeSend: function(){
@@ -478,9 +478,9 @@ $(document).ready( function () {
                         type:'POST',
                         data:{flag:flag, id:function() { return $('#d_type_id').val(); }},
                     },
-                    alpha: true,
+                    // alpha: true,
                     minlength: 2,
-                    maxlength: 20,
+                    maxlength: 50,
                 },
                 src: {
                     required: oldSrc.length === 0 ? true : false,

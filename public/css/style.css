@@ -536,6 +536,10 @@ ul{
     box-shadow: 0px 3px 6px #881e1e29;
     overflow: hidden;
 }
+.profile-top-detial .banner img{
+    max-height: 225px;
+    object-fit: cover;
+}
 .personal-details .profile-image img {
     width: 100%;
 }

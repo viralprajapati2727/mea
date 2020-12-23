@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('content')
 @php
-    $is_same_profile_photo = false;
+    $is_same_profile_photo = $is_same_profile_cover_photo = $is_same_resume = false;
     $ProfileUrl = Helper::images(config('constant.profile_url'));
+    $resumeUrl = Helper::images(config('constant.resume_url'));
+    $coverUrl = Helper::images(config('constant.profile_cover_url'));
     $exp_count = $edu_count  =  $is_profile = $is_experience = 0;
 
     $skills = $interests = "";
@@ -21,6 +23,17 @@
 
         $WorkExperience = $profile->workExperience;
         $EducationDetail = $profile->educationDetails;
+    }
+    
+    $exists_resume = "";
+    if($profile->userProfile->resume != ""){
+        $is_same_resume = true;
+        $exists_resume = $resumeUrl.$profile->userProfile->resume;
+    }
+    $exists_cover = "";
+    if($profile->userProfile->cover != ""){
+        $is_same_profile_cover_photo = true;
+        $exists_cover = $coverUrl.$profile->userProfile->cover;
     }
 @endphp
     <div class="container">
@@ -54,6 +67,18 @@
                                     <input type="hidden" name="old_profile_image" class="old_profile_image">
                                 </a>
                             </div>
+                        </div>
+                        <div class="form-group row mt-md-2 fileinput">
+                            <label class="col-lg-2 col-form-label font-weight-semibold">Cover Image:</label>
+                            <div class="col-lg-10">
+                                <input type="file" name="cover" class="file-input" data-fouc>
+                            </div>
+                            @if($profile->userProfile->cover != "")
+                                <div class="col-lg-10">
+                                    <a href="{{ $exists_cover }}" target="_blank">Your Updated cover Image</a>
+                                </div>
+                                <input type="hidden" name="old_cover" value="{{ $profile->userProfile->cover }}">
+                            @endif
                         </div>
                         <div class="row mt-md-2">
                             <div class="col-md-6">
@@ -137,6 +162,18 @@
                                     <textarea name="about" id="about" rows="5" class="form-control" placeholder="Brief Your Skills Here">{{ old('about', isset($profile->userProfile->description)?$profile->userProfile->description:'' ) }}</textarea>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group row mt-md-2 fileinput">
+                            <label class="col-lg-2 col-form-label font-weight-semibold">Upload CV:</label>
+                            <div class="col-lg-10">
+                                <input type="file" name="resume" class="file-input" data-fouc>
+                            </div>
+                            @if($profile->userProfile->resume != "")
+                                <div class="col-lg-10">
+                                    <a href="{{ $exists_resume }}" target="_blank">Download Your Updated CV</a>
+                                </div>
+                                <input type="hidden" name="old_resume" value="{{ $profile->userProfile->resume }}">
+                            @endif
                         </div>
                         <div class="row mt-md-2">
                             <div class="col-12">
@@ -383,12 +420,16 @@
 @section('footer_script')
 <script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/tags/tokenfield.min.js') }}"></script>
+<script src="{{ Helper::assets('js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
 <script>
     var is_form_edit = false;
     var ex_count = parseInt("{{ $exp_count }}");
     var ed_count = parseInt("{{ $edu_count }}");
     var is_experience = "{{ $is_experience }}";
+    var exists_resume = "{{ $exists_resume }}";
     var is_profile_exists = {!! $is_same_profile_photo ? 'false' : 'true' !!};
+    var is_profile_cover_exists = {!! $is_same_profile_cover_photo ? 'false' : 'true' !!};
+    var is_resume_exists = {!! $is_same_resume ? 'false' : 'true' !!};
     var is_profile_filled = '@if(isset($profile->is_profile_filled) && $profile->is_profile_filled == 1) {{1}} @else {{0}} @endif';
 </script>
 <script type="text/javascript" src="{{ Helper::assets('js/pages/entrepreneur_profile_form.js') }}"></script>

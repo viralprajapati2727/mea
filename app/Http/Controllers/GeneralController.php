@@ -16,10 +16,12 @@ use App\Models\ProfileQuestion;
 use App\Models\Faq;
 use App\Models\Blog;
 use App\Models\Resource;
+use App\Models\BusinessCategory;
 
 class GeneralController extends Controller {
 	public function index() {
-		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','DESC')->limit(3)->get();
+		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('status',1)->where('deleted_at',null)->orderBy('id','DESC')->limit(3)->get();
+		
         return view('welcome',compact('blogs'));
 	}
 	public function changePassword() {

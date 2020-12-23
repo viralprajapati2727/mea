@@ -20,6 +20,8 @@ return [
         'blog_url' =>  "/images/blog/",
         'resource_url' =>  "/images/resources/",
         'profile_url' =>  "/images/profile/",
+        'profile_cover_url' =>  "/images/profile-cover/",
+        'resume_url' =>  "/images/resume/",
         // 'default_video_icon' =>  "/images/challenge/",
         // 'pages_img_url' => "/upload/page/",
         

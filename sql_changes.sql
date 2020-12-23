@@ -1,0 +1,1 @@
+ALTER TABLE `user_profiles` ADD `cover` VARCHAR(255) NULL DEFAULT NULL AFTER `is_experience`, ADD `resume` VARCHAR(255) NULL DEFAULT NULL AFTER `cover`;

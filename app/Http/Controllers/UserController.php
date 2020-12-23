@@ -81,6 +81,24 @@ class UserController extends Controller
                     $logo_name = $request->old_logo;
                 }
 
+                $coverfile = $cover_name = "";
+                if($request->file('cover') != ''){
+                    $coverfile = $request->file('cover');                    
+                    $ext = $coverfile->getClientOriginalName();
+                    $cover_name = uniqid('cover_', true) . time() . '.' . $ext;
+                } else {
+                    $cover_name = $request->old_cover;
+                }
+                
+                $cvfile = $cv_name = "";
+                if($request->file('resume') != ''){
+                    $cvfile = $request->file('resume');                    
+                    $ext = $cvfile->getClientOriginalName();
+                    $cv_name = uniqid('resume_', true) . time() . '.' . $ext;
+                } else {
+                    $cv_name = $request->old_resume;
+                }
+
                 $user = Auth::user();
                 $user->name = $request->name;
                 $user->logo = $logo_name;
@@ -97,6 +115,20 @@ class UserController extends Controller
                     }
                 }
 
+                if($request->hasFile('cover')){
+                    Helper::uploaddynamicFile(config('constant.profile_cover_url'), $cover_name, $coverfile);
+                    if(isset($request->old_cover)){
+                        Helper::checkFileExists(config('constant.profile_cover_url') . $request->old_cover, true, true);
+                    }
+                }
+                
+                if($request->hasFile('resume')){
+                    Helper::uploaddynamicFile(config('constant.resume_url'), $cv_name, $cvfile);
+                    if(isset($request->old_resume)){
+                        Helper::checkFileExists(config('constant.resume_url') . $request->old_resume, true, true);
+                    }
+                }
+
                 $is_experience = 0;
                 /*
                  * save user profile data
@@ -104,6 +136,8 @@ class UserController extends Controller
                 $user->userProfile()->updateOrCreate(
                     ['user_id' => Auth::user()->id],[
                     "dob" => $dob,
+                    "cover" => $cover_name,
+                    "resume" => $cv_name,
                     "phone" => $request->phone,
                     "gender" => $request->gender,
                     'description' => $request->about,

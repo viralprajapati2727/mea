@@ -5,6 +5,13 @@
     $is_experience = $profile->userProfile->is_experience;
     $WorkExperience = collect($profile->workExperience)->sortByDesc(['id']);
     $EducationDetail = collect($profile->educationDetails)->sortByDesc(['id']);
+
+    $resumeUrl = Helper::images(config('constant.resume_url'));
+    $exists_resume = "";
+    if($profile->userProfile->resume != ""){
+        $is_same_resume = true;
+        $exists_resume = $resumeUrl.$profile->userProfile->resume;
+    }
     @endphp
     <!-- Page header -->
     <div class="page-header page-header-light">
@@ -80,6 +87,14 @@
                             </div>
                             <div class="col-lg-8">
                                 <p class="font-weight-bold">{!! $profile->userProfile->description !!}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Updated CV</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="font-weight-bold"><a href="{{ $exists_resume }}" target="_blank">Download Updated CV</a></p>
                             </div>
                         </div>
                         <div class="form-group row">

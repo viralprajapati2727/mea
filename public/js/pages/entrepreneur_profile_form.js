@@ -100,6 +100,71 @@ $(document).on('click','#is_experience',function(){
 
 
 $(document).ready(function(){
+    // Modal template
+    var modalTemplate = '<div class="modal-dialog modal-lg" role="document">\n' +
+        '  <div class="modal-content">\n' +
+        '    <div class="modal-header align-items-center">\n' +
+        '      <h6 class="modal-title">{heading} <small><span class="kv-zoom-title"></span></small></h6>\n' +
+        '      <div class="kv-zoom-actions btn-group">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
+        '    </div>\n' +
+        '    <div class="modal-body">\n' +
+        '      <div class="floating-buttons btn-group"></div>\n' +
+        '      <div class="kv-zoom-body file-zoom-content"></div>\n' + '{prev} {next}\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '</div>\n';
+
+    // Buttons inside zoom modal
+    var previewZoomButtonClasses = {
+        toggleheader: 'btn btn-light btn-icon btn-header-toggle btn-sm',
+        fullscreen: 'btn btn-light btn-icon btn-sm',
+        borderless: 'btn btn-light btn-icon btn-sm',
+        close: 'btn btn-light btn-icon btn-sm'
+    };
+
+    // Icons inside zoom modal classes
+    var previewZoomButtonIcons = {
+        prev: '<i class="icon-arrow-left32"></i>',
+        next: '<i class="icon-arrow-right32"></i>',
+        toggleheader: '<i class="icon-menu-open"></i>',
+        fullscreen: '<i class="icon-screen-full"></i>',
+        borderless: '<i class="icon-alignment-unalign"></i>',
+        close: '<i class="icon-cross2 font-size-base"></i>'
+    };
+
+    // File actions
+    var fileActionSettings = {
+        zoomClass: '',
+        zoomIcon: '<i class="icon-zoomin3"></i>',
+        dragClass: 'p-2',
+        dragIcon: '<i class="icon-three-bars"></i>',
+        removeClass: '',
+        removeErrorClass: 'text-danger',
+        removeIcon: '<i class="icon-bin"></i>',
+        indicatorNew: '<i class="icon-file-plus text-success"></i>',
+        indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
+        indicatorError: '<i class="icon-cross2 text-danger"></i>',
+        indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>'
+    };
+
+    // Basic example
+
+    $('.file-input').fileinput({
+        overwriteInitial: true,
+        browseLabel: 'Browse',
+        browseIcon: '<i class="icon-file-plus mr-2"></i>',
+        uploadIcon: '<i class="icon-file-upload2 mr-2"></i>',
+        removeIcon: '<i class="icon-cross2 font-size-base mr-2"></i>',
+        layoutTemplates: {
+            icon: '<i class="icon-file-check"></i>',
+            modal: modalTemplate
+        },
+        initialCaption: "No file selected",
+        previewZoomButtonClasses: previewZoomButtonClasses,
+        previewZoomButtonIcons: previewZoomButtonIcons,
+        fileActionSettings: fileActionSettings
+    });
+
     $.validator.addMethod('filesize', function (value, element, param) {
         return this.optional(element) || (element.files[0].size <= param)
     });
@@ -165,11 +230,16 @@ $(document).ready(function(){
             $(element).next().find('button').removeClass('error-border');
         },
         errorPlacement: function (error, element) {
-            console.log('error',error)
+            
+            
+
+
             if (element.parents('div').hasClass('account-img-content')) {
                 error.appendTo(element.parent().parent().parent());
             } else if (element.parents('div').hasClass('tokenfield')) {
                 error.appendTo(element.parent().parent());
+            } else if (element.parents('div').hasClass('fileinput')) {
+                error.appendTo(element.parent().parent().parent().parent().parent());
             } else if (element.parents('div').hasClass('form-group')) {
                 error.appendTo(element.parent());
             } else {
@@ -181,6 +251,18 @@ $(document).ready(function(){
                 required: is_profile_exists,
                 normalizer: function (value) { return $.trim(value); },
                 extension: 'jpg|jpeg|png',
+                filesize: 1048576,
+            },
+            cover: {
+                required: is_profile_cover_exists,
+                normalizer: function (value) { return $.trim(value); },
+                extension: 'jpg|jpeg|png',
+                filesize: 1048576,
+            },
+            resume: {
+                required: is_resume_exists,
+                normalizer: function (value) { return $.trim(value); },
+                extension: 'docx|doc|pdf',
                 filesize: 1048576,
             },
             name: {
@@ -240,7 +322,17 @@ $(document).ready(function(){
             profile_image: {
                 required: "Please select profile picture",
                 extension: "Accepted file formats: jpg, jpeg, png.",
-                filesize: "file size must be less than 50 MB",
+                filesize: "file size must be less than 1 MB",
+            },
+            cover: {
+                required: "Please select cover picture",
+                extension: "Accepted file formats: jpg, jpeg, png.",
+                filesize: "file size must be less than 1 MB",
+            },
+            resume: {
+                required: "Please upload your updated cv",
+                extension: "Accepted file formats: docx, doc, pdf.",
+                filesize: "file size must be less than 1 MB",
             },
             name: {
                 required: "Please enter your name",

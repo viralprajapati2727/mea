@@ -13,7 +13,11 @@
             </div>
             <div class="profile-top-detial">
                 <div class="banner">
-                    <img src="{{ Helper::assets('images/profile/profile-banner.jpg') }}" alt="" class="w-100">
+                    @php
+                        $ProfileCoverUrl = Helper::images(config('constant.profile_cover_url'));
+                        $ProfileCoverUrl = (isset($profile->userProfile->cover) && $profile->userProfile->cover != '') ? $ProfileCoverUrl . $profile->userProfile->cover : $ProfileCoverUrl.'default.jpg';
+                    @endphp
+                    <img src="{{ $ProfileCoverUrl }}" alt="" class="w-100">
                 </div>
                 <div class="personal-details d-flex">
                     <div class="profile-image">
@@ -56,6 +60,16 @@
                                 <div class="d-flex align-items-center">
                                     <p><i class="mr-2 flaticon-phone-call"></i></p>
                                     <p>{{ $profile->userProfile->phone }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="d-flex align-items-center">
+                                    <p><i class="mr-2 flaticon-phone-call"></i></p>
+                                    @php
+                                        $cvUrl = Helper::images(config('constant.resume_url'));
+                                        $cvUrl = $cvUrl . $profile->userProfile->resume;
+                                    @endphp
+                                    <p><a href="{{ $cvUrl }}">Download your CV</a></p>
                                 </div>
                             </div>
                         </div>

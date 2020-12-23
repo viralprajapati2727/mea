@@ -18,6 +18,7 @@ use App\Models\Currency;
 use App\Models\PostJob;
 use App\Models\JobSkill;
 use App\Models\KeySkill;
+use App\Models\BusinessCategory;
 
 
 
@@ -163,6 +164,8 @@ class JobController extends Controller
         }
     }
     public function searchJob(){
-        return view('job.search-job');
+        $business_categories = BusinessCategory::select('id','title','src','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->limit(15)->get();
+
+        return view('job.search-job',compact('business_categories'));
     }
 }
