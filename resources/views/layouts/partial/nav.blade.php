@@ -59,7 +59,7 @@
                                                 <div class="card-body">
                                                     <div class="media align-items-center d-flex d-lg-flex">
                                                         <div class="profile-icon-menu pr-2">
-                                                            <a href="#" class="d-inline-block">
+                                                            <a href="{{ route('user.view-profile',['slug' => Auth::user()->slug]) }}" class="d-inline-block">
                                                                 <div class="profile-bg-image" style="background-image: url({{ $img_url }});"></div>
                                                             </a>
                                                         </div>
