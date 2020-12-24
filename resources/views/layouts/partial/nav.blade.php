@@ -30,9 +30,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.resources') }}">Resources</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="#">Startup Portal</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                     <div class="login-links">
