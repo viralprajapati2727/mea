@@ -10,6 +10,7 @@
         <div class="container">
             <div class="user-title-wrap">
                 <h2 class="title">{{ $profile->name }}</h2>
+                <a href="javascript" class="btn edit-profile">Edit Profile</a>
             </div>
             <div class="profile-top-detial">
                 <div class="banner">
@@ -150,8 +151,8 @@
                 @endif
             </div>
             @if($profile->type == config('constant.USER.TYPE.ENTREPRENEUR'))
-                <div class="col-12">
-                    <div class="row">
+                <div class="profile-education-details">
+                    <div class="inner-wrap">
                         <ul class="nav nav-tabs nav-tabs-bottom candidate-profile-tab w-100">
                             <li class="nav-item"><a href="#experience" class="nav-link active show" data-toggle="tab">Work EXPERIENCE</a></li>
                             <li class="nav-item ml-2 ml-lg-4 ml-sm-3"><a href="#education" class="nav-link" data-toggle="tab">EDUCATION</a></li>

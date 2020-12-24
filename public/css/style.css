@@ -520,12 +520,30 @@ ul{
 .profile-top-detial {
     padding-bottom: 45px;
 }
+.user-title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
 .user-title-wrap .title {
     font-size: 40px;
     line-height: 68px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 40px;
+    margin: 0;
+}
+.user-title-wrap .edit-profile{
+    background-color: #0088FF;
+    font-weight: 600;
+    font-size: 14px; 
+    transition: all 0.5s;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 50px;
+}
+.user-title-wrap .edit-profile:hover{
+    background-color: #ffaf31;
 }
 .personal-details .profile-image {
     width: 145px;
@@ -549,10 +567,6 @@ ul{
 .personal-details .user-detials { 
     width: calc(100% - 200px);
     margin-left: 55px;
-}
-.personal-details, .profile-advance-details {
-    max-width: 1200px;
-    margin: 0 auto;
 }
 .user-profile-wraper .user-detials h2 {
     font-size: 32px;
@@ -649,6 +663,26 @@ ul{
 .user-question-answer-wrap ul li {
     margin-bottom: 10px;
 }
+.profile-education-details .nav-tabs .nav-item .nav-link{
+    font-size: 19px;
+}
+.profile-education-details .nav-tabs .nav-item .nav-link.active:before{
+    background-color: #1F97F2;
+}
+.profile-education-details .nav-tabs .nav-item .nav-link.active{
+    font-weight: bold;
+}
+.profile-education-details .tab-content .timeline{
+    border-left: 3px solid #ddd;
+}
+.profile-education-details .tab-content .timeline li{
+    position: relative;
+    font-size: 16px;
+    line-height: 26px;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+.profile-education-details .tab-content .timeline li:before {content: "";width: 15px;height: 15px;position: absolute;background: #1F97F2;border-radius: 100%;top: 2px;left: -8px;}
 /*===============================Member Page============================*/
 .member-wraper {
     padding: 50px 0;
@@ -937,6 +971,13 @@ ul{
     align-items: center;
     padding: 30px 10px;
     border-right: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+}
+.jp-job-category-listing ul .jp-job-cat-lwrp:nth-last-child(-n+5){
+    border-bottom: none;
+}
+.jp-job-category-listing ul .jp-job-cat-lwrp:nth-child(5n){
+    border-right: none;
 }
 .jp-job-category-listing ul .jp-job-cat-lwrp:hover{
     -webkit-box-shadow: 0px 0px 20px -3px rgba(0,0,0,0.24);
@@ -944,11 +985,6 @@ ul{
     box-shadow: 0px 0px 20px -3px rgba(0,0,0,0.24);
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-.jp-job-category-listing ul .jp-job-cat-lwrp:nth-child(5),
-.jp-job-category-listing ul .jp-job-cat-lwrp:last-child{border-right: 0;}
-.jp-job-category-listing ul .jp-job-cat-lwrp:nth-child(-n+5){
-    border-bottom: 1px solid #d8d8d8;
 }
 .jp-job-category-listing .jp-job-cat-icon i {
     font-size: 82px;
@@ -1502,4 +1538,19 @@ ul{
 }
 .pagination .page-item span, .pagination .page-item a{
     border-radius: 6px;
+}
+/*=====================My Jobs Page Design=======================*/
+.my-jobs .page-title{
+    font-size: 32px;
+    font-weight: 500;
+    color: #333;
+    font-weight: 600;
+}
+.job-header-elements a{
+    padding: 7px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+.job-header-elements a:hover{
+    background-color: #ffc000;
 }
