@@ -1554,3 +1554,22 @@ ul{
 .job-header-elements a:hover{
     background-color: #ffc000;
 }
+.my-jobs .jobs-header h5{margin: 0;}
+.my-jobs .job-item {
+    padding: 15px 15px;
+    text-align: center;
+}
+.my-jobs .job-address {
+    margin-bottom: 10px;
+}
+.my-jobs .main-dropdown .list-icons-item i:before{font-size: 32px;}
+.my-jobs .jb_my_job_company_bottom_location i{color: #2196f3;}
+.my-jobs .job-item:nth-child(odd) {
+    background: #f9f9f9;
+}
+.my-jobs .jobs-header { 
+    background: #2196f3 !important;
+    color: #fff;
+    padding: 10px 15px;
+    text-align: center;
+}

@@ -15,10 +15,10 @@
         <!-- Content area -->
         <div class="">
             @if(!$jobs->isEmpty())
-                <div class="col pt-4 jb_border_bottm_gray px-0 d-none d-lg-block">
+                <div class="col jb_border_bottm_gray d-none d-lg-block job-item jobs-header">
                     <div class="row">
                         <div class="col-4">
-                            <h5 class="font-black">Job Title</h5>
+                            <h5 class="font-black text-left">Job Title</h5>
                         </div>
                         <div class="col-2 text-center">
                             <h5 class="font-black">Job ID</h5>
@@ -35,19 +35,19 @@
                     </div>
                 </div>
                 @forelse ($jobs as $job)
-                    <div class="col jb_border_bottm_gray px-0">
+                    <div class="col jb_border_bottm_gray job-item">
                         <div class="row">
-                            <div class="col-lg-4 col-12 d-lg-block header-elements-inline align-items-baseline">
+                            <div class="col-lg-4 col-12 d-lg-block header-elements-inline align-items-baseline text-left">
                                 <div class="jb_company_myjob_title">
                                     <h4 class="font-weight-semibold">
                                         <a href="https://staging.jobaroot.com/job/detail/J000143" class="font-black">{{ $job->jobTitle->title }}</a>
                                     </h4>
                                     <div class="text-muted jb_my_job_company_bottom_location">
-                                        <div class="d-sm-inline d-block mr-3">
+                                        <div class="d-block job-address">
                                             <i class="flaticon-pin mr-1"></i>
                                             {{ $job->location }}
                                         </div>
-                                        <div class="d-sm-inline d-block">
+                                        <div class="d-block">
                                             <i class="flaticon-wall-clock mr-1"></i>{{ config('constant.job_type')[$job->job_type_id] }}
                                         </div>
                                     </div>
