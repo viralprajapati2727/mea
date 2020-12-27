@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="d-flex align-items-center">
-                                    <p><i class="mr-2 flaticon-phone-call"></i></p>
+                                    <p><i class="mr-2 flaticon-file"></i></p>
                                     @php
                                         $cvUrl = Helper::images(config('constant.resume_url'));
                                         $cvUrl = $cvUrl . $profile->userProfile->resume;
@@ -79,17 +79,17 @@
                         </div>
                         <div class="contact-details-wrap d-flex align-items-center">
                             <ul class="contact-links">
-                                <li>
+                                {{--  <li>
                                     <a href="javascript:;" class="contact-link">Contact</a>
-                                </li>
+                                </li>  --}}
                                 <li>
                                     <a href="javascript:;" class="contact-link">Message</a>
                                 </li>
-                                <li>
+                                {{--  <li>
                                     <a href="javascript:;" class="contact-link">Appointment</a>
-                                </li>
+                                </li>  --}}
                                 <li>
-                                    <a href="javascript:;" class="contact-link">Request Appointment</a>
+                                    <a href="javascript:;" class="contact-link" data-toggle="modal" data-target="#appointment">Request Appointment</a>
                                 </li>
                             </ul>
                             <ul class="socials d-flex">
@@ -193,4 +193,68 @@
         </div>
     </div>
 </div>
+
+<!-- appoinment modal -->
+<div id="appointment" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Book Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            
+            <form class="appointment_form " action="{{ route('user.store-profile') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+                @csrf
+                <div class="modal-body">
+                    <div class="row mt-md-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Name <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ old('name', isset($profile->name) ? $profile->name:'' ) }}" >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{ old('email', isset($profile->email) ? $profile->email : '' ) }}"  disabled readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-6">
+                            <div class="form-group position-relative">
+                                <label class="form-control-label">Date <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control birthdate" name="date" id="date" placeholder="Select Date of Appintment" value="" >
+                                <div class="date-of-birth-icon">
+                                    <i class="flaticon-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Time Intervel <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control" name="time" id="time" placeholder="Enter Time Intervel" value="" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-md-2">
+                        <label class="col-form-label">Appointment Details:<span class="required-star-color">*</span></label>
+                        <div class="input-group custom-start">
+                            <textarea name="description" id="description" rows="5" placeholder="Enter Appointment Details" class="form-control"></textarea>
+                        </div>
+                        <div class="input-group description-error-msg"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-primary">Submit form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+@section('footer_script')
+<script type="text/javascript" src="{{ Helper::assets('js/pages/appointment.js') }}"></script>
 @endsection

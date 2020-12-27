@@ -471,7 +471,7 @@ ul{
 .login-link {
     padding-top: 7px;
 }
-.register-form .form-radio-group{
+.unique-radio .form-radio-group{
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -480,7 +480,7 @@ ul{
     list-style: none;
     width: 100%;
 }
-.register-form .form-radio-group .radio-inline{
+.unique-radio .form-radio-group .radio-inline{
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
     -ms-flex-positive: 1;
@@ -493,21 +493,21 @@ ul{
     border-radius: .1875rem;
     cursor: pointer;
 }
-.register-form  .form-radio-group .radio-inline input[type=radio]{
+.unique-radio  .form-radio-group .radio-inline input[type=radio]{
     opacity: 0;
     position: absolute;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
-.register-form  .form-radio-group .radio-inline i:before{
+.unique-radio  .form-radio-group .radio-inline i:before{
     margin: 0 5px 0 0;
 }
-.register-form .form-radio-group .radio-inline.active {
+.unique-radio .form-radio-group .radio-inline.active {
     background: #75d2fa;
 }
 
-.register-form .form-radio-group 
+.unique-radio .form-radio-group 
  .radio-inline.active {
     color: #fff;
 }

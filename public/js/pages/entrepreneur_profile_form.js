@@ -20,7 +20,7 @@ var D = parseInt(d.getDate()) + 1;
 $(".birthdate").datetimepicker({
     ignoreReadonly: true,
     useCurrent: false,
-    format: 'DD/MM/YYYY',
+    format: 'MM/DD/YYYY',
     maxDate: new Date(Y, M, D),
     disabledDates: [
         new Date(Y, M, D)

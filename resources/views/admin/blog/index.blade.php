@@ -117,18 +117,21 @@
 
     CKEDITOR.replace('description', {
         height: '200px',
-        removeButtons: 'Subscript,Superscript,Image',
-        toolbarGroups: [
-            { name: 'styles' },
-            { name: 'editing', groups: ['find', 'selection'] },
-            { name: 'basicstyles', groups: ['basicstyles'] },
-            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align'] },
-            { name: 'links' },
-            { name: 'insert' },
-            { name: 'colors' },
-            { name: 'tools' },
-            { name: 'others' },
-            { name: 'document', groups: ['mode', 'document', 'doctools'] }
+        removeButtons: 'Checkbox,Radio,TextField,Textarea,Select,',
+        ttoolbarGroups: [
+            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+            { name: 'forms', groups: [ 'forms' ] },
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+            { name: 'links', groups: [ 'links' ] },
+            { name: 'insert', groups: [ 'insert' ] },
+            { name: 'styles', groups: [ 'styles' ] },
+            { name: 'colors', groups: [ 'colors' ] },
+            { name: 'tools', groups: [ 'tools' ] },
+            { name: 'others', groups: [ 'others' ] },
+            { name: 'about', groups: [ 'about' ] }
         ],
         wordcount: {
             // Whether or not you want to show the Paragraphs Count

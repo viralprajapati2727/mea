@@ -25,7 +25,7 @@
                                 <a class="nav-link" href="{{ route('page.members') }}">Members</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('job.search-job') }}">Browse Jobs</a>
+                                <a class="nav-link" href="{{ route('job.search-job') }}">Browse Requests</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.resources') }}">Resources</a>

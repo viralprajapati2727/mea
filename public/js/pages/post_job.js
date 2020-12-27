@@ -10,9 +10,94 @@ $(document).ready(function(){
         format: 'LT',
         useCurrent: false,
         locale: 'en',
-    });  
+    });
+    
+    $(document).on('change','#job_title_id',function(){
+        $('.div_other_job_title').hide();
+        if($(this).val() == '-1'){
+            $('.div_other_job_title').show();
+        }
+    });
 
-    CKEDITOR.replace('description', {
+    $('.form-check-input-styled').uniform();
+    $(document).on('change','.is_find_team_member',function(){
+        $('.team_member_text_div').hide();
+        if($(this).is(':checked')){
+            $('.team_member_text_div').show();
+        }
+    });
+    
+    $(document).on('change','.is_paid',function(){
+        $('.salary_div').hide();
+        if($(this).is(':checked')){
+            $('.salary_div').show();
+        }
+    });
+
+
+    // $('.type_post_request').hide();
+    $(document).on('click','input[name=job_type]',function(){
+        $(this).parents('.form-radio-group').find('label.radio-inline').removeClass('active');
+        $(this).parents('label.radio-inline').addClass('active');
+
+        if($(this).val() == '1'){
+            $('.type_post_job').show();
+            $('.type_post_request').hide();
+        } else {
+            $('.type_post_job').hide();
+            $('.type_post_request').show();
+        }
+    });
+    CKEDITOR.replaceAll('description', {
+        height: '200px',
+        removeButtons: 'Subscript,Superscript,Image',
+        toolbarGroups: [
+            { name: 'styles' },
+            { name: 'editing', groups: ['find', 'selection'] },
+            { name: 'basicstyles', groups: ['basicstyles'] },
+            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align'] },
+            { name: 'links' },
+            { name: 'insert' },
+            { name: 'colors' },
+            { name: 'tools' },
+            { name: 'others' },
+            { name: 'document', groups: ['mode', 'document', 'doctools'] }
+        ],
+        wordcount: {
+            // Whether or not you want to show the Paragraphs Count
+            showParagraphs: false,
+    
+            // Whether or not you want to show the Word Count
+            showWordCount: false,
+    
+            // Whether or not you want to show the Char Count
+            showCharCount: true,
+    
+            // Whether or not you want to count Spaces as Chars
+            countSpacesAsChars: false,
+    
+            // Whether or not to include Html chars in the Char Count
+            countHTML: false,
+    
+            // Maximum allowed Word Count, -1 is default for unlimited
+            maxWordCount: -1,
+    
+            // Maximum allowed Char Count, -1 is default for unlimited
+            maxCharCount: 1500,
+    
+            // Option to limit the characters in the Editor, for example 200 in this case.
+            charLimit: 1500,
+    
+            notification_duration: 1,
+            duration: 1
+        },
+        notification: {
+            duration: 1,
+            notification_duration: 1
+        }
+    });
+
+    CKEDITOR.replaceAll('r_description', {
         height: '200px',
         removeButtons: 'Subscript,Superscript,Image',
         toolbarGroups: [
@@ -93,6 +178,7 @@ $(document).ready(function(){
         return true;
     });
 
+    // for postjob
     $('.post-job-form').validate({
         
         ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
@@ -125,7 +211,10 @@ $(document).ready(function(){
                 error.appendTo( element.parent().parent() );
             }
             else if (element.parents('div').hasClass('ckeditor')) {
-                error.appendTo( element.parent().parent()     );
+                error.appendTo( element.parent().parent());
+            }
+            else if (element.parents('div').hasClass('key_skill')) {
+                error.appendTo( element.parent().parent());
             }
             // Other elements
             else {
@@ -136,22 +225,29 @@ $(document).ready(function(){
             job_title_id: {
                 required: true,
             },
+            other_job_title:{
+                required: { depends: function(element) { return $('#job_title_id').val() == "-1" } },
+                maxlength:100,
+            },
             job_type_id: {
                 required: true,
             },
             currency_id: {
-                required: true,
+                required: { depends: function(element) { return $('.is_paid').is(":checked") } },
             },
             min_salary: {
-                required: true,
+                required: { depends: function(element) { return $('.is_paid').is(":checked") } },
                 digits: true,
                 maxlength:8,
             },
             max_salary: {
-                required: true,
+                required: { depends: function(element) { return $('.is_paid').is(":checked") } },
                 digits: true,
                 maxlength:9,
                 greaterThanSalary:".min_salary",
+            },
+            salary_type_id: {
+                required: { depends: function(element) { return $('.is_paid').is(":checked") } },
             },
             job_start_time: {
             },
@@ -162,6 +258,9 @@ $(document).ready(function(){
                 required: true,
                 maxlength:255,
             },
+            key_skills: {
+                required: true,
+            },
             description: {
                 required: function(){
                     CKEDITOR.instances.description.updateElement();
@@ -171,14 +270,13 @@ $(document).ready(function(){
                 },
                 checkCkeditorEmpty: '#description',
             },
-            required_experience: {
-                required: true,
-                maxlength:10,
-            },
         },
         messages: {
             job_title_id: {
                 required: "Please select job title",
+            },
+            other_job_title: {
+                required: "Please enter other job title",
             },
             job_type_id: {
                 required: "Please select job type",
@@ -205,6 +303,9 @@ $(document).ready(function(){
                 required: "Please enter end time",
                 greaterThan: "Please enter end time greater than start time",
             },
+            key_skills: {
+                required: "Please enter key skills",
+            },
             location: {
                 required: "Please enter job address",
                 maxlength: "Maximum {0} characters are allowed",
@@ -213,15 +314,86 @@ $(document).ready(function(){
                 required: "Please enter job description",
                 checkCkeditorEmpty: "Please enter job description",
             },
-            required_experience: {
-
-                required: "Please enter required experience",
-                maxlength: "Maximum {0} characters are allowed",
-            },
         },
         submitHandler: function (form) {
             CKEDITOR.instances.description.updateElement();
             $('.post-job-form').ajaxSubmit(
+                {
+                    beforeSubmit:  showRequest_pro_profile,  // pre-submit callback
+                    success:       showResponse_pro_profile,  // post-submit callback
+                    error: errorResponse_pro_profile,
+                }
+            );
+        }
+    });
+
+    //for postrequest
+    $('.post-request-form').validate({
+        
+        ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+        debug: true,
+        errorClass: 'error',
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+            // Unstyled checkboxes, radios
+            if (element.parents().hasClass('form-check')) {
+                error.appendTo( element.parents('.form-check').parent() );
+            }
+            // Input with icons and Select2
+            else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                error.appendTo( element.parent() );
+            }
+            else if (element.parents('div').hasClass('multiselect-native-select')) {
+                error.appendTo( element.parent().parent() );
+            }
+            else if (element.parents('div').hasClass('ckeditor')) {
+                error.appendTo( element.parent().parent());
+            }
+            // Other elements
+            else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            other_job_title:{
+                required: true,
+                maxlength:100,
+            },
+            location: {
+                maxlength:255,
+            },
+            description: {
+                required: function(){
+                    CKEDITOR.instances.description.updateElement();
+                    var editorcontent = $('#r_description').val().replace(/<[^>]*>/gi, ''); // strip tags
+                    var editor_value = $.trim(editorcontent.replace(/&nbsp;/g, ''));
+                    return Number(editor_value) === 0;
+                },
+                checkCkeditorEmpty: '#r_description',
+            },
+        },
+        messages: {
+            other_job_title: {
+                required: "Please enter post title",
+            },
+            location: {
+                required: "Please enter address",
+                maxlength: "Maximum {0} characters are allowed",
+            },
+            r_description: {
+                required: "Please enter post description",
+                checkCkeditorEmpty: "Please enter job description",
+            },
+        },
+        submitHandler: function (form) {
+            CKEDITOR.instances.r_description.updateElement();
+            $('.post-request-form').ajaxSubmit(
                 {
                     beforeSubmit:  showRequest_pro_profile,  // pre-submit callback
                     success:       showResponse_pro_profile,  // post-submit callback

@@ -300,14 +300,14 @@ class Helper
                 "active_menu" => array('faq.index', 'faq.create', 'faq.edit'),
                 "child" => array(),
             ),
-            "16" => array( // Settings
+            "16" => array( // Appointments
                 "is_menu" => TRUE,
                 "url" => '',//route('admin.settings'),
                 "is_access" => TRUE,
                 "privilege_key" => "16",
                 "privilege_require" => "1",
-                "full_title" => "Settings",
-                "short_title" => "Settings",
+                "full_title" => "Appointments",
+                "short_title" => "Appointments",
                 "icon" => "icon-cog2",
                 "active_menu" => array(),//array('admin.settings'),
                 "child" => array(),
@@ -461,7 +461,7 @@ class Helper
     public static function getJobData($user_id = null, $job_id = null, $job_status = null, $all = true, $paginate = null) {
         $selectedFields = ['*'];
         if(is_null($job_id)){
-            $selectedFields = ['id','user_id','job_title_id','job_type_id','job_unique_id','job_status','job_count','location','created_at'];
+            $selectedFields = ['id','user_id','job_title_id','job_type','other_job_title','job_type_id','job_unique_id','job_status','location','job_count','created_at'];
         }
 
         $data = PostJob::select($selectedFields)->with([

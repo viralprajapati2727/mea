@@ -68,6 +68,7 @@
         <thead>
             <tr>
                 <th>Job Title</th>
+                <th>Type Of Job</th>
                 <th>Job Type</th>
                 <th>Salary Range</th>
                 <th>Start & End Time</th>
@@ -141,6 +142,7 @@ $(document).ready( function () {
         },
         columns: [
             { data: 'jobtitle', name: 'jobtitle' ,searchable:false, orderable:false},
+            { data: 'job_type', name: 'job_type' ,searchable:false, orderable:false},
             { data: 'jobtype', name: 'jobtype' ,searchable:false, orderable:false},
             { data: 'salary_range', name: 'salary_range' ,searchable:false},
             { data: 'job_time', name: 'job_time' ,searchable:false},

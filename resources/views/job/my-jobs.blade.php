@@ -40,16 +40,18 @@
                             <div class="col-lg-4 col-12 d-lg-block header-elements-inline align-items-baseline text-left">
                                 <div class="jb_company_myjob_title">
                                     <h4 class="font-weight-semibold">
-                                        <a href="https://staging.jobaroot.com/job/detail/J000143" class="font-black">{{ $job->jobTitle->title }}</a>
+                                        <a href="" class="font-black">{{ $job->job_title_id > 0 ? $job->jobTitle->title : $job->other_job_title }}</a>
                                     </h4>
                                     <div class="text-muted jb_my_job_company_bottom_location">
                                         <div class="d-block job-address">
                                             <i class="flaticon-pin mr-1"></i>
                                             {{ $job->location }}
                                         </div>
+                                        @if($job->job_type == 1)
                                         <div class="d-block">
                                             <i class="flaticon-wall-clock mr-1"></i>{{ config('constant.job_type')[$job->job_type_id] }}
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <!-- mobile only -->
