@@ -10,7 +10,26 @@
             </div>
             <form class="global-search-form">
                 <div class="form-group">
-                    
+                    <div class="form-body">
+                        <div class="input-control">
+                            <input type="text" name="Job Title" placeholder="Job TItle">
+                        </div>
+                        <div class="input-control">
+                            <input type="text" name="City" placeholder="City">
+                        </div>
+                        <div class="input-control">
+                            <select>
+                                <option>Job Category</option>
+                                <option>Accountant</option>
+                                <option>Influencersy</option>
+                                <option>IT & Networking Services</option>
+                                <option>Beta users & testers</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <button type="submit" class="form-btn">Serch</button>
+                    </div>
                 </div>
             </form>
         </div>

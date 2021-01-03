@@ -192,6 +192,14 @@
                                 <div class="row mt-md-2">
                                     <div class="col-12">
                                         <div class="form-group ckeditor">
+                                            <label class="form-control-label">What shifts will they work? <span class="required-star-color">*</span></label>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-md-2">
+                                    <div class="col-12">
+                                        <div class="form-group ckeditor">
                                             <label class="form-control-label">Job Description <span class="required-star-color">*</span></label>
                                             <textarea name="description" id="description" rows="5" class="form-control description" placeholder="Job Description">{{ $is_job && $job->job_type == 1 ? $job->description : old('description') }}</textarea>
                                             @if($is_job)
