@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 27/12/2020 08:07
+    Creation date: 03/01/2021 09:54
     */
 
     @font-face {
@@ -64,6 +64,8 @@
 .flaticon-employee:before { content: "\f118"; }
 .flaticon-business-idea:before { content: "\f119"; }
 .flaticon-job:before { content: "\f11a"; }
+.flaticon-sun:before { content: "\f11b"; }
+.flaticon-sun-1:before { content: "\f11c"; }
     
     $font-Flaticon-deal: "\f100";
     $font-Flaticon-question: "\f101";
@@ -92,3 +94,5 @@
     $font-Flaticon-employee: "\f118";
     $font-Flaticon-business-idea: "\f119";
     $font-Flaticon-job: "\f11a";
+    $font-Flaticon-sun: "\f11b";
+    $font-Flaticon-sun-1: "\f11c";
