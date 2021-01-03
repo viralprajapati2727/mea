@@ -4,7 +4,7 @@
 <div class="container">
     <div class="form-wrap login-wrap">
     <div class="row justify-content-center">
-        <div class="col-md-5 login-form">
+        <div class="col-md-8 col-lg-5 login-form">
             <div class="card">
                 <div class="card-header">{{ __('Welcome again, Please login.') }}</div>
 
