@@ -4,15 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Models\Setting;
-use App\Models\CandidateProfile;
-use App\Models\WalletLog;
-use App\Models\PaymentLog;
-use App\Models\UserExpertise;
-use App\Models\EventBooking;
-use App\Models\EventManager;
-use App\Models\EventBookingTicketType;
-use App\Models\Event;
+use App\Models\PostJob;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -85,7 +77,59 @@ class AdminController extends Controller {
 		}
 		$entrepreneurs = $entrepreneurs->count();
 
-        return view('admin.dashboard',compact('users','entrepreneurs','from_date','to_date'));
+		//pending jobs Count
+		$pendingjobs = PostJob::where('job_status',0)->where('deleted_at',NULL)->select('*');
+
+		if (isset($from_date_temp) && $from_date_temp != null && isset($to_date_temp) && $to_date_temp != null) {
+			$pendingjobs->whereDate('created_at', '>=', $from_date_temp);
+            $pendingjobs->whereDate('created_at', '<=', $to_date_temp);
+		} elseif (isset($from_date_temp) && $from_date_temp != null) {
+            $pendingjobs->whereDate('created_at', $from_date_temp);
+        } elseif (isset($to_date_temp) && $to_date_temp != null) {
+            $pendingjobs->whereDate('created_at', $to_date_temp);
+		}
+		$pendingjobs = $pendingjobs->count();
+
+		//active jobs Count
+		$activejobs = PostJob::where('job_status',1)->where('deleted_at',NULL)->select('*');
+
+		if (isset($from_date_temp) && $from_date_temp != null && isset($to_date_temp) && $to_date_temp != null) {
+			$activejobs->whereDate('created_at', '>=', $from_date_temp);
+            $activejobs->whereDate('created_at', '<=', $to_date_temp);
+		} elseif (isset($from_date_temp) && $from_date_temp != null) {
+            $activejobs->whereDate('created_at', $from_date_temp);
+        } elseif (isset($to_date_temp) && $to_date_temp != null) {
+            $activejobs->whereDate('created_at', $to_date_temp);
+		}
+		$activejobs = $activejobs->count();
+		
+		//closed jobs Count 
+		$closedjobs = PostJob::where('job_status',3)->where('deleted_at',NULL)->select('*');
+
+		if (isset($from_date_temp) && $from_date_temp != null && isset($to_date_temp) && $to_date_temp != null) {
+			$closedjobs->whereDate('created_at', '>=', $from_date_temp);
+            $closedjobs->whereDate('created_at', '<=', $to_date_temp);
+		} elseif (isset($from_date_temp) && $from_date_temp != null) {
+            $closedjobs->whereDate('created_at', $from_date_temp);
+        } elseif (isset($to_date_temp) && $to_date_temp != null) {
+            $closedjobs->whereDate('created_at', $to_date_temp);
+		}
+		$closedjobs = $closedjobs->count();
+
+		//rejected jobs Count 
+		$rejectedjobs = PostJob::where('job_status',2)->where('deleted_at',NULL)->select('*');
+
+		if (isset($from_date_temp) && $from_date_temp != null && isset($to_date_temp) && $to_date_temp != null) {
+			$rejectedjobs->whereDate('created_at', '>=', $from_date_temp);
+            $rejectedjobs->whereDate('created_at', '<=', $to_date_temp);
+		} elseif (isset($from_date_temp) && $from_date_temp != null) {
+            $rejectedjobs->whereDate('created_at', $from_date_temp);
+        } elseif (isset($to_date_temp) && $to_date_temp != null) {
+            $rejectedjobs->whereDate('created_at', $to_date_temp);
+		}
+		$rejectedjobs = $rejectedjobs->count();
+
+        return view('admin.dashboard',compact('users','entrepreneurs','pendingjobs','activejobs','closedjobs','rejectedjobs','from_date','to_date'));
 	}
 
 	public function changePassword() {

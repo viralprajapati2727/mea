@@ -26,7 +26,7 @@ class JobController extends Controller
             $keyword = $request->keyword;
         }
 
-        $Query = PostJob::select('id','job_title_id','job_type_id','job_unique_id','currency_id','min_salary','max_salary','job_start_time','job_end_time','job_status','created_at')->orderBy('id','desc');
+        $Query = PostJob::select('id','job_title_id','other_job_title','job_type','job_type_id','job_unique_id','currency_id','min_salary','max_salary','job_start_time','job_end_time','job_status','created_at')->orderBy('id','desc');
         $Query->whereIn('job_status',[0,2]);
 
         if($request->has('job_title_id') && $request->job_title_id != null){
@@ -43,13 +43,26 @@ class JobController extends Controller
 
         $data = datatables()->of($Query)
         ->addColumn('jobtitle', function ($Query) {
-            return "<a href='".route('admin.job.detail',['pending',$Query->job_unique_id])."' class='detail'>".$Query->jobTitle->title."</a>&nbsp;&nbsp;";
+            $title = $Query->job_title_id > 0 ? $Query->jobTitle->title : $Query->other_job_title;
+            return "<a href='".route('admin.job.detail',['pending',$Query->job_unique_id])."' class='detail'>".$title."</a>&nbsp;&nbsp;";
         })
         ->addColumn('jobtype', function ($Query) {
-            return config('constant.job_type')[$Query->job_type_id];
+            if($Query->job_type == 1){
+                return config('constant.job_type')[$Query->job_type_id];
+            }
+            return "-";
+        })
+        ->addColumn('job_type', function ($Query) {
+            if($Query->job_type == 1){
+                return "Post Job";
+            }
+            return "Post Request";
         })
         ->addColumn('salary_range', function ($Query) {
-            return $Query->currency->code ." ". $Query->min_salary." - ".$Query->currency->code ." ". $Query->max_salary;
+            if($Query->is_paid){
+                return $Query->currency->code ." ". $Query->min_salary." - ".$Query->currency->code ." ". $Query->max_salary;
+            }
+            return "-";
         })
         ->addColumn('job_time', function ($Query) {
             return $Query->job_start_time." - ".$Query->job_end_time;
@@ -110,8 +123,8 @@ class JobController extends Controller
             $keyword = $request->keyword;
         }
 
-        $Query = PostJob::select('id','job_title_id','job_type_id','job_unique_id','currency_id','min_salary','max_salary','job_start_time','job_end_time','job_status','created_at')->orderBy('id','desc');
-        $Query->whereIn('job_status',[0,2]);
+        $Query = PostJob::select('id','job_title_id','other_job_title','job_type','job_type_id','job_unique_id','currency_id','min_salary','max_salary','job_start_time','job_end_time','job_status','created_at')->orderBy('id','desc');
+        $Query->whereIn('job_status',[1]);
 
         if($request->has('job_title_id') && $request->job_title_id != null){
             $Query->where('job_title_id',$request->job_title_id);
@@ -127,13 +140,26 @@ class JobController extends Controller
 
         $data = datatables()->of($Query)
         ->addColumn('jobtitle', function ($Query) {
-            return "<a href='".route('admin.job.detail',['active',$Query->job_unique_id])."' class='detail'>".$Query->jobTitle->title."</a>&nbsp;&nbsp;";
+            $title = $Query->job_title_id > 0 ? $Query->jobTitle->title : $Query->other_job_title;
+            return "<a href='".route('admin.job.detail',['active',$Query->job_unique_id])."' class='detail'>".$title."</a>&nbsp;&nbsp;";
         })
         ->addColumn('jobtype', function ($Query) {
-            return config('constant.job_type')[$Query->job_type_id];
+            if($Query->job_type == 1){
+                return config('constant.job_type')[$Query->job_type_id];
+            }
+            return "-";
+        })
+        ->addColumn('job_type', function ($Query) {
+            if($Query->job_type == 1){
+                return "Post Job";
+            }
+            return "Post Request";
         })
         ->addColumn('salary_range', function ($Query) {
-            return $Query->currency->code ." ". $Query->min_salary." - ".$Query->currency->code ." ". $Query->max_salary;
+            if($Query->is_paid){
+                return $Query->currency->code ." ". $Query->min_salary." - ".$Query->currency->code ." ". $Query->max_salary;
+            }
+            return "-";
         })
         ->addColumn('job_time', function ($Query) {
             return $Query->job_start_time." - ".$Query->job_end_time;

@@ -26,10 +26,18 @@
                     <div class="detail-section">
                         <div class="form-group row">
                             <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Type Of Job</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="font-weight-bold">{{ $job->job_type == 1? "Post Job" : "Post Request" }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
                                 <label class="font-weight-bold label-before">Job ID</label>
                             </div>
                             <div class="col-lg-8">
-                                <p class="font-weight-bold">{{ $job->job_unique_id }}</p>
+                                <p class="font-weight-bold">{{ $job->job_unique_id." | ". Helper::timeAgo($job->created_at)  }}</p>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -37,7 +45,16 @@
                                 <label class="font-weight-bold label-before">Job Title</label>
                             </div>
                             <div class="col-lg-8">
-                                <p class="font-weight-bold">{{ $job->jobTitle->title }}</p>
+                                <p class="font-weight-bold">{{ $job->job_title_id > 0 ? $job->jobTitle->title : $job->other_job_title }}</p>
+                            </div>
+                        </div>
+                        @if($job->job_type == 1)
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Business Category</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="font-weight-bold">{{ $job->category->title  }}</p>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -48,6 +65,7 @@
                                 <p class="font-weight-bold">{{ config('constant.job_type')[$job->job_type_id] }}</p>
                             </div>
                         </div>
+                        @endif
                         <div class="form-group row">
                             <div class="col-lg-4">
                                 <label class="font-weight-bold label-before">Job Count</label>
@@ -56,6 +74,7 @@
                                 <p class="font-weight-bold">{{ $job->job_count }}</p>
                             </div>
                         </div>
+                        @if($job->job_type == 1)
                         <div class="form-group row">
                             <div class="col-lg-4">
                                 <label class="font-weight-bold label-before">Working Time</label>
@@ -64,6 +83,15 @@
                                 <p class="font-weight-bold">{{ $job->job_start_time ." ". $job->job_end_time }}</p>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">TimeZone</label>
+                            </div>
+                            <div class="col-lg-4">
+                                <p class="font-weight-bold">{{ $job->time_zone }}</p>
+                            </div>
+                        </div>
+                        @endif
                         <div class="form-group row">
                             <div class="col-lg-4">
                                 <label class="font-weight-bold label-before">Posted On</label>
@@ -88,20 +116,13 @@
                                 <p class="font-weight-bold">{!! $job->description !!}</p>
                             </div>
                         </div>
+                        @if($job->job_type == 1)
                         <div class="form-group row">
                             <div class="col-lg-4">
                                 <label class="font-weight-bold label-before">Salary Range</label>
                             </div>
                             <div class="col-lg-8">
-                                <p class="font-weight-bold">{{ $job->currency->code ." ". $job->min_salary." - ".$job->currency->code ." ". $job->max_salary }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-lg-4">
-                                <label class="font-weight-bold label-before">Required Experience (Year)</label>
-                            </div>
-                            <div class="col-lg-8">
-                                <p class="font-weight-bold">{{ $job->required_experience }}</p>
+                                <p class="font-weight-bold">{{ $job->is_paid ? ($job->currency->code ." ". $job->min_salary." - ".$job->currency->code ." ". $job->max_salary) : "" }}</p>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -114,6 +135,24 @@
                                 @endforeach
                             </div>
                         </div>
+                        @else
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Find Team Member?</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="font-weight-bold">{{ $job->is_find_team_member == 1 ? "Yes" : "No" }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Find Team Content</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="font-weight-bold">{{ $job->find_team_member_text}}</p>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

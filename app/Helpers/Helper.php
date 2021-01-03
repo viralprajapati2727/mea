@@ -300,14 +300,14 @@ class Helper
                 "active_menu" => array('faq.index', 'faq.create', 'faq.edit'),
                 "child" => array(),
             ),
-            "16" => array( // Settings
+            "16" => array( // Appointments
                 "is_menu" => TRUE,
                 "url" => '',//route('admin.settings'),
                 "is_access" => TRUE,
                 "privilege_key" => "16",
                 "privilege_require" => "1",
-                "full_title" => "Settings",
-                "short_title" => "Settings",
+                "full_title" => "Appointments",
+                "short_title" => "Appointments",
                 "icon" => "icon-cog2",
                 "active_menu" => array(),//array('admin.settings'),
                 "child" => array(),
@@ -359,7 +359,8 @@ class Helper
         $weeks   = round($seconds / 604800); // 7*24*60*60;  
         $months  = round($seconds / 2629440); //((365+365+365+365+366)/5/12)*24*60*60  
         $years   = round($seconds / 31553280); //(365+365+365+365+366)/5 * 24 * 60 * 60
-                        
+            
+        
         if ($seconds <= 60){
 
             return "Just Now";
@@ -388,64 +389,66 @@ class Helper
 
             }
 
-        } else{
-            // if(1){
-                $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('M d Y');
-                $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('h:i A');
-            // }else{
-            //     $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('M d Y');
-            //     $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('h:i A');
-            // }
-            return $rDate;
         }
         
-        // else if ($days <= 7){
+        else if ($days <= 7){
 
-        //     if ($days == 1){
+            if ($days == 1){
 
-        //     return "yesterday";
+            return "yesterday";
 
-        //     } else {
+            } else {
 
-        //     return "$days days ago";
+            return "$days days ago";
 
-        //     }
+            }
 
-        // } else if ($weeks <= 4.3){
+        } else if ($weeks <= 4.3){
 
-        //     if ($weeks == 1){
+            if ($weeks == 1){
 
-        //     return "a week ago";
+            return "a week ago";
 
-        //     } else {
+            } else {
 
-        //     return "$weeks weeks ago";
+            return "$weeks weeks ago";
 
-        //     }
+            }
 
-        // } else if ($months <= 12){
+        } else if ($months <= 12){
 
-        //     if ($months == 1){
+            if ($months == 1){
 
-        //     return "a month ago";
+            return "a month ago";
 
-        //     } else {
+            } else {
 
-        //     return "$months months ago";
+            return "$months months ago";
 
-        //     }
+            }
 
-        // } else {
+        } else {
             
-        //     if ($years == 1){
+            if ($years == 1){
 
-        //     return "one year ago";
+            return "one year ago";
 
-        //     } else {
+            } else {
 
-        //     return "$years years ago";
+            return "$years years ago";
 
-        //     }
+            }
+        }
+
+        // else{
+        //     // if(1){
+        //         $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('M d Y');
+        //         $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('h:i A');
+        //     // }else{
+        //     //     $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('M d Y');
+        //     //     $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('h:i A');
+        //     // }
+        //     return $rDate;
         // }
     }
     public static function userProfile($slug){
@@ -461,7 +464,7 @@ class Helper
     public static function getJobData($user_id = null, $job_id = null, $job_status = null, $all = true, $paginate = null) {
         $selectedFields = ['*'];
         if(is_null($job_id)){
-            $selectedFields = ['id','user_id','job_title_id','job_type_id','job_unique_id','job_status','job_count','location','created_at'];
+            $selectedFields = ['id','user_id','job_title_id','job_type','other_job_title','job_type_id','job_unique_id','job_status','location','job_count','created_at'];
         }
 
         $data = PostJob::select($selectedFields)->with([

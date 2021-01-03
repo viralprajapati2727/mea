@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\KeySkill;
 
 class PostJob extends Model
@@ -19,6 +20,9 @@ class PostJob extends Model
     }
     public function jobTitle(){
         return $this->belongsTo('App\Models\JobTitle', 'job_title_id','id');
+    }
+    public function category(){
+        return $this->belongsTo('App\Models\BusinessCategory', 'business_category_id','id');
     }
     public function currency(){
         return $this->belongsTo('App\Models\Currency', 'currency_id','id');

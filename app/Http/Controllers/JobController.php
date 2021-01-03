@@ -41,13 +41,13 @@ class JobController extends Controller
             $job = null;
             $jobtitles = JobTitle::where('deleted_at',null)->get();
             $currencies = Currency::where('deleted_at',null)->get();
-            
+            $business_categories = BusinessCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
             $skills = KeySkill::select('title As label')->get()->toArray();
 
             if(!empty($job_unique_id) && !is_null($job_unique_id)){
                 $job = Helper::getJobData(Auth::id(),$job_unique_id,null,false,null);
             }
-			return view('job.fill-job',compact('jobtitles','currencies','job','skills'));
+			return view('job.fill-job',compact('jobtitles','currencies','job','skills','business_categories'));
         }catch(Exception $e){
             DB::rollback();
             return redirect()->back()->with('warning',$e->getMessage());
@@ -64,86 +64,117 @@ class JobController extends Controller
         DB::beginTransaction();
 
         try{
-            $is_pending_job = $both = 0;
+            $is_pending_job = $is_paid = $is_find_team_member = 0;
             $user_id = Auth::id();
 
-            // if(!$request->has('job_id')){
-            //     $check_job = Helper::checkingJobData($user_id);
-            //     if(!empty($check_job)){
-            //         $is_pending_job = 1;
-            //         return response()->json(['both' => $both,  'message' => "", 'status' => 0,'is_pending_job' => $is_pending_job]);
-            //     }
-            // }
-            
             $job_unique_id = PostJob::generateBarcodeNumber();
 
             if($request->has('job_id')){
                 $param[ "id" ] = $request->job_id;
             }
 
-            $param2 = ["job_title_id" => $request->job_title_id, "job_type_id" => $request->job_type_id, "currency_id" => $request->currency_id,
-            "min_salary" => $request->min_salary,"max_salary" => $request->max_salary, "job_start_time" => $request->job_start_time,"job_end_time" => $request->job_end_time,
-            "description" => $request->description,"location" => $request->location,"required_experience" => $request->required_experience,"created_by" => $user_id, "updated_by" => $user_id];
+            if(isset($request->is_paid)){
+                $is_paid = 1;
+            }
 
-            $skills = explode(',',preg_replace('/\s*,\s*/', ',', $request->key_skills));
-            $skillArr = [];
-            foreach ($skills as $k => $skill) {
-                if(!empty($skill)){
-                    $skillModel = KeySkill::firstOrCreate(['title' => $skill],["created_by" => $user_id]);
+            if($request->job_type == 1){ //postjob
+                $param2 = ["job_type" => $request->job_type, "job_title_id" => $request->job_title_id, "other_job_title" => $request->other_job_title, "business_category_id" => $request->business_category_id, "job_type_id" => $request->job_type_id, "currency_id" => $request->currency_id,
+                "salary_type_id" => $request->salary_type_id, "min_salary" => $request->min_salary, "max_salary" => $request->max_salary, "job_start_time" => $request->job_start_time,"job_end_time" => $request->job_end_time, "time_zone" => $request->time_zone,
+                "is_paid" => $is_paid,"description" => $request->description,"location" => $request->location,"created_by" => $user_id, "updated_by" => $user_id];
 
-                    if(isset($skillModel) && !empty($skillModel) && $skillModel->count() > 0){
-                        $skillArr[] = $skillModel->id;
+                $skills = explode(',',preg_replace('/\s*,\s*/', ',', $request->key_skills));
+                $skillArr = [];
+                foreach ($skills as $k => $skill) {
+                    if(!empty($skill)){
+                        $skillModel = KeySkill::firstOrCreate(['title' => $skill],["created_by" => $user_id]);
+
+                        if(isset($skillModel) && !empty($skillModel) && $skillModel->count() > 0){
+                            $skillArr[] = $skillModel->id;
+                        }
                     }
                 }
-            }
-            if(!empty($skillArr)){
-                $param2[ "key_skills" ] = implode(',',$skillArr);
-            }
-
-            if($request->has('job_id')){
-                $job = PostJob::updateOrCreate(
-                    $param,
-                    $param2
-                );
-            } else {
-                $param2[ "user_id" ] = $user_id;
-                $param2[ "job_unique_id" ] = $job_unique_id;
-                $job = PostJob::create(
-                    $param2
-                );
-            }
-
-            if(!empty($skillArr)){
-                $insertedSkills = JobSkill::where("job_id",$job->id)->get()->toArray();
-                $insertedSkills = collect($insertedSkills);
-                $insertedSkills = $insertedSkills->pluck('key_skill_id')->toArray();
-                $deleteJobSkills = array_diff($insertedSkills, $skillArr);
-                $newinsertJobSkills = array_diff($skillArr, $insertedSkills);
-                JobSkill::where(["job_id" => $job->id])->whereIn('key_skill_id',$deleteJobSkills)->delete();
-                $newRecord = [];
-                foreach($newinsertJobSkills as $new){
-                    $newRecord[] = [
-                        'key_skill_id' => $new,
-                        'job_id' => $job->id,
-                    ];
+                if(!empty($skillArr)){
+                    $param2[ "key_skills" ] = implode(',',$skillArr);
                 }
-                if(!empty($newRecord))
-                    JobSkill::insert($newRecord);
-            }
 
-            if(isset($request->job_status)){
-                $job_status = config('constant.job_status.Pending');
-                if(($job->job_status == config('constant.job_status.Rejected') ? '' : $request->job_status != config('constant.job_status.Pending')) || $request->job_status != config('constant.job_status.Active')){
-                    $job_status = $request->job_status;
+                if($request->has('job_id')){
+                    $job = PostJob::updateOrCreate(
+                        $param,
+                        $param2
+                    );
+                } else {
+                    $param2[ "user_id" ] = $user_id;
+                    $param2[ "job_unique_id" ] = $job_unique_id;
+                    $job = PostJob::create(
+                        $param2
+                    );
                 }
-                $job->job_status = $job_status;
-                $job->save();
+
+                if(!empty($skillArr)){
+                    $insertedSkills = JobSkill::where("job_id",$job->id)->get()->toArray();
+                    $insertedSkills = collect($insertedSkills);
+                    $insertedSkills = $insertedSkills->pluck('key_skill_id')->toArray();
+                    $deleteJobSkills = array_diff($insertedSkills, $skillArr);
+                    $newinsertJobSkills = array_diff($skillArr, $insertedSkills);
+                    JobSkill::where(["job_id" => $job->id])->whereIn('key_skill_id',$deleteJobSkills)->delete();
+                    $newRecord = [];
+                    foreach($newinsertJobSkills as $new){
+                        $newRecord[] = [
+                            'key_skill_id' => $new,
+                            'job_id' => $job->id,
+                        ];
+                    }
+                    if(!empty($newRecord))
+                        JobSkill::insert($newRecord);
+                }
+
+                if(isset($request->job_status)){
+                    $job_status = config('constant.job_status.Pending');
+                    if(($job->job_status == config('constant.job_status.Rejected') ? '' : $request->job_status != config('constant.job_status.Pending')) || $request->job_status != config('constant.job_status.Active')){
+                        $job_status = $request->job_status;
+                    }
+                    $job->job_status = $job_status;
+                    $job->save();
+                }
+
+                $message_text = "job";
+            } else {//postrequest
+                if(isset($request->is_find_team_member)){
+                    $is_find_team_member = 1;
+                }
+
+                $param2 = ["job_type" => $request->job_type, "other_job_title" => $request->other_job_title, "is_find_team_member" => $request->is_find_team_member,
+                "find_team_member_text" => $request->find_team_member_text, "description" => $request->r_description,"location" => $request->location,"created_by" => $user_id, "updated_by" => $user_id];
+
+                if($request->has('job_id')){
+                    $job = PostJob::updateOrCreate(
+                        $param,
+                        $param2
+                    );
+                } else {
+                    $param2[ "user_id" ] = $user_id;
+                    $param2[ "job_unique_id" ] = $job_unique_id;
+                    $job = PostJob::create(
+                        $param2
+                    );
+                }
+
+                if(isset($request->job_status)){
+                    $job_status = config('constant.job_status.Pending');
+                    if(($job->job_status == config('constant.job_status.Rejected') ? '' : $request->job_status != config('constant.job_status.Pending')) || $request->job_status != config('constant.job_status.Active')){
+                        $job_status = $request->job_status;
+                    }
+                    $job->job_status = $job_status;
+                    $job->save();
+                }
+
+                $message_text = "request";
             }
 
             
             if($job){
                 DB::commit();
-                $message = 'Your job has been saved successfully';
+                $message = 'Your '.$message_text.' has been saved successfully';
                 $responseData['status'] = 1;
                 $responseData['redirect'] = route('job.my-jobs');
                 $responseData['message'] = $message;
@@ -167,5 +198,27 @@ class JobController extends Controller
         $business_categories = BusinessCategory::select('id','title','src','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->limit(15)->get();
 
         return view('job.search-job',compact('business_categories'));
+    }
+    public function detail($id){
+        try{
+            $job = null;
+            
+            if(empty($id)){
+                return redirect()->route('index');
+            }
+
+            if(!empty($id) && !is_null($id)){
+                $job = Helper::getJobData(null,$id,null,false,null);
+            }
+
+            if(empty($job)){
+                return redirect()->route('index');
+            }
+
+			return view('job.job-detail',compact('job'));
+        }catch(Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('warning',$e->getMessage());
+        }
     }
 }
