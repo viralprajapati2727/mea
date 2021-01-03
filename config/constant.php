@@ -37,4 +37,27 @@ return [
         'imageSizeLimit_byte' => 52428800, /* 50MB*/
         'imageSizeLimit_byte_video' => 314572800, /* 300MB*/
         'rpp' => 10, /* Record per page */
+        "SHIFT" => [
+            "1" => [
+                "Mon" => [1 => "flaticon-sun",2 => "flaticon-sun-1"],
+            ],
+            "2" => [
+                "Tue" => [1 => "flaticon-sun",2 => "flaticon-sun-1"],
+            ],
+            "3" => [
+                "Wed" => [1 => "flaticon-sun",2 => "flaticon-sun-1"],
+            ],
+            "4" => [
+                "Thu" => [1 => "flaticon-sun",2 => "flaticon-sun-1"],
+            ],
+            "5" => [
+                "Fri" => [1 => "flaticon-sun",2 => "flaticon-sun-1"],
+            ],
+            "6" => [
+                "Sat" => [1 => "flaticon-sun",2 => "flaticon-sun-1"],
+            ],
+            "7" => [
+                "Sun" => [1 => "flaticon-sun",2 => "flaticon-sun-1"],
+            ],
+        ],
     ];

@@ -18,7 +18,7 @@
             </div>
             <div class="community-question-wraper">
                 <div class="add-que-wrap d-flex justify-content-end">
-                    <button class="btn">Ask A Question</button>
+                    <a href="javascript:;" class="btn" data-toggle="modal" data-target="#ask-question">Ask A Question</a>
                 </div>
                 <div class="com-que-list">
                     <div class="com-que header">
@@ -338,4 +338,71 @@
         </div>
     </div>
 </div>
+
+
+<!-- ask question modal -->
+<div id="ask-question" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ask Question</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            
+            <form class="ask_question_form" action="{{ route('appointment.update-appointment') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+                @csrf
+                <div class="modal-body">
+                    <div class="row mt-md-2">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-control-label">Title <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control" name="title" id="title" placeholder="Enter Title" value="{{ old('title') }}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-md-2 ckeditor">
+                        <label class="col-form-label">About Question:<span class="required-star-color">*</span></label>
+                        <div class="input-group custom-start">
+                            <textarea name="description" id="description" rows="5" placeholder="About Question" class="form-control"></textarea>
+                        </div>
+                        <div class="input-group description-error-msg"></div>
+                    </div>
+                    <div class="form-group mt-md-2">
+                        <label class="form-control-label">Category <span class="required-star-color">*</span></label>
+                        <select name="category_id" id="category_id" class="form-control select2 no-search-select2" data-placeholder="Select Category">
+                            <option></option>
+                            @forelse ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            @empty
+                            @endforelse
+                        </select>
+                    </div>
+                    <div class="form-group tag">
+                        <label class="form-control-label">Tag <span class="required-star-color">*</span></label>
+                        <input type="text" name="tag" id="tag" class="form-control tokenfield" value="" data-fouc>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-primary">Submit form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+@section('footer_script')
+<script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/tags/tokenfield.min.js') }}"></script>
+<script>
+    $('.tokenfield').tokenfield({
+        limit : 10,
+        // showAutocompleteOnFocus: true
+        createTokensOnBlur: true,
+    });
+
+    
+</script>
+<script type="text/javascript" src="{{ Helper::assets('js/pages/community.js') }}"></script>
 @endsection

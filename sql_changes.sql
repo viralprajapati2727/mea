@@ -10,3 +10,5 @@ ALTER TABLE `post_jobs` ADD `salary_type_id` TINYINT NULL DEFAULT NULL AFTER `is
 ALTER TABLE `post_jobs` ADD `time_zone` VARCHAR(255) NULL DEFAULT NULL AFTER `job_end_time`;
 ALTER TABLE `post_jobs` CHANGE `job_title_id` `job_title_id` INT(11) NULL DEFAULT NULL;
 ALTER TABLE `post_jobs` ADD `business_category_id` INT(11) NULL DEFAULT NULL AFTER `user_id`;
+ALTER TABLE `job_shifts` CHANGE `key_skill_id` `shift_id` INT(11) NOT NULL;
+ALTER TABLE `job_shifts` ADD `shift_val` INT(11) NULL DEFAULT NULL AFTER `shift_id`;

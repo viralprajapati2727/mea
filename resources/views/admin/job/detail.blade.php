@@ -129,10 +129,45 @@
                             <div class="col-lg-4">
                                 <label class="font-weight-bold label-before">Key Skills</label>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-8">
                                 @foreach($job->key_skills as $skill)
                                     <p class="font-weight-bold badge badge-flat border-primary text-primary-600">{{ isset($skill) ? $skill : "" }}</p>
                                 @endforeach
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">What shifts will they work?</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="row mt-md-2 job_shift_wrap w-100">
+                                    <div class="col-12">
+                                        <div class="radios">
+                                            @foreach (config('constant.SHIFT') as $day => $shift)
+                                                <div class="form-group">
+                                                    <h6>{{ array_keys($shift)[0] }}</h6>
+                                                    <div class="form-radio-group">
+                                                        @foreach ($shift[array_keys($shift)[0]] as $key => $value)
+                                                            @php $shifts = $job->jobShift->pluck('shift_val','shift_id')->toArray();
+                                                                $class = $checked = "";
+                                                                if (array_key_exists($day ,$shifts)){
+                                                                    if($shifts[$day] == $key){
+                                                                        $class = "active";
+                                                                        $checked = "checked";
+                                                                    }
+                                                                }
+                                                            @endphp
+                                                            <label class="radio-inline {{ $class }}">
+                                                                <i class="{{ $value }}"></i>
+                                                                <input type="radio" class="job_type shift-radio" name="shift[{{ $day }}]" value="{{ $key }}" {{ $checked }}>
+                                                            </label>                                                
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         @else

@@ -110,6 +110,19 @@ class JobController extends Controller
                     );
                 }
 
+                /*
+                 * save user shift data
+                 */
+                if(!empty($request->shift)){
+                    $job->jobShift()->delete();
+                    
+                    foreach ($request->shift as $key => $shift) {
+                        $jobShift[] = ['job_id' => $job->id, 'shift_id' => $key, 'shift_val' => $shift];
+                    }
+
+                    $job->jobShift()->insert($jobShift);
+                }
+
                 if(!empty($skillArr)){
                     $insertedSkills = JobSkill::where("job_id",$job->id)->get()->toArray();
                     $insertedSkills = collect($insertedSkills);

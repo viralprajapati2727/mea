@@ -14,16 +14,15 @@ use Session;
 use Carbon\Carbon;
 use stdClass;
 use App\Models\Appointment;
+use App\Models\QuestionCategory;
 
 
 
-class AppointmentController extends Controller
+class CommunityController extends Controller
 {
     public function index(){
-
-        $appointments = Appointment::where('deleted_at',null)->where('user_id',Auth::id())->orderBy('id','DESC')->paginate(10);
-
-        return view('pages.appointments',compact('appointments'));
+        $categories = QuestionCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
+        return view('community.index',compact('categories'));
     }
     public function updateAppointment(Request $request){
 

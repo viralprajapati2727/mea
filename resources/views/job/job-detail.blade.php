@@ -79,6 +79,35 @@
                             @endforeach
                         </ul>
                     </div>
+                    <div class="job-detail-list">
+                        <label class="lable">What shifts will they work?:</label>
+                        <div class="job_shift_wrap">
+                            <div class="radios">
+                                @foreach (config('constant.SHIFT') as $day => $shift)
+                                    <div class="form-group">
+                                        <h6>{{ array_keys($shift)[0] }}</h6>
+                                        <div class="form-radio-group">
+                                            @foreach ($shift[array_keys($shift)[0]] as $key => $value)
+                                                @php $shifts = $job->jobShift->pluck('shift_val','shift_id')->toArray();
+                                                    $class = $checked = "";
+                                                    if (array_key_exists($day ,$shifts)){
+                                                        if($shifts[$day] == $key){
+                                                            $class = "active";
+                                                            $checked = "checked";
+                                                        }
+                                                    }
+                                                @endphp
+                                                <label class="radio-inline {{ $class }}">
+                                                    <i class="{{ $value }}"></i>
+                                                    <input type="radio" class="job_type shift-radio" name="shift[{{ $day }}]" value="{{ $key }}" {{ $checked }}>
+                                                </label>                                                
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                     @else
                     <div class="job-detail-list">
                         <label class="lable">Find Team Member?:</label>

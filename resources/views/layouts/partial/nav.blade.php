@@ -18,9 +18,11 @@
                             <li class="nav-item active">
                                 <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                             </li>
+                            @if(Auth::check())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.community') }}">Community</a>
+                                <a class="nav-link" href="{{ route('community.index') }}">Community</a>
                             </li>
+                            @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.members') }}">Members</a>
                             </li>

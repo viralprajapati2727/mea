@@ -812,3 +812,43 @@ button.owl-prev i:before {
     top: 4px;
     right: 16px;
 }
+.job_shift_wrap .form-group {
+    display: inline-block;
+    margin-right: 15px;
+    width: 7%;
+}
+.job_shift_wrap label.form-control-label {
+    display: block;
+    margin-bottom: 15px;
+}
+.job_shift_wrap .form-group .form-radio-group .radio-inline{
+    display: block;
+}
+.job_shift_wrap .form-group h6{
+    font-size: 15px;
+    color: #238BF1;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.job_shift_wrap .form-radio-group .radio-inline {
+    width: 50px;
+    height: 50px;
+    background: #75d2fa;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 50px;
+}
+.job_shift_wrap .form-group .form-radio-group .radio-inline.active{
+    background: #ffaf31;
+}
+.job_shift_wrap .form-radio-group .radio-inline i {
+    color: #fff;
+    font-size: 16px;
+}
+.job_shift_wrap .form-radio-group .radio-inline i:before {
+    margin-left: 0;
+}
+.job_shift_wrap .form-group .form-radio-group .radio-inline input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}

@@ -191,99 +191,37 @@
                                 </div>
                                 <div class="row mt-md-2 job_shift_wrap">
                                     <div class="col-12">
-                                        <div class="ckeditor">
+                                        <div class="radios">
                                             <label class="form-control-label">What shifts will they work? <span class="required-star-color">*</span></label>
-                                            <div class="form-group">
-                                                <h6>Mon</h6>
-                                                <div class="form-radio-group">
-                                                    <label class="radio-inline active">
-                                                        <i class="flaticon-sun"></i>
-                                                        <input type="radio" class="job_type" name="shift_1" value="1" checked="">
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun-1"></i>
-                                                        <input type="radio" class="job_type" name="shift_1" value="2">
-                                                    </label>
+                                            @foreach (config('constant.SHIFT') as $day => $shift)
+                                                <div class="form-group">
+                                                    <h6>{{ array_keys($shift)[0] }}</h6>
+                                                    <div class="form-radio-group">
+                                                        @foreach ($shift[array_keys($shift)[0]] as $key => $value)
+                                                            @if($is_job)    
+                                                                @php $shifts = $job->jobShift->pluck('shift_val','shift_id')->toArray();
+                                                                    $class = $checked = "";
+                                                                    if (array_key_exists($day ,$shifts)){
+                                                                        if($shifts[$day] == $key){
+                                                                            $class = "active";
+                                                                            $checked = "checked";
+                                                                        }
+                                                                    }
+                                                                @endphp
+                                                                <label class="radio-inline {{ $class }}">
+                                                                    <i class="{{ $value }}"></i>
+                                                                    <input type="radio" class="job_type shift-radio" name="shift[{{ $day }}]" value="{{ $key }}" {{ $checked }}>
+                                                                </label>
+                                                            @else
+                                                                <label class="radio-inline">
+                                                                    <i class="{{ $value }}"></i>
+                                                                    <input type="radio" class="job_type shift-radio" name="shift[{{ $day }}]" value="{{ $key }}">
+                                                                </label>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Tue</h6>
-                                                <div class="form-radio-group">
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun"></i>
-                                                        <input type="radio" class="job_type" name="shift_2" value="1" checked="">
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun-1"></i>
-                                                        <input type="radio" class="job_type" name="shift_2" value="2">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Wed</h6>
-                                                <div class="form-radio-group">
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun"></i>
-                                                        <input type="radio" class="job_type" name="shift_3" value="1" checked="">
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun-1"></i>
-                                                        <input type="radio" class="job_type" name="shift_3" value="2">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Thu</h6>
-                                                <div class="form-radio-group">
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun"></i>
-                                                        <input type="radio" class="job_type" name="shift_4" value="1" checked="">
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun-1"></i>
-                                                        <input type="radio" class="job_type" name="shift_4" value="2">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Fri</h6>
-                                                <div class="form-radio-group">
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun"></i>
-                                                        <input type="radio" class="job_type" name="shift_5" value="1" checked="">
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun-1"></i>
-                                                        <input type="radio" class="job_type" name="shift_5" value="2">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Sat</h6>
-                                                <div class="form-radio-group">
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun"></i>
-                                                        <input type="radio" class="job_type" name="shift_6" value="1" checked="">
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun-1"></i>
-                                                        <input type="radio" class="job_type" name="shift_6" value="2">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Sun</h6>
-                                                <div class="form-radio-group">
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun"></i>
-                                                        <input type="radio" class="job_type" name="shift_7" value="1" checked="">
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <i class="flaticon-sun-1"></i>
-                                                        <input type="radio" class="job_type" name="shift_7" value="2">
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

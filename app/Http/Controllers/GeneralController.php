@@ -128,9 +128,6 @@ class GeneralController extends Controller {
 	public function members() {
 		return view('pages.members');
     }
-	public function community() {
-		return view('pages.community');
-    }
 	public function blogs() {
 		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','DESC')->paginate(9);
 		return view('pages.blogs',compact('blogs'));

@@ -48,6 +48,16 @@ $(document).ready(function(){
             $('.type_post_request').show();
         }
     });
+
+    //shift radio buttons
+    $('.job_shift_wrap .radio-inline').on('click',function(){
+        $(this).parent('.form-radio-group').find('label.radio-inline').removeClass('active');
+        if($(this).parent('.form-radio-group').find('.shift-radio').is(':checked')){
+            $(this).addClass('active');
+        }
+    });
+
+
     CKEDITOR.replaceAll('description', {
         height: '200px',
         removeButtons: 'Subscript,Superscript,Image',
