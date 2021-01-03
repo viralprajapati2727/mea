@@ -8,9 +8,9 @@
                 <h1>Find Your Desire Job</h1>
                 <p>Jobs, Employment & Future Career Opportunities</p>
             </div>
-            <form class="search-form">
+            <form class="global-search-form">
                 <div class="form-group">
-
+                    
                 </div>
             </form>
         </div>
