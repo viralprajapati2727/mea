@@ -164,7 +164,6 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 		Route::post('edit-job-store', 'Admin\JobController@updateJob')->name('admin.job.edit-job-store');
         Route::post('status-job-action', 'Admin\JobController@actionStatus')->name('admin.job.action-status');
 
-
         //Blog
 		Route::resource('blog','Admin\BlogController');
         Route::post('blog-filter', 'Admin\BlogController@ajaxData')->name('blog-filter');
@@ -174,6 +173,11 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 		Route::resource('resource','Admin\ResourceController');
         Route::post('resource-filter', 'Admin\ResourceController@ajaxData')->name('resource-filter');
         Route::post('change-resource-status', 'Admin\ResourceController@changeStatus')->name('admin.change-resource-status');
+
+        //appointments
+        Route::get('appointments', 'Admin\AppointmentController@index')->name('admin.appointments.index');
+        Route::post('admin-appointment-filter', 'Admin\AppointmentController@ajaxData')->name('admin.appointment-filter');
+        Route::post('appointment-status', 'Admin\AppointmentController@appointmentStatus')->name('admin.appointment.approve-reject');
     });        
 });
 

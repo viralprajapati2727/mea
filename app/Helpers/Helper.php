@@ -302,14 +302,14 @@ class Helper
             ),
             "16" => array( // Appointments
                 "is_menu" => TRUE,
-                "url" => '',//route('admin.settings'),
+                "url" => route('admin.appointments.index'),
                 "is_access" => TRUE,
                 "privilege_key" => "16",
                 "privilege_require" => "1",
                 "full_title" => "Appointments",
                 "short_title" => "Appointments",
                 "icon" => "icon-cog2",
-                "active_menu" => array(),//array('admin.settings'),
+                "active_menu" => array('admin.appointments.index'),
                 "child" => array(),
             ),
         );
