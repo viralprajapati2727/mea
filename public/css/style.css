@@ -1434,9 +1434,10 @@ ul{
     font-size: 15px;
     background: #41A0E1;
     color: #fff;
+    margin: 0;
 }
 .job-description-wrap .title, .job-details .title {
-    font-size: 24px;
+    font-size: 21px;
     color: #333;
     font-weight: 600;
 }
@@ -1461,11 +1462,11 @@ ul{
 .job-detail-list .lable {
     font-size: 16px;
     color: #333;
-    font-weight: bold;
-    width: 90px;
+    font-weight: bold; 
+    width: 150px;
 }
 .job-detail-list ul, .job-detail-list p {
-    width: calc(100% - 90px);
+    width: calc(100% - 150px);
 }
 .job-detail-list .skills {
     display: flex;
@@ -1684,4 +1685,129 @@ ul{
 .blog-description{
     font-size: 16px;
     line-height: 22px;
+}
+/*Post Job*/
+.job_shift_wrap .form-group {
+    display: inline-block;
+    margin-right: 15px;
+    width: 7%;
+}
+.job_shift_wrap label.form-control-label {
+    display: block;
+    margin-bottom: 15px;
+}
+.job_shift_wrap .form-group .form-radio-group .radio-inline{
+    display: block;
+}
+.job_shift_wrap .form-group h6{
+    font-size: 15px;
+    color: #238BF1;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.job_shift_wrap .form-radio-group .radio-inline {
+    width: 50px;
+    height: 50px;
+    background: #75d2fa;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 50px;
+}
+.job_shift_wrap .form-group .form-radio-group .radio-inline.active{
+    background: #ffaf31;
+}
+.job_shift_wrap .form-radio-group .radio-inline i {
+    color: #fff;
+    font-size: 16px;
+}
+.job_shift_wrap .form-group .form-radio-group .radio-inline input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+/*===================Questions page==============*/
+.quetions-lists-wraper{margin: 100px 0;}
+.question-list .question-box .profile-image{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.question-list .question-box .profile-image img{ 
+    width: 100%;
+}
+.question-list .question-box .name h3{
+    display: inline-block;
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+    padding-right: 15px;
+    position: relative;
+}
+.question-list .question-box .name span{
+    font-size: 12px;
+}
+.question-list .question-box .name h3:after {content: "";width: 5px;height: 5px;background: #ccc;position: absolute;border-radius: 100%;right: 2px;top: 50%;transform: translateY(-50%);}
+.question-list .quetion-title h2 {
+    font-size: 22px;
+    color: #333;
+    font-weight: 600;
+}
+.q-details{margin-top: 15px;}
+.question-list .quetion-desc{
+    font-size: 14px;
+    color: #707070;
+}
+.question-box {
+    background: #f8f8f8;
+    border: 1px solid #dee0e1;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.quetions-sidebar .categories h2{
+    font-size: 22px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.quetions-sidebar .categories-list li a {
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+}
+.quetions-sidebar .categories-list li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 20px;
+}
+.quetions-sidebar .categories-list li:before {content: "";width: 5px;height: 5px;background: #75d2fa;position: absolute;top: 10px;left: 0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*==============================================Meadia Query====================================
+
+==============================================================================================*/
+@media screen and (max-width: 1469px){
+    .navbar-brand img{margin-right: 10px;}
+    .navbar-brand h1{font-size: 21px;}
+    .navbar-expand-lg .navbar-nav .nav-link{padding: 15px 7px; font-size: 16px;}
+}
+@media screen and (max-width: 1199px){
+    .navbar-brand h1{font-size: 16px;}
+    .header-right{flex-wrap: wrap; justify-content: flex-end;}
+    .header-right .collapse{justify-content: flex-end;}
 }
