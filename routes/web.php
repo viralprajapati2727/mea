@@ -231,3 +231,6 @@ Route::get('html-our-team',function (){
 Route::get('html-blog',function (){
     return view('html.blog');
 });
+Route::get('html-questions',function (){
+    return view('pages.questions');
+});
