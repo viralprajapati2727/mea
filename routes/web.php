@@ -68,6 +68,8 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             //appointments
             Route::get('appointments', 'AppointmentController@index')->name('appointment.index');
             Route::post('update-appointment', 'AppointmentController@updateAppointment')->name('appointment.update-appointment');
+            Route::post('appointment-detail', 'AppointmentController@detail')->name('appointment.detail');
+            Route::post('appointment-delete', 'AppointmentController@destroy')->name('appointment.delete');
             
             Route::group(['middleware' => ['simpleuser-access']], function () {
             
@@ -178,6 +180,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::get('appointments', 'Admin\AppointmentController@index')->name('admin.appointments.index');
         Route::post('admin-appointment-filter', 'Admin\AppointmentController@ajaxData')->name('admin.appointment-filter');
         Route::post('appointment-status', 'Admin\AppointmentController@appointmentStatus')->name('admin.appointment.approve-reject');
+        Route::get('appointment/{id}', 'Admin\AppointmentController@detail')->name('admin.appointment.detail');
     });        
 });
 

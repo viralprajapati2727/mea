@@ -41,7 +41,7 @@ ul{
 .page-main {
     padding: 50px 0;
 }
-.status-active{
+.status-active,.status-approved{
     color: #a4c64d;
     font-weight: 600;
 }

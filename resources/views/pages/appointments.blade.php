@@ -22,7 +22,7 @@
                             <h5 class="font-black text-left">Name</h5>
                         </div>
                         <div class="col-2 text-center">
-                            <h5 class="font-black">Date</h5>
+                            <h5 class="font-black">Appointment Date</h5>
                         </div>
                         <div class="col-3 text-center">
                             <h5 class="font-black">Time</h5>
@@ -42,7 +42,7 @@
                                 <div class="jb_company_myjob_title">
                                     <div class="text-muted jb_my_job_company_bottom_location">
                                         <div class="d-block job-address">
-                                            {{ $appointment->name }}
+                                            <a href="javascript:;" class="appointment-detail" data-id="{{ $appointment->id }}">{{ $appointment->name }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -64,9 +64,7 @@
                                             <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="flaticon-menu"></i></a>
                                             <span class="tooltip-arrow"></span>
                                             <div class="dropdown-menu dropdown-menu-right jb_company_dropdown_nav" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(30px, 30px, 0px);">
-                                                {{-- <a href="https://staging.jobaroot.com/view-applicant/J000143" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-user"></i></span>View Applicants</a> --}}
-                                                {{--  <a href="{{ route('job.fill-job',['job_unique_id' => $job->job_unique_id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-edit"></i></span> Edit Job</a>  --}}
-                                                {{-- <a href="javascript:;" class="dropdown-item call-action" data-id="143" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Job</a> --}}
+                                                <a href="javascript:;" class="dropdown-item delete-appointment" data-id="{{ $appointment->id }}" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Appointment</a>
                                             </div>
                                         </div>
                                     </div>
@@ -105,13 +103,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Name <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ old('name', isset($profile->name) ? $profile->name:'' ) }}" >
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ old('name', (Auth::check()) ? Auth::user()->name :'' ) }}" >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{ old('email', isset($profile->email) ? $profile->email : '' ) }}"  disabled readonly>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{ old('email', (Auth::check()) ? Auth::user()->email : '' ) }}"  disabled readonly>
                             </div>
                         </div>
                     </div>
@@ -148,8 +146,66 @@
         </div>
     </div>
 </div>
+
+<!-- appoinment detail modal -->
+<div id="appointment-detail" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Appointment Detail</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class="title">Name:</h2>
+                    </div>
+                    <div class="col-8">
+                        <p class="app_name"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class="title">Email:</h2>
+                    </div>
+                    <div class="col-8">
+                        <p class="app_email"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class="title">Date:</h2>
+                    </div>
+                    <div class="col-8">
+                        <p class="app_date"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class="title">Time:</h2>
+                    </div>
+                    <div class="col-8">
+                        <p class="app_time"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class="title">Description:</h2>
+                    </div>
+                    <div class="col-8">
+                        <p class="app_description"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('footer_script')
+<script type="text/javascript">
+    var appointment_detail_link = "{{ route('appointment.detail') }}";
+    var appointment_delete_link = "{{ route('appointment.delete') }}";
+</script>
 <script type="text/javascript" src="{{ Helper::assets('js/pages/appointment.js') }}"></script>
 @endsection

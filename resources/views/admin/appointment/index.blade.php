@@ -186,14 +186,28 @@ $(document).ready( function () {
                                 confirmButtonText: 'OK',
                                 confirmButtonClass: 'btn btn-success',
                             }).then(function (){
-                                if(status == 2){
-                                    $this.removeClass('text-danger');
-                                    $this.addClass('text-success');
-                                }else{
-                                    $this.removeClass('text-success');
-                                    $this.addClass('text-danger');
+                                // if(status == 2){
+                                //     $this.removeClass('text-danger');
+                                //     $this.addClass('text-success');
+                                // }else{
+                                //     $this.removeClass('text-success');
+                                //     $this.addClass('text-danger');
+                                // }
+                                // appointmentTable.row(appointmentTable_row).remove().draw(false);
+                                $this.parent('span').hide();
+                                
+                                if(status == 1){
+                                    var action_link = "<span class='badge badge-success'><a href='javascript:;'>APPROVED</a></span>";
+                                    console.log(action_link,'action_link')
+                                    console.log($this.parents('td').find('.after_approve_reject'),'find')
+
+                                    $this.parents('td').find('.after_approve_reject').html(action_link);
                                 }
-                                appointmentTable.row(appointmentTable_row).remove().draw(false);
+
+                                if(status == 2){
+                                    var action_link = "<span class='badge badge-danger'><a href='javascript:;'>REJECTED</a></span>";
+                                    $this.parents('td').find('.after_approve_reject').html(action_link);
+                                }
                             });
                         }else{
                             swal({

@@ -134,6 +134,111 @@ $(document).ready(function(){
             );
         }
     });
+
+
+
+    //detail page
+    $('.appointment-detail').on('click',function(){
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: appointment_detail_link,
+            type: 'POST',
+            data: { id : id, },
+            beforeSend: function(){
+                $('body').block({
+                    message: '<div id="loading"><i class="icon-spinner6 spinner id="loading-image""></i></div><br>Please Wait...',
+                    overlayCSS: {
+                        backgroundColor: '#000',
+                        opacity: 0.15,
+                        cursor: 'wait'
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: 'transparent'
+                    }
+                });
+            },
+            success: function(response) {
+                $('#appointment-detail .app_name').text(response.data.name);
+                $('#appointment-detail .app_email').text(response.data.email);
+                $('#appointment-detail .app_date').text(response.data.date);
+                $('#appointment-detail .app_time').text(response.data.time);
+                $('#appointment-detail .app_description').text(response.data.description);
+                $('#appointment-detail').modal('show')
+            },
+            complete: function(){
+                $('body').unblock();
+            }
+        });
+    });
+
+    //delete appointment
+    $(document).on('click','.delete-appointment', function() {
+        var id= $(this).data('id');
+        var deleted= $(this).data('inuse');
+        
+        var dialog_title = 'Are you sure want to delete this appointment ?';
+        
+        swal({
+            title: dialog_title,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false
+        }).then(function (confirm) {
+            if(confirm.value !== "undefined" && confirm.value){
+                $.ajax({
+                    url: appointment_delete_link,
+                    type: 'POST',
+                    data: { id : id, },
+                    beforeSend: function(){
+                        $('body').block({
+                            message: '<div id="loading"><i class="icon-spinner6 spinner id="loading-image""></i></div><br>Please Wait...',
+                            overlayCSS: {
+                                backgroundColor: '#000',
+                                opacity: 0.15,
+                                cursor: 'wait'
+                            },
+                            css: {
+                                border: 0,
+                                padding: 0,
+                                backgroundColor: 'transparent'
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        if(response.status == 200){
+                            location.reload();
+                        } else if(response.status == 201){
+                            swal({
+                                title: response.msg_success,
+                                confirmButtonColor: "#FF7043",
+                                confirmButtonClass: 'btn btn-warning',
+                                type: "warning",
+                                confirmButtonText: 'OK',
+                            });
+                        }else{
+                            swal({
+                                title: response.msg_fail,
+                                confirmButtonColor: "#EF5350",
+                                confirmButtonClass: 'btn btn-danger',
+                                type: "error",
+                                confirmButtonText: 'OK',
+                            });
+                        }
+                    },
+                    complete: function(){
+                        $('body').unblock();
+                    }
+                });
+            }
+        }, function (dismiss) {
+        });
+    });
 });    
 
 // pre-submit callback

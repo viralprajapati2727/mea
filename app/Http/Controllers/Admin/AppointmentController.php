@@ -35,7 +35,7 @@ class AppointmentController extends Controller
         $data = datatables()->of($Query)
         ->addColumn('name', function ($Query) {
             $title = $Query->name;
-            return "<a href='".route('admin.job.detail',['id',$Query->id])."' class='detail'>".$title."</a>&nbsp;&nbsp;";
+            return "<a href='".route('admin.appointment.detail',['id' => $Query->id])."' class='detail'>".$title."</a>&nbsp;&nbsp;";
         })
         ->addColumn('email', function ($Query) {
             return $Query->user->email;
@@ -53,9 +53,20 @@ class AppointmentController extends Controller
                 $action_link .= "<a href='javascript:;' class='approve-reject' data-id='".$Query->id."' data-active='1'>APPROVE</a>&nbsp;/&nbsp;";
                 $action_link .= "<a href='javascript:;' class='approve-reject' data-id='".$Query->id."' data-active='2'>REJECT</a>&nbsp;&nbsp;";
                 $action_link .= "</span>";
+                
+                
+                $action_link .= "<span class='after_approve_reject'>";
+                $action_link .= "</span>";
             }
 
-            
+            if($Query->status == 1){
+                $action_link = "<span class='badge badge-success'><a href='javascript:;'>APPROVED</a></span>";
+            }
+
+            if($Query->status == 2){
+                $action_link = "<span class='badge badge-danger'><a href='javascript:;'>REJECTED</a></span>";
+            }
+
             return $action_link;
         })
         ->rawColumns(['action','name'])
@@ -80,13 +91,13 @@ class AppointmentController extends Controller
 		}
 		exit;
     }
-    public function detail($status, $id){
-        $job = Helper::getJobData(null,$id,null,false,null);
+    public function detail($id){
+        $appointment = Appointment::whereId($id)->first();
 
-        if(empty($job)){
-            return redirect()->route('admin.job.'.$status)->with('error','No data found!');
+        if(empty($appointment)){
+            return redirect()->route('admin.appointment.index')->with('error','No data found!');
         }
 
-        return view('admin.appointment.detail',compact('status','job'));
+        return view('admin.appointment.detail',compact('appointment'));
     }
 }
