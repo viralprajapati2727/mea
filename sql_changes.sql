@@ -9,3 +9,4 @@ ALTER TABLE `post_jobs` ADD `is_find_team_member` TINYINT NOT NULL DEFAULT '0' A
 ALTER TABLE `post_jobs` ADD `salary_type_id` TINYINT NULL DEFAULT NULL AFTER `is_paid`;
 ALTER TABLE `post_jobs` ADD `time_zone` VARCHAR(255) NULL DEFAULT NULL AFTER `job_end_time`;
 ALTER TABLE `post_jobs` CHANGE `job_title_id` `job_title_id` INT(11) NULL DEFAULT NULL;
+ALTER TABLE `post_jobs` ADD `business_category_id` INT(11) NULL DEFAULT NULL AFTER `user_id`;

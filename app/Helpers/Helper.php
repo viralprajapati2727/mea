@@ -359,7 +359,8 @@ class Helper
         $weeks   = round($seconds / 604800); // 7*24*60*60;  
         $months  = round($seconds / 2629440); //((365+365+365+365+366)/5/12)*24*60*60  
         $years   = round($seconds / 31553280); //(365+365+365+365+366)/5 * 24 * 60 * 60
-                        
+            
+        
         if ($seconds <= 60){
 
             return "Just Now";
@@ -388,64 +389,66 @@ class Helper
 
             }
 
-        } else{
-            // if(1){
-                $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('M d Y');
-                $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('h:i A');
-            // }else{
-            //     $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('M d Y');
-            //     $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('h:i A');
-            // }
-            return $rDate;
         }
         
-        // else if ($days <= 7){
+        else if ($days <= 7){
 
-        //     if ($days == 1){
+            if ($days == 1){
 
-        //     return "yesterday";
+            return "yesterday";
 
-        //     } else {
+            } else {
 
-        //     return "$days days ago";
+            return "$days days ago";
 
-        //     }
+            }
 
-        // } else if ($weeks <= 4.3){
+        } else if ($weeks <= 4.3){
 
-        //     if ($weeks == 1){
+            if ($weeks == 1){
 
-        //     return "a week ago";
+            return "a week ago";
 
-        //     } else {
+            } else {
 
-        //     return "$weeks weeks ago";
+            return "$weeks weeks ago";
 
-        //     }
+            }
 
-        // } else if ($months <= 12){
+        } else if ($months <= 12){
 
-        //     if ($months == 1){
+            if ($months == 1){
 
-        //     return "a month ago";
+            return "a month ago";
 
-        //     } else {
+            } else {
 
-        //     return "$months months ago";
+            return "$months months ago";
 
-        //     }
+            }
 
-        // } else {
+        } else {
             
-        //     if ($years == 1){
+            if ($years == 1){
 
-        //     return "one year ago";
+            return "one year ago";
 
-        //     } else {
+            } else {
 
-        //     return "$years years ago";
+            return "$years years ago";
 
-        //     }
+            }
+        }
+
+        // else{
+        //     // if(1){
+        //         $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('M d Y');
+        //         $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone(env('APP_TIMEZONE'))->format('h:i A');
+        //     // }else{
+        //     //     $rDate =  Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('M d Y');
+        //     //     $rDate .=  ' at '.Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('h:i A');
+        //     // }
+        //     return $rDate;
         // }
     }
     public static function userProfile($slug){

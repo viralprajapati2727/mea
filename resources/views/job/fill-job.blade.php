@@ -46,7 +46,7 @@
                         <div class="row mt-md-0 mt-3 pb-0">
                             <div class="col-lg-9 col-md-12">
                                 <div class="row mt-md-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Job Title <span class="required-star-color">*</span></label>
                                             <select name="job_title_id" id="job_title_id" class="form-control select2 no-search-select2" data-placeholder="Select Job Title">
@@ -59,7 +59,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Business Category <span class="required-star-color">*</span></label>
+                                            <select name="business_category_id" id="business_category_id" class="form-control select2 no-search-select2" data-placeholder="Select Business Category">
+                                                <option></option>
+                                                @forelse ($business_categories as $category)
+                                                    <option value="{{ $category->id }}" {{ ($is_job) ? ($job->business_category_id == $category->id ? 'selected' : ''): ''  }}>{{ $category->title }}</option>
+                                                @empty
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Job Type <span class="required-star-color">*</span></label>
                                             <select name="job_type_id" id="job_type_id" class="form-control select2 no-search-select2" data-placeholder="Select Job Type">
@@ -238,7 +250,7 @@
                                 <div class="row mt-md-2 team_member_text_div" style="display: {{ ($is_job && $job->is_find_team_member > 0) ? 'block' : 'none' }}">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label class="form-control-label">Someting For Find a Team Member</label>
+                                            <label class="form-control-label">What type of team member are you looking for?</label>
                                             <input type="text" class="form-control" name="find_team_member_text" placeholder="Find a Team Member" value="{{ ($is_job) ? $job->find_team_member_text : old('find_team_member_text') }}" >
                                         </div>
                                     </div>

@@ -85,9 +85,9 @@
                                 <li>
                                     <a href="javascript:;" class="contact-link">Message</a>
                                 </li>
-                                {{--  <li>
-                                    <a href="javascript:;" class="contact-link">Appointment</a>
-                                </li>  --}}
+                                <li>
+                                    <a href="{{ route('appointment.index') }}" class="contact-link">Appointments</a>
+                                </li>
                                 <li>
                                     <a href="javascript:;" class="contact-link" data-toggle="modal" data-target="#appointment">Request Appointment</a>
                                 </li>
@@ -168,7 +168,7 @@
                                         </li>
                                     @endforeach
                                 @endif
-                                @if($is_experience)
+                                @if(!$is_experience)
                                     <li><div class="title-text">No experience</div></li>
                                 @endif
                             </ul>
@@ -204,7 +204,7 @@
             </div>
 
             
-            <form class="appointment_form " action="{{ route('user.store-profile') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+            <form class="appointment_form " action="{{ route('appointment.update-appointment') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
                 @csrf
                 <div class="modal-body">
                     <div class="row mt-md-2">

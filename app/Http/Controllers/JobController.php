@@ -41,13 +41,13 @@ class JobController extends Controller
             $job = null;
             $jobtitles = JobTitle::where('deleted_at',null)->get();
             $currencies = Currency::where('deleted_at',null)->get();
-            
+            $business_categories = BusinessCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
             $skills = KeySkill::select('title As label')->get()->toArray();
 
             if(!empty($job_unique_id) && !is_null($job_unique_id)){
                 $job = Helper::getJobData(Auth::id(),$job_unique_id,null,false,null);
             }
-			return view('job.fill-job',compact('jobtitles','currencies','job','skills'));
+			return view('job.fill-job',compact('jobtitles','currencies','job','skills','business_categories'));
         }catch(Exception $e){
             DB::rollback();
             return redirect()->back()->with('warning',$e->getMessage());
@@ -78,7 +78,7 @@ class JobController extends Controller
             }
 
             if($request->job_type == 1){ //postjob
-                $param2 = ["job_type" => $request->job_type, "job_title_id" => $request->job_title_id, "other_job_title" => $request->other_job_title, "job_type_id" => $request->job_type_id, "currency_id" => $request->currency_id,
+                $param2 = ["job_type" => $request->job_type, "job_title_id" => $request->job_title_id, "other_job_title" => $request->other_job_title, "business_category_id" => $request->business_category_id, "job_type_id" => $request->job_type_id, "currency_id" => $request->currency_id,
                 "salary_type_id" => $request->salary_type_id, "min_salary" => $request->min_salary, "max_salary" => $request->max_salary, "job_start_time" => $request->job_start_time,"job_end_time" => $request->job_end_time, "time_zone" => $request->time_zone,
                 "is_paid" => $is_paid,"description" => $request->description,"location" => $request->location,"created_by" => $user_id, "updated_by" => $user_id];
 
@@ -198,5 +198,27 @@ class JobController extends Controller
         $business_categories = BusinessCategory::select('id','title','src','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->limit(15)->get();
 
         return view('job.search-job',compact('business_categories'));
+    }
+    public function detail($id){
+        try{
+            $job = null;
+            
+            if(empty($id)){
+                return redirect()->route('index');
+            }
+
+            if(!empty($id) && !is_null($id)){
+                $job = Helper::getJobData(null,$id,null,false,null);
+            }
+
+            if(empty($job)){
+                return redirect()->route('index');
+            }
+
+			return view('job.job-detail',compact('job'));
+        }catch(Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('warning',$e->getMessage());
+        }
     }
 }

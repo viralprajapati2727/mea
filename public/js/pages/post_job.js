@@ -229,6 +229,9 @@ $(document).ready(function(){
                 required: { depends: function(element) { return $('#job_title_id').val() == "-1" } },
                 maxlength:100,
             },
+            business_category_id: {
+                required: true,
+            },
             job_type_id: {
                 required: true,
             },
@@ -277,6 +280,9 @@ $(document).ready(function(){
             },
             other_job_title: {
                 required: "Please enter other job title",
+            },
+            business_category_id: {
+                required: "Please select business category",
             },
             job_type_id: {
                 required: "Please select job type",

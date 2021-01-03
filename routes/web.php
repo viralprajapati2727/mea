@@ -63,6 +63,11 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             Route::get('fill-job/{job_unique_id?}', 'JobController@fillJob')->name('job.fill-job');
             Route::post('update-job', 'JobController@updateJob')->name('job.update-job');
             Route::get('my-jobs', 'JobController@index')->name('job.my-jobs');
+            Route::get('job/detail/{id}', 'JobController@detail')->name('job.job-detail');
+
+            //appointments
+            Route::get('appointments', 'AppointmentController@index')->name('appointment.index');
+            Route::post('update-appointment', 'AppointmentController@updateAppointment')->name('appointment.update-appointment');
             
             Route::group(['middleware' => ['simpleuser-access']], function () {
             

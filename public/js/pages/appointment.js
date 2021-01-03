@@ -6,10 +6,10 @@ $(".birthdate").datetimepicker({
     ignoreReadonly: true,
     useCurrent: false,
     format: 'MM/DD/YYYY',
-    maxDate: new Date(Y, M, D),
-    disabledDates: [
-        new Date(Y, M, D)
-    ],
+    minDate: new Date(Y, M, D),
+    // disabledDates: [
+    //     new Date(Y, M, D)
+    // ],
 });
 
 
@@ -123,7 +123,6 @@ $(document).ready(function(){
             },
         },
         submitHandler: function (form) {
-            CKEDITOR.instances.about.updateElement();
             // $(form).find('button[type="submit"]').attr('disabled', 'disabled');
             // form.submit();
             $('.appointment_form').ajaxSubmit(
@@ -135,26 +134,7 @@ $(document).ready(function(){
             );
         }
     });
-
-
-
-    $('.questions .answer').each(function () {
-        $(this).rules('add', {
-            required: true,
-            minlength: 3,
-            maxlength : 100,
-            messages: {
-                required:  "Please enter answer",
-                minlength: jQuery.validator.format("At least {0} characters are required"),
-                maxlength: "Maximum {0} characters are allowed",
-            }
-        });
-    });
-
-    validateExtraField();
-    validateEducationExtraField();
-
-})    
+});    
 
 // pre-submit callback
 function showRequest_pro_profile(formData, jqForm, options) {
