@@ -16,7 +16,7 @@
         <div class="container">
             <div class="solution-content">
                 <div class="row">
-                    <div class="offset-md-2 col-sm-8 text-center">
+                    <div class="offset-md-2 col-md-8 text-center">
                         <h2> Helping founders build investable companies </h2>
                         <p class="lg"> Mission-critical business tools. Powerful performance benchmarks. Trusted fundraising recommendations. 
                         Muslim Entrepreneur supports you at every point along your entrepreneurial journey so when it’s time to raise money, you have the best shot at investment. Get started on the path to fundraising success: </p>
@@ -25,7 +25,7 @@
             </div>
             <div class="solutions-inner">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="solutions-box text-center">
                             <div class="s-image">
                                <img src="{{ Helper::assets('images/home/solutions01.png') }}" alt="">
@@ -35,7 +35,7 @@
                             <a href="javascript:;" class="more-link">Learn More</a>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="solutions-box text-center">
                             <div class="s-image">
                                <img src="{{ Helper::assets('images/home/solutions02.png') }}" alt="">
@@ -45,7 +45,7 @@
                             <a href="javascript:;" class="more-link">Learn More</a>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="solutions-box text-center">
                             <div class="s-image">
                                <img src="{{ Helper::assets('images/home/solutions03.png') }}" alt="">
@@ -63,16 +63,16 @@
 <section>
     <div class="home-features-section">
         <div class="container">
-            <div class="home-features-inner">
+            <div class="home-features-inner even">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 features-content-wraper">
                         <div class="features-content">
                             <h2> The world’s largest startup network. </h2>
                             <p> With over 800,000 founders and 85,000 investment professionals on our platform, we’ll connect you to the whole startup ecosystem. 
                             We understand what investors want to see from a startup, and we can help you put your best foot forward. </p>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 features-image-wraper">
                         <div class="features-image">
                         <img src="{{ Helper::assets('images/home/network.png') }}" alt="" class="w-100">
                         </div>
@@ -95,16 +95,16 @@
                     </div>
                 </div>
             </div>
-            <div class="home-features-inner">
+            <div class="home-features-inner even">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 features-content-wraper">
                         <div class="features-content">
                             <h2>Designed to help you succeed.</h2>
                             <p>Our mission is to help founders win. Whether your next milestone is initially setting up your company the right way or successfully closing a 
                             Series C, we are here to help you hit it.  </p>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 features-image-wraper">
                         <div class="features-image">
                             <img src="{{ Helper::assets('images/home/success.png') }}" alt="" class="w-100">
                         </div>

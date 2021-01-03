@@ -4,7 +4,7 @@
 <div class="container">
     <div class="form-wrap login-wrap">
     <div class="row justify-content-center">
-        <div class="col-md-5 register-form">
+        <div class="col-md-8 col-lg-5 register-form">
             <div class="card">
                 <div class="card-header">{{ __('Welcome! to MEA.') }}</div>
                 <div class="card-body">

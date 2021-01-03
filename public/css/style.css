@@ -137,6 +137,8 @@ ul{
 }
 .header-right .collapse{
     padding-left: 30px;
+    padding-right: 0;
+    justify-content: space-between;
 }
 .logout-wrap {
     display: flex;
@@ -1810,4 +1812,51 @@ ul{
     .navbar-brand h1{font-size: 16px;}
     .header-right{flex-wrap: wrap; justify-content: flex-end;}
     .header-right .collapse{justify-content: flex-end;}
+    .navbar-expand-lg .navbar-nav .nav-link{font-size: 14px; padding: 15px 5px;}
+    .login-links li a{font-size: 14px;}
+    .site-header .navbar{padding: 0;}
+    .solutions-box{padding: 25px 20px 30px;}
+    .solutions-box .desc{min-height: 112px;}
+    .home-features-inner .features-content h2{font-size: 28px;}
+    .home-features-inner .features-content p{padding-right: 0;}
+}
+@media screen and (max-width: 991px){
+    .navbar-toggler i{font-size: 32px;}
+    .header-right .navbar-toggler{
+        position: absolute;
+        top: -60px;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link{padding: 6px 0; font-size: 17px;}
+    .header-right .collapse{padding-left: 1.25rem;}
+    .login-links{margin-top: 20px;}
+    .profile-menu:hover > .profile-dropdown{position: inherit; top: inherit; left: inherit; min-width: inherit;}
+    .solutions-box .desc{min-height: inherit;}
+    .solutions-box{margin-bottom: 20px;}
+    .home-blog-section .blog-content h2{font-size: 16px;}
+}
+@media screen and (max-width: 767px){
+    .solutions-section .solution-content h2{font-size: 28px;}
+    .solutions-section, .home-features-section, .home-blog-section{padding: 50px 0;}
+    .blog-wrap{margin-bottom: 30px;}
+    .footer-col{margin-bottom: 20px;}
+    .home-features-inner .features-content p{font-size: 17px; line-height: 30px;}
+    .home-features-inner .features-content h2{
+        font-size: 23px;
+        margin-bottom: 20px;
+    }
+    .home-features-inner .features-content{padding: 0;}
+    .home-features-inner.even .features-content-wraper {
+        order: 2;
+    }
+    .home-features-inner .features-image {
+        margin-bottom: 30px;
+    }
+    .login-form, .register-form{max-width: inherit; width: 100%;}
+}
+@media screen and (max-width: 380px){
+    .navbar-brand img{width: 30px;}
+    .navbar-brand h1{
+        font-size: 12px;
+    }
+    .header-right .navbar-toggler{top: -55px;}
 }
