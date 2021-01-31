@@ -70,9 +70,10 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             Route::post('update-appointment', 'AppointmentController@updateAppointment')->name('appointment.update-appointment');
             Route::post('appointment-detail', 'AppointmentController@detail')->name('appointment.detail');
             Route::post('appointment-delete', 'AppointmentController@destroy')->name('appointment.delete');
-
+            
             //community
             Route::get('community', 'CommunityController@index')->name('community.index');
+            Route::post('update-community', 'CommunityController@updateCommunity')->name('community.update-community');
             
             Route::group(['middleware' => ['simpleuser-access']], function () {
             

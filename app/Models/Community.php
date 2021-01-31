@@ -36,6 +36,9 @@ class Community extends Model
     public function communityLikes(){
         return $this->hasMany('App\Models\CommunityLike', 'community_id');
     }
+    public function communityTags(){
+        return $this->hasMany('App\Models\CommunityTags', 'community_id');
+    }
     public function getTagsAttribute($value){
         $data = Tag::selectRaw('GROUP_CONCAT(title) As tags')->whereIn('id',explode(',',$value))->first()->toArray();
   
