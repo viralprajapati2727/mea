@@ -503,4 +503,106 @@ class Helper
         }
         return $data->get();
     }
+
+    public static function globalSearchJobs($paginate = array(), $params = array()){
+        $data = PostJob::with([
+            
+            
+        ])->whereIn('job_status',[1]); //active
+
+
+        if (!empty($params['title'])) {
+            // $search_keywords = explode(',',preg_replace('/\s*,\s*/', ',', $params['title']));
+            $like_keywords = [];
+            foreach($params['title'] as $keywords){
+                if($keywords != ""){
+                    $like_keywords[] = "%".$keywords."%";
+                }
+                $explode = explode(' ', $keywords);
+                if(count($explode) > 1){
+                    foreach ($explode as $term) {
+                        if($term != ""){
+                            $like_keywords[] = "'%".$term."%'";
+                        }
+                    }
+                }
+            }
+            $data->where(function($query1) use ($like_keywords) {
+                foreach($like_keywords as $keyword){
+                    $query1->orWhere('other_job_title', 'LIKE', $keyword);
+                }
+            });
+            $data->orWhere(function($data1) use($like_keywords){
+                $data1->whereHas('jobTitle', function($query) use ( $like_keywords) {
+                    $query->where(function($query1) use ($like_keywords) {
+                        foreach($like_keywords as $keyword){
+                            $query1->orWhere('title', 'LIKE', $keyword);
+                        }
+                    });
+                });
+                
+                $data1->orWhereHas('category', function($query) use ( $like_keywords) {
+                    $query->where(function($query1) use ($like_keywords) {
+                        foreach($like_keywords as $keyword){
+                            $query1->orWhere('title', 'LIKE', $keyword);
+                        }
+                    });
+                });
+                $data1->orWhereHas('jobSkill.keySkill', function($query) use ( $like_keywords) {
+                    $query->where(function($query1) use ($like_keywords) {
+                        foreach($like_keywords as $keyword){
+                            $query1->orWhere('title', 'LIKE', $keyword);
+                        }
+                    });
+                });
+            });
+        }
+        if (!empty($params['city'])) {
+            $keywords = $params['city'];
+            if(count($keywords) > 0){
+                $data->where(function($query1) use ($keywords) {
+                    foreach ($keywords as $key => $keyword) {
+                        $explode = explode(', ', $keyword);
+                        if(count($explode) > 1){
+                            if($key == 0){
+                                $query1->where(function($query2) use ($explode) {
+                                    $query2->where('location', 'LIKE', '%' . $explode[0] . '%');
+                                    // $query2->where('country', 'LIKE', '%' . $explode[1] . '%');
+                                });
+                            } else{
+                                $query1->orWhere(function($query2) use ($explode) {
+                                    $query2->where('location', 'LIKE', '%' . $explode[0] . '%');
+                                    // $query2->where('country', 'LIKE', '%' . $explode[1] . '%');
+                                });
+                            }
+                        } else {
+                            $query1->where(function($query2) use ($keyword) {
+                                $query2->where('location', 'LIKE', '%' . $keyword . '%');
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
+        if (!empty($params['title']) && $params['title'][0] != 0) {
+            $data->whereIn('job_title_id',$params['title']);
+        }
+        if (!empty($params['type'])) {
+            $data->whereIn('job_type_id',$params['type']);
+        }
+        
+        if (!empty($params['category'])) {
+            $ids = $params['category'];
+            $data->whereIn('business_category_id',$ids);
+        }
+
+        $data = $data->orderBy('id','DESC');
+
+        if(!is_null($paginate)){
+            return $data->paginate($paginate['page_size']);
+        }
+
+        return $data->get();
+    }
 }

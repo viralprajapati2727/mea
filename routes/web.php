@@ -37,6 +37,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('blog/{slug}', 'GeneralController@blogDetail')->name('page.blog-detail');
     Route::get('members', 'GeneralController@members')->name('page.members');
     Route::get('search-job', 'JobController@searchJob')->name('job.search-job');
+    Route::get('search', 'JobController@globalSearch')->name('job.global-search');
 
 
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');

@@ -8,22 +8,22 @@
                 <h1>Find Your Desire Job</h1>
                 <p>Jobs, Employment & Future Career Opportunities</p>
             </div>
-            <form class="global-search-form">
+            <form class="global-search-form" action="{{ route('job.global-search') }}">
                 <div class="form-group">
                     <div class="form-body">
                         <div class="input-control">
-                            <input type="text" name="Job Title" placeholder="Job TItle">
+                            <input type="text" name="title" placeholder="Job TItle">
                         </div>
                         <div class="input-control">
-                            <input type="text" name="City" placeholder="City">
+                            <input type="text" name="city[]" placeholder="City">
                         </div>
                         <div class="input-control">
-                            <select>
-                                <option>Job Category</option>
-                                <option>Accountant</option>
-                                <option>Influencersy</option>
-                                <option>IT & Networking Services</option>
-                                <option>Beta users & testers</option>
+                            <select name="category[]">
+                                <option value="">Job Category</option>
+                                @forelse ($business_categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                @empty
+                                @endforelse
                             </select>
                         </div>
                     </div>
@@ -41,6 +41,9 @@
             </div>
             <div class="jp-job-category-listing">
                 <ul class="m-auto">
+                    @php
+                        // $bCategories = $business_categories->limit(12)->all();
+                    @endphp
                     @forelse ($business_categories as $category)
                         <li class="text-center jp-job-cat-lwrp">
                             <a href="#">

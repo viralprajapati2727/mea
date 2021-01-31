@@ -208,9 +208,38 @@ class JobController extends Controller
         }
     }
     public function searchJob(){
-        $business_categories = BusinessCategory::select('id','title','src','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->limit(15)->get();
+        $business_categories = BusinessCategory::select('id','title','src','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
 
         return view('job.search-job',compact('business_categories'));
+    }
+    public function globalSearch(){
+        $params = [];
+        if (isset($_GET['category']) != '' && !empty($_GET['category'])) {
+			foreach ($_GET['category'] as $t) {
+				$category[] = $t;
+			}
+			$params['category'] = $category;
+        }
+        if (isset($_GET['title']) && $_GET['title'] != '') {
+			$title = $_GET['title'];
+			$params['title'] = $title;
+        }
+        if (isset($_GET['city']) != '' && !empty($_GET['city'])) {
+			foreach ($_GET['city'] as $t) {
+				$city[] = $t;
+			}
+			$params['city'] = $city;
+        }
+        
+        $paginate = [];
+        $paginate['page_size'] = config('constant.rpp');
+        
+        $jobs = Helper::globalSearchJobs($paginate, $params);
+
+        $jobtitles = JobTitle::where('deleted_at',null)->get();
+        $business_categories = BusinessCategory::select('id','title','src','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
+
+        return view('job.global-jobs', compact('jobs','params','jobtitles','business_categories'));
     }
     public function detail($id){
         try{
