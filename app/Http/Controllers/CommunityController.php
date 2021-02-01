@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Validator;
 use Session;
 use Carbon\Carbon;
 use stdClass;
-use App\Models\Appointment;
+use App\Models\Tags;
+use App\Models\Community;
+use App\Models\CommunityTags;
 use App\Models\QuestionCategory;
 
 
@@ -22,10 +24,17 @@ class CommunityController extends Controller
 {
     public function index(){
         $categories = QuestionCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
-        return view('community.index',compact('categories'));
-    }
-    public function updateAppointment(Request $request){
+        $tags = Tags::where('status',1)->select('title')->get()->pluck('title');
+        $questions = Community::with('communityTags')->where('user_id',Auth::id())->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
 
+        \Debugbar::info($questions);
+        
+        return view('community.index',compact('categories','tags','questions'));
+    }
+    public function updateCommunity(Request $request){
+        
+        \Debugbar::info($request);
+        
         $responseData = array();
         $responseData['status'] = 0;
         $responseData['message'] = '';
@@ -38,25 +47,53 @@ class CommunityController extends Controller
         DB::beginTransaction();
 
         try{
-            $appointment_date = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
 
-            $message_text = "sent";
+            $message_text = "posted"; // if new questioned asked
             $param = [];
-            if($request->has('appointment_id')){
-                $param[ "id" ] = $request->appointment_id;
+            if($request->has('question_id')){
+                $param[ "id" ] = $request->question_id;
                 $message_text = "updated";
             }
+
+            $param2 = [
+                "user_id" => $user_id, 
+                "title" => $request->title, 
+                "description" => $request->description, 
+                "question_category_id" => $request->category_id,
+                "created_by" => $user_id
+             ];
+
+            $tags = explode(',',preg_replace('/\s*,\s*/', ',', $request->tag));
             
-            $param2 = ["user_id" => $user_id, "name" => $request->name, "email" => Auth::user()->email, "time" => $request->time, "appointment_date" => $appointment_date,"description" => $request->description];
+            $tagArr = [];
+            foreach ($tags as $k => $tag) {
+                if(!empty($tag)){
+                    /**added new tags in tags table */
+                    $tagModel = Tags::firstOrCreate(['title' => $tag],["created_by" => $user_id]);
 
-            $appointment = Appointment::create($param2);
+                    if(isset($tagModel) && !empty($tagModel) && $tagModel->count() > 0){
+                        $tagArr[] = $tagModel->id;
+                    }
+                }
+            }
 
-            if($appointment){
+            if(!empty($tagArr)){
+                $param2[ "tags" ] = implode(',',$tagArr);
+            }
+
+            $community = Community::create($param2);
+
+            
+            if($community){
+                /**Created question tags entry in community table */
+                foreach($tagArr as $tag){
+                    $CommunityTags = CommunityTags::create(['community_id'=>$community->id,'tag_id'=>$tag]);
+                }
 
                 DB::commit();
-                $message = 'Your appointment has been '.$message_text.' successfully';
+                $message = 'Your question has been '.$message_text.' successfully';
                 $responseData['status'] = 1;
-                $responseData['redirect'] = route('appointment.index');
+                $responseData['redirect'] = route('community.index');
                 $responseData['message'] = $message;
                 Session::flash('success', $responseData['message']);
             } else {

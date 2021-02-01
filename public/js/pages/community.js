@@ -105,6 +105,12 @@ $(document).ready(function(){
                 error.insertAfter(element);
             }
         },
+        success: function (label){
+            label.remove();
+            $('.no-search-select2').change(function(){
+                $('.no-search-select2').valid();
+            });
+        },
         rules: {
             title:{
                 required: true,
