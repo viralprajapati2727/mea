@@ -41,7 +41,11 @@
                         <div class="col-md-5">
                             <div class="job-details-right d-flex justify-content-end align-items-center">
                                 <span class="job-status status-{{ strtolower($statuss[$job->job_status]) }} mr-2">{{ $statuss[$job->job_status] }}</span>
-                                <a href="#" class="apply-btn">Apply</a>
+                                @if(Auth::check())
+                                    <a href="javascript:;" class="apply-btn" data-id="{{ $job->id }}">Apply</a>
+                                @else
+                                    <a href="{{ route('login') }}" class="apply-btn">Apply</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -123,4 +127,45 @@
         </div>
     </div>
 </div>
-@endsection 
+
+
+<!-- apply job modal -->
+<div id="apply-job-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Apply</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <p class="already_applied_text text-success" style="display: none"></p>
+            <form class="apply_job_form" action="{{ route('job.apply-job') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group mt-md-2 ckeditor">
+                        <label class="col-form-label">Additional Information:<span class="required-star-color">*</span></label>
+                        <div class="input-group custom-start">
+                            <textarea name="description" id="description" rows="5" placeholder="Message" class="form-control"></textarea>
+                        </div>
+                        <div class="input-group description-error-msg"></div>
+                    </div>
+                </div>
+                <input type="hidden" name="job_id" class="job_id">
+                <input type="hidden" name="job_applied_id" class="job_applied_id">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-primary">Apply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@endsection
+@section('footer_script')
+<script>
+var check_already_applied_link = "{{ route('job.check-apply-job') }}";
+</script>
+<script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ Helper::assets('js/pages/apply.js') }}"></script>
+@endsection

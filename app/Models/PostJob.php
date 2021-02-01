@@ -33,6 +33,9 @@ class PostJob extends Model
     public function jobShift(){
         return $this->hasMany('App\Models\JobShift', 'job_id','id');
     }
+    public function jobApplied(){
+        return $this->hasMany('App\Models\JobApplied', 'job_id','id')->orderBy('id','desc');
+    }
     public static function generateBarcodeNumber() {
 
         $id = self::max('id') + 1;

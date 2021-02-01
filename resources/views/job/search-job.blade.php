@@ -45,8 +45,11 @@
                         // $bCategories = $business_categories->limit(12)->all();
                     @endphp
                     @forelse ($business_categories as $category)
+                    @php
+                        // echo "<pre>"; print_r($category); echo "</pre>";
+                    @endphp
                         <li class="text-center jp-job-cat-lwrp">
-                            <a href="#">
+                            <a href="{{ route('job.global-search') }}?category%5B%5D={{ $category->id }}">
                                 <div class="jp-job-cat-icon">
                                     @php
                                         $bcategoryUrl = Helper::images(config('constant.business_category_url'));
