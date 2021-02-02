@@ -7,7 +7,7 @@
 <div id="comment-{{ $comment->getKey() }}" class="media">
     {{-- <img class="mr-3" src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}.jpg?s=64" alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar"> --}}
     <div class="profile-image">
-        <img class="mr-3" src="{{ $img_url }}" alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar" height="100">
+        <img class="mr-3" src="{{ $img_url }}" alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar" height="50" width="50">
     </div>
     <div class="media-body">
         <h5 class="mt-0 mb-1">{{ $comment->commenter->name ?? $comment->guest_name }} <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small></h5>
