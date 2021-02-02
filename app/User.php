@@ -17,10 +17,10 @@ use App\Http\Controllers\SendMailController;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\Access\Authorizable;
-
+use Laravelista\Comments\Commenter;
 class User extends Authenticatable implements MustVerifyEmail, ShouldQueue
 {
-    use Notifiable, Sluggable;
+    use Notifiable, Sluggable, Commenter;
     use SoftDeletes;
 
     /**

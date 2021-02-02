@@ -63,8 +63,12 @@
                                                 </div>
                                                 <div class="com-md-11">
                                                     <div class="question">
-                                                        <h3>{{  $question->title }}</h3>
-                                                        <span>{{ $question->user->name }}</span>
+                                                        <h3>
+                                                            <a href={{ route("community.questions-details",$question->slug) }}>
+                                                                {{  $question->title }}
+                                                            </a>
+                                                        </h3>
+                                                        <span>By {{ $question->user->name }}</span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -27,13 +27,13 @@ class CommunityController extends Controller
         $tags = Tags::where('status',1)->select('title')->get()->pluck('title');
         $questions = Community::with('communityTags')->where('user_id',Auth::id())->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
 
-        \Debugbar::info($questions);
+        // \Debugbar::info($questions);
         
         return view('community.index',compact('categories','tags','questions'));
     }
     public function updateCommunity(Request $request){
         
-        \Debugbar::info($request);
+        // \Debugbar::info($request);
         
         $responseData = array();
         $responseData['status'] = 0;
@@ -111,31 +111,28 @@ class CommunityController extends Controller
             return $this->commonResponse($responseData, $code);
         }
     }
-    public function detail(Request $request){
-        $responseData = array();
-        $responseData['status'] = 0;
-        $responseData['message'] = '';
-        $responseData['errors'] = array();
-        $responseData['data'] = [];
 
-        $appointment = Appointment::whereId($request->id)->first();
-        $responseData['data']['name'] = $appointment->name;
-        $responseData['data']['email'] = $appointment->user->email;
-        $responseData['data']['date'] = $appointment->appointment_date;
-        $responseData['data']['time'] = $appointment->time;
-        $responseData['data']['description'] = $appointment->description;
-        $responseData['status'] = 1;
-
-        return $this->commonResponse($responseData, 200);
+    public function detail($question_id){
+        
+        $question = Community::with('communityTags')->where('slug',$question_id)->select('id', 'user_id', 'title', 'question_category_id', 'description', 'tags', 'views', 'created_at')->first();
+        
+        \Debugbar::info($question);
+        
+        return view('community.question-details',compact('question'));
     }
-    public function destroy(Request $request){
+
+    /**
+     * Questions page - global  
+     */
+    public function questions(){
         DB::beginTransaction();
         try{
-            $Appointment = Appointment::find($request->id);
-            $Appointment->delete();
+            $questions = Community::with('communityTags')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
+            
             DB::commit();
-            Session::flash('success', 'Appointment has been deleted Successfully');
-            return array('status' => '200', 'msg_success' => 'Appointment has been deleted Successfully');
+
+            return view('pages.questions',compact('questions'));
+        
         } catch(Exception $e){
             DB::rollback();
             return array('status' => '0', 'msg_fail' => 'Something went wrong');

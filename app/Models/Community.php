@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 use App\Models\Tag;
-
+use Laravelista\Comments\Commentable;
 class Community extends Model
 {
 
-    use Sluggable;
+    use Sluggable, Commentable;
+
     protected $guarded = [];
 
     protected $hidden = ["created_by", "updated_by", "deleted_by", "deleted_at"];

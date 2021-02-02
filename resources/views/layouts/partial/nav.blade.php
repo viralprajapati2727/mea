@@ -32,9 +32,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.resources') }}">Resources</a>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a class="nav-link" href="#">Startup Portal</a>
-                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('page.questions') }}">Questions</a>
+                            </li>
                         </ul>
                         <div class="login-links">
                             <ul>
