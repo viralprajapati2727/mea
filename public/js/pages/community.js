@@ -202,12 +202,14 @@ function showResponse_pro_profile(responseText, statusText, xhr, jqForm)  {
                 }
             });
         }else{
-            $('.flash-messages').html('<div class="d-block error-message custom-error">\n' +
-                '<div class="alert alert-danger alert-block">\n' +
-                '\t<button type="button" class="close" data-dismiss="alert">×</button>\n' +
-                '    <span>'+responseText.message+'</span>\n' +
-                '</div>\n' +
-                '</div>');
+            var alertClass = "alert-danger";
+            if (responseText.status == "200") {
+                alertClass = "alert-success";
+            }
+            $(".flash-messages").html('<div class="d-block error-message home-globle-error">\n' + '<div class="alert ' + alertClass + ' alert-block">\n' +
+                '\t<button type="button" class="close" data-dismiss="alert">×</button>\n' + "<span>" + responseText.message +
+                "</span>\n" + "</div>\n" + "</div>"
+            );
             window.scrollTo(0,0);
         }
         jqForm.find('.server-error:first').parent('div').find('input').focus()

@@ -6,7 +6,7 @@
             <div class="global-search">
                 <div class="top-search">
                     <form>
-                        <input type="search" name="search" placeholder="Search by name, tags and more">
+                        <input type="search" name="keyword" placeholder="Search by name, tags and more" value="{{ array_key_exists('keyword',$params) ? $params['keyword'] : old('keyword') }}">
                     </form>
                 </div>
                 <div class="member-list-wraper d-md-flex align-items-md-start">
@@ -93,7 +93,7 @@
                                 <!-- Job type -->
                                 <div class="border-0 py-4 text-center">
                                     <button type="submit" class="btn btn-primary btn-apply mx-auto">Apply</button>
-                                    <input hidden name="keyword" value="{{ array_key_exists('keyword',$params) ? $params['keyword'] : old('keyword') }}">
+                                    {{-- <input hidden name="keyword" value="{{ array_key_exists('keyword',$params) ? $params['keyword'] : old('keyword') }}"> --}}
                                 </div>
                             </div>
                         </form>
@@ -135,8 +135,14 @@
                                                 <div class="col-md-2">
                                                     <div class="job-actions">
                                                         <ul>
-                                                            <li><a href="#" class="job-detail-btn">Job Detail</a></li>
-                                                            <li><a href="#" class="apply-btn">Quick Apply</a></li>
+                                                            <li><a href="{{ route('job.job-detail',['id' => $job->job_unique_id]) }}" class="job-detail-btn">Job Detail</a></li>
+                                                            <li>
+                                                                @if(Auth::check())
+                                                                    <a href="javascript:;" class="apply-btn" data-id="{{ $job->id }}">Quick Apply</a>
+                                                                @else
+                                                                    <a href="{{ route('login') }}" class="apply-btn">Apply</a>
+                                                                @endif
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -158,10 +164,43 @@
         </div>
     </div>
 </div>
+
+<!-- apply job modal -->
+<div id="apply-job-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Apply</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <p class="already_applied_text text-success" style="display: none"></p>
+            <form class="apply_job_form" action="{{ route('job.apply-job') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group mt-md-2 ckeditor">
+                        <label class="col-form-label">Additional Information:<span class="required-star-color">*</span></label>
+                        <div class="input-group custom-start">
+                            <textarea name="description" id="description" rows="5" placeholder="Message" class="form-control"></textarea>
+                        </div>
+                        <div class="input-group description-error-msg"></div>
+                    </div>
+                </div>
+                <input type="hidden" name="job_id" class="job_id">
+                <input type="hidden" name="job_applied_id" class="job_applied_id">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-primary">Apply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 @endsection
 @section('footer_script')
 <script>
-
+var check_already_applied_link = "{{ route('job.check-apply-job') }}";
 $(document).ready(function(){
     $('select[multiple]').multiselect({
         includeSelectAllOption: true,
@@ -204,4 +243,6 @@ $(document).ready(function(){
 });
 
 </script>
+<script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ Helper::assets('js/pages/apply.js') }}"></script>
 @endsection

@@ -27,6 +27,7 @@ use Mockery\Exception;
 use Session;
 use Illuminate\Http\Testing\MimeType;
 use App\Models\PostJob;
+use App\Models\JobApplied;
 
 class Helper
 {
@@ -511,10 +512,10 @@ class Helper
         ])->whereIn('job_status',[1]); //active
 
 
-        if (!empty($params['title'])) {
-            // $search_keywords = explode(',',preg_replace('/\s*,\s*/', ',', $params['title']));
+        if (!empty($params['keyword'])) {
+            $search_keywords = explode(',',preg_replace('/\s*,\s*/', ',', $params['keyword']));
             $like_keywords = [];
-            foreach($params['title'] as $keywords){
+            foreach($search_keywords as $keywords){
                 if($keywords != ""){
                     $like_keywords[] = "%".$keywords."%";
                 }
@@ -557,7 +558,7 @@ class Helper
                 });
             });
         }
-        if (!empty($params['city'])) {
+        if (!empty($params['city']) && !empty($params['city'][0])) {
             $keywords = $params['city'];
             if(count($keywords) > 0){
                 $data->where(function($query1) use ($keywords) {
@@ -592,7 +593,7 @@ class Helper
             $data->whereIn('job_type_id',$params['type']);
         }
         
-        if (!empty($params['category'])) {
+        if (!empty($params['category']) && !empty($params['category'][0])) {
             $ids = $params['category'];
             $data->whereIn('business_category_id',$ids);
         }
@@ -604,5 +605,10 @@ class Helper
         }
 
         return $data->get();
+    }
+    public static function checkJobApplied($job_id, $user_id){
+        $data = JobApplied::where(['job_id' => $job_id, 'user_id' => $user_id])->first();
+
+        return $data;
     }
 }

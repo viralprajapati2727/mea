@@ -19,6 +19,7 @@ use App\Models\PostJob;
 use App\Models\JobSkill;
 use App\Models\KeySkill;
 use App\Models\BusinessCategory;
+use App\Models\JobApplied;
 
 
 
@@ -220,10 +221,18 @@ class JobController extends Controller
 			}
 			$params['category'] = $category;
         }
+        if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
+			$keyword = $_GET['keyword'];
+			$params['keyword'] = $keyword;
+        }
+
         if (isset($_GET['title']) && $_GET['title'] != '') {
-			$title = $_GET['title'];
+			foreach ($_GET['title'] as $t) {
+				$title[] = $t;
+			}
 			$params['title'] = $title;
         }
+        
         if (isset($_GET['city']) != '' && !empty($_GET['city'])) {
 			foreach ($_GET['city'] as $t) {
 				$city[] = $t;
@@ -261,6 +270,77 @@ class JobController extends Controller
         }catch(Exception $e){
             DB::rollback();
             return redirect()->back()->with('warning',$e->getMessage());
+        }
+    }
+    public function checkAppliedJob(Request $request){
+        // echo "<pre>"; print_r($request->all()); exit;
+        $responseData = array();
+        $responseData['status'] = 0;
+        $responseData['message'] = '';
+        $responseData['errors'] = array();
+        $responseData['data'] = [];
+        try{
+
+            if(empty($request->job_id)){
+                return $this->commonResponse($responseData, 200);
+            }
+            $user_id = Auth::id();
+
+            $data = Helper::checkJobApplied($request->job_id, $user_id);
+
+            $job_applied_id = 0;
+            if(!empty($data) && $data->count() > 0){
+                $job_applied_id = $data->id;
+                $responseData['data']['additional_information'] = $data->additional_information;
+            }
+
+            $responseData['status'] = 200;
+            $responseData['data']['job_applied_id'] = $job_applied_id;
+            
+            return $this->commonResponse($responseData, 200);
+
+        }catch(Exception $e){
+            $responseData['status'] = 0;
+            return $this->commonResponse($responseData, 200);
+        }
+    }
+    public function applyJob(Request $request){
+        $responseData = array();
+        $responseData['status'] = 0;
+        $responseData['message'] = '';
+        $responseData['errors'] = array();
+        $responseData['data'] = [];
+        try{
+
+            if(empty($request->job_id)){
+                return $this->commonResponse($responseData, 200);
+            }
+            $user_id = Auth::id();
+
+            $data = Helper::checkJobApplied($request->job_id, $user_id);
+
+            $job_applied_id = 0;
+            if(!empty($data) && $data->count() > 0){
+                $job_applied_id = $data->id;
+            }
+
+            $param = [ "user_id" => $user_id ];
+            $param2 = ['job_id' => $request->job_id, 'job_applied_status_id' => 0, "additional_information" => $request->description];
+
+            $jobApplied = JobApplied::updateOrCreate(
+                $param,
+                $param2
+            );
+
+            $responseData['status'] = 200;
+            $responseData['message'] = 'You have successfully applied';
+
+            Session::flash('success', $responseData['message']);
+            return $this->commonResponse($responseData, 200);
+
+        }catch(Exception $e){
+            $responseData['status'] = 0;
+            return $this->commonResponse($responseData, 200);
         }
     }
 }
