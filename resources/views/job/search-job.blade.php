@@ -65,172 +65,106 @@
             </div>
         </div>
     </div>
-    <div class="recent-jobs">
-        <div class="container">
-            <div class="title text-center">
-                <h2>Recent Jobs</h2>
-                <p>Make the most of the opportunity available by browsing among the most trending categories and get hired today.</p>
+    @if(!$recentJobs->isEmpty() && $recentJobs->count())
+        <div class="recent-jobs">
+            <div class="container">
+                <div class="title text-center">
+                    <h2>Recent Jobs</h2>
+                    <p>Make the most of the opportunity available by browsing among the most trending categories and get hired today.</p>
+                </div>
+                <div class="job-lists-wrap">
+                    @forelse ($recentJobs as $job)
+                        <div class="card">
+                            <div class="jobs-details-wrap">
+                                <div class="row align-items-center">
+                                    <div class="col-md-10">
+                                        <div class="job-detail-left">
+                                            <div class="job-media">
+                                                <img src="{{ Helper::assets('images/job-portal/designer.jpg') }}" alt="">
+                                            </div>
+                                            <div class="job-description">
+                                                <h2 class="job-title"><a href="{{ route('job.job-detail',['id' => $job->job_unique_id]) }}" class="font-black">{{ $job->job_title_id > 0 ? $job->jobTitle->title : $job->other_job_title }}</a></h2>
+                                                {{-- <div class="job-company-location">
+                                                    <p class="company">@ Company A</p>
+                                                </div> --}}
+                                                <div class="d-sm-inline d-inline-block mr-3">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    <span>{{ $job->location }}</span>
+                                                </div>
+                                                @if($job->job_type == 1)
+                                                <div class="d-sm-inline d-inline-block mr-3">
+                                                    <i class="fa fa-clock-o"></i>
+                                                    <span>{{ config('constant.job_type')[$job->job_type_id] }}</span>
+                                                </div>
+                                                <div class="d-sm-inline1 d-inline-block1">
+                                                    <i class="fa fa-money"></i>
+                                                    <span>{{ $job->is_paid ? ($job->currency->code ." ". $job->min_salary." - ".$job->currency->code ." ". $job->max_salary) : "" }}</span>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="job-actions">
+                                            <ul>
+                                                <li><a href="{{ route('job.job-detail',['id' => $job->job_unique_id]) }}" class="job-detail-btn">Job Detail</a></li>
+                                                <li>
+                                                    @if(Auth::check())
+                                                        <a href="javascript:;" class="apply-btn" data-id="{{ $job->id }}">Quick Apply</a>
+                                                    @else
+                                                        <a href="{{ route('login') }}" class="apply-btn">Apply</a>
+                                                    @endif
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
+                </diV>
             </div>
-            <div class="job-lists-wrap">
-                <div class="card">
-                    <div class="jobs-details-wrap">
-                        <div class="row align-items-center">
-                            <div class="col-md-10">
-                                <div class="job-detail-left">
-                                    <div class="job-media">
-                                        <img src="{{ Helper::assets('images/job-portal/designer.jpg') }}" alt="">
-                                    </div>
-                                    <div class="job-description">
-                                        <h2 class="job-title"><a href="#">Web designer</a></h2>
-                                        <div class="job-company-location">
-                                            <p class="company">@ Company A</p>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block mr-3">
-                                            <i class="fa fa-map-marker"></i>
-                                            <span>San Francisco</span>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block mr-3">
-                                            <i class="fa fa-clock-o"></i>
-                                            <span>Full Time</span>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block">
-                                            <i class="fa fa-money"></i>
-                                            <span>$ 1,500</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="job-actions">
-                                    <ul>
-                                        <li><a href="#" class="job-detail-btn">Job Detail</a></li>
-                                        <li><a href="#" class="apply-btn">Quick Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+        </div>
+    @endif
+</div>
+
+<!-- apply job modal -->
+<div id="apply-job-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Apply</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <p class="already_applied_text text-success" style="display: none"></p>
+            <form class="apply_job_form" action="{{ route('job.apply-job') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group mt-md-2 ckeditor">
+                        <label class="col-form-label">Additional Information:<span class="required-star-color">*</span></label>
+                        <div class="input-group custom-start">
+                            <textarea name="description" id="description" rows="5" placeholder="Message" class="form-control"></textarea>
                         </div>
+                        <div class="input-group description-error-msg"></div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="jobs-details-wrap">
-                        <div class="row align-items-center">
-                            <div class="col-md-10">
-                                <div class="job-detail-left">
-                                    <div class="job-media">
-                                        <img src="{{ Helper::assets('images/job-portal/designer.jpg') }}" alt="">
-                                    </div>
-                                    <div class="job-description">
-                                        <h2 class="job-title"><a href="#">Web designer</a></h2>
-                                        <div class="job-company-location">
-                                            <p class="company">@ Company A</p>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block mr-3">
-                                            <i class="fa fa-map-marker"></i>
-                                            <span>San Francisco</span>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block mr-3">
-                                            <i class="fa fa-clock-o"></i>
-                                            <span>Full Time</span>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block">
-                                            <i class="fa fa-money"></i>
-                                            <span>$ 1,500</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="job-actions">
-                                    <ul>
-                                        <li><a href="#" class="job-detail-btn">Job Detail</a></li>
-                                        <li><a href="#" class="apply-btn">Quick Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <input type="hidden" name="job_id" class="job_id">
+                <input type="hidden" name="job_applied_id" class="job_applied_id">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-primary">Apply</button>
                 </div>
-                <div class="card">
-                    <div class="jobs-details-wrap">
-                        <div class="row align-items-center">
-                            <div class="col-md-10">
-                                <div class="job-detail-left">
-                                    <div class="job-media">
-                                        <img src="{{ Helper::assets('images/job-portal/designer.jpg') }}" alt="">
-                                    </div>
-                                    <div class="job-description">
-                                        <h2 class="job-title"><a href="#">Web designer</a></h2>
-                                        <div class="job-company-location">
-                                            <p class="company">@ Company A</p>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block mr-3">
-                                            <i class="fa fa-map-marker"></i>
-                                            <span>San Francisco</span>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block mr-3">
-                                            <i class="fa fa-clock-o"></i>
-                                            <span>Full Time</span>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block">
-                                            <i class="fa fa-money"></i>
-                                            <span>$ 1,500</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="job-actions">
-                                    <ul>
-                                        <li><a href="#" class="job-detail-btn">Job Detail</a></li>
-                                        <li><a href="#" class="apply-btn">Quick Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="jobs-details-wrap">
-                        <div class="row align-items-center">
-                            <div class="col-md-10">
-                                <div class="job-detail-left">
-                                    <div class="job-media">
-                                        <img src="{{ Helper::assets('images/job-portal/designer.jpg') }}" alt="">
-                                    </div>
-                                    <div class="job-description">
-                                        <h2 class="job-title"><a href="#">Web designer</a></h2>
-                                        <div class="job-company-location">
-                                            <p class="company">@ Company A</p>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block mr-3">
-                                            <i class="fa fa-map-marker"></i>
-                                            <span>San Francisco</span>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block mr-3">
-                                            <i class="fa fa-clock-o"></i>
-                                            <span>Full Time</span>
-                                        </div>
-                                        <div class="d-sm-inline d-inline-block">
-                                            <i class="fa fa-money"></i>
-                                            <span>$ 1,500</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="job-actions">
-                                    <ul>
-                                        <li><a href="#" class="job-detail-btn">Job Detail</a></li>
-                                        <li><a href="#" class="apply-btn">Quick Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </diV>
+            </form>
         </div>
     </div>
 </div>
 
+@endsection
+@section('footer_script')
+<script>
+var check_already_applied_link = "{{ route('job.check-apply-job') }}";
+</script>
+<script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ Helper::assets('js/pages/apply.js') }}"></script>
 @endsection

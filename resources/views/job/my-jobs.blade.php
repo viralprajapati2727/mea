@@ -100,7 +100,7 @@
                                             <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="flaticon-menu"></i></a>
                                             <span class="tooltip-arrow"></span>
                                             <div class="dropdown-menu dropdown-menu-right jb_company_dropdown_nav" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(30px, 30px, 0px);">
-                                                {{-- <a href="https://staging.jobaroot.com/view-applicant/J000143" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-user"></i></span>View Applicants</a> --}}
+                                                <a href="{{ route('job.view-applicant',['job_unique_id' => $job->job_unique_id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-user"></i></span>View Applicants</a>
                                                 <a href="{{ route('job.fill-job',['job_unique_id' => $job->job_unique_id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-edit"></i></span> Edit Job</a>
                                                 {{-- <a href="javascript:;" class="dropdown-item call-action" data-id="143" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Job</a> --}}
                                             </div>

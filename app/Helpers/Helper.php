@@ -611,4 +611,251 @@ class Helper
 
         return $data;
     }
+    public static function getRecentJobs() {
+        $selectedFields = ['id','user_id','job_title_id','job_type','other_job_title','job_type_id','job_unique_id','job_status','location','job_count','created_at'];
+        $data = PostJob::select($selectedFields)->with([
+            
+            'jobTitle'=> function($query){
+
+            },
+            'currency'=> function($query){
+
+            }
+        ])->has('user')->whereIn('job_status',[1]); //active;
+
+        $data = $data->orderBy('id','DESC');
+
+        return $data->limit(5)->get();
+    }
+    public static function applyJobData($user_id = null,$language_id = null, $job_id = null, $apply_job_id = null, $all = true, $paginate = null,$params = array(),$paid = 1) {
+
+        $languages = self::languages();
+        $data = JobApplied::with([
+            'jobAppliedLangs' => function($query) use ($language_id, $params) {
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id', $language_id);
+                    }
+                }
+            },
+            'profile',
+            'profile.candidateProfileLang' => function($query) use ($language_id,$params) {
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id', $language_id);
+                    }
+                }
+            },
+            'job.profile',
+            'job.profile.companyProfileLangs' => function($query) use ($language_id,$params) {
+                if(isset($language_id) && !empty($language_id)){
+                    $query->where('language_id', $language_id);
+                }
+            },
+            'profile.candidateWorkExperience.candidateWorkExperienceLang' => function($query) use ($language_id,$params) {
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id', $language_id);
+                    }
+                }
+            },
+            'profile.candidateEducationDetail.candidateEducationDetailLang' => function($query) use ($language_id,$params) {
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id', $language_id);
+                    }
+                }
+            },
+            'profile.candidateJobTitleSought.jobTitleSoughtLang'=> function($query) use ($language_id,$params) {
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id', $language_id);
+                    }
+                }
+            },
+            'profile.candidatePosition.positionLang'=> function($query) use ($language_id,$params) {
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id', $language_id);
+                    }
+                }
+            },
+            'job.jobLangs'=> function($query) use ($language_id, $params){
+                if(isset($language_id) && !empty($language_id)){
+                    $query->where('language_id', $language_id);
+                }
+            },
+            'job.profile.businessCategory.categoryLang'=> function($query) use ($language_id){
+				if(isset($language_id) && !empty($language_id)){
+					$query->where('language_id',$language_id);
+				}
+            },
+            'job.surveyQuestions.surveyQuestionLangs'=> function($query) use ($language_id, $params){
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id',$language_id);
+                    }
+                }
+            },
+            'job.jobTitle.jobTitleLang'=> function($query) use ($language_id, $params){
+                if(isset($language_id) && !empty($language_id)){
+                    $query->where('language_id',$language_id);
+                }
+            },
+            'job.jobType.jobTypeLang'=> function($query) use ($language_id, $params){
+                if(isset($language_id) && !empty($language_id)){
+                    $query->where('language_id',$language_id);
+                }
+            },
+            'surveyAnswers',
+            'surveyAnswers.surveyAnswersLangs' => function($query) use ($language_id, $params) {
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id', $language_id);
+                    }
+                }
+            },
+            'surveyAnswers.surveyQuestionLang' => function($query) use ($language_id, $params) {
+                if(!isset($params['both'])){
+                    if(isset($language_id) && !empty($language_id)){
+                        $query->where('language_id', $language_id);
+                    }
+                }
+            },
+            'checkApplyJobTranslation' => function($query) use ($paid){
+                if($paid == 1){
+                    $query->where('is_paid_translate',1);
+                }
+            },
+        ])->has('user')->has('job');
+        $data->whereHas('jobAppliedLangs', function($query) use ($language_id, $params) {
+            if(!isset($params['both'])){
+                if(isset($language_id) && !empty($language_id)){
+                    $query->where('language_id', $language_id);
+                }
+            }
+        });
+        if (isset($params['keyword']) && !empty($params['keyword'])) {
+            $keywords = trim($params['keyword']);
+            $data->where(function($mquery) use ($keywords) {
+                $mquery->whereHas('profile.candidateProfileLang', function($query) use ($keywords) {
+                    $query->where('firstname','like','%'.$keywords.'%');
+                    $query->orWhere('middlename','like','%'.$keywords.'%');
+                    $query->orWhere('lastname','like','%'.$keywords.'%');
+
+                    $explode = explode(' ', $keywords);
+                    foreach ($explode as $term) {
+                        $query->orWhere('firstname', 'LIKE', '%' . $term . '%');
+                        $query->orWhere('middlename', 'LIKE', '%' . $term . '%');
+                        $query->orWhere('lastname','like','%'.$keywords.'%');
+                    }
+                });
+                $mquery->orWhereHas('profile.candidateProfileLang', function($query) use ($keywords) {
+                    $query->where(function($query1) use ($keywords) {
+                        $keywords = explode(' ', $keywords);
+                        foreach ($keywords as $key => $keyword) {
+                            $explode = explode(', ', $keyword);
+                            if($key == 0){
+                                if(count($explode) == 1){
+                                    $query1->where(function($query2) use ($explode) {
+                                        $query2->where('city', 'LIKE', '%' . $explode[0] . '%');
+                                        $query2->orWhere('country', 'LIKE', '%' . $explode[0] . '%');
+                                    });
+                                }else{
+                                    $query1->where(function($query2) use ($explode) {
+                                        $query2->where('city', 'LIKE', '%' . $explode[0] . '%');
+                                        $query2->where('country', 'LIKE', '%' . $explode[1] . '%');
+                                    });
+                                }
+                            } else{
+                                if(count($explode) == 1){
+                                    $query1->orWhere(function($query2) use ($explode) {
+                                        $query2->where('city', 'LIKE', '%' . $explode[0] . '%');
+                                        $query2->orWhere('country', 'LIKE', '%' . $explode[0] . '%');
+                                    });
+                                }else{
+                                    $query1->orWhere(function($query2) use ($explode) {
+                                        $query2->where('city', 'LIKE', '%' . $explode[0] . '%');
+                                        $query2->where('country', 'LIKE', '%' . $explode[1] . '%');
+                                    });
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+        }
+
+        if (isset($params['keywords']) && !empty($params['keywords'])) {
+            $keywords = trim($params['keywords']);
+            $search_keywords = explode(',',preg_replace('/\s*,\s*/', ',', $params['keywords']));
+            $like_keywords = [];
+            foreach($search_keywords as $keywords){
+                if($keywords != ""){
+                    $like_keywords[] = "%".$keywords."%";
+                }
+                $explode = explode(' ', $keywords);
+                if(count($explode) > 1){
+                    foreach ($explode as $term) {
+                        if($term != ""){
+                            $like_keywords[] = "'%".$term."%'";
+                        }
+                    }
+                }
+            }
+
+            $data->where(function($mquery) use ($keywords,$language_id,$like_keywords) {
+                $mquery->whereHas('job.jobTitle.jobTitleLang', function($query) use ($keywords){
+                    $query->where('title','like','%'.$keywords.'%');
+                    $explode = explode(' ', $keywords);
+                    foreach ($explode as $term) {
+                        $query->orWhere('title', 'LIKE',$term);
+                    }
+                });
+                
+                $mquery->orWhereHas('job.jobLangs', function($query) use ($like_keywords, $language_id) {
+                    $query->where(function($query1) use ($like_keywords) {
+                        foreach($like_keywords as $keyword){
+                            $query1->orWhere('other_job_title', 'LIKE', $keyword);
+                        }
+                    });
+                    $query->where('language_id',$language_id);
+                });
+            });
+        }
+
+        if(!is_null($job_id)){
+            $data->where(function ($Query1) use ($job_id) {
+                $Query1->where('job_id', $job_id);
+            });
+        }
+        if(!is_null($apply_job_id)){
+            $data->where(function ($Query1) use ($apply_job_id) {
+                $Query1->where('id',$apply_job_id);
+            });
+        }
+        if (isset($params['status']) && !empty($params['status'])) {
+            $data->where(function ($Query1) use ($params) {
+                $Query1->whereIn('job_applied_status_id',$params['status']);
+            });
+        }
+
+        if(!is_null($user_id)){
+            $data->where('user_id',$user_id);
+        }
+
+        $data = $data->orderBy('id','DESC');
+
+        if($all === false){
+            return $data->first();
+        }
+
+        if(!is_null($paginate)){
+            return $data->paginate($paginate);
+        }
+
+        return $data->get();
+
+        // dd(DB::getQueryLog());
+    }
 }

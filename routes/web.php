@@ -67,6 +67,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             
             Route::post('apply-job', 'JobController@applyJob')->name('job.apply-job');
             Route::post('check-apply-job', 'JobController@checkAppliedJob')->name('job.check-apply-job');
+            Route::get('view-applicant/{job_unique_id}', 'JobController@viewApplicant')->name('job.view-applicant');
 
 
             //appointments

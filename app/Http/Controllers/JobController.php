@@ -211,7 +211,8 @@ class JobController extends Controller
     public function searchJob(){
         $business_categories = BusinessCategory::select('id','title','src','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
 
-        return view('job.search-job',compact('business_categories'));
+        $recentJobs = Helper::getRecentJobs();
+        return view('job.search-job',compact('business_categories','recentJobs'));
     }
     public function globalSearch(){
         $params = [];
@@ -341,6 +342,34 @@ class JobController extends Controller
         }catch(Exception $e){
             $responseData['status'] = 0;
             return $this->commonResponse($responseData, 200);
+        }
+    }
+    public function viewApplicant($job_id = null){
+        try{
+
+            if(!isset($job_id) || empty($job_id)){
+                return redirect()->route('job.my-jobs')->with('error', 'Something went wrong');
+            }
+
+            $params = [];
+            if (isset($_GET['status']) != '' && !empty($_GET['status'])) {
+                foreach ($_GET['status'] as $s) {
+                    $status[] = $s;
+                }
+                $params['status'] = $status;
+            }
+
+            if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
+                $keyword = $_GET['keyword'];
+                $params['keyword'] = $keyword;
+            }
+
+            $user_id = Auth::id();
+
+            $applicants = Helper::applyJobData($job_id, 10, $params);
+
+        } catch(Exception $e){
+            return redirect()->back()->with('error', 'Something went wrong');
         }
     }
 }
