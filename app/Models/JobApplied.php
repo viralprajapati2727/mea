@@ -12,6 +12,6 @@ class JobApplied extends Model
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
     public function job(){
-        return $this->belongsTo('App\Models\Job', 'job_id', 'id');
+        return $this->belongsTo('App\Models\PostJob', 'job_id', 'id');
     }
 }

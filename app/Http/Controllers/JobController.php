@@ -364,9 +364,9 @@ class JobController extends Controller
                 $params['keyword'] = $keyword;
             }
 
-            $user_id = Auth::id();
-
             $applicants = Helper::applyJobData($job_id, 10, $params);
+
+            return view('job.applicant',compact('applicants','job_id','params'));
 
         } catch(Exception $e){
             return redirect()->back()->with('error', 'Something went wrong');

@@ -212,6 +212,22 @@ $(document).ready(function(){
         nSelectedText: 'Selected',
         nonSelectedText: 'None Selected',
         selectAllText: 'All',
+        onChange: function(option, checked) {
+            parentNode = option[0].parentNode;
+            var selectedOptions = $(parentNode).find('option:selected');
+            var allOptions = $(parentNode).find('option');
+            if(selectedOptions.length == allOptions.length){
+                $(parentNode).multiselect('selectAll').multiselect('refresh');
+            }else if(selectedOptions.length < allOptions.length){
+                $(parentNode).multiselect('deselectAll');
+                $(selectedOptions).prop('selected',true);
+                option.prop('selected',checked);
+                $(parentNode).multiselect('refresh');
+            }
+        },
+        onInitialized: function(select, container) {
+
+        },
     });
 
     $(document).on('keyup','.multiselect-filter input',function(){
@@ -230,6 +246,24 @@ $(document).ready(function(){
         // var count_option = 0;
         // allOptions.each(function(index,element){
         //     //$(element).hasClass('.multiselect-filter-hidden');
+        //     if(count_option > 4){
+        //         $(element).hide();
+        //     }
+        //     count_option++
+        // });
+    });
+
+    $('select[multiple]').each(function(){
+        var selectedOptions = $(this).find('option:selected');
+        var allOptions = $(this).find('option');
+        if(selectedOptions.length == allOptions.length){
+            $(this).multiselect('rebuild').multiselect('selectAll').multiselect('refresh');
+        }
+        $(this).parents('.multiselect-native-select').find('.multiselect-search').attr('placeholder', $(this).attr('placeholder'));
+
+        var allOptions = $(this).parents('.multiselect-native-select').find('.multiselect-container.dropdown-menu .multiselect-item.dropdown-item.form-check');
+        // var count_option = 0;
+        // allOptions.each(function(index,element){
         //     if(count_option > 4){
         //         $(element).hide();
         //     }

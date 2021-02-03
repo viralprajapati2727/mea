@@ -31,6 +31,7 @@ return [
         'salary_type' => [1 => 'Hourly', 2 => 'Weekly', 3 => 'Monthly', 4 => 'Yearly', 5 => 'Project base'],
         'job_type' => [1 => 'Full time', 2 => 'Part time', 3 => 'Temporary', 4 => 'Commission', 5 => 'Internship'],
         'job_status' => [0 => 'Pending', 1 => 'Active', 2 => 'Rejected', 3 => 'Closed'],
+        'job_apply_status' => [0 => 'Pending', 1 => 'Reviewed', 2 => 'Interviewed', 3 => 'Shortlisted', 4 => 'Rejected', 5 => 'Hired'],
 	    'privilege'  => [1 => 'Employer Management', 2 => 'Employee Management', 3 => 'Jobs Management',4 => 'Sponsor Jobs Management', 5 => 'Business Category Management', 6 => 'Job Title Management', 7 => 'BLog Management', 8 => 'CMS Management', 9 => 'Email Templates', 10 => 'Statistics', 11 => 'Price Setting and Payment Log'],
         'appointment_status' => [0 => 'Pending', 1 => 'Approved', 2 => 'Rejected'],
         'imageSizeLimit' => 51200, /* 50MB*/
