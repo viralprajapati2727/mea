@@ -3,10 +3,12 @@
         <nav class="navbar navbar-expand-lg">
             <div class="row w-100 align-items-center">
                 <div class="col-lg-4">
-                    <div class="navbar-brand">
-                        <img src="{{ Helper::assets('images/logo.png') }}" class="logo" alt="">
-                        <h1>MUSLIM ENTREPRENEUR ASSOCISTION</h1>
-                    </div>
+                    <a class="nav-link" href="{{ url('/') }}">
+                        <div class="navbar-brand">
+                                <img src="{{ Helper::assets('images/logo.png') }}" class="logo" alt="">
+                                <h1>MUSLIM ENTREPRENEUR ASSOCISTION</h1>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-lg-8">
                     <div class="header-right">
@@ -15,9 +17,6 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
-                            </li>
                             @if(Auth::check())
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('community.index') }}">Community</a>
