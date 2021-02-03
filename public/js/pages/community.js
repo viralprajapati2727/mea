@@ -1,53 +1,53 @@
 $(document).ready(function(){
     
-    CKEDITOR.replace('description', {
-        height: '200px',
-        removeButtons: 'Subscript,Superscript,Image',
-        toolbarGroups: [
-            { name: 'styles' },
-            { name: 'editing', groups: ['find', 'selection'] },
-            { name: 'basicstyles', groups: ['basicstyles'] },
-            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align'] },
-            { name: 'links' },
-            { name: 'insert' },
-            { name: 'colors' },
-            { name: 'tools' },
-            { name: 'others' },
-            { name: 'document', groups: ['mode', 'document', 'doctools'] }
-        ],
-        wordcount: {
-            // Whether or not you want to show the Paragraphs Count
-            showParagraphs: false,
+    // CKEDITOR.replace('description', {
+    //     height: '200px',
+    //     removeButtons: 'Subscript,Superscript,Image',
+    //     toolbarGroups: [
+    //         { name: 'styles' },
+    //         { name: 'editing', groups: ['find', 'selection'] },
+    //         { name: 'basicstyles', groups: ['basicstyles'] },
+    //         { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align'] },
+    //         { name: 'links' },
+    //         { name: 'insert' },
+    //         { name: 'colors' },
+    //         { name: 'tools' },
+    //         { name: 'others' },
+    //         { name: 'document', groups: ['mode', 'document', 'doctools'] }
+    //     ],
+    //     wordcount: {
+    //         // Whether or not you want to show the Paragraphs Count
+    //         showParagraphs: false,
     
-            // Whether or not you want to show the Word Count
-            showWordCount: false,
+    //         // Whether or not you want to show the Word Count
+    //         showWordCount: false,
     
-            // Whether or not you want to show the Char Count
-            showCharCount: true,
+    //         // Whether or not you want to show the Char Count
+    //         showCharCount: true,
     
-            // Whether or not you want to count Spaces as Chars
-            countSpacesAsChars: false,
+    //         // Whether or not you want to count Spaces as Chars
+    //         countSpacesAsChars: false,
     
-            // Whether or not to include Html chars in the Char Count
-            countHTML: false,
+    //         // Whether or not to include Html chars in the Char Count
+    //         countHTML: false,
     
-            // Maximum allowed Word Count, -1 is default for unlimited
-            maxWordCount: -1,
+    //         // Maximum allowed Word Count, -1 is default for unlimited
+    //         maxWordCount: -1,
     
-            // Maximum allowed Char Count, -1 is default for unlimited
-            maxCharCount: 1500,
+    //         // Maximum allowed Char Count, -1 is default for unlimited
+    //         maxCharCount: 1500,
     
-            // Option to limit the characters in the Editor, for example 200 in this case.
-            charLimit: 1500,
+    //         // Option to limit the characters in the Editor, for example 200 in this case.
+    //         charLimit: 1500,
     
-            notification_duration: 1,
-            duration: 1
-        },
-        notification: {
-            duration: 1,
-            notification_duration: 1
-        }
-    });
+    //         notification_duration: 1,
+    //         duration: 1
+    //     },
+    //     notification: {
+    //         duration: 1,
+    //         notification_duration: 1
+    //     }
+    // });
 
     $.validator.addMethod("greaterThan", function(value, element, params) {
         if($(params).val() != '' && value != ''){
@@ -125,12 +125,12 @@ $(document).ready(function(){
             },
             description: {
                 required: function(){
-                    CKEDITOR.instances.description.updateElement();
+                    // CKEDITOR.instances.description.updateElement();
                     var editorcontent = $('#description').val().replace(/<[^>]*>/gi, ''); // strip tags
                     var editor_value = $.trim(editorcontent.replace(/&nbsp;/g, ''));
                     return Number(editor_value) === 0;
                 },
-                checkCkeditorEmpty: '#description',
+                // checkCkeditorEmpty: '#description',
             },
         },
         messages: {
@@ -149,7 +149,7 @@ $(document).ready(function(){
             },
         },
         submitHandler: function (form) {
-            CKEDITOR.instances.description.updateElement();
+            // CKEDITOR.instances.description.updateElement();
             $('.ask_question_form').ajaxSubmit(
                 {
                     beforeSubmit:  showRequest_pro_profile,  // pre-submit callback

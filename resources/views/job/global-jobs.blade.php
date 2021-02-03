@@ -9,7 +9,7 @@
                         <input type="search" name="keyword" placeholder="Search by name, tags and more" value="{{ array_key_exists('keyword',$params) ? $params['keyword'] : old('keyword') }}">
                     </form>
                 </div>
-                <div class="member-list-wraper d-md-flex align-items-md-start">
+                <div class="member-list-wraper job-list-wraper d-md-flex align-items-md-start">
                     <div class="sidebar-left">
                         <form class="global-search" autocomplete="off">
                             <div class="sidebar-main">
@@ -70,7 +70,7 @@
                                 </div>
                                 <!-- /Business Categories -->
                                 <!-- Job type -->
-                                <div class="card border-0">
+                                <div class="card">
                                     <div class="card-header bg-transparent header-elements-inline border-b-n">
                                         <h5 class="font-black m-0">Job Type</h5>
                                         <div class="header-elements">
