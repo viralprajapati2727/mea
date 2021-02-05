@@ -262,10 +262,12 @@ class JobController extends Controller
             if(!empty($id) && !is_null($id)){
                 $job = Helper::getJobData(null,$id,null,false,null);
             }
-
             if(empty($job)){
                 return redirect()->route('index');
             }
+            PostJob::where('id',$job->id)->update([
+                'job_count'=> $job->job_count + 1
+            ]);
 
 			return view('job.job-detail',compact('job'));
         }catch(Exception $e){

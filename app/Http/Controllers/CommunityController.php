@@ -16,20 +16,30 @@ use stdClass;
 use App\Models\Tags;
 use App\Models\Community;
 use App\Models\CommunityTags;
+use App\Models\CommunityLikes;
 use App\Models\QuestionCategory;
 
 
 
 class CommunityController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $categories = QuestionCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
         $tags = Tags::where('status',1)->select('title')->get()->pluck('title');
-        $questions = Community::with('communityTags')->where('user_id',Auth::id())->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
+        $questions = Community::with('communityTags')->where('user_id',Auth::id())->where('deleted_at',null)->where('status',1);
+
+        if($request->search != null && $request->search != ""){
+            $questions = $questions->where('title','like','%'.$request->search.'%');
+        }
+        if($request->category != null && $request->category != ""){
+            $questions = $questions->where('question_category_id',$request->category);
+        }
+
+        $questions = $questions->orderBy('id','DESC')->get();
 
         // \Debugbar::info($questions);
         
-        return view('community.index',compact('categories','tags','questions'));
+        return view('community.index',compact('categories','tags','questions', 'request'));
     }
     public function updateCommunity(Request $request){
         
@@ -112,9 +122,25 @@ class CommunityController extends Controller
         }
     }
 
-    public function detail($question_id){
+    public function detail($question_id=null, $like=0){
         
-        $question = Community::with('communityTags')->where('slug',$question_id)->select('id', 'user_id', 'title', 'question_category_id', 'description', 'tags', 'views', 'created_at')->first();
+        $question = Community::with('communityTags')->with('communityCategory')->with('communityLikes')->where('slug',$question_id)->select('id', 'slug','user_id', 'title', 'question_category_id', 'description', 'tags', 'views', 'created_at')->first();
+
+        if($like == 10){ // delete like, keyword = 10
+            CommunityLikes::where([
+                'user_id' => Auth::id(),
+                'community_id'=> $question->id
+            ])->delete();
+        }else if($like == 1){ // add like, keyword = 1
+            CommunityLikes::firstOrCreate([
+                'user_id' => Auth::id(),
+                'community_id'=> $question->id
+            ]);
+        }else{  /** Count question view + 1 */
+            Community::where('slug',$question_id)->update([
+                'views'=> $question->views + 1
+                ]);
+        }
         
         \Debugbar::info($question);
         
@@ -124,14 +150,22 @@ class CommunityController extends Controller
     /**
      * Questions page - global  
      */
-    public function questions(){
+    public function questions(Request $request){
         DB::beginTransaction();
         try{
-            $questions = Community::with('communityTags')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
-            
-            DB::commit();
+            $questions = Community::with('communityTags')
+                    ->where('status',1)
+                    ->where('deleted_at',null);
+                    
+            if(isset($request->category_id) && $request->category_id != null){
+                $questions->where('question_category_id',$request->category_id);
+            }
 
-            return view('pages.questions',compact('questions'));
+            $questions= $questions->orderBy('id','DESC')->get();
+            $categories = QuestionCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
+
+            DB::commit();
+            return view('pages.questions',compact('questions','categories'));
         
         } catch(Exception $e){
             DB::rollback();

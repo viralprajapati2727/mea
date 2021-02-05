@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
-use App\Models\Tag;
+use App\Models\Tags;
+use App\Models\CommunityLikes;
 use Laravelista\Comments\Commentable;
+use Auth;
 class Community extends Model
 {
 
@@ -35,14 +37,28 @@ class Community extends Model
         return $this->hasMany('App\Models\CommunityComment', 'community_id');
     }
     public function communityLikes(){
-        return $this->hasMany('App\Models\CommunityLike', 'community_id');
+        return $this->hasMany('App\Models\CommunityLikes', 'community_id');
+    }
+    public static function countCommunityTotalLikes($community_id){
+        return CommunityLikes::where('community_id',$community_id)->count();
     }
     public function communityTags(){
         return $this->hasMany('App\Models\CommunityTags', 'community_id');
     }
+    public function communityCategory(){
+        return $this->hasOne('App\Models\QuestionCategory', 'id', 'question_category_id')->select('id', 'title', 'status');
+    }
     public function getTagsAttribute($value){
-        $data = Tag::selectRaw('GROUP_CONCAT(title) As tags')->whereIn('id',explode(',',$value))->first()->toArray();
+        $data = Tags::selectRaw('GROUP_CONCAT(title) As tags')->whereIn('id',explode(',',$value))->first()->toArray();
   
         return explode(',',$data['tags']);
+    }
+
+    public static function checkIsLikedByCurrentUser($community_id = 0){
+        $data = false;
+        if($community_id != 0){
+            $data = communityLikes::where('community_id', $community_id)->where('user_id',Auth::id())->exists();
+        }
+        return $data;
     }
 }

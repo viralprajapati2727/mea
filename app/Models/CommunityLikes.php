@@ -13,4 +13,9 @@ class CommunityLikes extends Model
     public function user(){
         return $this->hasOne('App\User','id','user_id');
     }
+
+    public function communityLiks()
+    {
+        return $this->belongsTo('App\Models\Community', 'comminuty_id');
+    }
 }

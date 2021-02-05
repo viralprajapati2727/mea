@@ -31,13 +31,48 @@
                                         {!! $question->description !!}
                                     </div>
                                 </div>
+                                <hr>
+                                <div class="quetion-info">
+                                    <div class="quetion-category">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ route('page.questions').'?category_id='.$question->communityCategory->id }}">
+                                                    {{ $question->communityCategory->title ? $question->communityCategory->title : '' }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    @isset($question->tags)
+                                        <div class="quetion-tags">
+                                            @foreach($question->tags as $tag)
+                                                {{ $tag ?? "" }}
+                                            @endforeach
+                                        </div>
+                                    @endisset
+                                    <div>
+                                        {{ $question->countCommunityTotalLikes($question->id) }}
+                                        @guest
+                                            Likes
+                                        @else
+                                            @if ($question->checkIsLikedByCurrentUser($question->id) == true)
+                                                <a href="{{ route('community.questions-details',[
+                                                    'question_id'=> $question->slug,
+                                                    'like' => 10]) }}"> Remove Like </a>
+                                            @else
+                                                <a href="{{ route('community.questions-details',[
+                                                    'question_id'=> $question->slug,
+                                                    'like' => 1]) }}"> Likes </a>
+                                            @endif
+                                        @endguest
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         @comments([
                             'model' => $question, 
                             'approved' => true, // if true comment will auto approved
-                            'maxIndentationLevel'=> 3, // maximum replay to comment
-                            'perPage' => 5 // pagination
+                            'maxIndentationLevel'=> 4, // comment replay indentation level 
+                            'perPage' => 10 // pagination
                         ])
                     </div>
                     <div class="col-md-3">
