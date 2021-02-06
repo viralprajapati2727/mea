@@ -35,6 +35,25 @@
                                             {!! $question->description !!}
                                         </div>
                                     </div>
+                                    <div class="quetion-info">
+                                        <div class="quetion-category">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ route('page.questions').'?category_id='.$question->communityCategory->id }}">
+                                                        {{ $question->communityCategory->title ? $question->communityCategory->title : '' }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        @isset($question->tags)
+                                            <div class="quetion-tags">
+                                                @foreach($question->tags as $tag)
+                                                    {{ $tag ?? "" }}
+                                                @endforeach
+                                            </div>
+                                        @endisset
+                                    </div>
+
                                 </div>
                             @endforeach
                             @else
@@ -47,6 +66,7 @@
                             <div class="categories">
                                 <h2>categories</h2>
                                 <ul class="categories-list">
+                                    <li><a href={{ route("page.questions") }}>All</a></li>
                                     @foreach ($categories as $cat)
                                         <li><a href="{{ route('page.questions').'?category_id='.$cat->id }}">{{ $cat->title }}</a></li>
                                     @endforeach

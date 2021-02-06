@@ -17,6 +17,8 @@ use App\Models\Faq;
 use App\Models\Blog;
 use App\Models\Resource;
 use App\Models\BusinessCategory;
+use App\Models\KeySkill;
+use App\Models\UserProfile;
 
 class GeneralController extends Controller {
 	public function index() {
@@ -126,7 +128,64 @@ class GeneralController extends Controller {
 
 	}
 	public function members() {
-		return view('pages.members');
+		try{
+			$params = [];
+			if (isset($_GET['skill']) != '' && !empty($_GET['skill'])) {
+				foreach ($_GET['skill'] as $t) {
+					$skill[] = $t;
+				}
+				$params['skill'] = $skill;
+			}
+
+			if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
+				$keyword = $_GET['keyword'];
+				$params['keyword'] = $keyword;
+			}	
+
+			if (isset($_GET['city']) != '' && !empty($_GET['city'])) {
+				foreach ($_GET['city'] as $t) {
+					$city[] = $t;
+				}
+				$params['city'] = $city;
+			}
+
+			\Debugbar::warning($params);
+			
+			$members = User::with('skills')->with(['userProfile'=>function($q){
+				$q->select('id', 'user_id', 'city');
+			}]);
+
+			if (!empty($params['keyword'])) {
+				$members->where('name','LIKE', '%' .$params['keyword']. '%');
+			}
+
+			if (!empty($params['skill'])) {
+				$members->whereHas('skills',function($q) use ($params) {
+					$q->whereIn('title',$params['skill']);
+				});
+			}
+
+			if (!empty($params['city'])) {
+				$members->whereHas('userProfile',function($q) use ($params) {
+					$q->whereIn('city',$params['city']);
+				});
+			}
+			
+			$members = $members->whereIn('type',[config('constant.USER.TYPE.SIMPLE_USER'),config('constant.USER.TYPE.ENTREPRENEUR')])
+			->where('is_active',1)
+			->where('deleted_at',null)
+			->orderBy('id','DESC')
+			->paginate(10);
+
+			$skills = KeySkill::select('id', 'title','status')->where('status',1)->get();
+			$cities = UserProfile::select('city')->groupBy('city')->get();
+			$keyword = '';
+			return view('pages.members',compact('members', 'skills', 'cities', 'params','keyword'));
+
+		}catch(Exception $e){
+			DB::rollback();
+			return redirect()->back()->with('warning',$e->getMessage());
+		}
     }
 	public function blogs() {
 		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','DESC')->paginate(9);
