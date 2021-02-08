@@ -38,7 +38,7 @@
                                         <div class="form-group custom-multi">
                                             <select name="skill[]" multiple="multiple" placeholder="Skill">
                                                 @forelse ($skills as $skill)
-                                                <option value="{{ $skill->id }}" {{ isset($params['skill']) ? ((array_key_exists('skill',$params) && in_array($skill->id, $params['skill'])) ? 'selected' : '') : '' }}> {{ ucfirst($skill->title) }} </option>
+                                                <option value="{{ $skill->title }}" {{ isset($params['skill']) ? ((array_key_exists('skill',$params) && in_array($skill->title, $params['skill'])) ? 'selected' : '') : '' }}> {{ ucfirst($skill->title) }} </option>
                                                 @empty
                                                 @endforelse
                                             </select>
