@@ -57,13 +57,15 @@
                                             @if ($question->checkIsLikedByCurrentUser($question->id) == true)
                                                 <a href="{{ route('community.questions-details',[
                                                     'question_id'=> $question->slug,
-                                                    'like' => 10]) }}"> Remove Like </a>
+                                                    'like' => 10]) }}"> Unlike </a>
                                             @else
                                                 <a href="{{ route('community.questions-details',[
                                                     'question_id'=> $question->slug,
                                                     'like' => 1]) }}"> Likes </a>
                                             @endif
                                         @endguest
+                                        <br>
+                                        {{ $question->views }} <div class="fa fas fa-eye"></div>
                                     </div>
                                 </div>
                             </div>

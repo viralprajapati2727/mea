@@ -17,10 +17,14 @@ use App\Models\Faq;
 use App\Models\Blog;
 use App\Models\Resource;
 use App\Models\BusinessCategory;
-use App\Models\KeySkill;
+use App\Models\UserSkill;
 use App\Models\UserProfile;
+use App\Traits\MemberMessage;
 
 class GeneralController extends Controller {
+	
+	use MemberMessage;
+
 	public function index() {
 		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('status',1)->where('deleted_at',null)->orderBy('id','DESC')->limit(3)->get();
 		
@@ -149,7 +153,7 @@ class GeneralController extends Controller {
 				$params['city'] = $city;
 			}
 
-			\Debugbar::warning($params);
+			// \Debugbar::warning($params);
 			
 			$members = User::with('skills')->with(['userProfile'=>function($q){
 				$q->select('id', 'user_id', 'city');
@@ -170,14 +174,17 @@ class GeneralController extends Controller {
 					$q->whereIn('city',$params['city']);
 				});
 			}
-			
+			if(Auth::check()){
+				$members->whereNotIn('id', [Auth::id()]);
+			}
+
 			$members = $members->whereIn('type',[config('constant.USER.TYPE.SIMPLE_USER'),config('constant.USER.TYPE.ENTREPRENEUR')])
 			->where('is_active',1)
 			->where('deleted_at',null)
 			->orderBy('id','DESC')
 			->paginate(10);
 
-			$skills = KeySkill::select('id', 'title','status')->where('status',1)->get();
+			$skills = UserSkill::select('title')->groupBy('title')->get();
 			$cities = UserProfile::select('city')->groupBy('city')->get();
 			$keyword = '';
 			return view('pages.members',compact('members', 'skills', 'cities', 'params','keyword'));
@@ -214,4 +221,32 @@ class GeneralController extends Controller {
 
 		return redirect()->back()->with('success',trans('Sent Successfully!'));
 	}
+	/**
+	 * Member chat message module
+	 */
+
+	public function getMessages(Request $request,$user = null){
+		try {
+			\Debugbar::warning($to);
+			
+			$details = MemberMessage::getDetails($user);
+
+			$messages = HelpSupport::getAllMessage($ticket);
+		   
+			$messages = $messages->reverse();
+	
+			//this ajax response use only in message pagination
+			if($request->ajax()){
+				$view = view('help.ajax.conversation-messages',compact('messages'))->render();
+				return response()->json(['html'=>$view]);
+			}
+
+			return view('help.ticket-conversation')->with(compact('ticketDetails','messages'));
+
+		} catch (Exception $e) {
+			DB::rollback();
+			return redirect()->back()->with('warning',$e->getMessage());
+		}
+	}
+
 }

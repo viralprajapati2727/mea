@@ -466,7 +466,7 @@ class Helper
     public static function getJobData($user_id = null, $job_id = null, $job_status = null, $all = true, $paginate = null) {
         $selectedFields = ['*'];
         if(is_null($job_id)){
-            $selectedFields = ['id','user_id','job_title_id','job_type','other_job_title','job_type_id','job_unique_id','job_status','location','job_count','created_at','views'];
+            $selectedFields = ['id','user_id','job_title_id','job_type','other_job_title','job_type_id','job_unique_id','job_status','location','job_count','created_at'];
         }
 
         $data = PostJob::select($selectedFields)->with([
