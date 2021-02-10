@@ -47,9 +47,11 @@
                                         </div>
                                         @isset($question->tags)
                                             <div class="quetion-tags">
-                                                @foreach($question->tags as $tag)
-                                                    {{ $tag ?? "" }}
-                                                @endforeach
+                                                <ul>
+                                                    @foreach($question->tags as $tag)
+                                                        <li>{{ $tag ?? "" }}</li>
+                                                    @endforeach
+                                                </ul>
                                             </div>
                                         @endisset
                                     </div>

@@ -9,12 +9,12 @@
             <div class="global-search">
                 <div class="top-search" style="margin-left: 50px">
                     <form class="row">
-                        <div class="form-group col-md-8">
+                        <div class="form-group col-md-8 pr-0">
                             <div class="input-group mb-3">
                                 <input type="search" class="form-control" name="search" placeholder="Search by question and category" value="{{ $request['search'] ?? old("search") }}">
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 pl-0">
                             <select name="category" class="form-control">
                                 <option value="">Category</option>
                                 @if (sizeof($categories) > 0)
