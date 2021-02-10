@@ -63,7 +63,8 @@ class Helper
     }
     public static function ageCalculate($dateOfBirth)
     {
-        $years = Carbon::parse($dateOfBirth)->age;
+        $date = Carbon::parse($dateOfBirth)->format('d-m-Y');
+        $years = Carbon::parse($date)->age;
 
         return ($years > 1) ? $years . " " . trans('page.Years') : $years . " " . "Year";
     }

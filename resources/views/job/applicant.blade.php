@@ -172,11 +172,11 @@ $job_apply_status = config('constant.job_apply_status');
             _this = $(this);
             if(_this.val() != "" && _this.data('id') != "" && _this.val() != _this.data('current')){
                 swal({
-                    title: Are_you_sure_you_want_to_change_status,
+                    title: "Are you sure you want to change status ?",
                     type: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: Yes_request_it,
-                    cancelButtonText: No_cancel,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
                     confirmButtonClass: 'btn btn-primary',
                     cancelButtonClass: 'btn btn-grey',
                     buttonsStyling: false
