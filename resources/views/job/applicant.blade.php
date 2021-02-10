@@ -191,7 +191,7 @@ $job_apply_status = config('constant.job_apply_status');
                             },
                             beforeSend: function(){
                                 $('body').block({
-                                    message: '<i class="icon-spinner4 spinner"></i><br>'+ please_wait,
+                                    message: '<i class="icon-spinner4 spinner"></i><br>'+ "Please Wait..",
                                     overlayCSS: {
                                         backgroundColor: '#000',
                                         opacity: 0.15,
@@ -209,7 +209,7 @@ $job_apply_status = config('constant.job_apply_status');
                                     swal({
                                         title: response.msg_success,
                                         type: "success",
-                                        confirmButtonText: OK,
+                                        confirmButtonText: "OK",
                                         confirmButtonClass: 'btn btn-primary',
                                     }).then(function (){
                                         window.location.reload(true);
@@ -219,7 +219,7 @@ $job_apply_status = config('constant.job_apply_status');
                                         title: response.msg_fail,
                                         confirmButtonClass: 'btn btn-primary',
                                         type: "error",
-                                        confirmButtonText: OK,
+                                        confirmButtonText: "OK",
                                     });
                                 }
                             },
