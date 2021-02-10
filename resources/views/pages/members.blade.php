@@ -38,7 +38,7 @@
                                         <div class="form-group custom-multi">
                                             <select name="skill[]" multiple="multiple" placeholder="Skill">
                                                 @forelse ($skills as $skill)
-                                                <option value="{{ $skill->id }}" {{ isset($params['skill']) ? ((array_key_exists('skill',$params) && in_array($skill->id, $params['skill'])) ? 'selected' : '') : '' }}> {{ $skill->title }} </option>
+                                                <option value="{{ $skill->title }}" {{ isset($params['skill']) ? ((array_key_exists('skill',$params) && in_array($skill->title, $params['skill'])) ? 'selected' : '') : '' }}> {{ ucfirst($skill->title) }} </option>
                                                 @empty
                                                 @endforelse
                                             </select>
@@ -60,7 +60,7 @@
                                         <div class="form-group custom-multi">
                                             <select name="city[]" multiple="multiple" class="" placeholder="City">
                                                 @forelse ($cities as $city)
-                                                    <option value="{{ $city->city }}" {{ isset($params['city']) ? ((array_key_exists('city',$params) && in_array($city->city, $params['city'])) ? 'selected' : '') : '' }} >{{ $city->city }}</option>
+                                                    <option value="{{ $city->city }}" {{ isset($params['city']) ? ((array_key_exists('city',$params) && in_array($city->city, $params['city'])) ? 'selected' : '') : '' }} >{{ ucfirst($city->city) }}</option>
                                                 @empty
                                                 @endforelse
                                             </select>
@@ -110,8 +110,8 @@
                                         </div>
                                         <div class="contact-details">
                                             <ul>
-                                                <li><a href="{{ route("user.view-profile",["slug" => $member->slug]) }}">Contact</a></li>
-                                                <li><a href="#">Message</a></li>
+                                                <li><a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}">Contact</a></li>
+                                                <li><a href="{{ route('member.message', ['user'=> $member->slug]) }}">Message</a></li>
                                             </ul>
                                         </div>
                                     </div>
