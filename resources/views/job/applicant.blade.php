@@ -38,6 +38,14 @@ $job_apply_status = config('constant.job_apply_status');
                                     </div>
                                 </div>
                             </div>
+                            <div class="job-applicant-status">
+                                <select name="status" class="form-control-select2 select2-hidden-accessible">
+                                    <option value="">All</option>
+                                    @foreach ($job_apply_status as $key => $status)
+                                        <option value="{{ $key }}" {{ isset($params['status']) ? ($key === $params['status'] ? 'selected' : '') : '' }}>{{ $status }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="header-elements-md-inline job-apply-sub-header mb-2">
                             <div class="job-apply-btn-div">
@@ -127,7 +135,7 @@ $job_apply_status = config('constant.job_apply_status');
                         {!! $applicants->appends($params)->links() !!}
                     </div>
                     @else
-                        <div class="my-5">@lang('page.No_applicant_Found')</div>
+                        <div class="my-5">No Applicant Found!!</div>
                     @endif
                 </div>
             </div>

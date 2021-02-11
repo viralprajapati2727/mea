@@ -640,6 +640,20 @@ class Helper
                 $query->where('job_unique_id', $job_id);
             });
         }
+
+        if (isset($params['keyword']) && !empty($params['keyword'])) {
+            $keywords = trim($params['keyword']);
+            $data->where(function($mquery) use ($keywords) {
+                $mquery->whereHas('user', function($query) use ($keywords) {
+                    $query->where('name','like','%'.$keywords.'%');
+                    
+                    $explode = explode(' ', $keywords);
+                    foreach ($explode as $term) {
+                        $query->orWhere('name', 'LIKE', '%' . $term . '%');
+                    }
+                });
+            });
+        }
         
         if (isset($params['status']) && !empty($params['status'])) {
             $data->where(function ($Query1) use ($params) {

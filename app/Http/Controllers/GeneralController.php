@@ -248,5 +248,7 @@ class GeneralController extends Controller {
 			return redirect()->back()->with('warning',$e->getMessage());
 		}
 	}
-
+	public function idea() {
+		return view('pages.drop-idea');
+	}
 }

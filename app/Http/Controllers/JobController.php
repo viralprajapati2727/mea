@@ -354,11 +354,8 @@ class JobController extends Controller
             }
 
             $params = [];
-            if (isset($_GET['status']) != '' && !empty($_GET['status'])) {
-                foreach ($_GET['status'] as $s) {
-                    $status[] = $s;
-                }
-                $params['status'] = $status;
+            if (isset($_GET['status']) != '') {
+                $params['status'] = $_GET['status'];
             }
 
             if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
