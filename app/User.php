@@ -139,4 +139,7 @@ class User extends Authenticatable implements MustVerifyEmail, ShouldQueue
     public function workExperience(){
         return $this->hasMany('App\Models\UserWorkExperience', 'user_id');
     }
+    public function members(){
+        return $this->hasMany('App\Models\ChatMasters', 'user_id', 'id');
+    }
 }

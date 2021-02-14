@@ -40,8 +40,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('search', 'JobController@globalSearch')->name('job.global-search');
     Route::get('questions','CommunityController@questions')->name('page.questions');
     Route::get('questions/{question_id}/{like?}','CommunityController@detail')->name('community.questions-details');
-    Route::get('members/message/{user?}','GeneralController@getMessages')->name('member.message');
-
+    
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
 
     Route::group(['middleware' => ['verified','auth']], function () {
@@ -58,6 +57,9 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             Route::get('entrepreneur-fill-profile', 'GeneralController@fillProfile')->name('entrepreneur.fill-profile');
             Route::post('entrepreneur-store-profile', 'EntrepreneurController@updateProfile')->name('entrepreneur.store-profile');
         });
+
+        Route::get('members/message/{user?}','GeneralController@getMessages')->name('member.message');
+        Route::post('members/send-message','GeneralController@sendMessage')->name('member.send-message');
 
         Route::group(['middleware' => ['fill-profile-access']], function () {
 

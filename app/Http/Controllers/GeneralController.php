@@ -19,12 +19,13 @@ use App\Models\Resource;
 use App\Models\BusinessCategory;
 use App\Models\UserSkill;
 use App\Models\UserProfile;
-use App\Traits\MemberMessage;
-
+use App\Models\ChatGroup;
+use App\Models\ChatMasters;
+use App\Models\ChatMessage;
+use App\Models\ChatMessagesReceiver;
+use Carbon\Carbon;
 class GeneralController extends Controller {
 	
-	use MemberMessage;
-
 	public function index() {
 		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('status',1)->where('deleted_at',null)->orderBy('id','DESC')->limit(3)->get();
 		
@@ -187,6 +188,18 @@ class GeneralController extends Controller {
 			$skills = UserSkill::select('title')->groupBy('title')->get();
 			$cities = UserProfile::select('city')->groupBy('city')->get();
 			$keyword = '';
+
+			/**
+			 * Getting message count
+			 */
+
+			// $message_count = User::with(['members'])->get();
+			$receiver = null;
+			if(Auth::check()){
+				$receiver = ChatMessagesReceiver::select('unreadable_count','group_id')->where('receiver_id',Auth::id())->get();
+				// return $receiver;
+			}
+
 			return view('pages.members',compact('members', 'skills', 'cities', 'params','keyword'));
 
 		}catch(Exception $e){
@@ -225,28 +238,121 @@ class GeneralController extends Controller {
 	 * Member chat message module
 	 */
 
-	public function getMessages(Request $request,$user = null){
-		try {
-			\Debugbar::warning($to);
-			
-			$details = MemberMessage::getDetails($user);
-
-			$messages = HelpSupport::getAllMessage($ticket);
-		   
-			$messages = $messages->reverse();
-	
-			//this ajax response use only in message pagination
-			if($request->ajax()){
-				$view = view('help.ajax.conversation-messages',compact('messages'))->render();
-				return response()->json(['html'=>$view]);
-			}
-
-			return view('help.ticket-conversation')->with(compact('ticketDetails','messages'));
-
-		} catch (Exception $e) {
-			DB::rollback();
-			return redirect()->back()->with('warning',$e->getMessage());
+     public function getMessages(Request $request,$user = null)
+     {
+        $currentUser = Auth::user();
+        $user = User::where('slug',$user)->select('id', 'slug', 'name', 'email', 'logo')->first();
+        $new_group_id = null;
+        $messages = null;
+		$checkGroup = [];
+        /**
+		 * If user is not exits or not active
+		 */
+		if(empty($user)){
+            return redirect()->back()->with('error',trans('User not exists or not active'));
+        }
+		/**
+		 * If user try to send message to himself
+		 */
+		if($user->id == Auth::id()){
+			return redirect(route('page.members'))->with('error',"You can not send message to yourself");
 		}
-	}
 
+		/**
+		 * Check all groups with current logged in user
+		 */
+		$currentChats = ChatGroup::with(['members','members.user'])->
+			whereHas('members',function($query) use ($currentUser){
+				$query->where('user_id',$currentUser->id);
+			})->get();
+		
+		/**
+		 * Get group of receiver id from current chats if created 
+		 */
+		foreach ($currentChats as $key => $chat) {
+			foreach($chat->members as $member){
+				if($member->user_id == $user->id){
+					$checkGroup[] = $chat;
+				}
+			}
+		}
+		
+		if(sizeof($checkGroup) == 0){
+
+            $group = ChatGroup::Create([ 'is_single' => 1, 'created_by' => $currentUser->id ]);
+
+            $create = [];
+            $members_array = [];
+            $members_array[] = $currentUser->id;
+            $members_array[] = $user->id;
+
+            foreach($members_array as $member){
+                $create[] = [
+                    'user_id' => $member,
+                    'group_id' => $group->id
+                ];
+            }
+
+            if(!empty($create)){
+                ChatMasters::insert($create);
+            }
+            $create_reciever = [];
+            foreach($members_array as $member){
+                $create_reciever[] = [
+                    'receiver_id' => $member,
+                    'group_id' => $group->id,
+                    'unreadable_count' => 0,
+                ];
+            } 
+            if(!empty($create_reciever)){
+                $abs = ChatMessagesReceiver::insert($create_reciever);
+            }
+            $new_group_id = $group->id;
+        }else{
+            $new_group_id = $checkGroup[0]->id;
+			$messages = ChatMessage::with('members')->where('group_id',$new_group_id)->select('id','sender_id','text','group_id','created_at')->orderBy('id', 'DESC')->paginate(config('constant.rpp'));
+			$messages = $messages->reverse();
+        }
+	
+		//this ajax response use only in message pagination
+        if($request->ajax()){
+            $view = view('message.ajax.message-list',compact('messages'))->render();
+            return response()->json(['html'=>$view]);
+        }
+		
+        return view('message.index',compact('new_group_id','user','checkGroup','messages'));
+
+    }
+     
+    public function sendMessage(Request $request)
+    {
+		$checkGruopId = ChatGroup::where('id',$request->group_id)->whereNull('deleted_at')->exists();
+		
+        if($checkGruopId){
+			$message = $request->type_msg;
+		
+			ChatMessage::insert([
+				'group_id' => (int) $request->group_id,
+				'sender_id' => Auth::id(),
+				'text' => $message,
+				'created_at' => Carbon::now()->toDateTimeString(),
+			]);
+				
+			$unread_count = ChatMessagesReceiver::where('group_id', $request->group_id)->where('receiver_id', $request->receiver_id)->first();
+				
+			ChatMessagesReceiver::where([
+				'group_id'=> $request->group_id ,
+				'receiver_id'=> $request->receiver_id
+			])->update([
+				'unreadable_count' => $unread_count->unreadable_count + 1
+			]);
+		}
+
+		// return redirect()->back();
+		$responseData['status'] = 1;
+		$responseData['message'] = "success";
+		return $this->commonResponse($responseData, 200);
+		
+        // return request()->json(['status'=>200,'message'=>'message sent successfully']);
+    }
 }

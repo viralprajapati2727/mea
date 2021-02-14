@@ -655,4 +655,10 @@ class Helper
 
         return $data->get();
     }
+    
+    public static function AllUsers(){
+        $Query = User::with('members')->select(['id','logo','type','slug'])->where('id','!=',  Auth::user()->id);   
+        // return $Query->get();
+        return $Query;
+    }
 }
