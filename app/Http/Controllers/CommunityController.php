@@ -142,8 +142,6 @@ class CommunityController extends Controller
                 ]);
         }
         
-        // \Debugbar::info($question);
-        
         return view('community.question-details',compact('question'));
     }
 
