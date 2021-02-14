@@ -315,6 +315,19 @@ class Helper
                 "active_menu" => array('admin.appointments.index'),
                 "child" => array(),
             ),
+            "17" => array( // Question
+                "is_menu" => TRUE,
+                "url" => route('admin.question.index'),
+                "is_access" => TRUE,
+                "privilege_key" => "17",
+                "privilege_require" => "1",
+                "full_title" => "Questions",
+                "short_title" => "Questions",
+                "icon" => "icon-question6",
+                "active_menu" => array('admin.question.index','question.details'),
+                "child" => array(),
+            ),
+
         );
     }
     public static function explodeDate($date){

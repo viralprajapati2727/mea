@@ -196,6 +196,11 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('admin-appointment-filter', 'Admin\AppointmentController@ajaxData')->name('admin.appointment-filter');
         Route::post('appointment-status', 'Admin\AppointmentController@appointmentStatus')->name('admin.appointment.approve-reject');
         Route::get('appointment/{id}', 'Admin\AppointmentController@detail')->name('admin.appointment.detail');
+
+        // Community Question
+		Route::get('question','Admin\CommunityController@index')->name('admin.question.index');
+        Route::post('community-filter', 'Admin\CommunityController@ajaxData')->name('question-filter');
+        Route::get('question/{question_id}','Admin\CommunityController@detail')->name('question.details');
     });        
 });
 
