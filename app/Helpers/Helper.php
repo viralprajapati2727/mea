@@ -63,7 +63,8 @@ class Helper
     }
     public static function ageCalculate($dateOfBirth)
     {
-        $years = Carbon::parse($dateOfBirth)->age;
+        $date = Carbon::parse($dateOfBirth)->format('d-m-Y');
+        $years = Carbon::parse($date)->age;
 
         return ($years > 1) ? $years . " " . trans('page.Years') : $years . " " . "Year";
     }
@@ -637,6 +638,20 @@ class Helper
         if(!is_null($job_id)){
             $data->whereHas('job', function($query) use ($job_id) {
                 $query->where('job_unique_id', $job_id);
+            });
+        }
+
+        if (isset($params['keyword']) && !empty($params['keyword'])) {
+            $keywords = trim($params['keyword']);
+            $data->where(function($mquery) use ($keywords) {
+                $mquery->whereHas('user', function($query) use ($keywords) {
+                    $query->where('name','like','%'.$keywords.'%');
+                    
+                    $explode = explode(' ', $keywords);
+                    foreach ($explode as $term) {
+                        $query->orWhere('name', 'LIKE', '%' . $term . '%');
+                    }
+                });
             });
         }
         

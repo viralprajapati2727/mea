@@ -34,6 +34,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.questions') }}">Questions</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('page.drop-idea') }}">Idea</a>
+                            </li>
                         </ul>
                         <div class="login-links">
                             <ul>

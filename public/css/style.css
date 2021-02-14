@@ -728,8 +728,8 @@ ul{
     color: #000;
 }
 .member-list .member-item .media-left {
-    width: 145px;
-    height: 145px;
+    width: 100px;
+    height: 100px;
     margin-right: 40px;
 }
 .member-list .member-item .media-left .profile-image {
@@ -755,14 +755,17 @@ ul{
 .member-detail div p {
     display: inline-block;
     font-size: 16px;
-    color: #238BF1;
+    color: #707070;
 }
 .contact-details {
     width: 150px;
 }
-
 .member-detail {
     width: calc(100% - 335px);
+}
+.member-detail .skills p {background: #ffaf31;padding: 2px 6px;color: #fff;font-size: 13px;border-radius: 5px;}
+.member-detail label {
+    font-weight: 500;
 }
 .contact-details ul li a {
     display: inline-block;
@@ -1507,15 +1510,15 @@ ul{
     color: #fff;
     height: 50px;
     border: 0;
-    background: #238BF1;
+    background: #238BF1; 
     font-size: 20px;
     transition: all 0.5s;
     width: 200px;
     text-align: center;
     border-radius: 50px;
-    margin-left: 40px;
+    margin-left: 0;
 }
-.community-wraper .global-search{margin-bottom: 60px;}
+.community-wraper .global-search{margin-bottom: 0;}
 .add-que-wrap .btn {
     width: 300px;
     background: #fff;
@@ -1799,16 +1802,64 @@ ul{
     color: #333;
     font-weight: 600;
 }
+.question-list .quetion-title h2 a{color: #333;}
 .q-details{margin-top: 15px;}
 .question-list .quetion-desc{
     font-size: 14px;
     color: #707070;
 }
 .question-box {
-    background: #f8f8f8;
-    border: 1px solid #dee0e1;
+    background: #F9F9F9;
+    border: 1px solid #ddd;
     padding: 20px;
     margin-bottom: 20px;
+    border-radius: 10px;
+}
+.question-box .quetion-info{display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 30px; align-items: center;}
+.quetion-tags ul {
+    display: flex;
+}
+.quetion-tags ul li{
+    display: inline-block;
+    background: #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #000;
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 7px;
+}
+.view-likes-wrap .fas {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: #238bf1;
+    color: #FFF;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 100%;
+    font-size: 13px;
+}
+.view-likes-wrap .views, .view-likes-wrap a {
+    font-size: 13px;
+    color: #707070;
+    font-weight: 500;
+}
+.view-likes-wrap .views {
+    margin-top: 5px;
+}
+.view-likes-wrap>* {
+    display: inline-block;
+    margin-left: 5px;
+}
+.question-box  .quetion-category a {
+    display: inline-block;
+    background: #238BF1;
+    color: #fff;
+    padding: 7px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
 }
 .quetions-sidebar .categories h2{
     font-size: 22px;
@@ -1826,6 +1877,20 @@ ul{
     position: relative;
     padding-left: 20px;
 }
+.global-search .top-search .input-group {
+    border: 1px solid #707070;
+}
+.global-search .top-search .input-group input {
+    padding: 0 10px;
+    box-shadow: none;
+}
+.global-search .top-search select {
+    height: 52px !important;
+    border: 1px solid #707070;
+    border-radius: 0;
+    border-left: 0;
+}
+.global-search .top-search select:focus{outline: none; border-color: #707070 !important;}
 .quetions-sidebar .categories-list li:before {content: "";width: 5px;height: 5px;background: #75d2fa;position: absolute;top: 10px;left: 0;}
 .quetions-lists-wraper .media .profile-image{width: 50px; height: 50px; margin-right: 10px; border-radius: 100%; position: relative; overflow: hidden;}
 .quetions-lists-wraper .media .profile-image img{width: 100%; position: absolute; height: 100%; object-fit: cover; object-position: center top;}

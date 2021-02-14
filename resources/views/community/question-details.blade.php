@@ -44,28 +44,34 @@
                                     </div>
                                     @isset($question->tags)
                                         <div class="quetion-tags">
-                                            @foreach($question->tags as $tag)
-                                                {{ $tag ?? "" }}
-                                            @endforeach
+                                            <ul>
+                                                @foreach($question->tags as $tag)
+                                                    <li>{{ $tag ?? "" }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     @endisset
-                                    <div>
-                                        {{ $question->countCommunityTotalLikes($question->id) }}
-                                        @guest
-                                            Likes
-                                        @else
-                                            @if ($question->checkIsLikedByCurrentUser($question->id) == true)
-                                                <a href="{{ route('community.questions-details',[
-                                                    'question_id'=> $question->slug,
-                                                    'like' => 10]) }}"> Unlike </a>
+                                    <div class="view-likes-wrap">
+                                        <div class="likes">
+                                            <div class="fa fas fa-thumbs-up"></div> 
+                                            {{ $question->countCommunityTotalLikes($question->id) }} 
+                                            @guest
+                                                Likes
                                             @else
-                                                <a href="{{ route('community.questions-details',[
-                                                    'question_id'=> $question->slug,
-                                                    'like' => 1]) }}"> Likes </a>
-                                            @endif
-                                        @endguest
-                                        <br>
-                                        {{ $question->views }} <div class="fa fas fa-eye"></div>
+                                                @if ($question->checkIsLikedByCurrentUser($question->id) == true)
+                                                    <a href="{{ route('community.questions-details',[
+                                                        'question_id'=> $question->slug,
+                                                        'like' => 10]) }}">Unlike </a>
+                                                @else
+                                                    <a href="{{ route('community.questions-details',[
+                                                        'question_id'=> $question->slug,
+                                                        'like' => 1]) }}">Likes </a>
+                                                @endif
+                                            @endguest
+                                        </div>
+                                        <div class="views">
+                                            <div class="fa fas fa-eye"></div> {{ $question->views }} <span>Views</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -38,6 +38,14 @@ $job_apply_status = config('constant.job_apply_status');
                                     </div>
                                 </div>
                             </div>
+                            <div class="job-applicant-status">
+                                <select name="status" class="form-control-select2 select2-hidden-accessible">
+                                    <option value="">All</option>
+                                    @foreach ($job_apply_status as $key => $status)
+                                        <option value="{{ $key }}" {{ isset($params['status']) ? ($key === $params['status'] ? 'selected' : '') : '' }}>{{ $status }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="header-elements-md-inline job-apply-sub-header mb-2">
                             <div class="job-apply-btn-div">
@@ -127,7 +135,7 @@ $job_apply_status = config('constant.job_apply_status');
                         {!! $applicants->appends($params)->links() !!}
                     </div>
                     @else
-                        <div class="my-5">@lang('page.No_applicant_Found')</div>
+                        <div class="my-5">No Applicant Found!!</div>
                     @endif
                 </div>
             </div>
@@ -172,11 +180,11 @@ $job_apply_status = config('constant.job_apply_status');
             _this = $(this);
             if(_this.val() != "" && _this.data('id') != "" && _this.val() != _this.data('current')){
                 swal({
-                    title: Are_you_sure_you_want_to_change_status,
+                    title: "Are you sure you want to change status ?",
                     type: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: Yes_request_it,
-                    cancelButtonText: No_cancel,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
                     confirmButtonClass: 'btn btn-primary',
                     cancelButtonClass: 'btn btn-grey',
                     buttonsStyling: false
@@ -191,7 +199,7 @@ $job_apply_status = config('constant.job_apply_status');
                             },
                             beforeSend: function(){
                                 $('body').block({
-                                    message: '<i class="icon-spinner4 spinner"></i><br>'+ please_wait,
+                                    message: '<i class="icon-spinner4 spinner"></i><br>'+ "Please Wait..",
                                     overlayCSS: {
                                         backgroundColor: '#000',
                                         opacity: 0.15,
@@ -209,7 +217,7 @@ $job_apply_status = config('constant.job_apply_status');
                                     swal({
                                         title: response.msg_success,
                                         type: "success",
-                                        confirmButtonText: OK,
+                                        confirmButtonText: "OK",
                                         confirmButtonClass: 'btn btn-primary',
                                     }).then(function (){
                                         window.location.reload(true);
@@ -219,7 +227,7 @@ $job_apply_status = config('constant.job_apply_status');
                                         title: response.msg_fail,
                                         confirmButtonClass: 'btn btn-primary',
                                         type: "error",
-                                        confirmButtonText: OK,
+                                        confirmButtonText: "OK",
                                     });
                                 }
                             },

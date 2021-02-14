@@ -354,11 +354,8 @@ class JobController extends Controller
             }
 
             $params = [];
-            if (isset($_GET['status']) != '' && !empty($_GET['status'])) {
-                foreach ($_GET['status'] as $s) {
-                    $status[] = $s;
-                }
-                $params['status'] = $status;
+            if (isset($_GET['status']) != '') {
+                $params['status'] = $_GET['status'];
             }
 
             if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
@@ -372,6 +369,43 @@ class JobController extends Controller
 
         } catch(Exception $e){
             return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+    public function changeApplicantStatus(Request $request){
+        DB::beginTransaction();
+        try{
+            $applyJob = JobApplied::where(['id' => $request->id])->first();
+            // if($request->status > $applyJob->job_applied_status_id){
+                $applyJob->job_applied_status_id = $request->status;
+                $applyJob->update();
+                $msg = 'Applicant status has been changed successfully';
+                // $email_id = null;
+                // if($request->status == 4){
+                //     $email_id = 13;
+                // } else if($request->status == 3){
+                //     $email_id = 14;
+                // } else if($request->status == 5){
+                //     $email_id = 15;
+                // } else if($request->status == 1){
+                //     $email_id = 12;
+                // } else if($request->status == 0){
+                //     $email_id = 17;
+                // } else if($request->status == 2){
+                //     $email_id = 18;
+                // }
+                // if(!is_null($email_id)){
+                //     $mail_data = ['email_id' => $email_id, 'user_id' => $applyJob->user_id, 'job_apply_id' => $applyJob->id];
+                //     dispatch(new DynamicEmail($mail_data));
+                // }
+
+                DB::commit();
+                return array('status' => '200', 'msg_success' => trans($msg));
+            // }else{
+            //     return array('status' => '0', 'msg_fail' => trans('app.Something_went_wrong'));
+            // }
+        } catch(Exception $e){
+            DB::rollback();
+            return array('status' => '0', 'msg_fail' => trans('app.Something_went_wrong'));
         }
     }
 }

@@ -354,5 +354,9 @@ class GeneralController extends Controller {
 		return $this->commonResponse($responseData, 200);
 		
         // return request()->json(['status'=>200,'message'=>'message sent successfully']);
-    }
+	}
+	
+	public function idea() {
+		return view('pages.drop-idea');
+	}
 }

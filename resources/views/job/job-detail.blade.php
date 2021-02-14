@@ -2,6 +2,7 @@
 @section('content')
 @php
     $statuss = config('constant.job_status');
+    $share_url = Request::url();
 @endphp
 <div class="page-main">
     <div class="page-wraper">
@@ -46,6 +47,16 @@
                                 @else
                                     <a href="{{ route('login') }}" class="apply-btn">Apply</a>
                                 @endif
+                            </div>
+                            <div class="col-lg-auto col-md-4">
+                                <input type="hidden" id="link_share" value="{{ $share_url }}" />
+                                <h5 class="font-black d-flex align-items-center">@lang('page.Share')</h5>
+                                <ul class="list social-share">
+                                    <li class="share-link"><a href="javascript:void(0);" onclick="myFunction()" title="Copy Link"><i class="icon-share3"></i></a></li>
+                                    <li class="share-facebook"><a href="https://www.facebook.com/sharer/sharer.php?u={{ $share_url }}" target="_blank"><i class="icon-facebook"></i></a></li>
+                                    <li class="share-twitter"><a href="https://twitter.com/intent/tweet?text=Mea&amp;url={{ $share_url }}" target="_blank"><i class="icon-twitter"></i></a></li>
+                                    <li class="share-linkedin"><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ $share_url }}&amp;title=Mea&amp;summary=" target="_blank"><i class="icon-linkedin2"></i></a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -164,7 +175,34 @@
 @endsection
 @section('footer_script')
 <script>
-var check_already_applied_link = "{{ route('job.check-apply-job') }}";
+    var check_already_applied_link = "{{ route('job.check-apply-job') }}";
+    function myFunction() {
+        var dummy = document.createElement('input'),
+            text = window.location.href;
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        setTooltip('Copied');
+        hideTooltip();
+    }
+    $('.share-link a').tooltip({
+        trigger: 'click',
+        placement: 'bottom'
+    });
+
+    function setTooltip(message) {
+        $('.share-link a').tooltip('hide')
+        .attr('data-original-title', message)
+        .tooltip('show');
+    }
+
+    function hideTooltip() {
+        setTimeout(function() {
+            $('.share-link a').tooltip('hide');
+        }, 1000);
+    }
 </script>
 <script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript" src="{{ Helper::assets('js/pages/apply.js') }}"></script>
