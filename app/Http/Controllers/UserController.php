@@ -124,8 +124,8 @@ class UserController extends Controller
                 
                 if($request->hasFile('resume')){
                     Helper::uploaddynamicFile(config('constant.resume_url'), $cv_name, $cvfile);
-                    if(isset($request->old_resume)){
-                        Helper::checkFileExists(config('constant.resume_url') . $request->old_resume, true, true);
+                    if(isset($request->old_pitch_deck)){
+                        Helper::checkFileExists(config('constant.resume_url') . $request->old_pitch_deck, true, true);
                     }
                 }
 

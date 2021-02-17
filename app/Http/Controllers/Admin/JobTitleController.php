@@ -11,7 +11,7 @@ use Helper;
 use Illuminate\Support\Str;
 use Validator;
 
-class JobTitleController extends Controller
+class JobTileController extends Controller
 {
     public function index(){
         return view('admin.job-title.index');

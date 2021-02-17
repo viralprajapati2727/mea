@@ -22,6 +22,9 @@ return [
         'profile_url' =>  "/images/profile/",
         'profile_cover_url' =>  "/images/profile-cover/",
         'resume_url' =>  "/images/resume/",
+        'financial' =>  "/images/financial/",
+        'pitch_deck' =>  "/images/pitch_deck/",
+        'business_plan' =>  "/images/business_plan/",
         // 'default_video_icon' =>  "/images/challenge/",
         // 'pages_img_url' => "/upload/page/",
         
@@ -60,5 +63,22 @@ return [
             "7" => [
                 "Sun" => [1 => "flaticon-sun",2 => "flaticon-sun-1"],
             ],
+
+        ],
+
+        'stage_of_startup' => [
+            "1" => "Idea",
+            "2" => "Startup Launched (pre-revenue)",
+            "3" => "Startup Operational (obtaining revenue)",
+            "4" => "Seed-funded (operational and acquired investment)",
+            "5" => "Series A Funded (backed by accredited investors)"
+        ],
+
+        "most_important_next_step_for_startup" => [
+            "1" => "Validate my idea",
+            "2" => "Find Additional Team Members",
+            "3" => "Build your product",
+            "4" => "Market my product",
+            "5" => "Raise Funds",
         ],
     ];
