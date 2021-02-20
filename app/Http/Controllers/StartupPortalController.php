@@ -11,7 +11,7 @@ use Auth;
 use DB;
 use Session;
 use Carbon\Carbon;
-use App\Models\StartupPortal;
+use App\Models\StartUpPortal;
 use App\Models\ScheduleAppointment;
 use App\Models\StartupTeamMembers;
 
@@ -19,7 +19,7 @@ class StartupPortalController extends Controller
 {
     public function index(){
         
-        $startups = StartupPortal::whereNull('deleted_at')->where('user_id',Auth::id())->orderBy('id','DESC')->paginate(10);
+        $startups = StartUpPortal::whereNull('deleted_at')->where('user_id',Auth::id())->orderBy('id','DESC')->paginate(10);
 
         return view('startup_portal.index',compact('startups'));    
         
@@ -32,7 +32,7 @@ class StartupPortalController extends Controller
             $startup = null;
 
             if($portal_id != null){
-                $startup = StartupPortal::with(['appoinment','startup_team_member'])->where('id',$portal_id)->whereNull('deleted_at')->first();
+                $startup = StartUpPortal::with(['appoinment','startup_team_member'])->where('id',$portal_id)->whereNull('deleted_at')->first();
             }
 
             if($action != null && $action == 'create'){
@@ -141,12 +141,12 @@ class StartupPortalController extends Controller
             ];
 
             if($request->has('id')){
-                $startup_portal = StartupPortal::updateOrCreate(
+                $startup_portal = StartUpPortal::updateOrCreate(
                     $param,
                     $param2
                 );
             }else{
-                $startup_portal = StartupPortal::create(
+                $startup_portal = StartUpPortal::create(
                     $param2
                 );
             }
