@@ -1,7 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
-
 <div class="container">
     <div class="user_profile_form_page fill-idea">
         <div class="d-md-flex">
@@ -9,7 +7,7 @@
                 <h2>Drop Your  Idea / Company</h2>
             </div>
         </div>
-        <form class="post-job-form " action="{{ route('job.update-job') }}" data-fouc method="POST" enctype="multipart/form-data" autocomplete="off">
+        <form class="idea-form" action="{{ route('idea.send-idea') }}" data-fouc method="POST" enctype="multipart/form-data" autocomplete="off">
             <div class="row mt-md-2">
                 <div class="col-9">
                     <div class="row">
@@ -64,7 +62,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="form-control-label">How Old Are You ?<span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control" name="age" id="age" placeholder="How Old Are You" value="{{ old('age') }}" >
+                                <input type="number" class="form-control" name="age" id="age" placeholder="How Old Are You" value="{{ old('age') }}" min="10" max="100">
                             </div>
                         </div>
                     </div>
@@ -105,5 +103,5 @@
 <script>
     
 </script>
-
+<script type="text/javascript" src="{{ Helper::assets('js/pages/idea.js') }}"></script>
 @endsection

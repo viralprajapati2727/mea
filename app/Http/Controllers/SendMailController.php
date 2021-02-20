@@ -51,157 +51,28 @@ class SendMailController extends Controller {
                 $email_body = str_replace('{user_name}', $user_name, $email_body);
 				break;
 			case 4: // Contact enquiry - Done
-					$user_email = $admin_email;
-                    $email_body  =  str_replace('{user_name}', $user_name, $email_body);
-                    $email_body  = str_replace('{name}', $data['name'], $email_body);
-                    $email_body  = str_replace('{email}', $data['email'], $email_body);
-                    $email_body  = str_replace('{subject}', $data['subject'], $email_body);
-                    $email_body  = str_replace('{message}', $data['message'], $email_body);
-					break;
-			case 12: // Sponsor Event - Done
-                    // Receiver - event owner
-                    $email_body  =  str_replace('{user_name}', $user_name, $email_body);
-                    $email_body  = str_replace('{event_name}', $data['event_name'], $email_body);
-                    $email_body  = str_replace('{sponsor_type}', $data['sponsor_type'], $email_body);
-                    $email_body  = str_replace('{amount}', $data['amount'], $email_body);
-					break;
-			case 13: // Event Manager add password
-					// Receiver - event manager
-                    $email_body  =  str_replace('{user_name}', $user_name, $email_body);
-					$email_body  =  str_replace('{email}', $user_email, $email_body);
-					$email_body = str_replace('{link}', $data['passwordUrlEventManager'], $email_body);
-					break;
-					
-                    break;
-			case 14: // Print Attendee List
-					$eventData = Event::where(['user_id' => $data['user_id'],'slug' => $data['event_slug']])->select('id','slug','title')->first();
-					$slug = $data['event_slug'];
-					$path = public_path('upload/pdf');
-					$fileName = $slug.'attendees'.time().'.pdf';
-					$full_path = $path.'/'.$fileName;
-					$pdf = PDF::loadView('events.attendees-pdf', compact('slug'));
-					$pdf->save($full_path);
-					$attachment = $full_path;
-					// echo $full_path;exit;
-					
-					break;
-			case 15: //Reject Banner Sponsor Accept By admin
-				$email_body  =  str_replace('{user_name}', $data['user_name'], $email_body);
-				$email_body  = str_replace('{event_name}', $data['event_name'], $email_body);
-				$email_body  = str_replace('{amount}', $data['amount'], $email_body);
-				
-				break;
-			case 16: //Reject Banner Sponsor Request By admin
-				$email_body  =  str_replace('{user_name}', $data['user_name'], $email_body);
-				$email_body  = str_replace('{event_name}', $data['event_name'], $email_body);
-				
-				break;
-			case 17: //When Challenge is edited by admin
-					//Receivers - participents of that challange
-				$challenge_id = $data['challenge_id'];
-				
-				$participents = Challenge::where('id',$challenge_id)->with(['challengeEntry' => function($query){
-					$query->with(['user']);
-				}])->first();
-
-				$email_body  = str_replace('{challenge_name}', $participents->name, $email_body);
-				$orgEmailBody =  $email_body;
-
-				$userEmail = array();
-				if(isset($participents->challengeEntry)){
-					foreach($participents->challengeEntry as $entry){
-						
-						if(!in_array($entry->user->email,$userEmail)){
-							$userEmail[] = $entry->user->email;
-							$user_email = $entry->user->email;
-							$email_body  =  str_replace('{user_name}', $entry->user->is_nickname_use == 1 ? $entry->user->nick_name : $entry->user->name, $email_body);
-							$finalData = array();
-							$finalData['email_subject'] =  $email_subject;
-							$finalData['email_body'] =  $email_body;
-							$finalData['user_email'] =  $user_email;
-							$finalData['manager_email'] =  (isset($manager_email))?$manager_email:'';
-							$finalData['admin_email'] =  (isset($admin_email))?$admin_email:'';
-							$finalData['param'] =  $param;
-							SendMailController::finalMailSend($finalData);
-							$email_body = $orgEmailBody;
-						}
-					}
-				}
-				break;
-			case 18: //When Challenge is deleted by admin
-				//Receivers - participents of that challange
-
-				$email_body  = str_replace('{challenge_name}', $data['challenge_name'], $email_body);
-				$email_body  = str_replace('{entry_name}', $data['entry_name'], $email_body);
+				$user_email = $admin_email;
 				$email_body  =  str_replace('{user_name}', $user_name, $email_body);
-
-				break;
-			case 19: //When entry is deleted by admin
-				//Receivers - who applied for challenge
-
-				$email_body  = str_replace('{entry_name}', $data['entry_name'], $email_body);
-				$email_body  = str_replace('{challenge_name}', $data['challenge_name'], $email_body);
-				$email_body  =  str_replace('{user_name}', $user_name, $email_body);
-
-				break;
-					
-			case 20: //When entry is approved or reject by admin
-				//Receivers - who applied for entry
-				$email_body  = str_replace('{entry_name}', $data['entry_name'], $email_body);
-				$email_body  = str_replace('{challenge_name}', $data['challenge_name'], $email_body);
-				$email_body  = str_replace('{action}', $data['action'], $email_body);
-				$email_body  =  str_replace('{user_name}', $user_name, $email_body);
-
-				break;
-			case 21: //Feed is deleted by admin
-				//Receivers - Feed owner
-				$email_body  = str_replace('{feed_name}', $data['feed_name'], $email_body);
-				$email_body  =  str_replace('{user_name}', $user_name, $email_body);
-				break;
-
-			case 22: //Feed is edited by admin
-				//Receivers - Feed owner
-				$email_body  = str_replace('{feed_name}', $data['feed_name'], $email_body);
-				$email_body  =  str_replace('{user_name}', $user_name, $email_body);
-				break;
-
-			case 23: //Staff Log in credentials
-				//Receiver - Staff User
-				$email_body  =  str_replace('{user_name}', $data['user_name'], $email_body);
+				$email_body  = str_replace('{name}', $data['name'], $email_body);
 				$email_body  = str_replace('{email}', $data['email'], $email_body);
-				$email_body  = str_replace('{password}', $data['password'], $email_body);
-
-				$finalData = array();
-				$finalData['email_subject'] =  $email_subject;
-				$finalData['email_body'] =  $email_body;
-				$finalData['user_email'] =  $data['email'];
-				$finalData['manager_email'] =  (isset($manager_email))?$manager_email:'';
-				$finalData['admin_email'] =  (isset($admin_email))?$admin_email:'';
-				$finalData['param'] =  $param;
-				SendMailController::finalMailSend($finalData);
-
+				$email_body  = str_replace('{subject}', $data['subject'], $email_body);
+				$email_body  = str_replace('{message}', $data['message'], $email_body);
 				break;
-			case 24: //Staff reset password
-				//Receiver - Staff User
-				$type =  $data['type'];
-				if($type == 5){
-
-					$email_body  =  str_replace('{user_name}', $data['user_name'], $email_body);
-					$email_body  = str_replace('{email}', $data['email'], $email_body);
-					$email_body  = str_replace('{password}', $data['password'], $email_body);
-					
-					$finalData = array();
-					$finalData['email_subject'] =  $email_subject;
-					$finalData['email_body'] =  $email_body;
-					$finalData['user_email'] =  $data['email'];
-					$finalData['manager_email'] =  (isset($manager_email))?$manager_email:'';
-					$finalData['admin_email'] =  (isset($admin_email))?$admin_email:'';
-					$finalData['param'] =  $param;
-					SendMailController::finalMailSend($finalData);
-				}
-
+			case 7: // Drop Idea - Done
+				$user_email = $admin_email;
+				$email_body  = str_replace('{user_name}', $user_name, $email_body);
+				$email_body  = str_replace('{first_name}', $data['first_name'], $email_body);
+				$email_body  = str_replace('{last_name}', $data['last_name'], $email_body);
+				$email_body  = str_replace('{company_name}', $data['company_name'], $email_body);
+				$email_body  = str_replace('{city}', $data['city'], $email_body);
+				$email_body  = str_replace('{century}', $data['century'], $email_body);
+				$email_body  = str_replace('{phone}', $data['phone'], $email_body);
+				$email_body  = str_replace('{email}', $data['email'], $email_body);
+				$email_body  = str_replace('{age}', $data['age'], $email_body);
+				$email_body  = str_replace('{gender}', $data['gender'], $email_body);
+				$email_body  = str_replace('{occupation}', $data['occupation'], $email_body);
+				$email_body  = str_replace('{description}', $data['description'], $email_body);
 				break;
-					
 			default:
 				$email_body = "No content";
 				break;
