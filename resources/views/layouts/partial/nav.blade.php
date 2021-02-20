@@ -37,6 +37,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.drop-idea') }}">Idea</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
+                            </li>
                         </ul>
                         <div class="login-links">
                             <ul>

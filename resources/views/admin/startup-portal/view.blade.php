@@ -198,7 +198,7 @@ $exists_pitch_deck = $pitchdeckUrl.$startup->pitch_deck;
                             @endif
                         </div>
                     </div>
-                    <div class="form-group-row">
+                    <div class="form-group row">
                         <div class="col-lg-4">
                             <label class="font-weight-bold label-before">Allow users to view:</label>
                         </div>

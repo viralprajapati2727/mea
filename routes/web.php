@@ -41,6 +41,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('questions','CommunityController@questions')->name('page.questions');
     Route::get('drop-your-idea','GeneralController@idea')->name('page.drop-idea');
     Route::get('questions/{question_id}/{like?}','CommunityController@detail')->name('community.questions-details');
+    Route::get('startup-portal','GeneralController@getStartupPortal')->name('page.startup-portal');
     
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
 

@@ -359,4 +359,10 @@ class GeneralController extends Controller {
 	public function idea() {
 		return view('pages.drop-idea');
 	}
+
+	public function getStartupPortal(){
+		
+		return view('pages.startup-portal');
+
+	}
 }
