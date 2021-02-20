@@ -327,6 +327,19 @@ class Helper
                 "active_menu" => array('admin.question.index','question.details'),
                 "child" => array(),
             ),
+            "18" => array( // Question
+                "is_menu" => TRUE,
+                "url" => route('admin.startup-portal.index'),
+                "is_access" => TRUE,
+                "privilege_key" => "18",
+                "privilege_require" => "1",
+                "full_title" => "Startup Portal",
+                "short_title" => "Startup Portal",
+                "icon" => "icon-bulb",
+                "active_menu" => array('admin.startup-portal.index'),
+                "child" => array(),
+            ),
+
 
         );
     }
@@ -685,8 +698,8 @@ class Helper
     }
     
     public static function AllUsers(){
-        $Query = User::with('members')->select(['id','logo','type','slug'])->where('id','!=',  Auth::user()->id);   
-        // return $Query->get();
+        $Query = User::select(['id','logo','email','type','slug'])->where('id','!=',  Auth::user()->id)->where('type','!=',config('constant.USER.TYPE.ADMIN'))->where('is_active',config('constant.USER.STATUS.Active'))->get();   
+        
         return $Query;
     }
 }
