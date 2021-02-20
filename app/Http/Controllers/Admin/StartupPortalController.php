@@ -30,7 +30,7 @@ class StartupPortalController extends Controller
         $data = datatables()->of($Query)
         ->addColumn('name', function ($Query) {
             $title = $Query->name;
-            return "<a href='".route('admin.startup.detail',['id' => $Query->id])."' class='detail'>".$title."</a>&nbsp;&nbsp;";
+            return "<a href='".route('admin.startup.detail',['portal_id' => $Query->id])."' class='detail'>".$title."</a>&nbsp;&nbsp;";
         })
         ->addColumn('industry', function ($Query) {
             return $Query->industry;
@@ -100,6 +100,31 @@ class StartupPortalController extends Controller
         }else{
             return redirect()->route('admin.startup-portal.index');
         }
+    }
+
+    public function updateAppoinment(Request $request)
+    {
+        try {
+            $status = 0;
+            if($request->has('status')){
+                $status = $request->status;
+            }
+            ScheduleAppointment::where('id',$request->appoinment_id)
+            ->where('startup_id',$request->startup_id)
+            ->update([
+                "date" => $request->date,
+                "time" => $request->time,
+                "zone" => $request->zone,
+                "purpose_of_meeting" => $request->purpose_of_meeting,
+                "status" => $status,
+                "reason" => $request->reason
+            ]);
+
+            return redirect()->back()->with('success',"Appoinment Schedule has been saved successfully");
+        } catch (Exception $e) {   
+			Log::info($e);
+            return response()->json(['status' => 400, 'msg_fail' => 'Something Went Wrong']);
+		}
     }
 
 }

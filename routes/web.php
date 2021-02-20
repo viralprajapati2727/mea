@@ -212,6 +212,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('startup-filter', 'Admin\StartupPortalController@ajaxData')->name('admin.startup-filter');
         Route::post('startup-status', 'Admin\StartupPortalController@startupStatus')->name('admin.startup.approve-reject');
         Route::get('startup-details/{portal_id}','Admin\StartupPortalController@detail')->name("admin.startup.detail");
+        Route::post('update-appoinment','Admin\StartupPortalController@updateAppoinment')->name("admin.appoinment.update");
 
     });        
 });

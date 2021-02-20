@@ -32,7 +32,7 @@ $exists_pitch_deck = $pitchdeckUrl.$startup->pitch_deck;
 <div class="card">
     <div class="card-body custom-tabs">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="detail-section">
                     <div class="form-group row">
                         <div class="col-lg-4">
@@ -208,11 +208,78 @@ $exists_pitch_deck = $pitchdeckUrl.$startup->pitch_deck;
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                @isset($startup->appoinment)
+                    <h3 class="text-center mb-4">Appoinment Schedule</h3>
+                    <form class="ask_question_form" action="{{ route('admin.appoinment.update') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+                        @csrf
+                        <input type="hidden" name="startup_id" value="{{ $startup->id }}">
+                        <input type="hidden" name="appoinment_id" value="{{ $startup->appoinment->id }}">
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Appointment Date</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" name="date" id="date" placeholder="Enter Date" value="{{ $startup->appoinment->date ?? old('date') }}" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Appointment Time</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" name="time" id="time" class="form-control" placeholder="Enter Time" value="{{ $startup->appoinment->time ?? old("time")}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Appointment Zone</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" name="zone" id="zone" class="form-control"  placeholder="Ex. Asia/Kuwait" value="{{ $startup->appoinment->zone ?? old("zone") }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Purpose of Meeting :</label>
+                            </div>
+                            <div class="col-lg-8 input-group custom-start">
+                                <textarea name="purpose_of_meeting" id="purpose_of_meeting" rows="5" readonly placeholder="Purpose of meeting:" class="form-control">{{ $startup->appoinment->purpose_of_meeting ?? old("purpose_of_meeting")}}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Status :</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <select name="status" id="status_reason" class="form-control select2 no-search-select2" data-placeholder="Status">
+                                    <option>Select Status</option>
+                                    <option value="1" {{ ($startup->appoinment->status) ? ($startup->appoinment->status == 1 ? 'selected' : ''): ''  }}>Approve </option>
+                                    <option value="2" {{ ($startup->appoinment->status) ? ($startup->appoinment->status == 2 ? 'selected' : ''): ''  }}>Reject </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="div_status_reason" style="display: {{ ($startup->appoinment->status == 2) ? 'block' : 'none' }}">
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label class="font-weight-bold label-before">Reason :</label>
+                                </div>
+                                <div class="col-lg-8 input-group custom-start">
+                                    <textarea name="reason" id="reason" rows="5" placeholder="Reason" class="form-control">{{ $startup->appoinment->reason ?? old("reason")}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                @endisset
+            </div>
         </div>
     </div>
 </div>
-@endsection
-@section('footer_script')
 <script>
     let today = new Date();
         $("#time").datetimepicker({
@@ -228,5 +295,13 @@ $exists_pitch_deck = $pitchdeckUrl.$startup->pitch_deck;
             locale: 'en',
             minDate: today
         });
+
+        $(document).on("change", "#status_reason", function () {
+        console.log($(this).val());
+        $(".div_status_reason").hide();
+        if ($(this).val() == "2") {
+            $(".div_status_reason").show();
+        }
+    });
 </script>
 @endsection

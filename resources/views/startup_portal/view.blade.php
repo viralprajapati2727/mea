@@ -52,11 +52,6 @@
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <div class="add-que-wrap d-flex justify-content-end">
-                                @if ($startup->status == 1)
-                                    <button type="button" class="btn" data-toggle="modal" data-target="#schedule-appoinment">Schedule an appointment</button>
-                                @endif
-                            </div>
                             @isset($startup->appoinment->time)
                                 <div class="job-detail-list">
                                     <label class="lable">Appointment Date & Time :</label>
@@ -74,6 +69,22 @@
                                     <label class="lable">Appointment Status:</label>
                                     <span class="job-status status-{{ strtolower($statuss[$startup->appoinment->status]) }} mr-2">{{ $statuss[$startup->appoinment->status] }}</span>
                                 </div>
+                                <div class="job-detail-list">
+                                    <label class="lable"> </label>
+                                    <p> </p>
+                                </div>
+                                @if($startup->appoinment->status == 2)
+                                    <div class="job-detail-list">
+                                        <label class="lable">Reject reason:</label>
+                                        <p>{{ $startup->appoinment->reason }}</p>
+                                    </div>
+                                @endif
+                                @else
+                                <div class="add-que-wrap d-flex justify-content-end">
+                                    @if ($startup->status == 1)
+                                        <button type="button" class="btn" data-toggle="modal" data-target="#schedule-appoinment">Schedule an appointment</button>
+                                    @endif
+                                </div>    
                             @endisset
                         </div>
                     </div>
@@ -185,13 +196,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Time <span class="required-star-color">*</span></label>
-                                <input type="text" name="time" id="time" class="form-control" placeholder="Enter Time" required>
+                                <input type="text" name="time" id="time" class="form-control" placeholder="Enter Time" required value="{{ old("time") }}">
                             </div>
                         </div>
                     </div>
                     <div class="form-group tag">
                         <label class="form-control-label">Zone <span class="required-star-color">*</span></label>
-                        <input type="text" name="zone" id="zone" class="form-control"  placeholder="Ex. Asia/Kuwait" value="" required>
+                        <input type="text" name="zone" id="zone" class="form-control"  placeholder="Ex. Asia/Kuwait" value="{{ old("zone") }}" required>
                     </div>
                     <div class="form-group mt-md-2 ckeditor">
                         <label class="col-form-label">Purpose of meeting <span class="required-star-color">*</span></label>
