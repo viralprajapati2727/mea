@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StartUpPortal;
 use Auth;
-
+use App\Models\ScheduleAppointment;
+use App\Models\StartupTeamMembers;
 class StartupPortalController extends Controller
 {
     public function index(){
@@ -89,11 +90,13 @@ class StartupPortalController extends Controller
 		}
     }
 
-    public function details($id = null)
+    public function detail($portal_id = null)
     {
-        if($id != null){
+        if($portal_id != null){
 
+            $startup = StartupPortal::with(['appoinment','startup_team_member'])->where('id',$portal_id)->whereNull('deleted_at')->first();
             
+            return view('admin.startup-portal.view',compact('startup'));
         }else{
             return redirect()->route('admin.startup-portal.index');
         }

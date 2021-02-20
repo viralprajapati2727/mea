@@ -6,19 +6,21 @@
     $pitchdeckUrl = Helper::images(config('constant.pitch_deck'));
 
     $exists_businessplan = "";
-    if($startup->business_plan != ""){
-        $is_same_business_plan = true;
-        $exists_businessplan = $businessUrl.$startup->business_plan;
-    }
-    $exists_financial = "";
-    if($startup->financial != ""){
-        $is_same_financial = true;
-        $exists_financial = $financialUrl.$startup->financial;
-    }
-    $exists_pitch_deck = "";
-    if($startup->pitch_deck != ""){
-        $is_same_pitch_deck = true;
-        $exists_pitch_deck = $pitchdeckUrl.$startup->pitch_deck;
+    if(isset($startup)){
+        if($startup->business_plan != ""){
+            $is_same_business_plan = true;
+            $exists_businessplan = $businessUrl.$startup->business_plan;
+        }
+        $exists_financial = "";
+        if($startup->financial != ""){
+            $is_same_financial = true;
+            $exists_financial = $financialUrl.$startup->financial;
+        }
+        $exists_pitch_deck = "";
+        if($startup->pitch_deck != ""){
+            $is_same_pitch_deck = true;
+            $exists_pitch_deck = $pitchdeckUrl.$startup->pitch_deck;
+        }
     }
 
 @endphp
@@ -35,6 +37,7 @@
                 @method('POST')
                 @csrf
                 <input type="hidden" name="id" value="{{ $startup['id'] ?? "" }}">
+                <input type="hidden" name="status" value="{{ $startup['status'] ?? "0" }}">
                 <div class="row mt-md-0 mt-3 pb-0">
                     <div class="col-lg-9 col-md-12">
                         <div class="row mt-md-2">
@@ -80,7 +83,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Team Member </label>
-                                    <select name="team_member" id="team_member" class="form-control select2 no-search-select2" data-placeholder="Select Team Member" multiple>
+                                    <select name="team_members[]" id="team_members" class="form-control select2 no-search-select2" data-placeholder="Select Team Member" multiple>
                                         <option></option>
                                         @forelse ($users as $user)
                                             <option value="{{ $user->id }}" 
@@ -211,7 +214,7 @@
                             <div class="col-md-12">
                                 <div class="form-check-inline">
                                     <label>
-                                        <input type="checkbox" name="is_view" id="is_view" class="form-check-input-styled" value="1" {{ $startup->is_view == 1 ? 'checked' : '' }}> Allow users to view your documents?
+                                        <input type="checkbox" name="is_view" id="is_view" class="form-check-input-styled" value="1" {{ (isset($startup) && $startup->is_view == 1) ? 'checked' : '' }}> Allow users to view your documents?
                                     </label>
                                 </div>
                             </div>

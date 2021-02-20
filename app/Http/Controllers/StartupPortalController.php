@@ -12,7 +12,8 @@ use DB;
 use Session;
 use Carbon\Carbon;
 use App\Models\StartupPortal;
-
+use App\Models\ScheduleAppointment;
+use App\Models\StartupTeamMembers;
 
 class StartupPortalController extends Controller
 {
@@ -24,18 +25,22 @@ class StartupPortalController extends Controller
         
     }
 
-    public function create($portal_id = null)
+    public function create($action = null,$portal_id = null)
     {
         try{
             $users = Helper::AllUsers();
-            $startup = "";
+            $startup = null;
 
             if($portal_id != null){
-                $startup = StartupPortal::where('id',$portal_id)->whereNull('deleted_at')->first();
+                $startup = StartupPortal::with(['appoinment','startup_team_member'])->where('id',$portal_id)->whereNull('deleted_at')->first();
             }
 
-            return view('startup_portal.create',compact('users','startup'));
-            
+            if($action != null && $action == 'create'){
+                return view('startup_portal.create',compact('users','startup'));
+            }else{
+                return view('startup_portal.view',compact('users','startup'));
+            }
+
         }catch(Exception $e){
             DB::rollback();
             return redirect()->back()->with('warning',$e->getMessage());
@@ -58,6 +63,9 @@ class StartupPortalController extends Controller
 
             if(isset($request->is_view)){
                 $is_view = 1;
+            }
+            if(isset($request->status)){
+                $status = $request->status;
             }
             if($request->has('id')){
                 $param[ "id" ] = $request->id;
@@ -108,7 +116,7 @@ class StartupPortalController extends Controller
                     Helper::checkFileExists(config('constant.profile_url') . $request->old_business_plan, true, true);
                 }
             }
-
+            
             $param2 = [
                 "name" => $request->name,
                 "description" => $request->description,
@@ -133,14 +141,25 @@ class StartupPortalController extends Controller
             ];
 
             if($request->has('id')){
-                StartupPortal::updateOrCreate(
+                $startup_portal = StartupPortal::updateOrCreate(
                     $param,
                     $param2
                 );
             }else{
-                StartupPortal::create(
+                $startup_portal = StartupPortal::create(
                     $param2
                 );
+            }
+            $user_status = 0;
+            if($startup_portal != null){
+                StartupTeamMembers::where('startup_id',$startup_portal->id)->delete();
+                foreach ($request->team_members as $key => $team_member) {
+                    StartupTeamMembers::create([
+                        'startup_id' => $startup_portal->id, 
+                        'user_id' => $team_member,
+                        'status' => $user_status
+                    ]);
+                }
             }
 
             $message_text = "Startup Portal";
@@ -162,4 +181,35 @@ class StartupPortalController extends Controller
             return $this->commonResponse($responseData, $code);
         }
     }
+
+    public function storeAppoinment(Request $request){
+
+        DB::beginTransaction();
+        $status = 0;
+        try {
+            if($request->startup_id != null){
+                $appointment = new ScheduleAppointment;
+                $appointment->startup_id = (int)$request->startup_id;
+                $appointment->user_id = Auth::id();
+                $appointment->date = $request->date;
+                $appointment->time = $request->time;
+                $appointment->zone = $request->zone;
+                $appointment->purpose_of_meeting = $request->purpose_of_meeting;
+                $appointment->status = $status;
+                $appointment->save();
+                
+            }
+            DB::commit();
+            
+            return redirect()->back()->with('success','Your Schedule an appoinment request has been submitted successfully');
+
+        } catch(Exception $e){
+            Log::emergency('Schedule appointment save Exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
+            DB::rollback();
+            $code = ($e->getCode() != '')?$e->getCode():500;
+            $responseData['message'] = trans('common.something_went_wrong');
+            return $this->commonResponse($responseData, $code);
+        }    
+    }
+
 }

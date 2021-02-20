@@ -93,8 +93,9 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             Route::group(['middleware' => ['entrepreneur-access']], function () {
                 // Startup portal
                 Route::get('statup-portal','StartupPortalController@index')->name('startup-portal');
-                Route::get('start-statup-portal/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
+                Route::get('statup-portal/{action?}/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
                 Route::post('store-statup-portal','StartupPortalController@store')->name('startup-portal.store');
+                Route::post('store-appoinment','StartupPortalController@storeAppoinment')->name('store-appoinment');
             }); 
         }); 
     }); 
@@ -209,7 +210,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::get('startup-portal','Admin\StartupPortalController@index')->name('admin.startup-portal.index');
         Route::post('startup-filter', 'Admin\StartupPortalController@ajaxData')->name('admin.startup-filter');
         Route::post('startup-status', 'Admin\StartupPortalController@startupStatus')->name('admin.startup.approve-reject');
-        Route::get('startup-details/{id}','Admin\StartupPortalController@detail')->name("admin.startup.detail");
+        Route::get('startup-details/{portal_id}','Admin\StartupPortalController@detail')->name("admin.startup.detail");
 
     });        
 });
