@@ -359,4 +359,25 @@ class GeneralController extends Controller {
 	public function idea() {
 		return view('pages.drop-idea');
 	}
+	public function sendIdea(Request $request){
+		$email_param = [
+			'email_id' => 7,
+			'user_id' => 1,
+			'first_name' => $request->first_name,
+			'last_name' => $request->last_name,
+			'company_name' => $request->company_name,
+			'city' => $request->city,
+			'century' => $request->century,
+			'phone' => $request->phone,
+			'email'=> $request->email,
+			'age'=> $request->age,
+			'gender'=> $request->gender,
+			'occupation'=> $request->occupation,
+			'description' => $request->description
+		];
+
+		SendMailController::dynamicEmail($email_param);
+
+		return redirect()->back()->with('success',trans('Sent Successfully!'));
+	}
 }

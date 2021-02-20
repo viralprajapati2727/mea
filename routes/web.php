@@ -39,7 +39,6 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('search-job', 'JobController@searchJob')->name('job.search-job');
     Route::get('search', 'JobController@globalSearch')->name('job.global-search');
     Route::get('questions','CommunityController@questions')->name('page.questions');
-    Route::get('drop-your-idea','GeneralController@idea')->name('page.drop-idea');
     Route::get('questions/{question_id}/{like?}','CommunityController@detail')->name('community.questions-details');
     
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
@@ -85,6 +84,9 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             //community
             Route::get('community', 'CommunityController@index')->name('community.index');
             Route::post('update-community', 'CommunityController@updateCommunity')->name('community.update-community');
+            
+            Route::get('drop-your-idea','GeneralController@idea')->name('page.drop-idea');
+            Route::post('drop-your-ideas', 'GeneralController@sendIdea')->name('idea.send-idea');
             
             Route::group(['middleware' => ['simpleuser-access']], function () {
             
