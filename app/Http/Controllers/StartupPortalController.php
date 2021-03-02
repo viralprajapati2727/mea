@@ -67,10 +67,13 @@ class StartupPortalController extends Controller
             if(isset($request->status)){
                 $status = $request->status;
             }
-            if($request->has('id')){
+            $param = [];
+            if($request->has('id') && $request->id > 0){
                 $param[ "id" ] = $request->id;
             }
+
             $business_plan = $financial = $pitch_deck = "";
+
             
             if($request->file('fileinput_business_plan') != ''){
                 $business_plan_file = $request->file('fileinput_business_plan');                    
@@ -116,13 +119,13 @@ class StartupPortalController extends Controller
                     Helper::checkFileExists(config('constant.profile_url') . $request->old_business_plan, true, true);
                 }
             }
-            
+
             $param2 = [
                 "name" => $request->name,
                 "description" => $request->description,
                 "industry" => $request->industry,
                 "location" => $request->location,
-                "team_members" => $request->team_members,
+                "team_members" => implode(",",$request->team_members),
                 "stage_of_startup" => $request->startup_stage,
                 "important_next_step" => $request->important_next_step,
                 "other_important_next_step" => $request->other_important_next_step,
@@ -133,14 +136,14 @@ class StartupPortalController extends Controller
                 "linkedin_link" => $request->linkedin_link,
                 "tiktok_link" => $request->tiktok_link,
                 "business_plan" => $business_plan,
-                "financial" => $request->fileinput_financial,
-                "pitch_deck" => $request->fileinput_pitch_deck,
+                "financial" => $financial,
+                "pitch_deck" => $pitch_deck,
                 "is_view" => $is_view,
                 "status" => $status,
                 "user_id" => $user_id
             ];
 
-            if($request->has('id')){
+            if($request->has('id') && $request->id > 0){
                 $startup_portal = StartUpPortal::updateOrCreate(
                     $param,
                     $param2

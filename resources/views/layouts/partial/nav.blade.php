@@ -5,8 +5,8 @@
                 <div class="col-lg-4">
                     <a class="nav-link" href="{{ url('/') }}">
                         <div class="navbar-brand">
-                                <img src="{{ Helper::assets('images/logo.png') }}" class="logo" alt="">
-                                <h1>MUSLIM ENTREPRENEUR ASSOCISTION</h1>
+                            <img src="{{ Helper::assets('images/logo.png') }}" class="logo" alt="">
+                            <h1>MUSLIM ENTREPRENEUR ASSOCISTION</h1>
                         </div>
                     </a>
                 </div>
@@ -75,7 +75,6 @@
                                                                 </a>
                                                                 <div class="profile-links d-flex">
                                                                     <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="">Edit Profile</a>
-                                                                    <a href="#" class="">Settings</a>
                                                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logoutconfirm">Logout</a>
                                                                 </div>
                                                             </div>
@@ -137,7 +136,6 @@
                                                             </a>
                                                             <div class="profile-links d-flex">
                                                                 <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="">Edit Profile</a>
-                                                                <a href="#" class="">Settings</a>
                                                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logoutconfirm">Logout</a>
                                                             </div>
                                                         </div>

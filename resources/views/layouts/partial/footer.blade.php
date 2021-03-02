@@ -50,10 +50,10 @@
                             </li>
                             {{-- <li>
                                 <a href="javascript:;"><i class="fa fa-google"></i></a>
-                            </li>
+                            </li>--}}
                             <li>
-                                <a href="javascript:;"><i class="fa fa-youtube-play"></i></a>
-                            </li> --}}
+                                <a href="https://www.youtube.com/channel/UCb9Gu90KunkdKZ6vIqVErmw" target="_blank"><i class="fa fa-youtube-play"></i></a>
+                            </li> 
                         </ul>
                     </div>
                 </div>

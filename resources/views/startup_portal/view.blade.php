@@ -108,27 +108,27 @@
                     </div>
                     <div class="job-detail-list">
                         <label class="lable">Website Link:</label>
-                        <p>{{ $startup->web_link ?? "-" }}</p>
+                        <p><a href="{{ $startup->web_link ?? 'javascript:;' }}" target="_blank">{{ $startup->web_link ?? "-" }}</a></p>
                     </div>
                     <div class="job-detail-list">
                         <label class="lable">Facebook Link:</label>
-                        <p>{{ $startup->fb_link ?? "-"}}</p>
+                        <p><a href="{{ $startup->fb_link ?? 'javascript:;' }}" target="_blank">{{ $startup->fb_link ?? "-"}}</a></p>
                     </div>
                     <div class="job-detail-list">
                         <label class="lable">Instagram Link:</label>
-                        <p>{{ $startup->insta_link ?? "-"}}</p>
+                        <p><a href="{{ $startup->insta_link ?? 'javascript:;' }}" target="_blank">{{ $startup->insta_link ?? "-"}}</a></p>
                     </div>
                     <div class="job-detail-list">
                         <label class="lable">Twitter Link:</label>
-                        <p>{{ $startup->tw_link ?? "-"}}</p>
+                        <p><a href="{{ $startup->tw_link ?? 'javascript:;' }}" target="_blank">{{ $startup->tw_link ?? "-"}}</a></p>
                     </div>
                     <div class="job-detail-list">
                         <label class="lable">Linkedin Link:</label>
-                        <p>{{ $startup->linkedin_link ?? "-" }}</p>
+                        <p><a href="{{ $startup->linkedin_link ?? 'javascript:;' }}" target="_blank">{{ $startup->linkedin_link ?? "-" }}</a></p>
                     </div>
                     <div class="job-detail-list">
                         <label class="lable">Tiktok Link:</label>
-                        <p>{{ $startup->tiktok_link ?? "-"}}</p>
+                        <p><a href="{{ $startup->tiktok_link ?? 'javascript:;' }}" target="_blank">{{ $startup->tiktok_link ?? "-"}}</a></p>
                     </div>
                     <div class="job-detail-list">
                         <label class="lable">Business Plan:</label>

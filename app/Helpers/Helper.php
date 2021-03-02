@@ -66,7 +66,7 @@ class Helper
         $date = Carbon::parse($dateOfBirth)->format('d-m-Y');
         $years = Carbon::parse($date)->age;
 
-        return ($years > 1) ? $years . " " . trans('page.Years') : $years . " " . "Year";
+        return ($years > 1) ? $years . " Years" : $years . " " . "Year";
     }
 
     public static function staffAccessMenu($privileges = [], $currentroute = null)
@@ -245,18 +245,18 @@ class Helper
                 "active_menu" => array('profile-question.index','profile-question.create','profile-question.edit'),
                 "child" => array(),
             ),
-            "11" => array( // Ideas
-                "is_menu" => TRUE,
-                "url" => '',//route('job-title.index'),
-                "is_access" => TRUE,
-                "privilege_key" => "11",
-                "privilege_require" => "1",
-                "full_title" => "Ideas  Management",
-                "short_title" => "Ideas",
-                "icon" => "icon-folder-download",
-                "active_menu" => array(),//array('job-title.index','job-title.create','job-title.edit'),
-                "child" => array(),
-            ),
+            // "11" => array( // Ideas
+            //     "is_menu" => TRUE,
+            //     "url" => '',//route('job-title.index'),
+            //     "is_access" => TRUE,
+            //     "privilege_key" => "11",
+            //     "privilege_require" => "1",
+            //     "full_title" => "Ideas  Management",
+            //     "short_title" => "Ideas",
+            //     "icon" => "icon-folder-download",
+            //     "active_menu" => array(),//array('job-title.index','job-title.create','job-title.edit'),
+            //     "child" => array(),
+            // ),
             "12" => array( // Blog
                 "is_menu" => TRUE,
                 "url" => route('blog.index'),
