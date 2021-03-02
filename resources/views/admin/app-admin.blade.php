@@ -50,7 +50,10 @@
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/ui/moment/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/main/jquery.form.min.js') }}"></script>
     <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/tags/tokenfield.min.js') }}"></script>
-
+    <script type="text/javascript" src="{{ Helper::assets('js/main/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/selects/select2.min.js') }}"></script>
+    
+    
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
