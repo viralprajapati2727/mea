@@ -12,3 +12,7 @@ ALTER TABLE `post_jobs` CHANGE `job_title_id` `job_title_id` INT(11) NULL DEFAUL
 ALTER TABLE `post_jobs` ADD `business_category_id` INT(11) NULL DEFAULT NULL AFTER `user_id`;
 ALTER TABLE `job_shifts` CHANGE `key_skill_id` `shift_id` INT(11) NOT NULL;
 ALTER TABLE `job_shifts` ADD `shift_val` INT(11) NULL DEFAULT NULL AFTER `shift_id`;
+
+
+
+ALTER TABLE `raise_funds` ADD `user_id` INT(11) NOT NULL AFTER `id`;

@@ -99,6 +99,9 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
                 Route::get('statup-portal/{action?}/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
                 Route::post('store-statup-portal','StartupPortalController@store')->name('startup-portal.store');
                 Route::post('store-appoinment','StartupPortalController@storeAppoinment')->name('store-appoinment');
+
+                // Startup portal
+                Route::get('raise-fund','FundController@index')->name('startup.raise-fund');
             }); 
         }); 
     }); 
