@@ -117,7 +117,7 @@ ul{
     justify-content: space-between;
 }
 .navbar-expand-lg .navbar-nav .nav-link {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 34px;
     color: #474747;
     font-weight: 500;
@@ -1818,6 +1818,7 @@ ul{
 .question-box .quetion-info{display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 30px; align-items: center;}
 .quetion-tags ul {
     display: flex;
+    flex-wrap: wrap;
 }
 .quetion-tags ul li{
     display: inline-block;
@@ -1935,8 +1936,8 @@ ul{
 ==============================================================================================*/
 @media screen and (max-width: 1469px){
     .navbar-brand img{margin-right: 10px;}
-    .navbar-brand h1{font-size: 21px;}
-    .navbar-expand-lg .navbar-nav .nav-link{padding: 15px 7px 0 7px; font-size: 16px;}
+    .navbar-brand h1{font-size: 18px;}
+    .navbar-expand-lg .navbar-nav .nav-link{padding: 15px 7px 0 7px; font-size: 15px;}
     .header-right .collapse{justify-content: flex-end; flex-wrap: wrap;}
     .login-links li a{justify-content: flex-end; font-size: 16px;}
 }
@@ -2035,6 +2036,10 @@ ul{
     .resources-wrap{margin-bottom: 40px;}
     .rs-content .rs-link{padding: 6px 15px;}
     .resources-wrap:last-child{margin-bottom: 0;}
+    .question-box .quetion-category {width: 100%; margin-bottom: 10px;}
+    .question-box .quetion-tags{width: 100%;}
+    .quetion-tags ul li:first-child{margin-left: 0;}
+    .quetions-lists-wraper{margin: 40px 0;}
 }
 @media screen and (max-width: 575px){
     .contact-details ul li a{width: 110px; height: 35px;}
