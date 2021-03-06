@@ -78,9 +78,11 @@
                                             <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="flaticon-menu"></i></a>
                                             <span class="tooltip-arrow"></span>
                                             <div class="dropdown-menu dropdown-menu-right jb_company_dropdown_nav" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(30px, 30px, 0px);">
-                                                <a href="{{ route('start-statup-portal',['action'=>'view','portal_id' => $fund->id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-user"></i></span>View Startup Portal Details</a>
-                                                <a href="{{ route('start-statup-portal',['action'=>'create','portal_id' => $fund->id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-edit"></i></span> Edit Portal</a>
-                                                <a href="javascript:;" class="dropdown-item call-action" data-id="143" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Portal</a>
+                                                <a href="{{ route('startup.raise-fund.create',['action'=>'view','id' => $fund->id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-user"></i></span>View</a>
+                                                @if($fund->status == 0)
+                                                    <a href="{{ route('startup.raise-fund.create',['action'=>'create','id' => $fund->id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-edit"></i></span> Edit</a>
+                                                @endif
+                                                <a href="javascript:;" class="dropdown-item call-action" data-id="143" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete</a>
                                             </div>
                                         </div>
                                     </div>

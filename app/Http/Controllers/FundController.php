@@ -19,11 +19,8 @@ use App\Models\RaiseFund;
 class FundController extends Controller
 {
     public function index(){
-        
         $funds = RaiseFund::where('user_id',Auth::id())->orderBy('id','DESC')->paginate(10);
-
         return view('fund.index',compact('funds'));    
-        
     }
 
     public function create($action = null,$id = null)
@@ -32,7 +29,7 @@ class FundController extends Controller
             $fund = null;
 
             if($id != null){
-                $fund = RaiseFund::where('id',$id)->whereNull('deleted_at')->first();
+                $fund = RaiseFund::where('id',$id)->where('user_id',Auth::id())->first();
             }
 
             if($action != null && $action == 'create'){
@@ -49,7 +46,6 @@ class FundController extends Controller
 
     public function store(Request $request)
     {
-        // echo "<pre>"; print_r($request->all()); exit;
         $responseData = array();
         $responseData['status'] = 0;
         $responseData['message'] = '';
@@ -93,8 +89,6 @@ class FundController extends Controller
                 );
             }
             
-            $message_text = "Startup Portal";
-
             DB::commit();
             $message = 'Your fund request has been saved successfully';
             $responseData['status'] = 1;
@@ -105,42 +99,11 @@ class FundController extends Controller
             return $this->commonResponse($responseData, 200);
 
         } catch(Exception $e){
-            Log::emergency('Startup portal save Exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
+            Log::emergency('fund save Exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
             DB::rollback();
             $code = ($e->getCode() != '')?$e->getCode():500;
             $responseData['message'] = trans('common.something_went_wrong');
             return $this->commonResponse($responseData, $code);
         }
     }
-
-    public function storeAppoinment(Request $request){
-
-        DB::beginTransaction();
-        $status = 0;
-        try {
-            if($request->startup_id != null){
-                $appointment = new ScheduleAppointment;
-                $appointment->startup_id = (int)$request->startup_id;
-                $appointment->user_id = Auth::id();
-                $appointment->date = $request->date;
-                $appointment->time = $request->time;
-                $appointment->zone = $request->zone;
-                $appointment->purpose_of_meeting = $request->purpose_of_meeting;
-                $appointment->status = $status;
-                $appointment->save();
-                
-            }
-            DB::commit();
-            
-            return redirect()->back()->with('success','Your Schedule an appoinment request has been submitted successfully');
-
-        } catch(Exception $e){
-            Log::emergency('Schedule appointment save Exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
-            DB::rollback();
-            $code = ($e->getCode() != '')?$e->getCode():500;
-            $responseData['message'] = trans('common.something_went_wrong');
-            return $this->commonResponse($responseData, $code);
-        }    
-    }
-
 }

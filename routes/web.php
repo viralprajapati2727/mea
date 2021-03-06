@@ -220,6 +220,12 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('startup-status', 'Admin\StartupPortalController@startupStatus')->name('admin.startup.approve-reject');
         Route::get('startup-details/{portal_id}','Admin\StartupPortalController@detail')->name("admin.startup.detail");
         Route::post('update-appoinment','Admin\StartupPortalController@updateAppoinment')->name("admin.appoinment.update");
+        
+        // fund raise
+        Route::get('fund-request','Admin\FundController@index')->name('admin.fund.index');
+        Route::post('fund-filter', 'Admin\FundController@ajaxData')->name('admin.fund-filter');
+        Route::get('fun-request-details/{id}','Admin\fundController@detail')->name("admin.fund.detail");
+        Route::post('fund-status', 'Admin\fundController@startupStatus')->name('admin.fund.approve-reject');
 
     });        
 });

@@ -64,17 +64,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row div_other_important_next_step" style="display: {{ (!$fund || $fund && $fund->important_next_step > 0) ? 'none' : 'block' }}" >
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label class="text-secondary">Other Most Important Next Step</label>
-                                    <input type="text" name="other_important_next_step" id="div_other_important_next_step" class="form-control" placeholder="Other Most Important Next Step" value="{{ ($fund && $fund->important_next_step == 1) ? $fund->important_next_step : old('div_other_important_next_step') }}">
-                                </div>
-                            </div>
-                        </div>
                         <div class="mt-4 btn-section d-md-flex d-lg-flex align-items-center position-relative pb-2 text-center text-md-left justify-content-end">
                             <button type="submit" class="btn custom-btn member-login-btn justify-content-center text-white px-5 rounded-lg submit-btn"><i class="flaticon-save-file-option mr-2 submit-icon"></i>Send Request</button>
-                            <span class="pl-3 d-md-inline-block d-lg-inline-block pt-4 pt-md-0 pt-lg-0 text-center"><a href="{{route('startup-portal')}}" class="text-common-color font-semi-bold entry-cancel">CANCEL</a></span>
+                            <span class="pl-3 d-md-inline-block d-lg-inline-block pt-4 pt-md-0 pt-lg-0 text-center"><a href="{{route('startup.raise-fund')}}" class="text-common-color font-semi-bold entry-cancel">CANCEL</a></span>
                         </div>    
                     </div>
                 </div>

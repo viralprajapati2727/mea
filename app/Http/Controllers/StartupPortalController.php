@@ -32,7 +32,7 @@ class StartupPortalController extends Controller
             $startup = null;
 
             if($portal_id != null){
-                $startup = StartUpPortal::with(['appoinment','startup_team_member'])->where('id',$portal_id)->whereNull('deleted_at')->first();
+                $startup = StartUpPortal::with(['appoinment','startup_team_member'])->where('id',$portal_id)->where('user_id',Auth::id())->whereNull('deleted_at')->first();
             }
 
             if($action != null && $action == 'create'){
