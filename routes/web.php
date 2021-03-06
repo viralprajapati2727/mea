@@ -102,6 +102,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 
                 // Startup portal
                 Route::get('raise-fund','FundController@index')->name('startup.raise-fund');
+                Route::get('raise-fund/{action?}/{id?}','FundController@create')->name('startup.raise-fund.create');
             }); 
         }); 
     }); 

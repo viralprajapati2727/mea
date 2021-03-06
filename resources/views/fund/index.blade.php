@@ -11,7 +11,7 @@
                     <h2 class="font-color page-title">Fund Requests</h2>
                 </div>
                 <div class="job-header-elements d-sm-flex">
-                    <a href="{{ route('start-statup-portal',['action'=>'create']) }}" class="btn-primary jb_btn jb_nav_btn_link post-job-btn"><i class="flaticon-business-idea"></i>Raise Fund Request </a>
+                    <a href="{{ route('startup.raise-fund.create',['action'=>'create']) }}" class="btn-primary jb_btn jb_nav_btn_link post-job-btn"><i class="flaticon-business-idea"></i>Raise Fund Request </a>
                 </div>
             </div>
         </div>

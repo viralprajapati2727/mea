@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\Models\StartUpPortal;
 use App\Models\ScheduleAppointment;
 use App\Models\StartupTeamMembers;
+use App\Models\RaiseFund;
 
 class FundController extends Controller
 {
@@ -25,20 +26,19 @@ class FundController extends Controller
         
     }
 
-    public function create($action = null,$portal_id = null)
+    public function create($action = null,$id = null)
     {
         try{
-            $users = Helper::AllUsers();
-            $startup = null;
+            $fund = null;
 
-            if($portal_id != null){
-                $startup = StartUpPortal::with(['appoinment','startup_team_member'])->where('id',$portal_id)->whereNull('deleted_at')->first();
+            if($id != null){
+                $fund = StartUpPortal::with(['appoinment','startup_team_member'])->where('id',$id)->whereNull('deleted_at')->first();
             }
 
             if($action != null && $action == 'create'){
-                return view('startup_portal.create',compact('users','startup'));
+                return view('fund.create',compact('fund'));
             }else{
-                return view('startup_portal.view',compact('users','startup'));
+                return view('fund.view',compact('fund'));
             }
 
         }catch(Exception $e){

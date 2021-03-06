@@ -1,34 +1,13 @@
 @extends('layouts.app')
 @section('content')
 @php
-    $businessUrl = Helper::images(config('constant.business_plan'));
-    $financialUrl = Helper::images(config('constant.financial'));
-    $pitchdeckUrl = Helper::images(config('constant.pitch_deck'));
-
-    $exists_businessplan = "";
-    if(isset($startup)){
-        if($startup->business_plan != ""){
-            $is_same_business_plan = true;
-            $exists_businessplan = $businessUrl.$startup->business_plan;
-        }
-        $exists_financial = "";
-        if($startup->financial != ""){
-            $is_same_financial = true;
-            $exists_financial = $financialUrl.$startup->financial;
-        }
-        $exists_pitch_deck = "";
-        if($startup->pitch_deck != ""){
-            $is_same_pitch_deck = true;
-            $exists_pitch_deck = $pitchdeckUrl.$startup->pitch_deck;
-        }
-    }
 
 @endphp
 <div class="container">
     <div class="user_profile_form_page fill-profile">
         <div class="d-md-flex">
             <div class="col-md-12 p-0">
-                <h2>StartUp Portal</h2>
+                <h2>Raise Fund Request</h2>
             </div>
         </div>
         <div class="startup_portal">
@@ -36,17 +15,17 @@
                 enctype="multipart/form-data" autocomplete="off">
                 @method('POST')
                 @csrf
-                <input type="hidden" name="id" value="{{ $startup['id'] ?? "" }}">
-                <input type="hidden" name="status" value="{{ $startup['status'] ?? "0" }}">
+                <input type="hidden" name="id" value="{{ $fund['id'] ?? "" }}">
+                <input type="hidden" name="status" value="{{ $fund['status'] ?? "0" }}">
                 <div class="row mt-md-0 mt-3 pb-0">
                     <div class="col-lg-9 col-md-12">
                         <div class="row mt-md-2">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-control-label">Name <span
+                                    <label class="form-control-label">Title <span
                                             class="required-star-color">*</span></label>
-                                    <input type="text" class="form-control " name="name" id="name" placeholder="Name"
-                                        value="{{ $startup['name'] ?? old('name') }}">
+                                    <input type="text" class="form-control " name="title" id="title" placeholder="Title"
+                                        value="{{ $fund['title'] ?? old('title') }}">
                                 </div>
                             </div>
                         </div>
