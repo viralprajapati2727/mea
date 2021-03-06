@@ -1900,29 +1900,34 @@ ul{
 .quetions-lists-wraper .media h5 {font-weight: 600; color: #000; font-size: 16px;}
 .quetions-lists-wraper .media .media {margin: 10px 0 20px;}
 .quetions-lists-wraper .card .card-body .btn{background: #4caf50; color: #fff; font-weight: 600;}
-
-
-
-
-
-
-
-
 /*===========Apply Job Modal==============*/
 #apply-job-modal .modal-content .modal-header h5{font-size: 25px;font-weight: 600; color: #000;}
 #apply-job-modal .modal-content .modal-header .close{font-size: 50px; color: #000; padding: 6px 15px;}
 #apply-job-modal .modal-content .modal-body{padding-top: 0;}
 #apply-job-modal .modal-content .already_applied_text{margin: 15px 20px 0; background: #4caf50; color: #FFF !important; padding: 10px 20px; font-weight: 500;}
-
-
-
-
-
-
-
-
-
-
+/*===========Fund Page==============*/
+.fund-left-content .header .title{font-size: 32px; font-weight: 600; color: #333; font-family: 'Montserrat', sans-serif; margin-bottom: 0;}
+.fund-left-content .header .user img{width: 40px; margin-right: 10px;}
+.fund-left-content .header .user span{font-size: 14px;}
+.fund-left-content .header{border-bottom: 1px solid #ddd;margin-bottom: 30px;}
+.fund-inner-wrap .fund-sidebar { border-radius: 4px; padding: 30px; background: #f9f9f980; border: 1px solid #ddd; box-shadow: 0 1px 2px rgb(0 0 0 / 5%); }
+.fund-sidebar .fund-amount h3{ font-size: 22px; font-weight: 600; color: #333; display: inline-block; margin-right: 6px; }
+.fund-sidebar .fund-amount span{font-size: 12px;}
+.fund-sidebar progress{width: 100%;}
+.fund-sidebar  .donate-info ul { display: flex; } 
+.donate-info ul li p { font-size: 14px; margin: 0; color: #333; font-weight: 600; }
+.donate-info ul li span { font-size: 13px; }
+.donate-info ul li{margin-right: 20px;}
+.donate-info ul{margin-bottom: 15px;}
+.fund-actions .btn { display: block; width: 100%; margin-bottom: 15px; background: #238BF1; border-radius: 4px; color: #fff; font-size: 16px; font-weight: 600; padding: 10px 10px; }
+.fund-actions .btn.donate-btn{background: transparent; color: #238BF1; border: 2px solid #238BF1;}        
+.sidebar-footer li .icon { width: 40px; height: 40px; background: #f7d9d9; border-radius: 100%; text-align: center; line-height: 37px; display: inline-block; margin-right: 5px; }
+.sidebar-footer li:first-child span{font-size: 16px; color: #f25287; font-weight: 600;}
+.fill-idea h2{font-weight: 600; color: #333; font-size: 26px;}
+.idea-form .form-group .form-control-label{ font-size: 16px; display: block; color: #333; font-weight: 500; margin-bottom: 10px; }
+.idea-form .form-group textarea{width: 100%; border-color: #ddd;}
+.idea-form .form-group{margin-bottom: 25px;}
+.job-header-elements a i { padding-right: 10px; }
 
 
 
@@ -1955,10 +1960,7 @@ ul{
 }
 @media screen and (max-width: 991px){
     .navbar-toggler i{font-size: 32px;}
-    .header-right .navbar-toggler{
-        position: absolute;
-        top: -60px;
-    }
+    .header-right .navbar-toggler{ position: absolute; top: -60px; }
     .navbar-expand-lg .navbar-nav .nav-link{padding: 6px 0; font-size: 17px;}
     .header-right .collapse{padding-left: 1.25rem;}
     .login-links{margin-top: 20px;}
@@ -1983,6 +1985,11 @@ ul{
     .jp-job-category-listing ul .jp-job-cat-lwrp:last-child{border: none;}
     .jp-job-category-listing .jp-job-cat-title{font-size: 18px;}
     .recent-jobs .title p{font-size: 18px;}
+    .entrepreneur_profile_form .delete-work-exp, .entrepreneur_profile_form .delete-edu-exp{right: 15px;}
+    .site-header{padding: 0;}
+    .main-duration {
+        text-align: left;
+    }
 }
 @media screen and (max-width: 767px){
     .solutions-section .solution-content h2{font-size: 28px;}
@@ -2040,6 +2047,11 @@ ul{
     .question-box .quetion-tags{width: 100%;}
     .quetion-tags ul li:first-child{margin-left: 0;}
     .quetions-lists-wraper{margin: 40px 0;}
+    .user_profile_form_page{padding: 30px 0;}
+    .form-wrap{padding: 30px 0;}
+    .form-wrap .card{padding: 25px;}
+    .my-jobs .page-title { padding: 30px 0 10px 0; font-size: 27px; }
+    .job-header-elements{margin-bottom: 15px;}
 }
 @media screen and (max-width: 575px){
     .contact-details ul li a{width: 110px; height: 35px;}
@@ -2054,7 +2066,13 @@ ul{
     .jp-front-banner .jp-banner-content p{font-size: 16px; line-height: 20px;}
     .page-main{padding: 30px 0;}
     .resources-main .title h1{margin-bottom: 25px;}
-    
+    .btn.submit-btn{padding: 8px 30px !important; font-size: 14px;}
+    .form-wrap .card-header{font-size: 22px;}
+    .form-wrap .btn.btn-primary{font-size: 16px;}
+    .form-wrap .card{padding: 15px;}
+    .job_shift_wrap .form-group{width: calc(13.20% - 14px); margin-right: 13px;}
+    .job_shift_wrap .form-radio-group .radio-inline{width: 35px; height: 35px; line-height: 35px;}
+    .unique-radio .form-radio-group .radio-inline{flex-basis: inherit;}
 }
 @media screen and (max-width: 380px){
     .navbar-brand img{width: 30px;}

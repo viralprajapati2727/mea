@@ -3,7 +3,7 @@
 <div class="container">
     <div class="form-wrap resetpass-wrap">
     <div class="row justify-content-center">
-        <div class="col-md-5">
+        <div class="col-md-7 col-lg-5">
             <div class="card">
                 <div class="card-header">{{ __('Change Password') }}</div>
 

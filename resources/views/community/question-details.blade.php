@@ -4,8 +4,8 @@
     <div class="page-wraper">
         <div class="quetions-lists-wraper">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-9">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
                         <div class="question-list">
                             <div class="question-box">
                                 <div class="q-top-detail d-flex align-items-center">
@@ -83,8 +83,7 @@
                             'perPage' => 10 // pagination
                         ])
                     </div>
-                    <div class="col-md-3">
-                    </div>
+                   
                 </div>
             </div>
         </div>

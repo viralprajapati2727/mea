@@ -2,13 +2,13 @@
 @section('content')
 <div class="container">
     <div class="user_profile_form_page fill-idea">
-        <div class="d-md-flex">
-            <div class="col-md-12 p-0">
+        <div class="d-md-flex justify-content-center">
+            <div class="col-md-9 p-0">
                 <h2>Drop Your  Idea / Company</h2>
             </div>
         </div>
         <form class="idea-form" action="{{ route('idea.send-idea') }}" data-fouc method="POST" enctype="multipart/form-data" autocomplete="off">
-            <div class="row mt-md-2">
+            <div class="row mt-md-2 justify-content-center">
                 <div class="col-9">
                     <div class="row">
                         <div class="col-6">
