@@ -19,7 +19,7 @@
             <div class="row mt-md-0 mt-3 pb-0">
                 <div class="col-lg-9 col-md-12">
                     <div class="mt-md-2 row unique-radio">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <div class="form-radio-group">
                                 @if(!$is_job || $is_job && $job->job_type == 1)
                                 <label class="radio-inline active">

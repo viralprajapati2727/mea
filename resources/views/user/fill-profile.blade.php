@@ -34,15 +34,15 @@
 @endphp
     <div class="container">
         <div class="user_profile_form_page fill-profile">
-            <div class="d-md-flex">
-                <div class="col-md-12 p-0">
+            <div class="d-md-flex justify-content-center">
+                <div class="col-lg-9 p-0">
                     <p class="h5">Fill your profile detail and help us personalize your platform experience!</p>
                 </div>
             </div>
             <form class="user_profile_form " action="{{ route('user.store-profile') }}" data-fouc method="POST" enctype="multipart/form-data" autocomplete="off">
                 @method('POST')
                 @csrf
-                <div class="row mt-md-0 mt-3 pb-0">
+                <div class="row mt-md-0 mt-3 pb-0 justify-content-center"> 
                     <div class="col-lg-9 col-md-12">
                         @php $img_url = $ProfileUrl.'default.png'; @endphp
                         @if($profile->logo != "")

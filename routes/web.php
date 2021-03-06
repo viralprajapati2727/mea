@@ -280,3 +280,6 @@ Route::get('html-blog',function (){
 Route::get('html-questions',function (){
     return view('pages.questions');
 });
+Route::get('html-fund',function (){
+    return view('pages.fund');
+});
