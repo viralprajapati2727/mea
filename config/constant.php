@@ -81,4 +81,5 @@ return [
             "4" => "Market my product",
             "5" => "Raise Funds",
         ],
+        'fund_currency' => ['USD' => 'USD', 'INR' => 'INR'],
     ];

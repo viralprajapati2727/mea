@@ -16,3 +16,6 @@ ALTER TABLE `job_shifts` ADD `shift_val` INT(11) NULL DEFAULT NULL AFTER `shift_
 
 
 ALTER TABLE `raise_funds` ADD `user_id` INT(11) NOT NULL AFTER `id`;
+ALTER TABLE `raise_funds` CHANGE `currency` `currency` VARCHAR(200) NOT NULL;
+ALTER TABLE `raise_funds` CHANGE `received_amount` `received_amount` DECIMAL(10,2) NULL DEFAULT NULL;
+ALTER TABLE `raise_funds` CHANGE `commission` `commission` DECIMAL(10,2) NULL DEFAULT NULL, CHANGE `commission_rate` `commission_rate` DECIMAL(5,2) NULL DEFAULT NULL COMMENT 'percentage';
