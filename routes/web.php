@@ -89,16 +89,21 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             Route::get('drop-your-idea','GeneralController@idea')->name('page.drop-idea');
             Route::post('drop-your-ideas', 'GeneralController@sendIdea')->name('idea.send-idea');
             
+            // Startup portal team member reqyest approve/reject
+            Route::get('startup-portal-request','StartupPortalController@startupPortalRequest')->name('startup-portal-request');
+            Route::post('startup-portal-request-action','StartupPortalController@startupPortalRequestAction')->name('startup-portal-request-action');
+
             Route::group(['middleware' => ['simpleuser-access']], function () {
             
             });
     
             Route::group(['middleware' => ['entrepreneur-access']], function () {
                 // Startup portal
-                Route::get('statup-portal','StartupPortalController@index')->name('startup-portal');
-                Route::get('statup-portal/{action?}/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
-                Route::post('store-statup-portal','StartupPortalController@store')->name('startup-portal.store');
-                Route::post('store-appoinment','StartupPortalController@storeAppoinment')->name('store-appoinment');
+                Route::get('create-startup-portal','StartupPortalController@index')->name('startup-portal');
+                Route::get('startup-portal/{action?}/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
+                Route::post('store-startup-portal','StartupPortalController@store')->name('startup-portal.store');
+                Route::post('store-appointment','StartupPortalController@storeAppoinment')->name('store-appoinment');
+                Route::post('delete-portal','StartupPortalController@deletePortal')->name('delete-portal');
             }); 
         }); 
     }); 
@@ -213,8 +218,8 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::get('startup-portal','Admin\StartupPortalController@index')->name('admin.startup-portal.index');
         Route::post('startup-filter', 'Admin\StartupPortalController@ajaxData')->name('admin.startup-filter');
         Route::post('startup-status', 'Admin\StartupPortalController@startupStatus')->name('admin.startup.approve-reject');
-        Route::get('startup-details/{portal_id}','Admin\StartupPortalController@detail')->name("admin.startup.detail");
-        Route::post('update-appoinment','Admin\StartupPortalController@updateAppoinment')->name("admin.appoinment.update");
+        Route::get('startup-details/{portal_id?}','Admin\StartupPortalController@detail')->name("admin.startup.detail");
+        Route::post('update-appointment','Admin\StartupPortalController@updateAppoinment')->name("admin.appoinment.update");
 
     });        
 });

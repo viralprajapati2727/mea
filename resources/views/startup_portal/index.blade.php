@@ -102,7 +102,7 @@
                                             <div class="dropdown-menu dropdown-menu-right jb_company_dropdown_nav" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(30px, 30px, 0px);">
                                                 <a href="{{ route('start-statup-portal',['action'=>'view','portal_id' => $startup->id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-user"></i></span>View Startup Portal Details</a>
                                                 <a href="{{ route('start-statup-portal',['action'=>'create','portal_id' => $startup->id]) }}" class="dropdown-item"><span class="main-icon-span"><i class="flaticon-edit"></i></span> Edit Portal</a>
-                                                <a href="javascript:;" class="dropdown-item call-action" data-id="143" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Portal</a>
+                                                <a href="javascript:;" class="dropdown-item delete-portal" data-id="{{ $startup->id }}" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Portal</a>
                                             </div>
                                         </div>
                                     </div>
@@ -122,4 +122,83 @@
         </div>
     </div>
 </div>
+<script>
+     $(document).on('click','.delete-portal', function() {
+        var $this = $(this);
+        var id = $this.attr('data-id');
+        var status = $this.attr('data-active');
+        
+        var dialog_title = "Are you sure you want to Delete this Startup Portal?" ;
+
+        const delete_link = "{{ route('delete-portal') }}";
+      
+        swal({
+            title: dialog_title,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false
+        }).then(function (confirm) {
+            if(confirm.value !== "undefined" && confirm.value){
+                $.ajax({
+                    url: delete_link,
+                    type: 'POST',
+                    data: { id : id },
+                    beforeSend: function(){
+                        $('body').block({
+                            message: '<i class="icon-spinner4 spinner"></i><br>Please Wait...',
+                            overlayCSS: {
+                                backgroundColor: '#000',
+                                opacity: 0.15,
+                                cursor: 'wait'
+                            },
+                            css: {
+                                border: 0,
+                                padding: 0,
+                                backgroundColor: 'transparent'
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        if(response.status == 200){
+                            swal({
+                                title: response.msg_success,
+                                confirmButtonColor: "#66BB6A",
+                                type: "success",
+                                confirmButtonText: 'OK',
+                                confirmButtonClass: 'btn btn-success',
+                            }).then(function (){
+                             
+                                $this.parent('span').hide();
+                                
+                                // if(status == 1){
+                                //     var action_link = "<span class='badge badge-success'><a href='javascript:;'>APPROVED</a></span>";                             
+                                //     $this.parents('td').find('.after_approve_reject').html(action_link);
+                                // }
+
+                                window.location.reload();
+                            });
+                        }else{
+                            swal({
+                                title: response.msg_fail,
+                                confirmButtonColor: "#EF5350",
+                                confirmButtonClass: 'btn btn-danger',
+                                type: "error",
+                                confirmButtonText: 'OK',
+                            });
+                        }
+                    },
+                    complete: function(){
+                        $('body').unblock();
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
 @endsection

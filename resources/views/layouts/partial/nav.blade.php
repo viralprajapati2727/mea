@@ -85,7 +85,10 @@
                                                             <li><a href="{{ route('user.change-password') }}">Change Password</a></li>
                                                             <li><a href="{{ route('job.fill-job') }}">Post Job</a></li>
                                                             <li><a href="{{ route('job.my-jobs') }}">My Jobs</a></li>
-                                                            @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR'))
+                                                            @if (Auth::user()->type != config('constant.USER.TYPE.ADMIN') && Auth::user()->is_active == config('constant.USER.STATUS.Active'))
+                                                                <li><a href="{{ route('startup-portal-request') }}">Startup Portal Request</a></li>
+                                                            @endif
+                                                            @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR')  && Auth::user()->is_active == config('constant.USER.STATUS.Active'))
                                                                 <li><a href="{{ route('startup-portal') }}">StartUp Portal</a></li>
                                                             @endif
                                                             <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>

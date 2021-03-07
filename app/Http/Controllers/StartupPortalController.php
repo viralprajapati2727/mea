@@ -204,7 +204,7 @@ class StartupPortalController extends Controller
             }
             DB::commit();
             
-            return redirect()->back()->with('success','Your Schedule an appoinment request has been submitted successfully');
+            return redirect()->back()->with('success','Your Schedule an appointment request has been submitted successfully');
 
         } catch(Exception $e){
             Log::emergency('Schedule appointment save Exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
@@ -215,4 +215,61 @@ class StartupPortalController extends Controller
         }    
     }
 
+    public function startupPortalRequest(Request $request){
+        $requests = StartupTeamMembers::with(['startupDetails','user'])->where('user_id',Auth::id())->orderBy('id','DESC')->paginate(10);
+        
+        return view('pages.startup-portal-request',compact('requests'));
+    }
+
+    public function startupPortalRequestAction(Request $request){
+        try{
+			if($request->id){
+				DB::beginTransaction();
+                
+                $teamUser = StartupTeamMembers::where('user_id',Auth::id())->first();
+                $message = "Rejected";
+
+				if($request->status){
+                    if($request->status == '1') {
+                        $teamUser->status = $request->status;
+                        $teamUser->save();
+                        $message = "Approved";
+                    }else{
+                        $teamUser->delete();
+                    }
+					
+                    DB::commit();
+
+					return array('status' => '200', 'msg_success' => 'Request '.$message.' Successfully');
+				}
+			}else{
+				DB::rollback();
+				return array('status' => '0', 'msg_fail' => 'Something went wrong');
+			}
+		} catch(Exception $e){
+			DB::rollback();
+			return array('status' => '0', 'msg_fail' => 'Something went wrong');
+		}
+    }
+
+    public function deletePortal(Request $request){
+        try{
+			if($request->id){
+				DB::beginTransaction();
+                
+                StartUpPortal::where('id', $request->id)->delete();
+                StartupTeamMembers::where('startup_id',$request->id)->delete();
+                ScheduleAppointment::where('startup_id',$request->id)->delete();
+                DB::commit();
+                return array('status' => '200', 'msg_success' => 'Startup portal deleted successfully');
+
+			}else{
+				DB::rollback();
+				return array('status' => '0', 'msg_fail' => 'Something went wrong');
+			}
+		} catch(Exception $e){
+			DB::rollback();
+			return array('status' => '0', 'msg_fail' => 'Something went wrong');
+		}
+    }
 }
