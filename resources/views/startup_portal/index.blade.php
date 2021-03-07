@@ -81,19 +81,19 @@
                                 <!--end mobile only -->
                             </div>
                             <div class="col-lg-2 col-12 d-lg-block header-elements-inline main-job-id">
-                                <div class=""><span class="d-inline-block d-lg-none"><b>Startup industry : </b>&nbsp;</span>{{ $startup->industry }}</div>
+                                <div class=""><span class="d-inline-block d-lg-none"><b>Startup industry: </b>&nbsp;</span>{{ $startup->industry }}</div>
                             </div>
                             <div class="col-lg-2 col-12 d-lg-block header-elements-inline main-job-id">
-                                <div class=""><span class="d-inline-block d-lg-none"><b> </b>&nbsp;</span>{{ $startup->location }}</div>
+                                <div class=""><span class="d-inline-block d-lg-none"><b>Startup location:</b>&nbsp;</span>{{ $startup->location }}</div>
                             </div>
                             <div class="col-lg-2 col-12 main-duration">
-                                <div class="">{{ config('constant.stage_of_startup')[$startup->stage_of_startup] }}</div>
+                                <div class=""><span class="d-inline-block d-lg-none"><b>Stage of startup:</b>&nbsp;</span>{{ config('constant.stage_of_startup')[$startup->stage_of_startup] }}</div>
                             </div>
-                            <div class="col-lg-1 col-12 d-none d-lg-block main-status">
-                                <div class=""><span class="status-{{ strtolower($statuss[$startup->status]) }}">{{ config('constant.job_status')[$startup->status] }}</span></div>
+                            <div class="col-lg-1 col-12 d-lg-block main-status">
+                                <div class=""><span class="d-inline-block d-lg-none"><b>Startup Status:</b>&nbsp;</span><span class="status-{{ strtolower($statuss[$startup->status]) }}">{{ config('constant.job_status')[$startup->status] }}</span></div>
                             </div>
                             <!-- desktop only -->
-                            <div class="col-lg-2 col-12 d-none d-lg-block main-dropdown">
+                            <div class="col-lg-2 col-12 d-lg-block main-dropdown">
                                 <div class="text-center">
                                     <div class="list-icons">
                                         <div class="list-icons-item dropdown">

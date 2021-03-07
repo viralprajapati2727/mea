@@ -7,14 +7,14 @@
                 Community
             </h1>
             <div class="global-search">
-                <div class="top-search" style="margin-left: 50px">
+                <div class="top-search" style="margin-left: 0px">
                     <form class="row">
-                        <div class="form-group col-md-8 pr-0">
-                            <div class="input-group mb-3">
+                        <div class="form-group col-lg-8 pr-lg-0">
+                            <div class="input-group">
                                 <input type="search" class="form-control" name="search" placeholder="Search by question and category" value="{{ $request['search'] ?? old("search") }}">
                             </div>
                         </div>
-                        <div class="col-md-2 pl-0">
+                        <div class="col-lg-2 pl-lg-0">
                             <select name="category" class="form-control">
                                 <option value="">Category</option>
                                 @if (sizeof($categories) > 0)
@@ -24,36 +24,36 @@
                                 @endif
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2">
                             <button class="search-btn">Search</button>
                         </div>
                     </form>
                 </div>
             </div>
-            @if(sizeof($questions) > 0)
+            @if(sizeof($questions) > 0) 
             <div class="community-question-wraper">
                 <div class="add-que-wrap d-flex justify-content-end">
                     <a href="javascript:;" class="btn" data-toggle="modal" data-target="#ask-question">Ask A Question</a>
                 </div>
-                <div class="com-que-list">
+                <div class="com-que-list"> 
                     <div class="com-que header">
                         <div class="row">
-                            <div class="col-sm-9">
+                            <div class="col-lg-9">
                                 <div class="community-que">
                                     <h2>Questions</h2>
                                 </div>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-lg-1">
                                 <div class="views">
                                    <h2>Views</h2>
                                 </div>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-lg-1">
                                 <div class="answer">
                                     <h2>Answers</h2>
                                 </div>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-lg-1">
                                 <div class="votes">
                                     <h2>Votes</h2>
                                 </div>
@@ -63,42 +63,36 @@
                     @foreach ($questions as $question)
                         <div class="com-que">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-lg-9">
                                     <div class="community-que">
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                @php
-                                                    $ProfileUrl = Helper::images(config('constant.profile_url'));
-                                                    $img_url = (isset(Auth::user()->logo) && Auth::user()->logo != '') ? $ProfileUrl . Auth::user()->logo : $ProfileUrl.'default.png';
-                                                @endphp 
-                                                <div class="profile">
-                                                    <img src="{{ $img_url }}" alt="user-profile" class="w-100" style="border-radius:100%;width: 100%; ">
-                                                </div>
-                                            </div>
-                                            <div class="com-md-11">
-                                                <div class="question">
-                                                    <h3>
-                                                        <a href={{ route("community.questions-details",$question->slug) }}>
-                                                            {{  $question->title }}
-                                                        </a>
-                                                    </h3>
-                                                    <span>By {{ $question->user->name }}</span>
-                                                </div>
-                                            </div>
+                                        @php
+                                            $ProfileUrl = Helper::images(config('constant.profile_url'));
+                                            $img_url = (isset(Auth::user()->logo) && Auth::user()->logo != '') ? $ProfileUrl . Auth::user()->logo : $ProfileUrl.'default.png';
+                                        @endphp 
+                                        <div class="profile">
+                                            <img src="{{ $img_url }}" alt="user-profile" class="w-100" style="border-radius:100%;width: 100%; ">
+                                        </div>
+                                        <div class="question">
+                                            <h3>
+                                                <a href={{ route("community.questions-details",$question->slug) }}>
+                                                    {{  $question->title }}
+                                                </a>
+                                            </h3>
+                                            <span>By {{ $question->user->name }}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-lg-1">
                                     <div class="views">
                                         <span>{{ $question->views }}</span>
                                     </div>
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-lg-1">
                                     <div class="answer">
                                         <span>{{ $question->comments->count() }}</span>
                                     </div>
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-lg-1">
                                     <div class="votes">
                                         <span>{{ $question->countCommunityTotalLikes($question->id) }}</span>
                                     </div>

@@ -83,7 +83,7 @@
                                 <div class="card">
                                     <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
                                         <div class="media-left">
-                                            <a href="#" class="profile-image">
+                                            <a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}" class="profile-image">
                                                 @php
                                                     $ProfileUrl = Helper::images(config('constant.profile_url'));
                                                     $img_url = (isset($member->logo) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';

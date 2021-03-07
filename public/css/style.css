@@ -83,7 +83,7 @@ ul{
 }
 .site-header {
     background: #75D2FA;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 .sticky {
     position: fixed !important;
@@ -109,7 +109,7 @@ ul{
     font-weight: 900;
 }
 .navbar-brand img {
-    margin-right: 30px;
+    margin-right: 15px;
 }
 .header-right {
     display: flex;
@@ -117,7 +117,7 @@ ul{
     justify-content: space-between;
 }
 .navbar-expand-lg .navbar-nav .nav-link {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 34px;
     color: #474747;
     font-weight: 500;
@@ -138,7 +138,7 @@ ul{
 .header-right .collapse{
     padding-left: 30px;
     padding-right: 0;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 .logout-wrap {
     display: flex;
@@ -173,6 +173,7 @@ ul{
     right: 0;
     left: auto;
     transition: all 0.5s;
+    top: 95%;
 }
 .profile-menu:hover > .profile-dropdown{
     display: block;
@@ -381,6 +382,7 @@ ul{
 }
 .blog-wrap {
     box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
 }
 .home-blog-section .blog-title {
     font-size: 32px;
@@ -413,6 +415,9 @@ ul{
 }
 .home-blog-section .blog-content {
     padding: 0 15px 20px;
+}
+.home-blog-section .blog-content p {
+    min-height: 115px;
 }
 /*==================Login Page CSS======================
 
@@ -1186,6 +1191,7 @@ ul{
 }
 /*====================Edit Profile=====================*/
 .user_profile_form_page{padding: 60px 0;}
+.user_profile_form_page h2{ font-size: 32px; color: #333; font-weight: 600; margin-bottom: 20px; }
 .entrepreneur_profile_form .form-group .form-control-label{
     font-size: 14px;
     color: #333333;
@@ -1544,9 +1550,12 @@ ul{
 .community-wraper .community-que, .community-wraper .views,
 .community-wraper .answer, .community-wraper .votes{
     padding: 10px 5px;
+    position: relative;
 }
-.community-wraper .community-que .profile{width: 60px; height: 60px; overflow: hidden; border-radius: 100%; position: relative;}
+.community-wraper .community-que{display: flex; flex-wrap: wrap;}
+.community-wraper .community-que .profile{width: 60px; height: 60px; overflow: hidden; border-radius: 100%; position: relative; margin-right: 10px;}
 .community-wraper .community-que .profile img{position: absolute;width: 100%; height: 100%; object-fit: cover;}
+.community-wraper .community-que .question{width: calc(100% - 70px);}
 .community-wraper .community-que .question h3 {font-size: 19px;font-weight: 500; margin-bottom: 0;}
 .community-wraper .community-que .question a {color: #333;}
 #ask-question .modal-content .modal-header .modal-title{font-size: 22px;font-weight: 600; color: #333;}
@@ -1818,6 +1827,7 @@ ul{
 .question-box .quetion-info{display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 30px; align-items: center;}
 .quetion-tags ul {
     display: flex;
+    flex-wrap: wrap;
 }
 .quetion-tags ul li{
     display: inline-block;
@@ -1899,29 +1909,34 @@ ul{
 .quetions-lists-wraper .media h5 {font-weight: 600; color: #000; font-size: 16px;}
 .quetions-lists-wraper .media .media {margin: 10px 0 20px;}
 .quetions-lists-wraper .card .card-body .btn{background: #4caf50; color: #fff; font-weight: 600;}
-
-
-
-
-
-
-
-
 /*===========Apply Job Modal==============*/
 #apply-job-modal .modal-content .modal-header h5{font-size: 25px;font-weight: 600; color: #000;}
 #apply-job-modal .modal-content .modal-header .close{font-size: 50px; color: #000; padding: 6px 15px;}
 #apply-job-modal .modal-content .modal-body{padding-top: 0;}
 #apply-job-modal .modal-content .already_applied_text{margin: 15px 20px 0; background: #4caf50; color: #FFF !important; padding: 10px 20px; font-weight: 500;}
-
-
-
-
-
-
-
-
-
-
+/*===========Fund Page==============*/
+.fund-left-content .header .title{font-size: 32px; font-weight: 600; color: #333; font-family: 'Montserrat', sans-serif; margin-bottom: 0;}
+.fund-left-content .header .user img{width: 40px; margin-right: 10px;}
+.fund-left-content .header .user span{font-size: 14px;}
+.fund-left-content .header{border-bottom: 1px solid #ddd;margin-bottom: 30px;}
+.fund-inner-wrap .fund-sidebar { border-radius: 4px; padding: 30px; background: #f9f9f980; border: 1px solid #ddd; box-shadow: 0 1px 2px rgb(0 0 0 / 5%); }
+.fund-sidebar .fund-amount h3{ font-size: 22px; font-weight: 600; color: #333; display: inline-block; margin-right: 6px; }
+.fund-sidebar .fund-amount span{font-size: 12px;}
+.fund-sidebar progress{width: 100%;}
+.fund-sidebar  .donate-info ul { display: flex; } 
+.donate-info ul li p { font-size: 14px; margin: 0; color: #333; font-weight: 600; }
+.donate-info ul li span { font-size: 13px; }
+.donate-info ul li{margin-right: 20px;}
+.donate-info ul{margin-bottom: 15px;}
+.fund-actions .btn { display: block; width: 100%; margin-bottom: 15px; background: #238BF1; border-radius: 4px; color: #fff; font-size: 16px; font-weight: 600; padding: 10px 10px; }
+.fund-actions .btn.donate-btn{background: transparent; color: #238BF1; border: 2px solid #238BF1;}        
+.sidebar-footer li .icon { width: 40px; height: 40px; background: #f7d9d9; border-radius: 100%; text-align: center; line-height: 37px; display: inline-block; margin-right: 5px; }
+.sidebar-footer li:first-child span{font-size: 16px; color: #f25287; font-weight: 600;}
+.fill-idea h2{font-weight: 600; color: #333; font-size: 26px;}
+.idea-form .form-group .form-control-label{ font-size: 16px; display: block; color: #333; font-weight: 500; margin-bottom: 10px; }
+.idea-form .form-group textarea{width: 100%; border-color: #ddd;}
+.idea-form .form-group{margin-bottom: 25px;}
+.job-header-elements a i { padding-right: 10px; }
 
 
 
@@ -1935,8 +1950,8 @@ ul{
 ==============================================================================================*/
 @media screen and (max-width: 1469px){
     .navbar-brand img{margin-right: 10px;}
-    .navbar-brand h1{font-size: 21px;}
-    .navbar-expand-lg .navbar-nav .nav-link{padding: 15px 7px 0 7px; font-size: 16px;}
+    .navbar-brand h1{font-size: 18px;}
+    .navbar-expand-lg .navbar-nav .nav-link{padding: 15px 7px 0 7px; font-size: 15px;}
     .header-right .collapse{justify-content: flex-end; flex-wrap: wrap;}
     .login-links li a{justify-content: flex-end; font-size: 16px;}
 }
@@ -1944,20 +1959,22 @@ ul{
     .navbar-brand h1{font-size: 16px;}
     .header-right{flex-wrap: wrap; justify-content: flex-end;}
     .header-right .collapse{justify-content: flex-end;}
-    .navbar-expand-lg .navbar-nav .nav-link{font-size: 14px; padding: 15px 5px;}
+    .navbar-expand-lg .navbar-nav .nav-link{font-size: 14px; padding: 15px 4px;}
     .login-links li a{font-size: 14px;}
     .site-header .navbar{padding: 0;}
     .solutions-box{padding: 25px 20px 30px;}
     .solutions-box .desc{min-height: 112px;}
     .home-features-inner .features-content h2{font-size: 28px;}
     .home-features-inner .features-content p{padding-right: 0;}
+    .community-wraper .com-que-list .com-que.header h2{font-size: 14px;}
+    .community-wraper .top-search .search-btn{width: 100%;}
+    .get-started-wrap .right-button a{padding: 10px 40px; font-size: 18px;}
+    .get-started-wrap .left-content h2{font-size: 24px;}
+    .get-started-wrap{padding: 35px 0;}
 }
 @media screen and (max-width: 991px){
     .navbar-toggler i{font-size: 32px;}
-    .header-right .navbar-toggler{
-        position: absolute;
-        top: -60px;
-    }
+    .header-right .navbar-toggler{ position: absolute; top: -60px; }
     .navbar-expand-lg .navbar-nav .nav-link{padding: 6px 0; font-size: 17px;}
     .header-right .collapse{padding-left: 1.25rem;}
     .login-links{margin-top: 20px;}
@@ -1982,6 +1999,23 @@ ul{
     .jp-job-category-listing ul .jp-job-cat-lwrp:last-child{border: none;}
     .jp-job-category-listing .jp-job-cat-title{font-size: 18px;}
     .recent-jobs .title p{font-size: 18px;}
+    .entrepreneur_profile_form .delete-work-exp, .entrepreneur_profile_form .delete-edu-exp{right: 15px;}
+    .site-header{padding: 0;}
+    .main-duration, .main-status { text-align: left; }
+    .main-dropdown .text-center{text-align: left !important; margin-top: 10px;}
+    .community-wraper .page-title{padding-top: 0; margin: 0;}
+    .global-search .top-search select{border-left: 1px solid #707070;}
+    .community-wraper .top-search .search-btn{margin-top: 30px;}
+    .community-wraper .com-que-list .com-que.header{display: none;}
+    .community-wraper .community-que, .community-wraper .views, .community-wraper .answer, .community-wraper .votes{padding: 10px 15px;}
+    .community-wraper .views:before, .community-wraper .answer:before, .community-wraper .votes:before {font-size: 17px;font-weight: 600;color: #333;padding-right: 10px;}
+    .community-wraper .views:before{content: "Views";}
+    .community-wraper .answer:before{content: "Answer";}
+    .community-wraper .votes:before{content: "Votes";}
+    .community-wraper .com-que { border-bottom: 1px solid #ddd;}
+    .community-wraper .com-que:nth-child(odd) { background: #f1f1f170;}
+    .get-started-wrap .right-button a{padding: 10px 20px; font-size: 16px;}
+    .table-title {font-weight: bold;padding-right: 10px;}
 }
 @media screen and (max-width: 767px){
     .solutions-section .solution-content h2{font-size: 28px;}
@@ -2035,6 +2069,21 @@ ul{
     .resources-wrap{margin-bottom: 40px;}
     .rs-content .rs-link{padding: 6px 15px;}
     .resources-wrap:last-child{margin-bottom: 0;}
+    .question-box .quetion-category {width: 100%; margin-bottom: 10px;}
+    .question-box .quetion-tags{width: 100%;}
+    .quetion-tags ul li:first-child{margin-left: 0;}
+    .quetions-lists-wraper{margin: 40px 0;}
+    .user_profile_form_page{padding: 30px 0;}
+    .form-wrap{padding: 30px 0;}
+    .form-wrap .card{padding: 25px;}
+    .my-jobs .page-title { padding: 30px 0 10px 0; font-size: 27px; }
+    .job-header-elements{margin-bottom: 15px;}
+    .community-wraper .page-title { font-size: 26px; padding-bottom: 20px; }
+    .community-wraper .top-search .search-btn{margin-top: 15px;}
+    .get-started-wrap .left-content h2{margin-bottom: 15px;}
+    .business-ideas-wraper .top-title-wrap h1{font-size: 26px; padding-bottom: 10px; margin-bottom: 20px;}
+    .our-process .process-bottom{padding-top: 30px;}
+    .our-process{padding-bottom: 30px;}
 }
 @media screen and (max-width: 575px){
     .contact-details ul li a{width: 110px; height: 35px;}
@@ -2049,7 +2098,15 @@ ul{
     .jp-front-banner .jp-banner-content p{font-size: 16px; line-height: 20px;}
     .page-main{padding: 30px 0;}
     .resources-main .title h1{margin-bottom: 25px;}
-    
+    .btn.submit-btn{padding: 8px 30px !important; font-size: 14px;}
+    .form-wrap .card-header{font-size: 22px;}
+    .form-wrap .btn.btn-primary{font-size: 16px;}
+    .form-wrap .card{padding: 15px;}
+    .job_shift_wrap .form-group{width: calc(13.20% - 14px); margin-right: 13px;}
+    .job_shift_wrap .form-radio-group .radio-inline{width: 35px; height: 35px; line-height: 35px;}
+    .unique-radio .form-radio-group .radio-inline{flex-basis: inherit;}
+    .community-wraper .top-search .search-btn{height: 45px; font-size: 17px;}
+    .get-started-wrap .left-content h2{font-size: 20px; line-height: 26px;}
 }
 @media screen and (max-width: 380px){
     .navbar-brand img{width: 30px;}

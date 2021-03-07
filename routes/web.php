@@ -104,6 +104,10 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
                 Route::post('store-startup-portal','StartupPortalController@store')->name('startup-portal.store');
                 Route::post('store-appointment','StartupPortalController@storeAppoinment')->name('store-appoinment');
                 Route::post('delete-portal','StartupPortalController@deletePortal')->name('delete-portal');
+                
+                Route::get('raise-fund','FundController@index')->name('startup.raise-fund');
+                Route::get('raise-fund/{action?}/{id?}','FundController@create')->name('startup.raise-fund.create');
+                Route::post('store-raise-fund','FundController@store')->name('startup-raise-fund.store');
             }); 
         }); 
     }); 
@@ -218,8 +222,14 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::get('startup-portal','Admin\StartupPortalController@index')->name('admin.startup-portal.index');
         Route::post('startup-filter', 'Admin\StartupPortalController@ajaxData')->name('admin.startup-filter');
         Route::post('startup-status', 'Admin\StartupPortalController@startupStatus')->name('admin.startup.approve-reject');
-        Route::get('startup-details/{portal_id?}','Admin\StartupPortalController@detail')->name("admin.startup.detail");
-        Route::post('update-appointment','Admin\StartupPortalController@updateAppoinment')->name("admin.appoinment.update");
+        Route::get('startup-details/{portal_id}','Admin\StartupPortalController@detail')->name("admin.startup.detail");
+        Route::post('update-appoinment','Admin\StartupPortalController@updateAppoinment')->name("admin.appoinment.update");
+        
+        // fund raise
+        Route::get('fund-request','Admin\FundController@index')->name('admin.fund.index');
+        Route::post('fund-filter', 'Admin\FundController@ajaxData')->name('admin.fund-filter');
+        Route::post('fund-status', 'Admin\FundController@fundStatus')->name('admin.fund.approve-reject');
+        Route::get('fund-details/{id}','Admin\FundController@detail')->name("admin.fund.detail");
 
     });        
 });
@@ -273,4 +283,7 @@ Route::get('html-blog',function (){
 });
 Route::get('html-questions',function (){
     return view('pages.questions');
+});
+Route::get('html-fund',function (){
+    return view('pages.fund');
 });

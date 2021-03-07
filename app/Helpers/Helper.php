@@ -335,8 +335,20 @@ class Helper
                 "privilege_require" => "1",
                 "full_title" => "Startup Portal",
                 "short_title" => "Startup Portal",
-                "icon" => "icon-bulb",
+                "icon" => "icon-question6",
                 "active_menu" => array('admin.startup-portal.index'),
+                "child" => array(),
+            ),
+            "18" => array( // Question
+                "is_menu" => TRUE,
+                "url" => route('admin.fund.index'),
+                "is_access" => TRUE,
+                "privilege_key" => "19",
+                "privilege_require" => "1",
+                "full_title" => "Fund Request",
+                "short_title" => "Fund Request",
+                "icon" => "icon-question6",
+                "active_menu" => array('admin.fund.index'),
                 "child" => array(),
             ),
 
@@ -654,6 +666,22 @@ class Helper
         $data = $data->orderBy('id','DESC');
 
         return $data->limit(5)->get();
+    }
+    public static function getRecentMembers() {
+        $members = User::with('skills')->with(['userProfile'=>function($q){
+            $q->select('id', 'user_id', 'city');
+        }]);
+        if(Auth::check()){
+            $members->whereNotIn('id', [Auth::id()]);
+        }
+        $members = $members->whereIn('type',[config('constant.USER.TYPE.SIMPLE_USER'),config('constant.USER.TYPE.ENTREPRENEUR')])
+			->where('is_active',1)
+			->where('deleted_at',null)
+			->orderBy('id','DESC')
+            ->limit(5);
+            
+        $members = $members->get();
+        return $members;
     }
     public static function applyJobData($job_id = null, $paginate = null,$params = array()) {
 

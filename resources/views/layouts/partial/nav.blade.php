@@ -32,13 +32,10 @@
                                 <a class="nav-link" href="{{ route('page.resources') }}">Resources</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.questions') }}">Questions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.drop-idea') }}">Idea</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('page.members') }}">Fund Request</a>
                             </li>
                         </ul>
                         <div class="login-links">
@@ -88,8 +85,10 @@
                                                             @if (Auth::user()->type != config('constant.USER.TYPE.ADMIN') && Auth::user()->is_active == config('constant.USER.STATUS.Active'))
                                                                 <li><a href="{{ route('startup-portal-request') }}">Startup Portal Request</a></li>
                                                             @endif
-                                                            @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR')  && Auth::user()->is_active == config('constant.USER.STATUS.Active'))
+                                                            <li><a href="{{ route('page.drop-idea') }}">Drop Your Ideas</a></li>
+                                                            @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR'))
                                                                 <li><a href="{{ route('startup-portal') }}">StartUp Portal</a></li>
+                                                                <li><a href="{{ route('startup.raise-fund') }}">Startups To Raise Funds</a></li>
                                                             @endif
                                                             <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
                                                         </ul>

@@ -19,6 +19,7 @@
                     <ul class="footer-links">
                         {{-- <li><a href="javascript:;">Pricing</a></li> --}}
                         {{-- <li><a href="javascript:;">Member benefits</a></li> --}}
+                        <li><a href="{{ route('page.questions') }}">Questions</a></li>
                         <li><a href="{{ route('page.faq') }}">FAQ</a></li>
                     </ul>     
                 </div>

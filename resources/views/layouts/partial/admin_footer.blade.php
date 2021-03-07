@@ -9,7 +9,7 @@
 
     <div class="navbar-collapse collapse" id="navbar-footer">
         <span class="navbar-text">
-            Copyright&copy;2019 {{ config('app.name') }}
+            Copyright&copy;2021 {{ config('app.name') }}
         </span>
     </div>
 </div>
