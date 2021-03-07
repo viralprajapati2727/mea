@@ -83,7 +83,7 @@ ul{
 }
 .site-header {
     background: #75D2FA;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 .sticky {
     position: fixed !important;
@@ -109,7 +109,7 @@ ul{
     font-weight: 900;
 }
 .navbar-brand img {
-    margin-right: 30px;
+    margin-right: 15px;
 }
 .header-right {
     display: flex;
@@ -173,6 +173,7 @@ ul{
     right: 0;
     left: auto;
     transition: all 0.5s;
+    top: 95%;
 }
 .profile-menu:hover > .profile-dropdown{
     display: block;
@@ -1958,7 +1959,7 @@ ul{
     .navbar-brand h1{font-size: 16px;}
     .header-right{flex-wrap: wrap; justify-content: flex-end;}
     .header-right .collapse{justify-content: flex-end;}
-    .navbar-expand-lg .navbar-nav .nav-link{font-size: 14px; padding: 15px 5px;}
+    .navbar-expand-lg .navbar-nav .nav-link{font-size: 14px; padding: 15px 4px;}
     .login-links li a{font-size: 14px;}
     .site-header .navbar{padding: 0;}
     .solutions-box{padding: 25px 20px 30px;}
@@ -1967,6 +1968,9 @@ ul{
     .home-features-inner .features-content p{padding-right: 0;}
     .community-wraper .com-que-list .com-que.header h2{font-size: 14px;}
     .community-wraper .top-search .search-btn{width: 100%;}
+    .get-started-wrap .right-button a{padding: 10px 40px; font-size: 18px;}
+    .get-started-wrap .left-content h2{font-size: 24px;}
+    .get-started-wrap{padding: 35px 0;}
 }
 @media screen and (max-width: 991px){
     .navbar-toggler i{font-size: 32px;}
@@ -1997,7 +2001,8 @@ ul{
     .recent-jobs .title p{font-size: 18px;}
     .entrepreneur_profile_form .delete-work-exp, .entrepreneur_profile_form .delete-edu-exp{right: 15px;}
     .site-header{padding: 0;}
-    .main-duration { text-align: left; }
+    .main-duration, .main-status { text-align: left; }
+    .main-dropdown .text-center{text-align: left !important; margin-top: 10px;}
     .community-wraper .page-title{padding-top: 0; margin: 0;}
     .global-search .top-search select{border-left: 1px solid #707070;}
     .community-wraper .top-search .search-btn{margin-top: 30px;}
@@ -2008,7 +2013,9 @@ ul{
     .community-wraper .answer:before{content: "Answer";}
     .community-wraper .votes:before{content: "Votes";}
     .community-wraper .com-que { border-bottom: 1px solid #ddd;}
-    .community-wraper .com-que:nth-child(odd) { background: #f1f1f170; }
+    .community-wraper .com-que:nth-child(odd) { background: #f1f1f170;}
+    .get-started-wrap .right-button a{padding: 10px 20px; font-size: 16px;}
+    .table-title {font-weight: bold;padding-right: 10px;}
 }
 @media screen and (max-width: 767px){
     .solutions-section .solution-content h2{font-size: 28px;}
@@ -2073,6 +2080,10 @@ ul{
     .job-header-elements{margin-bottom: 15px;}
     .community-wraper .page-title { font-size: 26px; padding-bottom: 20px; }
     .community-wraper .top-search .search-btn{margin-top: 15px;}
+    .get-started-wrap .left-content h2{margin-bottom: 15px;}
+    .business-ideas-wraper .top-title-wrap h1{font-size: 26px; padding-bottom: 10px; margin-bottom: 20px;}
+    .our-process .process-bottom{padding-top: 30px;}
+    .our-process{padding-bottom: 30px;}
 }
 @media screen and (max-width: 575px){
     .contact-details ul li a{width: 110px; height: 35px;}
@@ -2095,6 +2106,7 @@ ul{
     .job_shift_wrap .form-radio-group .radio-inline{width: 35px; height: 35px; line-height: 35px;}
     .unique-radio .form-radio-group .radio-inline{flex-basis: inherit;}
     .community-wraper .top-search .search-btn{height: 45px; font-size: 17px;}
+    .get-started-wrap .left-content h2{font-size: 20px; line-height: 26px;}
 }
 @media screen and (max-width: 380px){
     .navbar-brand img{width: 30px;}
