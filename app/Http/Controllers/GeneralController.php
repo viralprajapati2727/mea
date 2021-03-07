@@ -381,6 +381,7 @@ class GeneralController extends Controller {
 		return redirect()->back()->with('success',trans('Sent Successfully!'));
 	}
 	public function getStartupPortal(){
-		return view('pages.startup-portal');
+		$recentMembers = Helper::getRecentMembers();
+		return view('pages.startup-portal',compact('recentMembers'));
 	}
 }

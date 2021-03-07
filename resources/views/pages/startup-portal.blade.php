@@ -109,119 +109,56 @@
             </div>
         @endif
         @endauth
-        <div class="browse-plans">
-            <div class="container">
-                <div class="title">
-                    <h2>Browse Business Plan/Idea
-                </div>
-                <div class="member-list">
-                    <div class="card">
-                        <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
-                            <div class="media-left">
-                                <a href="#" class="profile-image">
-                                    <img src="{{ Helper::assets('images/profile/profile.png') }}" alt="" class="w-100">
-                                </a>
-                            </div>
-                            <div class="member-detail">
-                                <h2 class="name">Nida Yasir</h2>
-                                <div class="skills">
-                                    <label>Skills</label>
-                                    <p>Marketing, Public Relations</p>
-                                </div>
-                                <div class="location">
-                                    <label>City</label>
-                                    <p>Ahmedabad</p>
-                                </div>
-                            </div>
-                            <div class="contact-details">
-                                <ul>
-                                    <li><a href="#">Contact</a></li>
-                                    <li><a href="#">Message</a></li>
-                                </ul>
-                            </div>
-                        </div>
+        @if(!$recentMembers->isEmpty() && $recentMembers->count())
+            <div class="browse-plans">
+                <div class="container">
+                    <div class="title">
+                        <h2>Browse Business Plan/Idea
                     </div>
-                    <div class="card">
-                        <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
-                            <div class="media-left">
-                                <a href="#" class="profile-image">
-                                    <img src="{{ Helper::assets('images/profile/profile.png') }}" alt="" class="w-100">
-                                </a>
-                            </div>
-                            <div class="member-detail">
-                                <h2 class="name">Nida Yasir</h2>
-                                <div class="skills">
-                                    <label>Skills</label>
-                                    <p>Marketing, Public Relations</p>
-                                </div>
-                                <div class="location">
-                                    <label>City</label>
-                                    <p>Ahmedabad</p>
-                                </div>
-                            </div>
-                            <div class="contact-details">
-                                <ul>
-                                    <li><a href="#">Contact</a></li>
-                                    <li><a href="#">Message</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
-                            <div class="media-left">
-                                <a href="#" class="profile-image">
-                                    <img src="{{ Helper::assets('images/profile/profile.png') }}" alt="" class="w-100">
-                                </a>
-                            </div>
-                            <div class="member-detail">
-                                <h2 class="name">Nida Yasir</h2>
-                                <div class="skills">
-                                    <label>Skills</label>
-                                    <p>Marketing, Public Relations</p>
-                                </div>
-                                <div class="location">
-                                    <label>City</label>
-                                    <p>Ahmedabad</p>
+                    <div class="member-list">
+                        @forelse ($recentMembers as $member)
+                            <div class="card">
+                                <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
+                                    <div class="media-left">
+                                        @php
+                                            $ProfileUrl = Helper::images(config('constant.profile_url'));
+                                            $img_url = (isset($member->logo) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';
+                                        @endphp
+                                        <a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}" class="profile-image">
+                                            <img src="{{ $img_url }}" alt="" class="w-100">
+                                        </a>
+                                    </div>
+                                    <div class="member-detail">
+                                        <h2 class="name">{{ $member->name }}</h2>
+                                        <div class="skills">
+                                            <label>Skills</label>
+                                            @if (sizeof($member->skills) > 0)
+                                                @foreach ($member->skills as $skill)
+                                                    <p>{{ $skill->title }}</p>
+                                                @endforeach
+                                            @else
+                                                -
+                                            @endif
+                                        </div>
+                                        <div class="location">
+                                            <label>City</label>
+                                            <p>{{ $member->userProfile ? $member->userProfile->city : '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact-details">
+                                        <ul>
+                                            <li><a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}">Contact</a></li>
+                                            <li><a href="{{ route('member.message', ['user'=> $member->slug]) }}">Message</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="contact-details">
-                                <ul>
-                                    <li><a href="#">Contact</a></li>
-                                    <li><a href="#">Message</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
-                            <div class="media-left">
-                                <a href="#" class="profile-image">
-                                    <img src="{{ Helper::assets('images/profile/profile.png') }}" alt="" class="w-100">
-                                </a>
-                            </div>
-                            <div class="member-detail">
-                                <h2 class="name">Nida Yasir</h2>
-                                <div class="skills">
-                                    <label>Skills</label>
-                                    <p>Marketing, Public Relations</p>
-                                </div>
-                                <div class="location">
-                                    <label>City</label>
-                                    <p>Ahmedabad</p>
-                                </div>
-                            </div>
-                            <div class="contact-details">
-                                <ul>
-                                    <li><a href="#">Contact</a></li>
-                                    <li><a href="#">Message</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        @empty
+                        @endforelse
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 </div>
 @endsection

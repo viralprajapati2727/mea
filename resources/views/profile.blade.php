@@ -10,7 +10,9 @@
         <div class="container">
             <div class="user-title-wrap">
                 <h2 class="title">{{ $profile->name }}</h2>
-                <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="btn edit-profile">Edit Profile</a>
+                @if(Auth::check())
+                    <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="btn edit-profile">Edit Profile</a>
+                @endif
             </div>
             <div class="profile-top-detial">
                 <div class="banner">

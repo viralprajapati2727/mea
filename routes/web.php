@@ -224,8 +224,8 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         // fund raise
         Route::get('fund-request','Admin\FundController@index')->name('admin.fund.index');
         Route::post('fund-filter', 'Admin\FundController@ajaxData')->name('admin.fund-filter');
-        Route::get('fun-request-details/{id}','Admin\fundController@detail')->name("admin.fund.detail");
-        Route::post('fund-status', 'Admin\fundController@startupStatus')->name('admin.fund.approve-reject');
+        Route::post('fund-status', 'Admin\FundController@fundStatus')->name('admin.fund.approve-reject');
+        Route::get('fund-details/{id}','Admin\FundController@detail')->name("admin.fund.detail");
 
     });        
 });

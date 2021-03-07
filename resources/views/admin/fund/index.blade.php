@@ -118,7 +118,7 @@ $(document).ready( function () {
         var id = $this.attr('data-id');
         var status = $this.attr('data-active');
         var fundRequest_row = $(this).closest("tr");
-        var dialog_title = (status == 1 ? "Are you sure you want to approve this startup?" : "Are you sure you want to reject this startup?");
+        var dialog_title = (status == 1 ? "Are you sure you want to approve this fund request?" : "Are you sure you want to reject this fund request?");
 
         swal({
             title: dialog_title,
@@ -171,9 +171,6 @@ $(document).ready( function () {
                                 
                                 if(status == 1){
                                     var action_link = "<span class='badge badge-success'><a href='javascript:;'>APPROVED</a></span>";
-                                    console.log(action_link,'action_link')
-                                    console.log($this.parents('td').find('.after_approve_reject'),'find')
-
                                     $this.parents('td').find('.after_approve_reject').html(action_link);
                                 }
 

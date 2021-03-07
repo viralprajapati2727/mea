@@ -71,10 +71,10 @@ class FundController extends Controller
         return $data;
     }
 
-    public function startupStatus(Request $request){
+    public function fundStatus(Request $request){
         $admin_id = Auth::user()->id;
         try {
-            $startup = StartUpPortal::whereId($request->id)->first();
+            $startup = RaiseFund::whereId($request->id)->first();
             $startup->status = $request->status;
             $startup->update();
 
@@ -83,7 +83,7 @@ class FundController extends Controller
                 $statusText = "Rejected";
             }
 
-            return array('status' => '200', 'msg_success' => "Startup Portal has been ".$statusText." successfully");
+            return array('status' => '200', 'msg_success' => "Fund request has been ".$statusText." successfully");
 
 		} catch (Exception $e) {
             
@@ -92,41 +92,13 @@ class FundController extends Controller
 		}
     }
 
-    public function detail($portal_id = null)
+    public function detail($id = null)
     {
-        if($portal_id != null){
-
-            $startup = StartupPortal::with(['appoinment','startup_team_member'])->where('id',$portal_id)->whereNull('deleted_at')->first();
-            
-            return view('admin.startup-portal.view',compact('startup'));
+        if($id != null){
+            $fund = RaiseFund::where('id',$id)->first();
+            return view('admin.fund.view',compact('fund'));
         }else{
-            return redirect()->route('admin.startup-portal.index');
+            return redirect()->route('admin.fund.index');
         }
     }
-
-    public function updateAppoinment(Request $request)
-    {
-        try {
-            $status = 0;
-            if($request->has('status')){
-                $status = $request->status;
-            }
-            ScheduleAppointment::where('id',$request->appoinment_id)
-            ->where('startup_id',$request->startup_id)
-            ->update([
-                "date" => $request->date,
-                "time" => $request->time,
-                "zone" => $request->zone,
-                "purpose_of_meeting" => $request->purpose_of_meeting,
-                "status" => $status,
-                "reason" => $request->reason
-            ]);
-
-            return redirect()->back()->with('success',"Appoinment Schedule has been saved successfully");
-        } catch (Exception $e) {   
-			Log::info($e);
-            return response()->json(['status' => 400, 'msg_fail' => 'Something Went Wrong']);
-		}
-    }
-
 }

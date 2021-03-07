@@ -667,6 +667,22 @@ class Helper
 
         return $data->limit(5)->get();
     }
+    public static function getRecentMembers() {
+        $members = User::with('skills')->with(['userProfile'=>function($q){
+            $q->select('id', 'user_id', 'city');
+        }]);
+        if(Auth::check()){
+            $members->whereNotIn('id', [Auth::id()]);
+        }
+        $members = $members->whereIn('type',[config('constant.USER.TYPE.SIMPLE_USER'),config('constant.USER.TYPE.ENTREPRENEUR')])
+			->where('is_active',1)
+			->where('deleted_at',null)
+			->orderBy('id','DESC')
+            ->limit(5);
+            
+        $members = $members->get();
+        return $members;
+    }
     public static function applyJobData($job_id = null, $paginate = null,$params = array()) {
 
         $data = JobApplied::with([
