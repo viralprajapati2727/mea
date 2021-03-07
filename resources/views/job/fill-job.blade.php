@@ -11,12 +11,12 @@
 @endphp
     <div class="container">
         <div class="user_profile_form_page fill-profile">
-            <div class="d-md-flex">
-                <div class="col-md-12 p-0">
+            <div class="d-md-flex justify-content-center">
+                <div class="col-md-9 p-0">
                     <h2>Post a Job</h2>
                 </div>
             </div>
-            <div class="row mt-md-0 mt-3 pb-0">
+            <div class="row mt-md-0 mt-3 pb-0 justify-content-center">
                 <div class="col-lg-9 col-md-12">
                     <div class="mt-md-2 row unique-radio">
                         <div class="form-group col-md-12">
@@ -43,7 +43,7 @@
                     <form class="post-job-form " action="{{ route('job.update-job') }}" data-fouc method="POST" enctype="multipart/form-data" autocomplete="off">
                         @method('POST')
                         @csrf
-                        <div class="row mt-md-0 mt-3 pb-0">
+                        <div class="row mt-md-0 mt-3 pb-0 justify-content-center">
                             <div class="col-lg-9 col-md-12">
                                 <div class="row mt-md-2">
                                     <div class="col-md-4">

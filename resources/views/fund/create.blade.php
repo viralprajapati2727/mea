@@ -5,8 +5,8 @@
 @endphp
 <div class="container">
     <div class="user_profile_form_page fill-profile">
-        <div class="d-md-flex">
-            <div class="col-md-12 p-0">
+        <div class="d-md-flex justify-content-center">
+            <div class="col-md-9 p-0">
                 <h2>Raise Fund Request</h2>
             </div>
         </div>
@@ -17,7 +17,7 @@
                 @csrf
                 <input type="hidden" name="id" value="{{ $fund['id'] ?? "" }}">
                 <input type="hidden" name="status" value="{{ $fund['status'] ?? "0" }}">
-                <div class="row mt-md-0 mt-3 pb-0">
+                <div class="row mt-md-0 mt-3 pb-0 justify-content-center">
                     <div class="col-lg-9 col-md-12">
                         <div class="row mt-md-2">
                             <div class="col-md-12">

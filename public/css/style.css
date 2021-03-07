@@ -138,7 +138,7 @@ ul{
 .header-right .collapse{
     padding-left: 30px;
     padding-right: 0;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 .logout-wrap {
     display: flex;
@@ -381,6 +381,7 @@ ul{
 }
 .blog-wrap {
     box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
 }
 .home-blog-section .blog-title {
     font-size: 32px;
@@ -413,6 +414,9 @@ ul{
 }
 .home-blog-section .blog-content {
     padding: 0 15px 20px;
+}
+.home-blog-section .blog-content p {
+    min-height: 115px;
 }
 /*==================Login Page CSS======================
 
@@ -1186,6 +1190,7 @@ ul{
 }
 /*====================Edit Profile=====================*/
 .user_profile_form_page{padding: 60px 0;}
+.user_profile_form_page h2{ font-size: 32px; color: #333; font-weight: 600; margin-bottom: 20px; }
 .entrepreneur_profile_form .form-group .form-control-label{
     font-size: 14px;
     color: #333333;
@@ -1544,9 +1549,12 @@ ul{
 .community-wraper .community-que, .community-wraper .views,
 .community-wraper .answer, .community-wraper .votes{
     padding: 10px 5px;
+    position: relative;
 }
-.community-wraper .community-que .profile{width: 60px; height: 60px; overflow: hidden; border-radius: 100%; position: relative;}
+.community-wraper .community-que{display: flex; flex-wrap: wrap;}
+.community-wraper .community-que .profile{width: 60px; height: 60px; overflow: hidden; border-radius: 100%; position: relative; margin-right: 10px;}
 .community-wraper .community-que .profile img{position: absolute;width: 100%; height: 100%; object-fit: cover;}
+.community-wraper .community-que .question{width: calc(100% - 70px);}
 .community-wraper .community-que .question h3 {font-size: 19px;font-weight: 500; margin-bottom: 0;}
 .community-wraper .community-que .question a {color: #333;}
 #ask-question .modal-content .modal-header .modal-title{font-size: 22px;font-weight: 600; color: #333;}
@@ -1957,6 +1965,8 @@ ul{
     .solutions-box .desc{min-height: 112px;}
     .home-features-inner .features-content h2{font-size: 28px;}
     .home-features-inner .features-content p{padding-right: 0;}
+    .community-wraper .com-que-list .com-que.header h2{font-size: 14px;}
+    .community-wraper .top-search .search-btn{width: 100%;}
 }
 @media screen and (max-width: 991px){
     .navbar-toggler i{font-size: 32px;}
@@ -1987,9 +1997,18 @@ ul{
     .recent-jobs .title p{font-size: 18px;}
     .entrepreneur_profile_form .delete-work-exp, .entrepreneur_profile_form .delete-edu-exp{right: 15px;}
     .site-header{padding: 0;}
-    .main-duration {
-        text-align: left;
-    }
+    .main-duration { text-align: left; }
+    .community-wraper .page-title{padding-top: 0; margin: 0;}
+    .global-search .top-search select{border-left: 1px solid #707070;}
+    .community-wraper .top-search .search-btn{margin-top: 30px;}
+    .community-wraper .com-que-list .com-que.header{display: none;}
+    .community-wraper .community-que, .community-wraper .views, .community-wraper .answer, .community-wraper .votes{padding: 10px 15px;}
+    .community-wraper .views:before, .community-wraper .answer:before, .community-wraper .votes:before {font-size: 17px;font-weight: 600;color: #333;padding-right: 10px;}
+    .community-wraper .views:before{content: "Views";}
+    .community-wraper .answer:before{content: "Answer";}
+    .community-wraper .votes:before{content: "Votes";}
+    .community-wraper .com-que { border-bottom: 1px solid #ddd;}
+    .community-wraper .com-que:nth-child(odd) { background: #f1f1f170; }
 }
 @media screen and (max-width: 767px){
     .solutions-section .solution-content h2{font-size: 28px;}
@@ -2052,6 +2071,8 @@ ul{
     .form-wrap .card{padding: 25px;}
     .my-jobs .page-title { padding: 30px 0 10px 0; font-size: 27px; }
     .job-header-elements{margin-bottom: 15px;}
+    .community-wraper .page-title { font-size: 26px; padding-bottom: 20px; }
+    .community-wraper .top-search .search-btn{margin-top: 15px;}
 }
 @media screen and (max-width: 575px){
     .contact-details ul li a{width: 110px; height: 35px;}
@@ -2073,6 +2094,7 @@ ul{
     .job_shift_wrap .form-group{width: calc(13.20% - 14px); margin-right: 13px;}
     .job_shift_wrap .form-radio-group .radio-inline{width: 35px; height: 35px; line-height: 35px;}
     .unique-radio .form-radio-group .radio-inline{flex-basis: inherit;}
+    .community-wraper .top-search .search-btn{height: 45px; font-size: 17px;}
 }
 @media screen and (max-width: 380px){
     .navbar-brand img{width: 30px;}
