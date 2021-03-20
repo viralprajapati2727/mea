@@ -23,6 +23,7 @@ use App\Models\ChatGroup;
 use App\Models\ChatMasters;
 use App\Models\ChatMessage;
 use App\Models\ChatMessagesReceiver;
+use App\Models\RaiseFund;
 use Carbon\Carbon;
 class GeneralController extends Controller {
 	
@@ -383,5 +384,24 @@ class GeneralController extends Controller {
 	public function getStartupPortal(){
 		$recentMembers = Helper::getRecentMembers();
 		return view('pages.startup-portal',compact('recentMembers'));
+	}
+	public function getFundRequests(){
+		$funds = RaiseFund::where('status',1)->paginate(10);
+		return view('pages.fund-requests',compact('funds'));
+	}
+	public function viewFundRequest($id = null){
+		try{
+            $fund = null;
+
+            if($id != null){
+                $fund = RaiseFund::where('id',$id)->first();
+            }
+
+            return view('pages.view-fund-request',compact('fund'));
+
+        }catch(Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('warning',$e->getMessage());
+        }
 	}
 }

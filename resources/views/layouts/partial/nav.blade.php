@@ -35,7 +35,7 @@
                                 <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.members') }}">Fund Request</a>
+                                <a class="nav-link" href="{{ route('page.fund-requests') }}">Fund Request</a>
                             </li>
                         </ul>
                         <div class="login-links">

@@ -41,6 +41,8 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('questions','CommunityController@questions')->name('page.questions');
     Route::get('questions/{question_id}/{like?}','CommunityController@detail')->name('community.questions-details');
     Route::get('startup-portal','GeneralController@getStartupPortal')->name('page.startup-portal');
+    Route::get('fund-requests','GeneralController@getFundRequests')->name('page.fund-requests');
+    Route::get('fund-requests/view/{id?}','GeneralController@viewFundRequest')->name('page.fund-requests.view');
     
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
 
@@ -226,6 +228,19 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
         Route::post('fund-filter', 'Admin\FundController@ajaxData')->name('admin.fund-filter');
         Route::post('fund-status', 'Admin\FundController@fundStatus')->name('admin.fund.approve-reject');
         Route::get('fund-details/{id}','Admin\FundController@detail')->name("admin.fund.detail");
+
+        //Topic Management
+        Route::resource('topic','Admin\TopicController');
+        Route::post('topic-filter', 'Admin\TopicController@ajaxData')->name('topic-filter');
+        Route::post('change-topic-status', 'Admin\TopicController@changeStatus')->name('admin.change-topic-status');
+        Route::post('check-unique-topic','Admin\TopicController@checkUniqueTopic')->name('check_unique_topic');
+        
+        
+        Route::get('topic-detail/{id}','Admin\SubTopicController@index')->name("sub-topic.index");
+        Route::post('sub-topic-store','Admin\SubTopicController@store')->name("sub-topic.store");
+        Route::post('sub-topic-filter', 'Admin\SubTopicController@ajaxData')->name('sub-topic-filter');
+        Route::post('change-sub-topic-status', 'Admin\SubTopicController@changeStatus')->name('admin.change-sub-topic-status');
+        Route::post('check-unique-sub-topic','Admin\SubTopicController@checkUniqueSubTopic')->name('check_unique_sub_topic');
 
     });        
 });
