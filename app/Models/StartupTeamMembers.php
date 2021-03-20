@@ -13,11 +13,10 @@ class StartupTeamMembers extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->select('id','name','slug','email');
     }
 
-    public function startup()
-    {
-        return $this->belongsTo(StartUpPortal::class, 'statup_id');
+    public function startupDetails(){
+        return $this->belongsTo(StartUpPortal::class, 'startup_id','id')->select('id','name','user_id','description','industry','location','stage_of_startup','status');
     }
 }

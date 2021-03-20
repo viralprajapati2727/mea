@@ -91,18 +91,22 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
             Route::get('drop-your-idea','GeneralController@idea')->name('page.drop-idea');
             Route::post('drop-your-ideas', 'GeneralController@sendIdea')->name('idea.send-idea');
             
+            // Startup portal team member reqyest approve/reject
+            Route::get('startup-portal-request','StartupPortalController@startupPortalRequest')->name('startup-portal-request');
+            Route::post('startup-portal-request-action','StartupPortalController@startupPortalRequestAction')->name('startup-portal-request-action');
+
             Route::group(['middleware' => ['simpleuser-access']], function () {
             
             });
     
             Route::group(['middleware' => ['entrepreneur-access']], function () {
                 // Startup portal
-                Route::get('statup-portal','StartupPortalController@index')->name('startup-portal');
-                Route::get('statup-portal/{action?}/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
-                Route::post('store-statup-portal','StartupPortalController@store')->name('startup-portal.store');
-                Route::post('store-appoinment','StartupPortalController@storeAppoinment')->name('store-appoinment');
-
-                // Startup portal
+                Route::get('create-startup-portal','StartupPortalController@index')->name('startup-portal');
+                Route::get('startup-portal/{action?}/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
+                Route::post('store-startup-portal','StartupPortalController@store')->name('startup-portal.store');
+                Route::post('store-appointment','StartupPortalController@storeAppoinment')->name('store-appoinment');
+                Route::post('delete-portal','StartupPortalController@deletePortal')->name('delete-portal');
+                
                 Route::get('raise-fund','FundController@index')->name('startup.raise-fund');
                 Route::get('raise-fund/{action?}/{id?}','FundController@create')->name('startup.raise-fund.create');
                 Route::post('store-raise-fund','FundController@store')->name('startup-raise-fund.store');
@@ -297,4 +301,7 @@ Route::get('html-questions',function (){
 });
 Route::get('html-fund',function (){
     return view('pages.fund');
+});
+Route::get('html-resources-new',function (){
+    return view('pages.resources-new');
 });

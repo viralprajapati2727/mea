@@ -198,9 +198,7 @@ $(document).ready( function () {
                                 
                                 if(status == 1){
                                     var action_link = "<span class='badge badge-success'><a href='javascript:;'>APPROVED</a></span>";
-                                    console.log(action_link,'action_link')
-                                    console.log($this.parents('td').find('.after_approve_reject'),'find')
-
+                                    
                                     $this.parents('td').find('.after_approve_reject').html(action_link);
                                 }
 
@@ -208,6 +206,7 @@ $(document).ready( function () {
                                     var action_link = "<span class='badge badge-danger'><a href='javascript:;'>REJECTED</a></span>";
                                     $this.parents('td').find('.after_approve_reject').html(action_link);
                                 }
+                                window.location.reload();
                             });
                         }else{
                             swal({
@@ -221,6 +220,7 @@ $(document).ready( function () {
                     },
                     complete: function(){
                         $('body').unblock();
+                        window.location.reload();
                     }
                 });
             }

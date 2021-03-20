@@ -56,22 +56,22 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-12 d-lg-block header-elements-inline main-job-id">
-                                <div class="">{{ $fund->amount }}</div>
+                                <div class=""><span class="d-inline-block d-lg-none table-title">Amount</span>{{ $fund->amount }}</div>
                             </div>
                             <div class="col-lg-2 col-12 d-lg-block header-elements-inline main-job-id">
-                                <div class="">{{ $fund->currency }}</div>
+                                <div class=""><span class="d-inline-block d-lg-none table-title">Currency</span>{{ $fund->currency }}</div>
                             </div>
                             <div class="col-lg-2 col-12 main-duration">
-                                <div class="">{{ $fund->received_amount ? $fund->received_amount : 0 }}</div>
+                                <div class=""><span class="d-inline-block d-lg-none table-title">Received Amount</span>{{ $fund->received_amount ? $fund->received_amount : 0 }}</div>
                             </div>
                             <div class="col-lg-1 col-12 main-duration">
-                                <div class="">{{ $fund->donors }}</div>
+                                <div class=""><span class="d-inline-block d-lg-none table-title">Donors</span>{{ $fund->donors }}</div>
                             </div>
                             <div class="col-lg-1 col-12 d-none d-lg-block main-status">
-                                <div class=""><span class="status-{{ strtolower($statuss[$fund->status]) }}">{{ config('constant.job_status')[$fund->status] }}</span></div>
+                                <div class=""><span class="d-inline-block d-lg-none table-title">Status</span><span class="status-{{ strtolower($statuss[$fund->status]) }}">{{ config('constant.job_status')[$fund->status] }}</span></div>
                             </div>
                             <!-- desktop only -->
-                            <div class="col-lg-1 col-12 d-none d-lg-block main-dropdown">
+                            <div class="col-lg-1 col-12 d-lg-block main-dropdown">
                                 <div class="text-center">
                                     <div class="list-icons">
                                         <div class="list-icons-item dropdown">
