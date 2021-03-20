@@ -1937,14 +1937,93 @@ ul{
 .idea-form .form-group textarea{width: 100%; border-color: #ddd;}
 .idea-form .form-group{margin-bottom: 25px;}
 .job-header-elements a i { padding-right: 10px; }
-
-
-
-
-
-
-
-
+/*----------------Resources New-----------------------*/
+.resources-main .resources-top-wraper .title{
+    font-size: 32px;
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 35px;
+}
+.resources-main .resources-top-wraper .text{
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto 100px;
+}
+.resources-main .resources-top-wraper .text p{
+    font-size: 16px;
+}
+.resources-wraper {
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-wrap: wrap;
+}
+.resources-wraper .resources-sidebar {
+    padding: 70px 30px;
+    border-right: 1px solid #ddd;
+    width: 400px;
+}
+.resources-selection-list li a {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    line-height: 25px;
+    padding: 13px 25px; 
+    display: inline-block;
+}
+.second-level-selection {
+    padding-left: 40px;
+    display: none;
+}
+.resources-right-wraper {
+    width: calc(100% - 400px);
+    padding: 70px 100px;
+}
+.resorces-article .atricle-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+}
+.resorces-article .subtitle {
+    font-size: 27px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.resorces-article .content p,
+.resorces-article .content li {
+    font-size: 17px;
+    line-height: 29px;
+} 
+.resorces-article .content li strong {
+    color: #333;
+}
+.resorces-article .content li {
+    margin-bottom: 20px;
+}
+.resources-sidebar.stick .resources-navigation {
+    position: sticky;
+    top: 130px;
+}
+.has-subitem{
+    position: relative;
+}
+.has-subitem:after{
+    font-family: FontAwesome;
+    content: "\f0d7";
+    display: inline-block;
+    line-height: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.5s;
+}
+.has-subitem.open:after{
+    content: "\f0d8";
+}
 /*==============================================Meadia Query====================================
 
 ==============================================================================================*/

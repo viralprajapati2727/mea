@@ -287,3 +287,6 @@ Route::get('html-questions',function (){
 Route::get('html-fund',function (){
     return view('pages.fund');
 });
+Route::get('html-resources-new',function (){
+    return view('pages.resources-new');
+});
