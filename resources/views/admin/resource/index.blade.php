@@ -65,13 +65,13 @@
                         </div>
                         <div class="input-group title-error-msg"></div>
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-form-label pl-2">Short Description:<span class="text-danger">*</span></label>
                         <div class="input-group custom-start col-md-12">
                             <textarea name="short_description" id="short_description" rows="5" placeholder="Enter Short Description" class="form-control"></textarea>
                         </div>
                         <div class="input-group short_description-error-msg"></div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
                         <label class="col-form-label pl-2">Description:<span class="text-danger">*</span></label>
                         <div class="input-group custom-start col-md-12">
@@ -87,6 +87,33 @@
                         <input type="hidden" name="id" class="resource_id" id="d_type_id" value="">
                         <input type="hidden" name="old_src" class="old_src" value="">
                         <div class="append-image" style="display: none"></div>
+                        <div class="input-group title-error-msg"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="font-small font-light col-form-label pl-2 col-md-3">Upload document via URL OR Manual ?: </label>
+                        <div class="my-2">
+                            <div class="col-md-9">
+                                <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="is_url" class="custom-control-input" id="is_upload_via_url" value="1">
+                                    <label class="custom-control-label" for="is_upload_via_url"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row via_url" style="display:none;">
+                        <label class="col-form-label pl-2">URL :<span class="text-danger">*</span></label>
+                        <div class="input-group custom-start col-md-12">
+                            <input type="text" value="" name="document_url" placeholder="Enter Document/Video URL" class="form-control "/>
+                        </div>
+                        <div class="input-group title-error-msg"></div>
+                    </div>
+                    <div class="form-group row via_manual">
+                        <label class="font-small font-light col-form-label pl-2">Upload Document/Video: <span class="text-danger">*</span></label>
+                        <div class="photo-band col-md-12">
+                            <input type="file" class="file-input" name="document" data-focus/>
+                        </div>
+                        <input type="hidden" name="old_document_src" class="old_document_src" value="">
+
                         <div class="input-group title-error-msg"></div>
                     </div>
                     <div class="form-group row">
@@ -259,6 +286,7 @@ $(document).ready( function () {
         }else {
             $('#custom_checkbox_stacked_unchecked').attr('checked', true);
         }
+
         oldImage = $('.old_src').val();
         $('input[name="src"]').each(function () {
             $(this).rules('add', {
@@ -620,6 +648,14 @@ $(document).ready( function () {
         $('.custom_resource_upload').find('.title-error-msg').children().show();
     });
 
+    $(document).on('change','#is_upload_via_url', function(){
+        $('.via_url').hide();
+        $('.via_manual').show();
+        if($(this).prop("checked") == true){
+            $('.via_url').show();
+            $('.via_manual').hide();
+        }
+    });
 });
    </script>
 @endsection

@@ -19,3 +19,10 @@ ALTER TABLE `raise_funds` ADD `user_id` INT(11) NOT NULL AFTER `id`;
 ALTER TABLE `raise_funds` CHANGE `currency` `currency` VARCHAR(200) NOT NULL;
 ALTER TABLE `raise_funds` CHANGE `received_amount` `received_amount` DECIMAL(10,2) NULL DEFAULT NULL;
 ALTER TABLE `raise_funds` CHANGE `commission` `commission` DECIMAL(10,2) NULL DEFAULT NULL, CHANGE `commission_rate` `commission_rate` DECIMAL(5,2) NULL DEFAULT NULL COMMENT 'percentage';
+
+
+
+topic TABLE
+ALTER TABLE `resources` ADD `document` TEXT NULL DEFAULT NULL AFTER `src`, ADD `ext` VARCHAR(255) NULL DEFAULT NULL AFTER `document`;
+ALTER TABLE `resources` ADD `is_url` TINYINT NOT NULL DEFAULT '0' AFTER `src`;
+ALTER TABLE `resources` CHANGE `short_description` `short_description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;

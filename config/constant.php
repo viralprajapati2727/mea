@@ -19,6 +19,7 @@ return [
         'business_category_url' =>  "/images/business-category/",
         'blog_url' =>  "/images/blog/",
         'resource_url' =>  "/images/resources/",
+        'resource_document_url' =>  "/images/resources/document/",
         'profile_url' =>  "/images/profile/",
         'profile_cover_url' =>  "/images/profile-cover/",
         'resume_url' =>  "/images/resume/",

@@ -50,7 +50,7 @@ class ResourceController extends Controller
         })
         ->addColumn('action', function ($Query) {
             $action_link = "";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-is_url = '".$Query->is_url."' data-document = '".$Query->document."' data-ext = '".$Query->ext."' ><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
             $action_link .= "<a href='javascript:;' class='resource_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })
@@ -62,6 +62,8 @@ class ResourceController extends Controller
 
     //Add Dance/Music Type
     public function store(Request $request){
+
+        // echo "<pre>"; print_r($request->all()); exit;
         DB::beginTransaction();
         try{
             $status = 0;
@@ -75,6 +77,11 @@ class ResourceController extends Controller
                 'description' => $request->description,
                 'status' => $status,
             ];
+
+            $is_url = $resourceData['is_url'] = 0;
+            if(isset($request->is_url) && $request->is_url == 1){
+                $is_url = $resourceData['is_url'] = 1;
+            }
 
             if($request->id){
                 $resourceData['updated_by'] = Auth::id();
@@ -92,6 +99,23 @@ class ResourceController extends Controller
                     Helper::checkFileExists(config('constant.resource_url') . $request->old_src, true, true);
                 }
             }
+
+            if(!$is_url){
+                $extension = "";
+                $document = $request->file('document');
+                if($request->hasFile('document')){
+                    $extension = $document->getClientOriginalExtension();
+                    $fileName = 'Document-' . time() . '.' . $document->getClientOriginalExtension();
+                    Helper::uploaddynamicFile(config('constant.resource_document_url'), $fileName,$document);
+                    $resourceData['document'] = $fileName;
+                    $resourceData['ext'] = $extension;
+
+                    if(isset($request->old_document_src)){
+                        Helper::checkFileExists(config('constant.resource_document_url') . $request->old_document_src, true, true);
+                    }
+                }
+            }
+
             Resource::updateOrCreate(['id' => $request->id], $resourceData);
             DB::commit();
             if($request->id){

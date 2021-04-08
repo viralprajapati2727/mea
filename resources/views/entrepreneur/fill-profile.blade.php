@@ -26,12 +26,12 @@
     }
     
     $exists_resume = "";
-    if($profile->userProfile->resume != ""){
+    if(isset($profile->userProfile->resume) && $profile->userProfile->resume != ""){
         $is_same_resume = true;
         $exists_resume = $resumeUrl.$profile->userProfile->resume;
     }
     $exists_cover = "";
-    if($profile->userProfile->cover != ""){
+    if(isset($profile->userProfile->cover) &&  $profile->userProfile->cover != ""){
         $is_same_profile_cover_photo = true;
         $exists_cover = $coverUrl.$profile->userProfile->cover;
     }
@@ -73,7 +73,7 @@
                             <div class="col-lg-10">
                                 <input type="file" name="cover" class="file-input" data-fouc>
                             </div>
-                            @if($profile->userProfile->cover != "")
+                            @if(isset($profile->userProfile->cover) &&  $profile->userProfile->cover != "")
                                 <div class="col-lg-10">
                                     <a href="{{ $exists_cover }}" target="_blank">Your Updated cover Image</a>
                                 </div>
@@ -168,7 +168,7 @@
                             <div class="col-lg-10">
                                 <input type="file" name="resume" class="file-input" data-fouc>
                             </div>
-                            @if($profile->userProfile->resume != "")
+                            @if(isset($profile->userProfile->resume) &&  $profile->userProfile->resume != ""){
                                 <div class="col-lg-10">
                                     <a href="{{ $exists_resume }}" target="_blank">Download Your Updated CV</a>
                                 </div>
