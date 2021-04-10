@@ -2,8 +2,8 @@
 @section('title') Resources @endsection
 @section('page-header')
 <!-- Page header -->
-@php
-    // dd(Request::segment(3));
+@php        
+ //
 @endphp
 <div class="page-header page-header-light">
     <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
@@ -113,7 +113,7 @@
                             <input type="file" class="file-input" name="document" data-focus/>
                         </div>
                         <input type="hidden" name="old_document_src" class="old_document_src" value="">
-
+                        <div class="append-document" style="display: none"></div>
                         <div class="input-group title-error-msg"></div>
                     </div>
                     <div class="form-group row">
@@ -244,12 +244,16 @@ $(document).ready( function () {
         var short_description = $(this).data('short_description');
         var description = $(this).data('description');
         var src = $(this).data('src');
+        var doc = $(this).data('document')
         $('.add_modal').modal({backdrop: 'static', keyboard: false});
         var path = "{{ Helper::images(config('constant.resource_url')) }}";
+        var document_path = "{{ Helper::images(config('constant.resource_document_url')) }}";
         var final = path+src;
+        var finalDocument = document_path+doc;
         $('.add_modal .resource_id').val(id);
         var resourceId = $('.resource_id').val();
         var oldSrc = $('.old_src').val(src);
+        var oldDoc = $('.old_document_src').val(doc);
         console.log(resourceId,'resourceId')
         if(resourceId){
             $('.add_modal .dance_music_type').val(title);
@@ -258,6 +262,10 @@ $(document).ready( function () {
             CKEDITOR.instances.description.setData(description);
             $('.append-image').append('<a class="fancy-pop-image" data-fancybox="images" href='+final+'><img class="image-preview-logo mt-3 ml-2" name="previewpic" id="previewpic"  src='+final+'></a>');
             $('.append-image').css('display','block');
+            if(doc.length > 0){
+                $('.append-document').append(`<a class="mx-2" href="${finalDocument}" download>Download Your Resource Document/Video.</a>`);
+            }
+            $('.append-document').css('display','block');
         }
     })
 
@@ -265,10 +273,13 @@ $(document).ready( function () {
         setTimeout(function(){
             $('.validation-invalid-label').remove();
             $("#resource_form").trigger("reset");
+            CKEDITOR.instances.description.setData('');
             $('.resource_id').val(null);
             $('.add_modal .dance_music_type').val('');
             $('.add_modal .old_src').val('');
+            $('.add_modal .old_document_src').val('');
             $('.append-image').html('');
+            $('.append-document').html('');
         }, 700);
     });
 
@@ -589,11 +600,11 @@ $(document).ready( function () {
                     minlength: 2,
                     maxlength: 100,
                 },
-                short_description: {
-                    required: true,
-                    minlength: 20,
-                    maxlength: 350,
-                },
+                // short_description: {
+                //     required: true,
+                //     minlength: 20,
+                //     maxlength: 350,
+                // },
                 description: {
                 required: function(){
                     CKEDITOR.instances.description.updateElement();
@@ -617,13 +628,13 @@ $(document).ready( function () {
                     minlength: jQuery.validator.format("At least {0} characters required"),
                     maxlength: jQuery.validator.format("Maximum {0} characters allowed"),
                 },
-                short_description: {
-                    required: "Please enter short description",
-                    minlength: jQuery.validator.format("At least {0} characters required"),
-                    maxlength: jQuery.validator.format("Maximum {0} characters allowed"),
-                },
+                // short_description: {
+                //     required: "Please enter short description",
+                //     minlength: jQuery.validator.format("At least {0} characters required"),
+                //     maxlength: jQuery.validator.format("Maximum {0} characters allowed"),
+                // },
                 description: {
-                    required: "Please enter description",
+                    required: "Please enter Description",
                     minlength: jQuery.validator.format("At least {0} characters required"),
                     maxlength: jQuery.validator.format("Maximum {0} characters allowed"),
                 },
