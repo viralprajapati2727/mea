@@ -36,9 +36,13 @@
                                     <div class="quetion-category">
                                         <ul>
                                             <li>
-                                                <a href="{{ route('page.questions').'?category_id='.$question->communityCategory->id }}">
-                                                    {{ $question->communityCategory->title ? $question->communityCategory->title : '' }}
-                                                </a>
+                                                @if ($question->question_category_id > 0)
+                                                    <a href="{{ route('page.questions').'?category_id='.$question->communityCategory->id }}">
+                                                        {{ $question->communityCategory->title ? $question->communityCategory->title : '' }}
+                                                    </a>
+                                                @else
+                                                    <p class="btn btn-primary">{{ ucfirst($question->other_category) ?? "-" }}</p>
+                                                @endif
                                             </li>
                                         </ul>
                                     </div>

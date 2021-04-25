@@ -12,6 +12,12 @@ $(".birthdate").datetimepicker({
     // ],
 });
 
+$("#appointment_time").datetimepicker({
+    ignoreReadonly: true,
+    format: 'LT',
+    useCurrent: false,
+    locale: 'en'
+});
 
 $(document).ready(function(){
     $.validator.addMethod("onlyDigitNotAllow", function (value, element, param) {
@@ -88,6 +94,9 @@ $(document).ready(function(){
             date: {
                 required: true,
             },
+            appointment_time: {
+                required: true,  
+            },
             time: {
                 required: true,
             },
@@ -112,6 +121,9 @@ $(document).ready(function(){
             },
             date: {
                 required: "Please select appointment date",
+            },
+            appointment_time: {
+                required: "Please select appointment time",
             },
             time: {
                 required: "Please enter time intervel",
@@ -163,6 +175,7 @@ $(document).ready(function(){
                 $('#appointment-detail .app_name').text(response.data.name);
                 $('#appointment-detail .app_email').text(response.data.email);
                 $('#appointment-detail .app_date').text(response.data.date);
+                $('#appointment-detail .app_appointment_time').text(response.data.appointment_time);
                 $('#appointment-detail .app_time').text(response.data.time);
                 $('#appointment-detail .app_description').text(response.data.description);
                 $('#appointment-detail').modal('show')

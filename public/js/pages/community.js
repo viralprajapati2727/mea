@@ -1,4 +1,11 @@
 $(document).ready(function(){
+
+    $(document).on('change','#category_id',function(){
+        $('.div_other_category').hide();
+        if($(this).val() == '-1'){
+            $('.div_other_category').show();
+        }
+    });
     
     // CKEDITOR.replace('description', {
     //     height: '200px',
@@ -121,7 +128,7 @@ $(document).ready(function(){
                 required: true,
             },
             tag: {
-                required: true,
+                required: false,
             },
             description: {
                 required: function(){

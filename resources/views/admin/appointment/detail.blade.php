@@ -41,10 +41,10 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-4">
-                                <label class="font-weight-bold label-before">Appointment Date</label>
+                                <label class="font-weight-bold label-before">Appointment Date & Time</label>
                             </div>
                             <div class="col-lg-8">
-                                <p class="font-weight-bold">{{ $appointment->appointment_date }}</p>
+                                <p class="font-weight-bold">{{ $appointment->appointment_date }} {{ $appointment->appointment_time }}</p>
                             </div>
                         </div>
                         <div class="form-group row">

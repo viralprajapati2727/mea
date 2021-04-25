@@ -231,9 +231,6 @@ $(document).ready(function(){
         },
         errorPlacement: function (error, element) {
             
-            
-
-
             if (element.parents('div').hasClass('account-img-content')) {
                 error.appendTo(element.parent().parent().parent());
             } else if (element.parents('div').hasClass('tokenfield')) {
@@ -410,7 +407,7 @@ $(document).ready(function(){
     });
 
     validateExtraField();
-    validateEducationExtraField();
+    // validateEducationExtraField();
 
 })    
 
@@ -548,6 +545,17 @@ function validateExtraField(){
             }
         });
     });
+    $(".responsibilities").each(function () {
+        $(this).rules('add', {
+            required: { depends: function(element) { return !$('#is_experience').is(":checked") } },
+            normalizer: function(value) {return $.trim(value);},
+            maxlength: 100,
+            messages: {
+                required:  "Please enter Responsibilities",
+                maxlength: "Maximum {0} characters are allowed",
+            }
+        });
+    })
 }
 
 function validateEducationExtraField(){
@@ -584,13 +592,35 @@ function validateEducationExtraField(){
             }
         });
     });
-    $('.education-details .year').each(function() {
+    $('.education-details .year1').each(function() {
         $(this).rules('add', {
             required: true,
             normalizer: function(value) {return $.trim(value);},
             maxlength: 50,
             messages: {
                 required:  "Please enter total year of education",
+                maxlength: "Maximum {0} characters are allowed",
+            }
+        });
+    });
+    $('.major').each(function() {
+        $(this).rules('add', {
+            required: true,
+            normalizer: function(value) {return $.trim(value);},
+            maxlength: 100,
+            messages: {
+                required:  "Please enter Major",
+                maxlength: "Maximum {0} characters are allowed",
+            }
+        });
+    });
+    $('.minor').each(function() {
+        $(this).rules('add', {
+            required: true,
+            normalizer: function(value) {return $.trim(value);},
+            maxlength: 100,
+            messages: {
+                required:  "Please enter Minor",
                 maxlength: "Maximum {0} characters are allowed",
             }
         });

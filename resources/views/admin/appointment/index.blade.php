@@ -45,7 +45,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Appointment Date</th>
+                <th>Appointment Date & Time</th>
                 <th>Time</th>
                 <th>Action</th>
             </tr>

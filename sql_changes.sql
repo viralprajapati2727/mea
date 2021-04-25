@@ -26,3 +26,16 @@ topic TABLE
 ALTER TABLE `resources` ADD `document` TEXT NULL DEFAULT NULL AFTER `src`, ADD `ext` VARCHAR(255) NULL DEFAULT NULL AFTER `document`;
 ALTER TABLE `resources` ADD `is_url` TINYINT NOT NULL DEFAULT '0' AFTER `src`;
 ALTER TABLE `resources` CHANGE `short_description` `short_description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+-- larest sql changes by Nikunj.😎
+ALTER TABLE `user_profiles` ADD `linkedin_link` VARCHAR(255) NULL DEFAULT NULL AFTER `tw_link`, ADD `github_link` VARCHAR(255) NULL DEFAULT NULL AFTER `linkedin_link`;
+ALTER TABLE `user_profiles` ADD `is_resume_public` TINYINT NOT NULL DEFAULT '0' COMMENT '0: no, 1:yes' AFTER `resume`;
+ALTER TABLE `appointments` ADD `appointment_time` VARCHAR(50) NULL AFTER `appointment_date`;
+ALTER TABLE `user_education_details` ADD `major` VARCHAR(255) NULL AFTER `year`, ADD `minor` VARCHAR(255) NULL AFTER `major`;
+ALTER TABLE `user_work_experiences` ADD `responsibilities` VARCHAR(255) NULL AFTER `designation`;
+ALTER TABLE `resources` ADD `topic_id` INT NOT NULL AFTER `id`;
+ALTER TABLE `job_shifts` ADD `day_shift_val` TINYINT NULL DEFAULT NULL AFTER `job_id`, ADD `night_shift_val` TINYINT NULL DEFAULT NULL AFTER `day_shift_val`;
+ALTER TABLE `job_shifts` CHANGE `day_shift_val` `day_shift_val` TINYINT(4) NULL DEFAULT '0', CHANGE `night_shift_val` `night_shift_val` TINYINT(4) NULL DEFAULT '0';
+ALTER TABLE `users` ADD `google_id` VARCHAR(255) NULL DEFAULT NULL AFTER `remember_token`;
+ALTER TABLE `communities` ADD `other_category` VARCHAR(255) NULL DEFAULT NULL AFTER `question_category_id`;
+ALTER TABLE `communities` CHANGE `question_category_id` `question_category_id` INT(11) NULL DEFAULT NULL;

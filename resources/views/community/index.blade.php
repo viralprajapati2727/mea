@@ -146,16 +146,25 @@
                                 <option value="{{ $category->id }}">{{ $category->title }}</option>
                             @empty
                             @endforelse
+                            <option value="-1"> Other </option>
                         </select>
                     </div>
+                    <div class="row mt-md-2.div_other_category">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-control-label">Other Category </label>
+                                <input type="text" class="form-control" name="other_category" id="other_category" placeholder="Enter Category" value="{{ old('other_category') }}" >
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group tag">
-                        <label class="form-control-label">Tag <span class="required-star-color">*</span></label>
+                        <label class="form-control-label">Tag</label>
                         <input type="text" name="tag" id="tag" class="form-control tokenfield" value="" data-fouc>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn bg-primary">Submit form</button>
+                    <button type="submit" class="btn bg-primary">Submit Post </button>
                 </div>
             </form>
         </div>

@@ -22,7 +22,7 @@
     <div class="card">
         <div class="card-body custom-tabs">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="detail-section">
                         <div class="form-group row">
                             <div class="col-lg-4">
@@ -148,19 +148,24 @@
                                                     <h6>{{ array_keys($shift)[0] }}</h6>
                                                     <div class="form-radio-group">
                                                         @foreach ($shift[array_keys($shift)[0]] as $key => $value)
-                                                            @php $shifts = $job->jobShift->pluck('shift_val','shift_id')->toArray();
-                                                                $class = $checked = "";
-                                                                if (array_key_exists($day ,$shifts)){
-                                                                    if($shifts[$day] == $key){
-                                                                        $class = "active";
-                                                                        $checked = "checked";
-                                                                    }
-                                                                }
-                                                            @endphp
-                                                            <label class="radio-inline {{ $class }}">
-                                                                <i class="{{ $value }}"></i>
-                                                                <input type="radio" class="job_type shift-radio" name="shift[{{ $day }}]" value="{{ $key }}" {{ $checked }}>
-                                                            </label>                                                
+                                                        @php
+                                                            $shifts = $job->jobShift->toArray()
+                                                        @endphp
+                                                           @if($key == 1) {{-- day shift --}}
+                                                           <label
+                                                               class="radio-inline {{ $shifts[$day-1]['day_shift_val'] == 1 ? "active" : "" }} ">
+                                                               <i class="{{ $value }}"></i>
+                                                               <input type="checkbox" class="job_type shift-radio" name="day_shift[{{ $day }}]"
+                                                                   value="{{ 1 }}" {{ $shifts[$day-1]['day_shift_val'] == 1 ? "checked" : "" }}>
+                                                           </label>
+                                                           @else {{-- night shift --}}
+                                                           <label
+                                                               class="radio-inline {{ $shifts[$day-1]['night_shift_val'] == 1 ? "active" : "" }} ">
+                                                               <i class="{{ $value }}"></i>
+                                                               <input type="checkbox" class="job_type shift-radio" name="night_shift[{{ $day }}]"
+                                                                   value="{{ 1 }}" {{ $shifts[$day-1]['night_shift_val'] == 1 ? "checked" : "" }}>
+                                                           </label>
+                                                           @endif                                            
                                                         @endforeach
                                                     </div>
                                                 </div>

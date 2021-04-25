@@ -148,7 +148,10 @@ class EntrepreneurController extends Controller
                     'tw_link' => $request->tw_link,
                     'web_link' => $request->web_link,
                     'city' => $request->city,                    
-                    'is_experience' => $is_experience,                    
+                    'is_experience' => $is_experience,
+                    "linkedin_link" => $request->linkedin_link,
+                    "github_link" => $request->github_link,
+                    "is_resume_public" => $request->is_resume_public ?? 0
                 ]);
 
                 /*
@@ -198,7 +201,7 @@ class EntrepreneurController extends Controller
                     $user->workExperience()->delete();
                     if($is_experience){
                         foreach ($request->exp as $key => $experience) {
-                            $userExperiences[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'is_experience' => $is_experience,'company_name' => $experience['company_name'], 'designation' => $experience['designation'], 'year' => $experience['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
+                            $userExperiences[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'is_experience' => $is_experience,'company_name' => $experience['company_name'], 'designation' => $experience['designation'], 'year' => $experience['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'), "responsibilities" => $experience['responsibilities']];
                         }
 
                         $user->workExperience()->insert($userExperiences);
@@ -211,7 +214,18 @@ class EntrepreneurController extends Controller
                 if(!empty($request->edu)){
                     $user->educationDetails()->delete();
                     foreach ($request->edu as $key => $education) {
-                        $educationDetails[] = ['user_id' => Auth::user()->id,'user_profile_id' => $user->userProfile->id, 'course_name' => $education['course_name'], 'organization_name' => $education['organization_name'], 'percentage' => $education['percentage'], 'year' => $education['year'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')];
+                        $educationDetails[] = [
+                            'user_id' => Auth::user()->id,
+                            'user_profile_id' => $user->userProfile->id, 
+                            'course_name' => $education['course_name'], 
+                            'organization_name' => $education['organization_name'], 
+                            'percentage' => $education['percentage'], 
+                            'year' => $education['year'], 
+                            'major' => $education['major'],
+                            'minor' => $education['minor'],
+                            'created_at' => date('Y-m-d H:i:s'), 
+                            'updated_at' => date('Y-m-d H:i:s')
+                        ];
                     }
 
                     $user->educationDetails()->insert($educationDetails);

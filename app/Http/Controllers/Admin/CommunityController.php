@@ -81,7 +81,7 @@ class CommunityController extends Controller{
 
     public function detail($question_id=null){
         
-        $question = Community::with('communityTags')->with('communityCategory')->with('communityLikes')->where('slug',$question_id)->select('id', 'slug','user_id', 'title', 'question_category_id', 'description', 'tags', 'views', 'created_at')->first();
+        $question = Community::with('communityTags')->with('communityCategory')->with('communityLikes')->where('slug',$question_id)->select('id', 'slug','user_id', 'title', 'question_category_id', 'description', 'tags', 'views', 'created_at', "other_category")->first();
 
         return view('admin.community.details',compact('question'));
     }

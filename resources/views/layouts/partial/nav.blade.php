@@ -29,7 +29,7 @@
                                 <a class="nav-link" href="{{ route('job.search-job') }}">Browse Requests</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.resources') }}">Resources</a>
+                                <a class="nav-link" href="{{ route('page.resources-new') }}">Resources</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>

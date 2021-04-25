@@ -23,6 +23,11 @@ Route::get('refresh-csrf', function(){ return csrf_token(); });
 
 Route::group(['middleware' => ['prevent-back-history']], function () {
     Auth::routes(['verify' => true]);
+    
+    /**Social login urls */
+    Route::get('login/{provider?}', 'Auth\LoginController@redirectToProvider');
+    Route::get('login/{provider?}/callback', 'Auth\LoginController@socialLoginHandler');
+
     Route::post('email-exists', 'Auth\RegisterController@emailExists')->name('email-exists');
     Route::post('check-email', 'Auth\RegisterController@checkEmail')->name('check-email');
     Route::get('/', 'GeneralController@index')->name('index');
@@ -43,7 +48,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     Route::get('startup-portal','GeneralController@getStartupPortal')->name('page.startup-portal');
     Route::get('fund-requests','GeneralController@getFundRequests')->name('page.fund-requests');
     Route::get('fund-requests/view/{id?}','GeneralController@viewFundRequest')->name('page.fund-requests.view');
-    
+    Route::get('page/resources', 'GeneralController@resourceNew')->name('page.resources-new');
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
 
     Route::group(['middleware' => ['verified','auth']], function () {
@@ -303,5 +308,5 @@ Route::get('html-fund',function (){
     return view('pages.fund');
 });
 Route::get('html-resources-new',function (){
-    return view('pages.resources-new');
+    return view('html.resources-new');
 });

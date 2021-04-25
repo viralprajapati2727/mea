@@ -48,7 +48,7 @@ class AppointmentController extends Controller
                 $message_text = "updated";
             }
             
-            $param2 = ["user_id" => $user_id, "name" => $request->name, "email" => Auth::user()->email, "time" => $request->time, "appointment_date" => $appointment_date,"description" => $request->description];
+            $param2 = ["user_id" => $user_id, "name" => $request->name, "email" => Auth::user()->email, "time" => $request->time, "appointment_date" => $appointment_date,"description" => $request->description, "appointment_time" => $request->appointment_time ];
 
             $appointment = Appointment::create($param2);
 
@@ -89,6 +89,7 @@ class AppointmentController extends Controller
         $responseData['data']['time'] = $appointment->time;
         $responseData['data']['description'] = $appointment->description;
         $responseData['status'] = 1;
+        $responseData['data']['appointment_time'] = $appointment->appointment_time;
 
         return $this->commonResponse($responseData, 200);
     }

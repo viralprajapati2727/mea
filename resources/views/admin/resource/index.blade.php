@@ -65,6 +65,15 @@
                         </div>
                         <div class="input-group title-error-msg"></div>
                     </div>
+                    <div class="form-group row px-2">
+                        <label class="col-form-label pl-2">Select Topic/Subtopic:<span class="text-danger">*</span> </label>
+                        <select class="form-control form-control-select2" name="topic" id="topic">
+                            @foreach ($topics as $topic)
+                                <option value="{{ $topic->id }}">{{ $topic->title }}</option>
+                            @endforeach
+                        </select>
+                        <div class="input-group title-error-msg"></div>
+                    </div>
                     {{-- <div class="form-group row">
                         <label class="col-form-label pl-2">Short Description:<span class="text-danger">*</span></label>
                         <div class="input-group custom-start col-md-12">
@@ -605,6 +614,9 @@ $(document).ready( function () {
                 //     minlength: 20,
                 //     maxlength: 350,
                 // },
+                topic :{
+                    required: true,
+                },
                 description: {
                 required: function(){
                     CKEDITOR.instances.description.updateElement();
@@ -633,6 +645,9 @@ $(document).ready( function () {
                 //     minlength: jQuery.validator.format("At least {0} characters required"),
                 //     maxlength: jQuery.validator.format("Maximum {0} characters allowed"),
                 // },
+                topic : {
+                    required: "Please select Topic/Subtopic"
+                },
                 description: {
                     required: "Please enter Description",
                     minlength: jQuery.validator.format("At least {0} characters required"),

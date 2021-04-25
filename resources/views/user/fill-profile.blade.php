@@ -152,6 +152,20 @@
                             </div>
                         </div>
                         <div class="row mt-md-2">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">LinkedIn Link</label>
+                                    <input type="text" class="form-control" name="linkedin_link" id="linkedin_link" placeholder="Enter LinkedIn Link" value="{{ old('linkedin_link', isset($profile->userProfile->linkedin_link)?$profile->userProfile->linkedin_link:'' ) }}" >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Github Link</label>
+                                    <input type="text" class="form-control" name="github_link" id="github_link" placeholder="Enter Github Link" value="{{ old('github_link', isset($profile->userProfile->github_link)?$profile->userProfile->github_link:'' ) }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-md-2">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-control-label">About Myself</label>
@@ -170,6 +184,16 @@
                                 </div>
                                 <input type="hidden" name="old_resume" value="{{ $profile->userProfile->resume }}">
                             @endif
+                        </div>
+                        <div class="col-12 col-lg-12">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input-styled" name="is_resume_public" value="1" data-fouc {{ ($profile->userProfile->is_resume_public && $profile->userProfile->is_resume_public > 0) ? 'checked' : '' }}>
+                                        Make Public
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <div class="row mt-md-2">
                             <div class="col-12">

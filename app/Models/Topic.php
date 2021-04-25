@@ -8,4 +8,7 @@ class Topic extends Model
 {
     protected $guarded = [];
 
+    public function resources(){
+        return $this->hasMany('App\Models\Resource', 'topic_id','id');
+    }
 }

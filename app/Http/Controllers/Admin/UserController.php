@@ -57,10 +57,10 @@ class UserController extends Controller
                 return $Query->email;
             })
             ->addColumn('gender', function ($Query) {
-                return $Query->userProfile->gender;
+                return $Query->userProfile->gender ?? "-";
             })
             ->addColumn('location', function ($Query) {
-                return $Query->userProfile->city;
+                return $Query->userProfile->city ?? "-";
             })
             ->addColumn('status', function ($Query) {
                 $status = array_search($Query->is_active,config('constant.USER.STATUS'));

@@ -24,6 +24,7 @@ use App\Models\ChatMasters;
 use App\Models\ChatMessage;
 use App\Models\ChatMessagesReceiver;
 use App\Models\RaiseFund;
+use App\Models\Topic;
 use Carbon\Carbon;
 class GeneralController extends Controller {
 	
@@ -120,9 +121,19 @@ class GeneralController extends Controller {
 	public function team() {
 		return view('pages.our-team');
     }
-	public function resource() {
-		$resources = Resource::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','ASC')->get();
-		return view('pages.resources',compact('resources'));
+	// Old resource
+	// public function resource() {
+	// 	$resources = Resource::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','ASC')->get();
+	// 	return view('pages.resources',compact('resources'));
+	// }
+	public function resourceNew() {
+		$topics = Topic::whereNull("parent_id")->where("status", 1)->get();
+
+		$resourcesNew = Resource::select('id','topic_id','slug','title','src','document','description','created_by','updated_at')->with([
+			'topic'
+		])->whereIn('topic_id', $topics->pluck('id')->toArray())->where('deleted_at',null)->orderBy('id','ASC')->get();
+		
+	return view('pages.resources-new', compact('resourcesNew', "topics"));
 	}
 	public function resourceDetail($slug = null){
 		if(is_null($slug)){

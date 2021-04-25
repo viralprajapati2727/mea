@@ -41,7 +41,7 @@ class AppointmentController extends Controller
             return $Query->user->email;
         })
         ->addColumn('appointment_date', function ($Query) {
-            return $Query->appointment_date;
+            return $Query->appointment_date .' '.$Query->appointment_time;
         })
         ->addColumn('time', function ($Query) {
             return $Query->time;

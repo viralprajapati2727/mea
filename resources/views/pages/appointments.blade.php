@@ -18,13 +18,16 @@
             @if(!$appointments->isEmpty())
                 <div class="col jb_border_bottm_gray d-none d-lg-block job-item jobs-header">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-2">
                             <h5 class="font-black text-left">Name</h5>
                         </div>
                         <div class="col-2 text-center">
                             <h5 class="font-black">Appointment Date</h5>
                         </div>
-                        <div class="col-3 text-center">
+                        <div class="col-2 text-center">
+                            <h5 class="font-black">Appointment Time</h5>
+                        </div>
+                        <div class="col-2 text-center">
                             <h5 class="font-black">Time</h5>
                         </div>
                         <div class="col-2 text-center">
@@ -38,7 +41,7 @@
                 @forelse ($appointments as $appointment)
                     <div class="col jb_border_bottm_gray job-item">
                         <div class="row">
-                            <div class="col-lg-3 col-12 d-lg-block header-elements-inline align-items-baseline text-left">
+                            <div class="col-lg-2 col-12 d-lg-block header-elements-inline align-items-baseline text-left">
                                 <div class="jb_company_myjob_title">
                                     <div class="text-muted jb_my_job_company_bottom_location">
                                         <div class="d-block job-address">
@@ -48,9 +51,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-12 d-lg-block header-elements-inline main-job-id">
-                                <div class=""><span class="d-inline-block d-lg-none"><b>Date : </b>&nbsp;</span>{{ $appointment->appointment_date }}</div>
+                                <div class=""><span class="d-inline-block d-lg-none"><b>Appointment Date : </b>&nbsp;</span>{{ $appointment->appointment_date }}</div>
                             </div>
-                            <div class="col-lg-3 col-12 d-lg-block header-elements-inline main-job-id">
+                            <div class="col-lg-2 col-12 d-lg-block header-elements-inline main-job-id">
+                                <div class=""><span class="d-inline-block d-lg-none"><b>Appointment Time : </b>&nbsp;</span>{{ $appointment->appointment_time }}</div>
+                            </div>
+                            <div class="col-lg-2 col-12 d-lg-block header-elements-inline main-job-id">
                                 <div class=""><span class="d-inline-block d-lg-none"><b>Time : </b>&nbsp;</span>{{ $appointment->time }}</div>
                             </div>
                             <div class="col-lg-2 col-12 d-none d-lg-block main-status">
@@ -114,12 +120,21 @@
                         </div>
                     </div>
                     <div class="row mt-md-2">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group position-relative">
                                 <label class="form-control-label">Date <span class="required-star-color">*</span></label>
                                 <input type="text" class="form-control birthdate" name="date" id="date" placeholder="Select Date of Appintment" value="" >
                                 <div class="date-of-birth-icon">
-                                    <i class="flaticon-calendar"></i>
+                                    {{-- <i class="flaticon-calendar"></i> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group position-relative">
+                                <label class="form-control-label">Time <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control appointment_time" name="appointment_time" id="appointment_time" placeholder="Select Time of Appintment" value="" >
+                                <div class="date-of-birth-icon">
+                                    <i class="flaticon-clock"></i>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +189,7 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <h2 class="title">Date:</h2>
+                        <h2 class="title">Appointment Date:</h2>
                     </div>
                     <div class="col-8">
                         <p class="app_date"></p>
@@ -182,7 +197,15 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <h2 class="title">Time:</h2>
+                        <h2 class="title">Appointment Time:</h2>
+                    </div>
+                    <div class="col-8">
+                        <p class="app_appointment_time"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class="title">Time Intervel :</h2>
                     </div>
                     <div class="col-8">
                         <p class="app_time"></p>

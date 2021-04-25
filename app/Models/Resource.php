@@ -27,4 +27,9 @@ class Resource extends Model
     public function user(){
         return $this->belongsTo('App\User', 'created_by','id');
     }
+
+    public function topic()
+    {
+        return $this->belongsTo("App\Models\Topic", 'topic_id', 'id');
+    }   
 }

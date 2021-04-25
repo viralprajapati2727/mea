@@ -99,6 +99,14 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Is cv public?</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="font-weight-bold">{{ $profile->userProfile->is_resume_public == 0 ? "No" : "Yes"  }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
                                 <label class="font-weight-bold label-before">Skills</label>
                             </div>
                             <div class="col-lg-4">
@@ -150,6 +158,30 @@
                                 <div class="col-lg-8">
                                     <p class="font-weight-bold">
                                         <a target="_blank" href="{{ $profile->userProfile->tw_link }}">{{ isset($profile->userProfile->tw_link) ? $profile->userProfile->tw_link  : " - "}}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+                        @if(!empty($profile->userProfile->linkedin_link))
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="font-weight-bold label-before">Linkedin Link</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="font-weight-bold">
+                                    <a target="_blank" href="{{ $profile->userProfile->linkedin_link }}">{{ isset($profile->userProfile->linkedin_link) ? $profile->userProfile->linkedin_link  : " - "}}</a>
+                                </p>
+                            </div>
+                        </div>
+                        @endif
+                        @if(!empty($profile->userProfile->github_link))
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label class="font-weight-bold label-before">Github Link</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <p class="font-weight-bold">
+                                        <a target="_blank" href="{{ $profile->userProfile->github_link }}">{{ isset($profile->userProfile->github_link) ? $profile->userProfile->github_link  : " - "}}</a>
                                     </p>
                                 </div>
                             </div>

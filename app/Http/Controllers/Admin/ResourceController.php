@@ -10,13 +10,16 @@ use Auth;
 use Helper;
 use Illuminate\Support\Str;
 use Validator;
+use App\Models\Topic;
 
 class ResourceController extends Controller
 {
     //View Dance/Music Type Listing Page
     public function index(){
+        $topics = Topic::select('id','parent_id','title')->where('status', 1)->orderBy('id','desc')->get();
+
         $resource = Resource::orderBy('created_at','desc')->get();
-        return view('admin.resource.index',compact('resource'));
+        return view('admin.resource.index',compact('resource', 'topics'));
     }
 
     //Filter the dance and music types
@@ -76,6 +79,7 @@ class ResourceController extends Controller
                 'short_description' => $request->short_description,
                 'description' => $request->description,
                 'status' => $status,
+                "topic_id" => $request->topic
             ];
 
             $is_url = $resourceData['is_url'] = 0;

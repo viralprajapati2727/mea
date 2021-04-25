@@ -2194,3 +2194,8 @@ ul{
     }
     .header-right .navbar-toggler{top: -55px;}
 }
+
+.job_shift_wrap .form-group .form-radio-group .radio-inline input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}

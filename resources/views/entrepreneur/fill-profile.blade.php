@@ -156,6 +156,20 @@
                             </div>
                         </div>
                         <div class="row mt-md-2">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">LinkedIn Link</label>
+                                    <input type="text" class="form-control" name="linkedin_link" id="linkedin_link" placeholder="Enter LinkedIn Link" value="{{ old('linkedin_link', isset($profile->userProfile->linkedin_link)?$profile->userProfile->linkedin_link:'' ) }}" >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Github Link</label>
+                                    <input type="text" class="form-control" name="github_link" id="github_link" placeholder="Enter Github Link" value="{{ old('github_link', isset($profile->userProfile->github_link)?$profile->userProfile->github_link:'' ) }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-md-2">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-control-label">About Myself</label>
@@ -168,12 +182,24 @@
                             <div class="col-lg-10">
                                 <input type="file" name="resume" class="file-input" data-fouc>
                             </div>
-                            @if(isset($profile->userProfile->resume) &&  $profile->userProfile->resume != ""){
+                            @if(isset($profile->userProfile->resume) &&  $profile->userProfile->resume != "")
                                 <div class="col-lg-10">
                                     <a href="{{ $exists_resume }}" target="_blank">Download Your Updated CV</a>
                                 </div>
                                 <input type="hidden" name="old_resume" value="{{ $profile->userProfile->resume }}">
                             @endif
+                        </div>
+                        <div class="row mt-md-2">
+                            <div class="col-12 col-lg-12">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input-styled" name="is_resume_public" id="is_resume_public" value="1" data-fouc {{ ($profile->userProfile->is_resume_public && $profile->userProfile->is_resume_public > 0) ? 'checked' : '' }}>
+                                            Make Public
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row mt-md-2">
                             <div class="col-12">
@@ -265,6 +291,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
+																										<div class="row">
+																											<div class="col-md-12">
+																													<div class="form-group">
+																															<label class="col-form-label">Responsibilities <span class="font-color">*</span></label>
+																															<input type="text" name="exp[{{ $exp_count }}][responsibilities]" placeholder="Responsibilities" class="form-control responsibilities" value="{{ ($is_profile) ? $work->responsibilities : "" }}">
+																													</div>
+																											</div>
+																										</div>
                                                     <input type="hidden" name="exp[{{ $exp_count }}][work_id]" class="id" value="{{ $work->id }}">
                                                 </div>
                                                 @php $exp_count++; @endphp
@@ -285,14 +319,14 @@
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Designation <span class="font-color">*</span></label>
-                                                            <input type="text" name="exp[{{ $exp_count }}][designation]" placeholder="Designation" class="form-control designation">
+                                                            <label class="col-form-label">Title/Role <span class="font-color">*</span></label>
+                                                            <input type="text" name="exp[{{ $exp_count }}][designation]" placeholder="Title/Role" class="form-control designation">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Year <span class="font-color">*</span></label>
-                                                            <input type="number" name="exp[{{ $exp_count }}][year]" placeholder="Year" class="form-control year">
+                                                            <label class="col-form-label">Number of Years Employed <span class="font-color">*</span></label>
+                                                            <input type="number" name="exp[{{ $exp_count }}][year]" placeholder="Number of Years Employed" class="form-control year">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -327,8 +361,24 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Course Name <span class="font-color">*</span></label>
-                                                            <input type="text" name="edu[{{ $edu_count }}][course_name]" placeholder="Course Name" class="form-control course_name" value="{{ ($is_profile) ? $education->course_name : "" }}">
+                                                            <label class="col-form-label">Degree type <span class="font-color">*</span></label>
+                                                            <input type="text" name="edu[{{ $edu_count }}][course_name]" placeholder="Degree type" class="form-control course_name" value="{{ ($is_profile) ? $education->course_name : "" }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Major <span class="font-color">*</span></label>
+                                                            <input type="text" name="edu[{{ $edu_count }}][major]" placeholder="Major" class="form-control major" value="{{ ($is_profile) ? $education->major : "" }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Minor <span class="font-color">*</span></label>
+                                                            <input type="text" name="edu[{{ $edu_count }}][minor]" placeholder="Minor" class="form-control minor" value="{{ ($is_profile) ? $education->minor : "" }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -343,14 +393,14 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Grade <span class="font-color">*</span></label>
-                                                            <input type="text" name="edu[{{ $edu_count }}][percentage]" placeholder="Grade" class="form-control percentage" value="{{ ($is_profile) ? $education->percentage : "" }}">
+                                                            <label class="col-form-label">GPA/Grade <span class="font-color">*</span></label>
+                                                            <input type="text" name="edu[{{ $edu_count }}][percentage]" placeholder="GPA/Grade" class="form-control percentage" value="{{ ($is_profile) ? $education->percentage : "" }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="col-form-label">Year <span class="font-color">*</span></label>
-                                                            <input type="text" name="edu[{{ $edu_count }}][year]" placeholder="Year" class="form-control year" value="{{ ($is_profile) ? $education->year : "" }}">
+                                                            <input type="text" name="edu[{{ $edu_count }}][year]" placeholder="Year" class="form-control year1" value="{{ ($is_profile) ? $education->year : "" }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -365,8 +415,24 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="col-form-label">Course Name <span class="font-color">*</span></label>
-                                                        <input type="text" name="edu[{{ $edu_count }}][course_name]" placeholder="Course Name" class="form-control course_name">
+                                                        <label class="col-form-label">Degree type <span class="font-color">*</span></label>
+                                                        <input type="text" name="edu[{{ $edu_count }}][course_name]" placeholder="Degree type" class="form-control course_name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Major <span class="font-color">*</span></label>
+                                                        <input type="text" name="edu[{{ $edu_count }}][major]" placeholder="Major" class="form-control major">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Minor <span class="font-color">*</span></label>
+                                                        <input type="text" name="edu[{{ $edu_count }}][minor]" placeholder="Minor" class="form-control minor">
                                                     </div>
                                                 </div>
                                             </div>
@@ -381,8 +447,8 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="col-form-label">Grade <span class="font-color">*</span></label>
-                                                        <input type="text" name="edu[{{ $edu_count }}][percentage]" placeholder="Grade" class="form-control percentage">
+                                                        <label class="col-form-label">GPA/Grade <span class="font-color">*</span></label>
+                                                        <input type="text" name="edu[{{ $edu_count }}][percentage]" placeholder="GPA/Grade" class="form-control percentage">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

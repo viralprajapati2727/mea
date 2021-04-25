@@ -199,23 +199,28 @@
                                                     <div class="form-radio-group">
                                                         @foreach ($shift[array_keys($shift)[0]] as $key => $value)
                                                             @if($is_job)    
-                                                                @php $shifts = $job->jobShift->pluck('shift_val','shift_id')->toArray();
-                                                                    $class = $checked = "";
-                                                                    if (array_key_exists($day ,$shifts)){
-                                                                        if($shifts[$day] == $key){
-                                                                            $class = "active";
-                                                                            $checked = "checked";
-                                                                        }
-                                                                    }
+                                                                @php
+                                                                    $shifts = $job->jobShift->toArray()
                                                                 @endphp
-                                                                <label class="radio-inline {{ $class }}">
-                                                                    <i class="{{ $value }}"></i>
-                                                                    <input type="radio" class="job_type shift-radio" name="shift[{{ $day }}]" value="{{ $key }}" {{ $checked }}>
-                                                                </label>
+                                                                @if($key == 1) {{-- day shift --}} 
+                                                                        <label class="radio-inline {{ $shifts[$day-1]['day_shift_val'] == 1 ? "active" : "" }} ">
+                                                                            <i class="{{ $value }}"></i>
+                                                                            <input type="checkbox" class="job_type shift-radio" name="day_shift[{{ $day }}]" value="{{ 1 }}" {{ $shifts[$day-1]['day_shift_val'] == 1 ? "checked" : "" }} >
+                                                                            </label>
+                                                                @else {{-- night shift --}} 
+                                                                        <label class="radio-inline {{ $shifts[$day-1]['night_shift_val'] == 1 ? "active" : "" }} ">
+                                                                            <i class="{{ $value }}"></i>  
+                                                                            <input type="checkbox" class="job_type shift-radio" name="night_shift[{{ $day }}]" value="{{ 1 }}" {{ $shifts[$day-1]['night_shift_val'] == 1 ? "checked" : "" }}>
+                                                                            </label>
+                                                                    @endif
                                                             @else
                                                                 <label class="radio-inline">
                                                                     <i class="{{ $value }}"></i>
-                                                                    <input type="radio" class="job_type shift-radio" name="shift[{{ $day }}]" value="{{ $key }}">
+                                                                    @if($key == 1) {{-- day shift --}} 
+                                                                        <input type="checkbox" class="job_type shift-radio" name="day_shift[{{ $day }}]" value="{{ 1 }}">
+                                                                    @else {{-- night shift --}} 
+                                                                        <input type="checkbox" class="job_type shift-radio" name="night_shift[{{ $day }}]" value="{{ 1 }}">
+                                                                    @endif
                                                                 </label>
                                                             @endif
                                                         @endforeach

@@ -54,11 +54,13 @@ $statuss = config('constant.job_status');
                                 <hr>
                                 <div class="quetion-info">
                                     <div class="quetion-category">
-                                        <ul>
-                                            <li>
+                                        @if ($question->question_category_id > 0)
+                                            <a href="{{ route('page.questions').'?category_id='.$question->communityCategory->id }}">
                                                 {{ $question->communityCategory->title ? $question->communityCategory->title : '' }}
-                                            </li>
-                                        </ul>
+                                            </a>
+                                        @else
+                                            <p class="btn btn-primary">{{ ucfirst($question->other_category) ?? "-" }}</p>
+                                        @endif
                                     </div>
                                     @isset($question->tags)
                                     <div class="quetion-tags">

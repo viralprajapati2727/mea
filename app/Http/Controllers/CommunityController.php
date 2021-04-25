@@ -70,6 +70,7 @@ class CommunityController extends Controller
                 "title" => $request->title, 
                 "description" => $request->description, 
                 "question_category_id" => $request->category_id,
+                "other_category" => $request->other_category,
                 "created_by" => $user_id
              ];
 
@@ -124,7 +125,7 @@ class CommunityController extends Controller
 
     public function detail($question_id=null, $like=0){
         
-        $question = Community::with('communityTags')->with('communityCategory')->with('communityLikes')->where('slug',$question_id)->select('id', 'slug','user_id', 'title', 'question_category_id', 'description', 'tags', 'views', 'created_at')->first();
+        $question = Community::with('communityTags')->with('communityCategory')->with('communityLikes')->where('slug',$question_id)->select('id', 'slug','user_id', 'title', 'question_category_id', 'other_category','description', 'tags', 'views', 'created_at')->first();
 
         if($like == 10){ // delete like, keyword = 10
             CommunityLikes::where([

@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-5 login-form">
             <div class="card">
-                <div class="card-header">{{ __('Welcome again, Please login.') }}</div>
+                <div class="card-header">{{ __('Welcome again, Please login1234.') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}" id="SigninForm">
@@ -64,7 +64,15 @@
                                             {{ __('Forgot Your Password?') }}
                                         </a>
                                     @endif
+
                                 </div>
+                                <a href="{{ url('login/google') }}" style="margin-top: 20px;" class="btn btn-lg btn-success btn-block">
+                                    <strong>Login With Google</strong>
+                                </a>
+                                <br />
+                                <a href="{{ url('login/facebook') }}" style="margin-top: 20px;" class="btn btn-lg btn-warning btn-block">
+                                    <strong>Login With Facebook</strong>
+                                </a>
                             </div>
                         </div>
                     </form>

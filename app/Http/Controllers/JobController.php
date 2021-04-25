@@ -63,7 +63,7 @@ class JobController extends Controller
         $responseData['data'] = [];
 
         DB::beginTransaction();
-
+        // return $request;
         try{
             $is_pending_job = $is_paid = $is_find_team_member = 0;
             $user_id = Auth::id();
@@ -114,13 +114,33 @@ class JobController extends Controller
                 /*
                  * save user shift data
                  */
-                if(!empty($request->shift)){
+                if(!empty($request->day_shift) || !empty($request->night_shift)){
                     $job->jobShift()->delete();
                     
-                    foreach ($request->shift as $key => $shift) {
-                        $jobShift[] = ['job_id' => $job->id, 'shift_id' => $key, 'shift_val' => $shift];
-                    }
+                    // foreach ($request->shift as $key => $shift) {
+                    //     $jobShift[] = ['job_id' => $job->id, 'shift_id' => $key, 'shift_val' => $shift];
+                    // }
 
+                    foreach (config('constant.SHIFT') as $key => $shift) {
+                        
+                        $dayShiftVal = 0;
+                        $nightShiftVal = 0;
+                        if(!empty($request->day_shift[$key]) && $request->day_shift[$key] != null) {
+                            $dayShiftVal = 1;
+                        }
+
+                        if(!empty($request->night_shift[$key]) && $request->night_shift[$key] != null) {
+                            $nightShiftVal = 1;
+                        }
+
+                        $jobShift[] = [
+                            'job_id' => $job->id, 
+                            'shift_id' => $key,
+                            'day_shift_val' => $dayShiftVal,
+                            'night_shift_val' => $nightShiftVal
+                        ];
+                    }
+                    
                     $job->jobShift()->insert($jobShift);
                 }
 

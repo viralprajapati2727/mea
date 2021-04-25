@@ -28,6 +28,8 @@ use Session;
 use Illuminate\Http\Testing\MimeType;
 use App\Models\PostJob;
 use App\Models\JobApplied;
+use App\Models\Topic;
+use App\Models\Resource;
 
 class Helper
 {
@@ -756,4 +758,23 @@ class Helper
         
         return $Query;
     }
+
+    public static function getSubTopics($topic_id = null){
+        $subtopics = [];
+        if($topic_id != null) {
+            $subtopics = Topic::where('parent_id', $topic_id)->get();
+        }
+        return $subtopics;
+    } 
+
+    public static function getSubTopicsResource($topic_id = null){
+        $getSubTopicsResource = [];
+        if($topic_id != null) {
+            $subtopics = Topic::where('parent_id', $topic_id)->pluck('id')->toArray();
+            
+            $getSubTopicsResource = Resource::whereIn('topic_id', $subtopics)->get();
+
+        }
+        return $getSubTopicsResource;
+    } 
 }

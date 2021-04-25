@@ -146,7 +146,10 @@ class UserController extends Controller
                     'tw_link' => $request->tw_link,
                     'web_link' => $request->web_link,
                     'city' => $request->city,                    
-                    'is_experience' => $is_experience,                    
+                    'is_experience' => $is_experience,   
+                    "linkedin_link" => $request->linkedin_link,
+                    "github_link" => $request->github_link,
+                    "is_resume_public" => $request->is_resume_public ?? 0
                 ]);
 
                 /*

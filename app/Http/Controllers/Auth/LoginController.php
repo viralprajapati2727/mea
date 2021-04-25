@@ -19,6 +19,7 @@ use DB;
 use Carbon\Carbon;
 use Newsletter;
 use Illuminate\Support\Facades\Route;
+use Exception;
 
 class LoginController extends Controller
 {
@@ -94,10 +95,10 @@ class LoginController extends Controller
     }
 
     public function redirectToProvider($social){
-        if($social == 'apple'){
-            $social = 'sign-in-with-apple';
-            return Socialite::driver($social)->scopes(["name", "email"])->redirect();
-        }
+        // if($social == 'apple'){
+        //     $social = 'sign-in-with-apple';
+        //     return Socialite::driver($social)->scopes(["name", "email"])->redirect();
+        // }
         return Socialite::driver($social)->redirect();
     }
 
@@ -138,9 +139,9 @@ class LoginController extends Controller
             if (Auth::check()) {
                 return redirect('/');
             }
-            if (!$request->has('code') || $request->has('denied')) {
-                return redirect()->route('index')->with('error','Login failed');
-            }
+            // if (!$request->has('code') || $request->has('denied')) {
+            //     return redirect()->route('index')->with('error','Login failed');
+            // }
 
             if($social == 'apple'){
                 $social = 'sign-in-with-apple';
@@ -323,6 +324,33 @@ class LoginController extends Controller
             Log::info('Login with social site after select role catch exception:: Message:: '.$e->getMessage().' line:: '.$e->getLine().' Code:: '.$e->getCode().' file:: '.$e->getFile());
             DB::rollback();
             return redirect()->route('index')->with('error',trans('common.something_went_wrong'));
+        }
+    }
+
+    public function socialLoginHandler($social, Request $request){
+        try {
+            return $social;
+            return $request;
+            $user = Socialite::driver($social)->user();
+        
+            $finduser = User::where('google_id', $user->id)->first();
+            if($finduser){
+                Auth::login($finduser);
+                return redirect('/home');
+            }
+            // else{
+            //     $newUser = User::create([
+            //         'name' => $user->name,
+            //         'email' => $user->email,
+            //         'google_id'=> $user->id,
+            //         'password' => encrypt('123456dummy')
+            //     ]);
+            //     Auth::login($newUser);
+            //     return redirect('/home');
+            // }
+
+        } catch (Exception $e) {
+            dd($e->getMessage());   
         }
     }
 }

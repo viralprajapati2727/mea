@@ -10,7 +10,7 @@
         <div class="container">
             <div class="user-title-wrap">
                 <h2 class="title">{{ $profile->name }}</h2>
-                @if(Auth::check())
+                @if(Auth::check() && Auth::id() == $profile->id)
                     <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="btn edit-profile">Edit Profile</a>
                 @endif
             </div>
@@ -65,6 +65,7 @@
                                     <p>{{ $profile->userProfile->phone }}</p>
                                 </div>
                             </div>
+                            @if ($profile->userProfile->is_resume_public > 0 || Auth::id() == $profile->id)
                             <div class="col-md-4 col-12">
                                 <div class="d-flex align-items-center">
                                     <p><i class="mr-2 flaticon-file"></i></p>
@@ -75,6 +76,7 @@
                                     <p><a href="{{ $cvUrl }}">Download your CV</a></p>
                                 </div>
                             </div>
+                            @endif
                         </div>
                         <div class="about-desc">
                             {!! $profile->userProfile->description !!}
@@ -103,6 +105,12 @@
                                 @endif
                                 @if(!empty($profile->userProfile->tw_link))
                                     <li class="twitter"><a href="{{ $profile->userProfile->tw_link }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                @endif
+                                @if(!empty($profile->userProfile->linkedin_link))
+                                <li class="twitter"><a href="{{ $profile->userProfile->linkedin_link }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                                @endif
+                                @if(!empty($profile->userProfile->github_link))
+                                <li class="twitter"><a href="{{ $profile->userProfile->github_link }}" target="_blank"><i class="fa fa-github"></i></a></li>
                                 @endif
                                 @if(!empty($profile->userProfile->web_link))
                                     <li class="web"><a href="{{ $profile->userProfile->web_link }}" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true"></i></a></li>
@@ -166,6 +174,7 @@
                                         <li>
                                             <div class="title-text">{{ $work->company_name }}</div>
                                             <div class="inner-text font-gray">{{ $work->designation }}</div>
+                                            <div class="inner-text font-gray">{{ $work->responsibilities ?? "-" }}</div>
                                             <div class="inner-text font-gray">{{ $work->year }}- Year</div>
                                         </li>
                                     @endforeach
@@ -180,6 +189,8 @@
                                         <li>
                                             <div class="title-text">{{ $education->course_name }}</div>
                                             <div class="inner-text font-gray">{{ $education->organization_name }}</div>
+                                            <div class="inner-text font-gray">{{ $education->major ?? "-" }}</div>
+                                            <div class="inner-text font-gray">{{ $education->minor ?? "-" }}</div>
                                             <div class="inner-text font-gray">{{ $education->percentage }}</div>
                                             <div class="inner-text font-gray">{{ $education->year }} Year</div>
                                         </li>
