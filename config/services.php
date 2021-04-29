@@ -42,3 +42,10 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT_URI') 
       ],
 ];
+// GOOGLE_CLIENT_ID=787141815319-gaut8ise60fkgte2aakvao0i8tsogfn2.apps.googleusercontent.com
+// GOOGLE_CLIENT_SECRET=pa9OBNh7IudPfO7qL-W5XkHK
+// GOOGLE_REDIRECT_URI=http://localhost:8000/login/google/callback
+
+// FACEBOOK_CLIENT_ID=484368236135963
+// FACEBOOK_CLIENT_SECRET=e5028ffa68314592c992ffb0a631d679
+// FACEBOOK_REDIRECT_URI=http://localhost:8000/login/facebook/callback

@@ -36,6 +36,7 @@ ALTER TABLE `user_work_experiences` ADD `responsibilities` VARCHAR(255) NULL AFT
 ALTER TABLE `resources` ADD `topic_id` INT NOT NULL AFTER `id`;
 ALTER TABLE `job_shifts` ADD `day_shift_val` TINYINT NULL DEFAULT NULL AFTER `job_id`, ADD `night_shift_val` TINYINT NULL DEFAULT NULL AFTER `day_shift_val`;
 ALTER TABLE `job_shifts` CHANGE `day_shift_val` `day_shift_val` TINYINT(4) NULL DEFAULT '0', CHANGE `night_shift_val` `night_shift_val` TINYINT(4) NULL DEFAULT '0';
-ALTER TABLE `users` ADD `google_id` VARCHAR(255) NULL DEFAULT NULL AFTER `remember_token`;
 ALTER TABLE `communities` ADD `other_category` VARCHAR(255) NULL DEFAULT NULL AFTER `question_category_id`;
 ALTER TABLE `communities` CHANGE `question_category_id` `question_category_id` INT(11) NULL DEFAULT NULL;
+ALTER TABLE `users` ADD `google_id` VARCHAR(255) NULL DEFAULT NULL AFTER `remember_token`;
+ALTER TABLE `users` ADD `facebook_id` VARCHAR(255) NULL DEFAULT NULL AFTER `google_id`;

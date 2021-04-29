@@ -329,28 +329,44 @@ class LoginController extends Controller
 
     public function socialLoginHandler($social, Request $request){
         try {
-            return $social;
-            return $request;
+           
             $user = Socialite::driver($social)->user();
         
-            $finduser = User::where('google_id', $user->id)->first();
-            if($finduser){
-                Auth::login($finduser);
-                return redirect('/home');
+            if ($social == "google") {
+                // $finduser = User::where('google_id', $user->id)->first();
+                $finduser = User::where('email', $user->getEmail())->first();
+                if ($finduser){
+                    Auth::login($finduser);
+                    return redirect('/home');
+                } 
+                // else {
+                //     $newUser = User::create([
+                //         'name' => $user->name,
+                //         'email' => $user->email,
+                //         'google_id'=> $user->id,
+                //         "email_verified_at" => Carbon::now()
+                //         // 'password' => encrypt('123456dummy')
+                //     ]);
+                //     Auth::login($newUser);
+                //     return redirect('/home');
+                //     // return redirect()->route('index')->with('error',trans('common.something_went_wrong'));
+                // }
             }
-            // else{
-            //     $newUser = User::create([
-            //         'name' => $user->name,
-            //         'email' => $user->email,
-            //         'google_id'=> $user->id,
-            //         'password' => encrypt('123456dummy')
-            //     ]);
-            //     Auth::login($newUser);
-            //     return redirect('/home');
-            // }
+            if ($social == "facebook") {
+                // dd($user);
+                $finduser = User::where('email', $user->getEmail())->first();
 
+                if($finduser){
+                    Auth::login($finduser);
+                    return redirect('/home');
+                } 
+            }
+            
+            return redirect()->route('index')->with('error',trans('common.something_went_wrong'));
+            
         } catch (Exception $e) {
-            dd($e->getMessage());   
+            // dd($e->getMessage());   
+            return redirect()->route('index')->with('error',trans('common.something_went_wrong'));
         }
     }
 }
