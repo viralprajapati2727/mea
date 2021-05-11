@@ -176,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-
+        Emotality\TawkTo\TawkToServiceProvider::class,
     ],
 
     /*
@@ -231,6 +231,7 @@ return [
         'Helper' => App\Helpers\Helper::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'TawkTo' => Emotality\TawkTo\TawkTo::class,
     ],
 
 ];
