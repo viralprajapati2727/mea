@@ -13,5 +13,7 @@
         @yield('content')
         @include('layouts.partial.footer')
         @yield('footer_script')
+
+        {{ TawkTo::widgetCode("609ab09ab1d5182476b7efdb") }}
     </body>
 </html>

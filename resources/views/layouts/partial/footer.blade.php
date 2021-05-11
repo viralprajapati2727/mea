@@ -26,7 +26,7 @@
             </div>
             <div class="col-sm-4 footer-col-wrap">
                 <div class="footer-col">
-                    <h3 class="f-title">Register for MEA updates</h3>
+                    <h3 class="f-title"> <img src="{{ Helper::assets('images/logo.png') }}" class="logo" alt=""> Register for MEA updates</h3>
                     <div class="newsletter-wrap">
                         <form>
                             <div class="form-control">
