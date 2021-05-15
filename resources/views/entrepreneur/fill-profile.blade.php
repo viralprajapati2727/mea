@@ -194,7 +194,7 @@
                                 <div class="form-group">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input-styled" name="is_resume_public" id="is_resume_public" value="1" data-fouc {{ ($profile->userProfile->is_resume_public && $profile->userProfile->is_resume_public > 0) ? 'checked' : '' }}>
+                                            <input type="checkbox" class="form-check-input-styled" name="is_resume_public" id="is_resume_public" value="1" data-fouc {{ ($profile->userProfil && $profile->userProfile->is_resume_public > 0) ? 'checked' : '' }}>
                                             Make Public
                                         </label>
                                     </div>
@@ -291,14 +291,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
-																										<div class="row">
-																											<div class="col-md-12">
-																													<div class="form-group">
-																															<label class="col-form-label">Responsibilities <span class="font-color">*</span></label>
-																															<input type="text" name="exp[{{ $exp_count }}][responsibilities]" placeholder="Responsibilities" class="form-control responsibilities" value="{{ ($is_profile) ? $work->responsibilities : "" }}">
-																													</div>
-																											</div>
-																										</div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                        <label class="col-form-label">Responsibilities <span class="font-color">*</span></label>
+                                                                        <input type="text" name="exp[{{ $exp_count }}][responsibilities]" placeholder="Responsibilities" class="form-control responsibilities" value="{{ ($is_profile) ? $work->responsibilities : "" }}">
+                                                                </div>
+                                                        </div>
+                                                    </div>
                                                     <input type="hidden" name="exp[{{ $exp_count }}][work_id]" class="id" value="{{ $work->id }}">
                                                 </div>
                                                 @php $exp_count++; @endphp
