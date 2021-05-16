@@ -32,8 +32,12 @@
             </div>
             <div class="community-question-wraper">
                 <div class="add-que-wrap d-flex justify-content-end">
-                    <a href="javascript:;" class="btn" data-toggle="modal" data-target="#ask-question">Ask A Question</a>
-                </div>
+            @if (Auth::check())
+                <a href="javascript:;" class="btn" data-toggle="modal" data-target="#ask-question">Ask A Question</a>
+            @else
+                {{-- <p>Please login to ask question.</p> --}}
+            @endif
+            </div>                
             @if(sizeof($questions) > 0) 
                 <div class="com-que-list"> 
                     <div class="com-que header">
