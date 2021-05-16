@@ -17,11 +17,11 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            @if(Auth::check())
+                            {{-- @if(Auth::check()) --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('community.index') }}">Community</a>
                             </li>
-                            @endif
+                            {{-- @endif --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.members') }}">Members</a>
                             </li>
@@ -86,6 +86,7 @@
                                                                 <li><a href="{{ route('startup-portal-request') }}">Startup Portal Request</a></li>
                                                             @endif
                                                             <li><a href="{{ route('page.drop-idea') }}">Drop Your Ideas</a></li>
+                                                            <li><a href="{{ route('page.questions') }}">My Questions</a></li>
                                                             @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR'))
                                                                 <li><a href="{{ route('startup-portal') }}">StartUp Portal</a></li>
                                                                 <li><a href="{{ route('startup.raise-fund') }}">Startups To Raise Funds</a></li>

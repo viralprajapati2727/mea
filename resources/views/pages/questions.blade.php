@@ -16,7 +16,7 @@
                                                 $ProfileUrl = Helper::images(config('constant.profile_url'));
                                                 $img_url = (isset($question->user->logo) && $question->user->logo != '') ? $ProfileUrl . $question->user->logo : $ProfileUrl.'default.png';
                                             @endphp
-                                            <img src="{{ $img_url }}" alt="">
+                                            <img src="{{ $img_url }}" alt="profile-img">
                                         </div>
                                         <div class="name">
                                             <h3>{{ $question->user->name }}</h3>
@@ -36,6 +36,7 @@
                                         </div>
                                     </div>
                                     <div class="quetion-info">
+                                        @isset($question->communityCategory)
                                         <div class="quetion-category">
                                             <ul>
                                                 <li>
@@ -45,6 +46,7 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                        @endisset
                                         @isset($question->tags)
                                             <div class="quetion-tags">
                                                 <ul>
@@ -59,7 +61,7 @@
                                 </div>
                             @endforeach
                             @else
-                                No Questions Found
+                                No Questions Found, you can ask question form <a href="{{ route("community.index") }}">community</a> section
                             @endif
                         </div>
                     </div>

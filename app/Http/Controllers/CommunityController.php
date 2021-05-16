@@ -26,8 +26,11 @@ class CommunityController extends Controller
     public function index(Request $request){
         $categories = QuestionCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
         $tags = Tags::where('status',1)->select('title')->get()->pluck('title');
-        $questions = Community::with('communityTags')->where('user_id',Auth::id())->where('deleted_at',null)->where('status',1);
+        $questions = Community::with('communityTags')->where('deleted_at',null)->where('status',1);
 
+        // if (Auth::check()) {
+        //     $questions = $questions->where('user_id',Auth::id());
+        // }
         if($request->search != null && $request->search != ""){
             $questions = $questions->where('title','like','%'.$request->search.'%');
         }
@@ -152,8 +155,9 @@ class CommunityController extends Controller
     public function questions(Request $request){
         DB::beginTransaction();
         try{
-            $questions = Community::with('communityTags')
+            $questions = Community::with(['communityTags', 'communityCategory'])
                     ->where('status',1)
+                    ->where('user_id',Auth::id())
                     ->where('deleted_at',null);
                     
             if(isset($request->category_id) && $request->category_id != null){
@@ -162,7 +166,7 @@ class CommunityController extends Controller
 
             $questions= $questions->orderBy('id','DESC')->get();
             $categories = QuestionCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
-
+            // return $questions;
             DB::commit();
             return view('pages.questions',compact('questions','categories'));
         

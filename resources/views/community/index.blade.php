@@ -30,11 +30,11 @@
                     </form>
                 </div>
             </div>
-            @if(sizeof($questions) > 0) 
             <div class="community-question-wraper">
                 <div class="add-que-wrap d-flex justify-content-end">
                     <a href="javascript:;" class="btn" data-toggle="modal" data-target="#ask-question">Ask A Question</a>
                 </div>
+            @if(sizeof($questions) > 0) 
                 <div class="com-que-list"> 
                     <div class="com-que header">
                         <div class="row">
@@ -67,8 +67,8 @@
                                     <div class="community-que">
                                         @php
                                             $ProfileUrl = Helper::images(config('constant.profile_url'));
-                                            $img_url = (isset(Auth::user()->logo) && Auth::user()->logo != '') ? $ProfileUrl . Auth::user()->logo : $ProfileUrl.'default.png';
-                                        @endphp 
+                                            $img_url = (isset($question->user->logo) && $question->user->logo != '') ? $ProfileUrl . $question->user->logo : $ProfileUrl.'default.png';
+                                        @endphp
                                         <div class="profile">
                                             <img src="{{ $img_url }}" alt="user-profile" class="w-100" style="border-radius:100%;width: 100%; ">
                                         </div>
@@ -101,10 +101,10 @@
                         </div>                                
                     @endforeach
                 </div>
-            </div>
             @else
-                No question found
+            No question found
             @endif
+            </div>
         </div>
     </div>
 </div>
@@ -149,7 +149,7 @@
                             <option value="-1"> Other </option>
                         </select>
                     </div>
-                    <div class="row mt-md-2.div_other_category">
+                    <div class="row mt-md-2 div_other_category" style="display:none">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label">Other Category </label>

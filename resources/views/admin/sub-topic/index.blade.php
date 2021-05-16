@@ -276,7 +276,7 @@ $(document).ready( function () {
         }).then(function (confirm) {
             if(confirm.value !== "undefined" && confirm.value){
                 $.ajax({
-                    url: 'topic/'+id,
+                    url: `sub-topic-delete/${id}`,
                     type: 'DELETE',
                     data: { id : id, },
                     beforeSend: function(){
