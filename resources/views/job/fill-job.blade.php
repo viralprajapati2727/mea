@@ -176,7 +176,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label class="form-control-label">Job Location <span class="required-star-color">*</span></label>
-                                            <input type="text" class="form-control" name="location" id="location" placeholder="Job Location" value="{{ ($is_job && $job->job_type == 1) ? $job->location : old('location') }}" >
+                                            <input type="text" class="form-control location" name="location" id="location" placeholder="Job Location" value="{{ ($is_job && $job->job_type == 1) ? $job->location : old('location') }}" >
                                         </div>
                                     </div>
                                 </div>
@@ -272,7 +272,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label class="form-control-label">Location</label>
-                                            <input type="text" class="form-control" name="location" placeholder="Location" value="{{ ($is_job && $job->job_type == 2) ? $job->location : old('location') }}" >
+                                            <input type="text" class="form-control " name="location" placeholder="Location" id="location_new" value="{{ ($is_job && $job->job_type == 2) ? $job->location : old('location') }}" >
                                         </div>
                                     </div>
                                 </div>
@@ -323,9 +323,11 @@
     </div>
 @endsection
 @section('footer_script')
+<script type='text/javascript' src="https://maps.googleapis.com/maps/api/js?key={{ env('PLACE_API_KEY') }}&libraries=places&callback=initAutocomplete" async defer></script>
 <script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript" src="{{ Helper::assets('js/plugins/forms/tags/tokenfield.min.js') }}"></script>
 <script>
+$(document).ready(function () {
     var is_form_edit = false;
     $('.key_skills').tokenfield({
         tokens:@json($inserted_key_skills),
@@ -349,6 +351,45 @@
             }
         });
     });
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+        var input = document.getElementById('location');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        
+        google.maps.event.addDomListener(input, 'keydown', function(event) { 
+            if (event.keyCode === 13) { 
+                event.preventDefault(); 
+            }
+        }); 
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+        
+            // $('#latitude').val(place.geometry['location'].lat());
+            // $('#longitude').val(place.geometry['location'].lng());
+            // $("#latitudeArea").removeClass("d-none");
+            // $("#longtitudeArea").removeClass("d-none");
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize_new);
+
+    function initialize_new() {
+        var input = document.getElementById('location_new');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        
+        google.maps.event.addDomListener(input, 'keydown', function(event) { 
+            if (event.keyCode === 13) { 
+                event.preventDefault(); 
+            }
+        }); 
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+        });
+    }
+});
+
 </script>
 <script type="text/javascript" src="{{ Helper::assets('js/pages/post_job.js') }}"></script>
 @endsection

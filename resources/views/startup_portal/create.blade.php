@@ -261,4 +261,25 @@
     });
 </script>
 <script type="text/javascript" src="{{ Helper::assets('js/pages/startup_portal.js') }}"></script>
+<script type='text/javascript' src="https://maps.googleapis.com/maps/api/js?key={{ env('PLACE_API_KEY') }}&libraries=places&callback=initAutocomplete" async defer></script>
+<script>
+$(document).ready(function () {
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+        var input = document.getElementById('location');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        
+        google.maps.event.addDomListener(input, 'keydown', function(event) { 
+            if (event.keyCode === 13) { 
+                event.preventDefault(); 
+            }
+        }); 
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+        });
+    }
+});
+
+</script>
 @endsection
