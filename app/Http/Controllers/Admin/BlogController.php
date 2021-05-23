@@ -50,7 +50,7 @@ class BlogController extends Controller
         })
         ->addColumn('action', function ($Query) {
             $action_link = "";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_blog openBlogPopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_business_category'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_blog openBlogPopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-author_by = '".$Query->author_by."'  data-published_at = '".$Query->published_at."' ><i class='icon-pencil7 mr-3 text-primary edit_business_category'></i></a>&nbsp;&nbsp;";
             $action_link .= "<a href='javascript:;' class='blog_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })
@@ -74,6 +74,8 @@ class BlogController extends Controller
                 'short_description' => $request->short_description,
                 'description' => $request->description,
                 'status' => $status,
+                'published_at' => $request->published_at,
+                'author_by' => $request->author_by
             ];
 
             if($request->id){

@@ -50,7 +50,8 @@
                                             @php
                                                 $ProfileUrl = Helper::images(config('constant.profile_url'));
                                                 $img_url = (isset(Auth::user()->logo) && Auth::user()->logo != '') ? $ProfileUrl . Auth::user()->logo : $ProfileUrl.'default.png';
-                                            @endphp 
+                                            @endphp
+                                            @if (Auth::check())
                                             <div class="profile-menu">
                                                 <a href="javascript:;" class="profile-menu-link">
                                                     <div class="profile-image">
@@ -96,6 +97,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endif 
                                         </div>
                                     </li>
                                 @else

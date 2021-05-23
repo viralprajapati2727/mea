@@ -29,7 +29,7 @@ use Carbon\Carbon;
 class GeneralController extends Controller {
 	
 	public function index() {
-		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('status',1)->where('deleted_at',null)->orderBy('id','DESC')->limit(3)->get();
+		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at',"published_at","author_by")->where('status',1)->where('deleted_at',null)->orderBy('id','DESC')->limit(3)->get();
 		
         return view('welcome',compact('blogs'));
 	}
@@ -220,7 +220,7 @@ class GeneralController extends Controller {
 		}
     }
 	public function blogs() {
-		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','DESC')->paginate(9);
+		$blogs = Blog::select('id','slug','title','src','short_description','created_by','updated_at',"published_at","author_by")->where('deleted_at',null)->orderBy('id','DESC')->paginate(9);
 		return view('pages.blogs',compact('blogs'));
 	}
 	public function blogDetail($slug = null){

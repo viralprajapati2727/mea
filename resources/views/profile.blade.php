@@ -98,22 +98,46 @@
                             </ul>
                             <ul class="socials d-flex">
                                 @if(!empty($profile->userProfile->fb_link))
-                                    <li class="facebook"><a href="{{ $profile->userProfile->fb_link }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                    <li class="facebook">
+                                        <a href="{{ $profile->userProfile->fb_link }}" target="_blank"  rel="noreferrer">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
                                 @endif
                                 @if(!empty($profile->userProfile->insta_link))
-                                    <li class="instagram"><a href="{{ $profile->userProfile->insta_link }}" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                    <li class="instagram">
+                                        <a href="{{ $profile->userProfile->insta_link }}" target="_blank"  rel="noreferrer">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
                                 @endif
                                 @if(!empty($profile->userProfile->tw_link))
-                                    <li class="twitter"><a href="{{ $profile->userProfile->tw_link }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                    <li class="twitter">
+                                        <a href="{{ $profile->userProfile->tw_link }}" target="_blank"  rel="noreferrer">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
                                 @endif
                                 @if(!empty($profile->userProfile->linkedin_link))
-                                <li class="twitter"><a href="{{ $profile->userProfile->linkedin_link }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                                <li class="twitter">
+                                    <a href="{{ $profile->userProfile->linkedin_link }}" target="_blank" rel="noreferrer">
+                                        <i class="fa fa-linkedin"></i>
+                                    </a>
+                                </li>
                                 @endif
                                 @if(!empty($profile->userProfile->github_link))
-                                <li class="twitter"><a href="{{ $profile->userProfile->github_link }}" target="_blank"><i class="fa fa-github"></i></a></li>
+                                <li class="twitter">
+                                    <a href="{{ $profile->userProfile->github_link }}" target="_blank"  rel="noreferrer">
+                                        <i class="fa fa-github"></i>
+                                    </a>
+                                </li>
                                 @endif
                                 @if(!empty($profile->userProfile->web_link))
-                                    <li class="web"><a href="{{ $profile->userProfile->web_link }}" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true"></i></a></li>
+                                    <li class="web">
+                                        <a href="{{ $profile->userProfile->web_link }}" target="_blank"  rel="noreferrer">
+                                            <i class="fa fa-external-link-square" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
                                 @endif
                             </ul>
                         </div>
@@ -208,7 +232,7 @@
 </div>
 
 <!-- appoinment modal -->
-<div id="appointment" class="modal fade" tabindex="-1">
+<div id="appointment" class="modal fade" tabindex="-1" style="z-index: 99999">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -235,12 +259,21 @@
                         </div>
                     </div>
                     <div class="row mt-md-2">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group position-relative">
                                 <label class="form-control-label">Date <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control birthdate" name="date" id="date" placeholder="Select Date of Appintment" value="" >
+                                <input type="text" class="form-control birthdate" name="date" id="date" placeholder="Select Date of Appointment" value="" >
                                 <div class="date-of-birth-icon">
-                                    <i class="flaticon-calendar"></i>
+                                    {{-- <i class="flaticon-calendar"></i> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group position-relative">
+                                <label class="form-control-label">Time <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control appointment_time" name="appointment_time" id="appointment_time" placeholder="Select Time of Appointment" value="" >
+                                <div class="date-of-birth-icon">
+                                    <i class="flaticon-clock"></i>
                                 </div>
                             </div>
                         </div>

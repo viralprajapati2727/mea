@@ -12,10 +12,17 @@
             </div>
             <div class="single-blog-content">
                 <div class="blog-top-detail d-sm-flex justify-content-between">
-                    <div class="datetime">
-                        <i class="icon-calendar"></i>
-                        <span class="date_time">{{ Carbon\Carbon::parse($blog->updated_at)->format('j M Y') }}</span>
-                    </div>
+                    @if ($blog->published_at)
+                        <div class="datetime">
+                            <i class="icon-calendar"></i>
+                            <span class="date_time">{{ Carbon\Carbon::parse($blog->published_at)->format('j M Y') }}</span>
+                        </div>
+                    @else
+                        <div class="datetime">
+                            <i class="icon-calendar"></i>
+                            <span class="date_time">{{ Carbon\Carbon::parse($blog->updated_at)->format('j M Y') }}</span>
+                        </div>
+                    @endif
                     <div class="d-flex align-items-center share-blog-button">
                         <h5>Share:</h5>
                         <div class="d-inline-block">
@@ -32,7 +39,7 @@
                         <a href="{{ route('page.blog-detail',['slug' => $blog->slug]) }}"><h1>{{ $blog->title }}</h1></a>
                     </div>
                     <div class="blog-description">
-                        {{ $blog->short_description }}
+                        {!! $blog->description !!}
                     </div>
                 </div>
             </div>

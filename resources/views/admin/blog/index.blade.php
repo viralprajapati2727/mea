@@ -2,6 +2,14 @@
 @section('title') Blogs @endsection
 @section('page-header')
 <!-- Page header -->
+<style>
+.date-of-birth-icon {
+    position: absolute;
+    top: 3px;
+    right: 20px;
+    color: #767676;
+}
+</style>
 @php
     // dd(Request::segment(3));
 @endphp
@@ -68,7 +76,7 @@
                     <div class="form-group row">
                         <label class="col-form-label pl-2">Short Description:<span class="text-danger">*</span></label>
                         <div class="input-group custom-start col-md-12">
-                            <textarea name="short_description" id="short_description" rows="5" placeholder="Enter Short Description" class="form-control"></textarea>
+                            <textarea name="short_description" id="short_description" rows="5" placeholder="Enter Short Description" class="form-control short_description"></textarea>
                         </div>
                         <div class="input-group short_description-error-msg"></div>
                     </div>
@@ -100,6 +108,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-form-label pl-2">Author by :</label>
+                        <div class="input-group custom-start col-md-12">
+                            <input type="text" class="form-control author_by" name="author_by" id="author_by" value="" placeholder="{{ Auth::user()->name }}" >
+                        </div>
+                        <div class="input-group title-error-msg"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label pl-2">Publish Date :</label>
+                        <div class="input-group custom-start col-md-12">
+                            <input type="text" class="form-control published_at" name="published_at" id="date" placeholder="Select Publish Date" value="{{ date("d/m/Y") }}" >
+                            <div class="date-of-birth-icon">
+                                <i class="flaticon-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="input-group title-error-msg"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link custom_close" data-dismiss="modal">Cancel</button>
@@ -114,6 +139,13 @@
 <script type="text/javascript" src="{{ Helper::assets('js/plugins/editors/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ Helper::assets('js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
 <script>
+        $(document).ready(function(){
+        $("#date").datetimepicker({
+            ignoreReadonly: true,
+            format: 'MM/DD/YYYY',
+        }).data('autoclose', true);
+    });        
+
 
     CKEDITOR.replace('description', {
         height: '200px',
@@ -220,24 +252,29 @@ $(document).ready( function () {
         var short_description = $(this).data('short_description');
         var description = $(this).data('description');
         var src = $(this).data('src');
+        var published_at = $(this).data("published_at");
+        var author_by = $(this).data("author_by");
         $('.add_modal').modal({backdrop: 'static', keyboard: false});
         var path = "{{ Helper::images(config('constant.blog_url')) }}";
         var final = path+src;
         $('.add_modal .blog_id').val(id);
         var blogId = $('.blog_id').val();
         var oldSrc = $('.old_src').val(src);
-        console.log(blogId,'blogId')
+        // console.log(blogId,'blogId')
         if(blogId){
             $('.add_modal .dance_music_type').val(title);
             $('.add_modal #short_description').text(short_description);
             $('.add_modal #description').text(description);
             CKEDITOR.instances.description.setData(description);
+            $('.add_modal #date').val(published_at)
+            $('.add_modal #author_by').val(author_by)
             $('.append-image').append('<a class="fancy-pop-image" data-fancybox="images" href='+final+'><img class="image-preview-logo mt-3 ml-2" name="previewpic" id="previewpic"  src='+final+'></a>');
             $('.append-image').css('display','block');
         }
     })
 
     $(document).on('click','.custom_close',function(){
+        // var description = $(this).data('description');
         setTimeout(function(){
             $('.validation-invalid-label').remove();
             $("#blog_form").trigger("reset");
@@ -245,6 +282,10 @@ $(document).ready( function () {
             $('.add_modal .dance_music_type').val('');
             $('.add_modal .old_src').val('');
             $('.append-image').html('');
+            CKEDITOR.instances['description'].setData("")
+            $('.short_description').text('');
+            $('.author_by').val('');
+            $('#date').val('');
         }, 700);
     });
 

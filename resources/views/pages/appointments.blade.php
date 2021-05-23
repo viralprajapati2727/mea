@@ -123,7 +123,7 @@
                         <div class="col-md-3">
                             <div class="form-group position-relative">
                                 <label class="form-control-label">Date <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control birthdate" name="date" id="date" placeholder="Select Date of Appintment" value="" >
+                                <input type="text" class="form-control birthdate" name="date" id="date" placeholder="Select Date of Appointment" value="" >
                                 <div class="date-of-birth-icon">
                                     {{-- <i class="flaticon-calendar"></i> --}}
                                 </div>
@@ -132,7 +132,7 @@
                         <div class="col-md-3">
                             <div class="form-group position-relative">
                                 <label class="form-control-label">Time <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control appointment_time" name="appointment_time" id="appointment_time" placeholder="Select Time of Appintment" value="" >
+                                <input type="text" class="form-control appointment_time" name="appointment_time" id="appointment_time" placeholder="Select Time of Appointment" value="" >
                                 <div class="date-of-birth-icon">
                                     <i class="flaticon-clock"></i>
                                 </div>

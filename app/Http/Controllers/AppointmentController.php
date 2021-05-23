@@ -21,7 +21,7 @@ class AppointmentController extends Controller
 {
     public function index(){
 
-        $appointments = Appointment::where('deleted_at',null)->where('user_id',Auth::id())->orderBy('id','DESC')->paginate(10);
+        $appointments = Appointment::where('deleted_at',null)->where('user_id', Auth::id())->orderBy('id','DESC')->paginate(10);
 
         return view('pages.appointments',compact('appointments'));
     }

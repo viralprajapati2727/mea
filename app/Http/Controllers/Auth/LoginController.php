@@ -337,7 +337,7 @@ class LoginController extends Controller
                 $finduser = User::where('email', $user->getEmail())->first();
                 if ($finduser){
                     Auth::login($finduser);
-                    return redirect('/home');
+                    return redirect('/profile/'.$finduser->slug);
                 } 
                 // else {
                 //     $newUser = User::create([

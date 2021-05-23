@@ -28,11 +28,18 @@
                                     </div>
                                     <div class="blog-header d-flex flex-wrap justify-content-between">
                                         <div class="author">
-                                            <h6><span>-</span> by {{ $blog->user->name }}</h6>
+                                            <h6><span>-</span> by  @if ($blog->author_by) {{ $blog->author_by }} @else {{ $blog->user->name }} @endif</h6>
                                         </div>
                                         <div class="blog-date">
-                                            <i class="icon-calendar"></i>
-                                            <span class="date_time">{{ Carbon\Carbon::parse($blog->updated_at)->format('j M Y') }}</span>
+                                            {{-- <i class="icon-calendar"></i>
+                                            <span class="date_time">{{ Carbon\Carbon::parse($blog->updated_at)->format('j M Y') }}</span> --}}
+                                            @if ($blog->published_at)
+                                                <i class="icon-calendar"></i>
+                                                <span class="date_time">{{ Carbon\Carbon::parse($blog->published_at)->format('j M Y') }}</span>
+                                            @else
+                                                <i class="icon-calendar"></i>
+                                                <span class="date_time">{{ Carbon\Carbon::parse($blog->updated_at)->format('j M Y') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="blog-content">

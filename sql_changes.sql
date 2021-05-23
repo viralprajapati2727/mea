@@ -40,3 +40,5 @@ ALTER TABLE `communities` ADD `other_category` VARCHAR(255) NULL DEFAULT NULL AF
 ALTER TABLE `communities` CHANGE `question_category_id` `question_category_id` INT(11) NULL DEFAULT NULL;
 ALTER TABLE `users` ADD `google_id` VARCHAR(255) NULL DEFAULT NULL AFTER `remember_token`;
 ALTER TABLE `users` ADD `facebook_id` VARCHAR(255) NULL DEFAULT NULL AFTER `google_id`;
+ALTER TABLE `blogs` ADD `published_at` VARCHAR(50) NULL DEFAULT NULL AFTER `status`;
+ALTER TABLE `blogs` ADD `author_by` VARCHAR(255) NULL DEFAULT NULL AFTER `status`;
