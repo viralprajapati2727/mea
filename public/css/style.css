@@ -82,8 +82,11 @@ ul{
 	font-size: 20px;
 }
 .site-header {
-    background: #75D2FA;
+    background: #fff;
     padding: 10px 0;
+    -webkit-box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
+    -moz-box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
+    box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
 }
 .sticky {
     position: fixed !important;
@@ -93,7 +96,7 @@ ul{
     -webkit-box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
     -moz-box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
     box-shadow: -1px 3px 5px 1px rgba(20, 14, 20, 0.11);
-    background-color: #75D2FA;
+    background-color: #fff;
 }
 .navbar-brand {
     padding: 0;
@@ -107,9 +110,14 @@ ul{
     line-height: 34px;
     color: #000;
     font-weight: 900;
+    display: none;
 }
 .navbar-brand img {
+    max-width: 100px;
     margin-right: 15px;
+}
+.nav-link {
+    padding: 0;
 }
 .header-right {
     display: flex;
@@ -117,11 +125,14 @@ ul{
     justify-content: space-between;
 }
 .navbar-expand-lg .navbar-nav .nav-link {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 34px;
     color: #474747;
     font-weight: 500;
     padding: 10px;
+}
+.login-links {
+    padding-left: 10px;
 }
 .login-links ul {
     list-style: none;
@@ -221,6 +232,10 @@ ul{
     color: #333333;
     font-weight: 600;
     margin-bottom: 20px;
+}
+.site-footer .f-title img {
+    max-width: 100px;
+    display: block;
 }
 .footer-links li a{
     font-size: 18px;
@@ -2024,13 +2039,13 @@ ul{
 .has-subitem.open:after{
     content: "\f0d8";
 }
+.navbar {padding: 0;}
 /*==============================================Meadia Query====================================
 
 ==============================================================================================*/
 @media screen and (max-width: 1469px){
     .navbar-brand img{margin-right: 10px;}
     .navbar-brand h1{font-size: 18px;}
-    .navbar-expand-lg .navbar-nav .nav-link{padding: 15px 7px 0 7px; font-size: 15px;}
     .header-right .collapse{justify-content: flex-end; flex-wrap: wrap;}
     .login-links li a{justify-content: flex-end; font-size: 16px;}
 }
@@ -2053,7 +2068,7 @@ ul{
 }
 @media screen and (max-width: 991px){
     .navbar-toggler i{font-size: 32px;}
-    .header-right .navbar-toggler{ position: absolute; top: -60px; }
+    .header-right .navbar-toggler{ position: absolute; top: -80px; }
     .navbar-expand-lg .navbar-nav .nav-link{padding: 6px 0; font-size: 17px;}
     .header-right .collapse{padding-left: 1.25rem;}
     .login-links{margin-top: 20px;}
@@ -2188,11 +2203,11 @@ ul{
     .get-started-wrap .left-content h2{font-size: 20px; line-height: 26px;}
 }
 @media screen and (max-width: 380px){
-    .navbar-brand img{width: 30px;}
+    .navbar-brand img{width: 90px;}
     .navbar-brand h1{
         font-size: 12px;
     }
-    .header-right .navbar-toggler{top: -55px;}
+    .header-right .navbar-toggler{top: -65px;}
 }
 
 .job_shift_wrap .form-group .form-radio-group .radio-inline input[type="checkbox"] {

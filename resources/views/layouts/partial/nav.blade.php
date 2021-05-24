@@ -2,7 +2,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg">
             <div class="row w-100 align-items-center">
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <a class="nav-link" href="{{ url('/') }}">
                         <div class="navbar-brand">
                             <img src="{{ Helper::assets('images/logo.png') }}" class="logo" alt="">
@@ -10,7 +10,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-10">
                     <div class="header-right">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>

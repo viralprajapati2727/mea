@@ -3,7 +3,7 @@
 @section('content')
 <section>
     <div class="slider">
-        <div class="container">
+        <div>
             <div id="home-slider" class="owl-carousel owl-theme">
                 <div class="item"><img src="{{ Helper::assets('images/banner/Slider01.jpg') }}" class="" alt=""></div>
                 <div class="item"><img src="{{ Helper::assets('images/banner/Slider01.jpg') }}" class="" alt=""></div>
