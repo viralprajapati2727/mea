@@ -156,6 +156,9 @@
                     @empty
                     @endforelse
                 </div>
+                <div class="text-center">
+                    <a href="{{ route('page.blogs') }}" class="view-more-link">View more blogs</a>
+                </div>
             </div>
         </div>
     @endif

@@ -2214,3 +2214,11 @@ ul{
     position: absolute;
     opacity: 0;
 }
+
+.view-more-link {
+    display: inline-block;
+    padding: 5px 25px;
+    border: 2px solid #0088FF;
+    color: #0088FF;
+    font-size: 16px;
+}
