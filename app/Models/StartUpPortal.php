@@ -16,7 +16,7 @@ class StartUpPortal extends Model
     }
 
     public function startup_team_member(){
-        return $this->hasMany(StartupTeamMembers::class,'id','startup_id');
+        return $this->hasMany(StartupTeamMembers::class, 'startup_id', 'id');
     }
 
 }

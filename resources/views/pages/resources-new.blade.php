@@ -79,7 +79,7 @@
                                     @foreach ($subResource as $item)
                                         <h3 class="subtitle" id="s{{ $item->topic_id }}">{{ $item->title ?? "-" }}</h3>
                                         <div class="text">
-                                            <p>{{ $item->description }}</p>
+                                            <p>{!! $item->description ?? "" !!}</p>
                                         </div>
                                     @endforeach
                                 @endif

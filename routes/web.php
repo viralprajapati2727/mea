@@ -51,8 +51,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
     Route::get('page/resources', 'GeneralController@resourceNew')->name('page.resources-new');
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
 
-    Route::get('community', 'CommunityController@index')->name('community.index');
-
+    
     Route::group(['middleware' => ['verified','auth']], function () {
 
         Route::get('change-password', 'GeneralController@changePassword')->name('user.change-password');
@@ -92,7 +91,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
             Route::post('appointment-delete', 'AppointmentController@destroy')->name('appointment.delete');
             
             //community
-            // Route::get('community', 'CommunityController@index')->name('community.index');
+            Route::get('community', 'CommunityController@index')->name('community.index');
             Route::post('update-community', 'CommunityController@updateCommunity')->name('community.update-community');
             
             Route::get('drop-your-idea','GeneralController@idea')->name('page.drop-idea');

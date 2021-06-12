@@ -88,6 +88,7 @@
                                         @forelse ($users as $user)
                                             <option value="{{ $user->id }}" 
                                                 {{-- {{ ($startup) ? ($startup->business_category_id == $category->id ? 'selected' : ''): ''  }} --}}
+                                                {{ $startup ? (in_array($user->id, $startup->startup_team_member->pluck("user_id")->toArray()) ? "selected" : "" ) : ""  }}
                                                 >{{ __($user->name.' '.( $user->email)) }}</option>
                                         @empty
                                         @endforelse
