@@ -17,22 +17,22 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            @if(Auth::check())
+                            {{-- @if(Auth::check()) --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('community.index') }}">Community</a>
                             </li>
-                            @endif
+                            {{-- @endif --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.members') }}">Members</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('job.search-job') }}">Browse Requests</a>
                             </li>
-                            @if (Auth::check())
+                            {{-- @if (Auth::check()) --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.resources-new') }}">Resources</a>
                             </li>
-                            @endif
+                            {{-- @endif --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
                             </li>

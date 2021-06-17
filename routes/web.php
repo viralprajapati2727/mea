@@ -47,8 +47,6 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
     Route::get('questions','CommunityController@questions')->name('page.questions');
     Route::get('questions/{question_id}/{like?}','CommunityController@detail')->name('community.questions-details');
     Route::get('startup-portal','GeneralController@getStartupPortal')->name('page.startup-portal');
-    Route::get('fund-requests','GeneralController@getFundRequests')->name('page.fund-requests');
-    Route::get('fund-requests/view/{id?}','GeneralController@viewFundRequest')->name('page.fund-requests.view');
     Route::get('page/resources', 'GeneralController@resourceNew')->name('page.resources-new');
     Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
 
@@ -70,6 +68,10 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
 
         Route::get('members/message/{user?}','GeneralController@getMessages')->name('member.message');
         Route::post('members/send-message','GeneralController@sendMessage')->name('member.send-message');
+
+        // fund request 
+        Route::get('fund-requests','GeneralController@getFundRequests')->name('page.fund-requests');
+        Route::get('fund-requests/view/{id?}','GeneralController@viewFundRequest')->name('page.fund-requests.view');
 
         Route::group(['middleware' => ['fill-profile-access']], function () {
 
