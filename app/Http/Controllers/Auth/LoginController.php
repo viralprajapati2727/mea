@@ -358,8 +358,9 @@ class LoginController extends Controller
 
                 if($finduser){
                     Auth::login($finduser);
-                    return redirect('/home');
+                    return redirect('/profile/'.$finduser->slug);
                 } 
+                return redirect('/home');
             }
             
             return redirect()->route('index')->with('error',trans('common.something_went_wrong'));

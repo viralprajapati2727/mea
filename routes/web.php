@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'GeneralController@index')->name('home');
 Route::get('refresh-csrf', function(){ return csrf_token(); });
 
 Route::group(['middleware' => 'prevent-back-history'] , function () {
