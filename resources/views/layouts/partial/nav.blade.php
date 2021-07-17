@@ -16,30 +16,28 @@
                         <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            {{-- @if(Auth::check()) --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('community.index') }}">Community</a>
-                            </li>
-                            {{-- @endif --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.members') }}">Members</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('job.search-job') }}">Browse Requests</a>
-                            </li>
-                            {{-- @if (Auth::check()) --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.resources-new') }}">Resources</a>
-                            </li>
-                            {{-- @endif --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('page.fund-requests') }}">Fund Request</a>
-                            </li>
-                        </ul>
+                        @if(Auth::check())
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('community.index') }}">Community</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('page.members') }}">Members</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('job.search-job') }}">Browse Requests</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('page.resources-new') }}">Resources</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('page.fund-requests') }}">Fund Request</a>
+                                </li>
+                            </ul>
+                        @endif
                         <div class="login-links">
                             <ul>
                                 <li>

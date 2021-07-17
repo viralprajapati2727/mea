@@ -37,21 +37,26 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
     Route::get('page/team', 'GeneralController@team')->name('page.team');
     Route::get('page/contact-us', 'GeneralController@contactUs')->name('page.contact-us');
     Route::post('page/contact-us', 'GeneralController@contactRequest')->name('contact-us-request');
-    Route::get('page/resource', 'GeneralController@resource')->name('page.resources');
-    Route::get('resource/{slug}', 'GeneralController@resourceDetail')->name('page.resource-detail');
     Route::get('blogs', 'GeneralController@blogs')->name('page.blogs');
     Route::get('blog/{slug}', 'GeneralController@blogDetail')->name('page.blog-detail');
-    Route::get('members', 'GeneralController@members')->name('page.members');
-    Route::get('search-job', 'JobController@searchJob')->name('job.search-job');
+    
     Route::get('search', 'JobController@globalSearch')->name('job.global-search');
     Route::get('questions','CommunityController@questions')->name('page.questions');
     Route::get('questions/{question_id}/{like?}','CommunityController@detail')->name('community.questions-details');
-    Route::get('startup-portal','GeneralController@getStartupPortal')->name('page.startup-portal');
-    Route::get('page/resources', 'GeneralController@resourceNew')->name('page.resources-new');
-    Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
+    
 
     
     Route::group(['middleware' => ['verified','auth']], function () {
+        /** Nav bar urls */
+        Route::get('members', 'GeneralController@members')->name('page.members');
+        Route::get('search-job', 'JobController@searchJob')->name('job.search-job');
+        Route::get('page/resources', 'GeneralController@resourceNew')->name('page.resources-new');
+        Route::get('startup-portal','GeneralController@getStartupPortal')->name('page.startup-portal');
+        Route::get('profile/{slug}', 'GeneralController@viewProfile')->name('user.view-profile');
+        /** Nav bar url end */
+
+        Route::get('page/resource', 'GeneralController@resource')->name('page.resources');
+        Route::get('resource/{slug}', 'GeneralController@resourceDetail')->name('page.resource-detail');
 
         Route::get('change-password', 'GeneralController@changePassword')->name('user.change-password');
 		Route::post('update-password', 'GeneralController@updatePassword')->name('user.update-password');
