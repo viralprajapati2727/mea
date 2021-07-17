@@ -25,7 +25,9 @@ use App\Models\ChatMessage;
 use App\Models\ChatMessagesReceiver;
 use App\Models\RaiseFund;
 use App\Models\Topic;
+use App\Models\EmailSubscriptions;
 use Carbon\Carbon;
+
 class GeneralController extends Controller {
 	
 	public function index() {
@@ -414,5 +416,30 @@ class GeneralController extends Controller {
             DB::rollback();
             return redirect()->back()->with('warning',$e->getMessage());
         }
+	}
+
+	public function subscriptionEmail(Request $request)
+	{
+		try {
+			$status = '';
+			$message = '';
+			$email = $request->email;
+			$checkMail = EmailSubscriptions::where('email', $email)->exists();
+			
+			if(!$checkMail) {
+				$subscribe = EmailSubscriptions::Create(['email' => $email]);
+				
+				$status = 'success';
+				$message = 'You have subscribed successfully';
+			} else {
+				$status = 'error';
+				$message = 'Email is already subscribed';
+			}
+
+			return redirect()->to('/')->with($status, $message);
+
+		} catch (Exception $e) {
+			return redirect()->back()->with('warning',$e->getMessage());
+		}
 	}
 }

@@ -379,6 +379,18 @@ class Helper
                 "active_menu" => array('admin.fund.index'),
                 "child" => array(),
             ),
+            "20" => array( // email-subscriptions
+                "is_menu" => TRUE,
+                "url" => route('admin.email-subscriptions'),
+                "is_access" => TRUE,
+                "privilege_key" => "20",
+                "privilege_require" => "1",
+                "full_title" => "Email Subscriptions",
+                "short_title" => "Email Subscriptions",
+                "icon" => "icon-envelop2",
+                "active_menu" => array('admin.email-subscriptions'),
+                "child" => array(),
+            ),
 
 
         );

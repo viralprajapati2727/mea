@@ -73,6 +73,10 @@ class SendMailController extends Controller {
 				$email_body  = str_replace('{occupation}', $data['occupation'], $email_body);
 				$email_body  = str_replace('{description}', $data['description'], $email_body);
 				break;
+			case 9:
+				$email_subject = 'Subscription Email';
+				$email_body = $data['email_body'];
+				$user_email = $data['email'];
 			default:
 				$email_body = "No content";
 				break;

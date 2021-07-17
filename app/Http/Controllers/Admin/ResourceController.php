@@ -53,7 +53,7 @@ class ResourceController extends Controller
         })
         ->addColumn('action', function ($Query) {
             $action_link = "";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-is_url = '".$Query->is_url."' data-document = '".$Query->document."' data-ext = '".$Query->ext."' ><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-is_url = '".$Query->is_url."' data-document = '".$Query->document."' data-ext = '".$Query->ext."' data-topic = '".$Query->topic_id."'><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
             $action_link .= "<a href='javascript:;' class='resource_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })

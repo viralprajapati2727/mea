@@ -8,7 +8,7 @@
                         <li><a href="{{ route('page.about-us') }}">About</a></li>
                         <li><a href="{{ route('page.team') }}">Team</a></li>
                         <li><a href="{{ route('page.contact-us') }}">Contact</a></li>
-                        <li><a href="{{ route('page.blogs') }}">Blog</a></li>
+                        <li><a href="{{ route('page.faq') }}">FAQ</a></li>
                         {{-- <li><a href="javascript:;">Career opportunities</a></li> --}}
                     </ul>   
                 </div>
@@ -20,7 +20,7 @@
                         {{-- <li><a href="javascript:;">Pricing</a></li> --}}
                         {{-- <li><a href="javascript:;">Member benefits</a></li> --}}
                         <li><a href="{{ route('page.questions') }}">Questions</a></li>
-                        <li><a href="{{ route('page.faq') }}">FAQ</a></li>
+                        <li><a href="{{ route('page.blogs') }}">Blog</a></li>
                     </ul>     
                 </div>
             </div>
@@ -28,9 +28,10 @@
                 <div class="footer-col">
                     <h3 class="f-title"> <img src="{{ Helper::assets('images/logo.png') }}" class="logo" alt=""> Register for MEA updates</h3>
                     <div class="newsletter-wrap">
-                        <form>
+                        <form action="{{ route('subscribe-email') }}" method="POST">
                             <div class="form-control">
-                                <input type="email" name="Email" placeholder="Email"/>
+                                @csrf
+                                <input type="email" name="email" placeholder="Email"/>
                                 <button type="submit" class="submit">Subscribe</button>
                             </div>
                         </form>

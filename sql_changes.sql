@@ -42,3 +42,12 @@ ALTER TABLE `users` ADD `google_id` VARCHAR(255) NULL DEFAULT NULL AFTER `rememb
 ALTER TABLE `users` ADD `facebook_id` VARCHAR(255) NULL DEFAULT NULL AFTER `google_id`;
 ALTER TABLE `blogs` ADD `published_at` VARCHAR(50) NULL DEFAULT NULL AFTER `status`;
 ALTER TABLE `blogs` ADD `author_by` VARCHAR(255) NULL DEFAULT NULL AFTER `status`;
+
+CREATE TABLE `lv_mea`.`subscription_emails` ( `id` BIGINT(20) NOT NULL AUTO_INCREMENT ,  `email` VARCHAR(255) NOT NULL ,    PRIMARY KEY  (`id`), UNIQUE  (`email`)) ENGINE = InnoDB;
+
+-- CREATE TABLE `lv_mea_0904`.`subscription_emails` ( `id` BIGINT(20) NOT NULL AUTO_INCREMENT ,  `email` VARCHAR(255) NOT NULL ,    PRIMARY KEY  (`id`),    UNIQUE  (`email`)) ENGINE = InnoDB;
+
+DELETE FROM `users` WHERE `users`.`id` = 16
+UPDATE `users` SET `email` = 'infomuslimstartups@gmail.com' WHERE `users`.`id` = 1;
+
+UPDATE `users` SET `name` = 'MEA Admin', `slug` = 'mea-admin', `email_verified_at` = NULL, `deleted_at` = NULL WHERE `users`.`id` = 1;

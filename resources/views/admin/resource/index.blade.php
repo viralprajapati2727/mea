@@ -68,6 +68,7 @@
                     <div class="form-group row px-2">
                         <label class="col-form-label pl-2">Select Topic/Subtopic:<span class="text-danger">*</span> </label>
                         <select class="form-control form-control-select2" name="topic" id="topic">
+                            <option value="" class="text-secondary">Select Topic/Subtpic</option>
                             @foreach ($topics as $topic)
                                 <option value="{{ $topic->id }}">{{ $topic->title }}</option>
                             @endforeach
@@ -254,6 +255,8 @@ $(document).ready( function () {
         var description = $(this).data('description');
         var src = $(this).data('src');
         var doc = $(this).data('document')
+        var topicId = $(this).data('topic')
+
         $('.add_modal').modal({backdrop: 'static', keyboard: false});
         var path = "{{ Helper::images(config('constant.resource_url')) }}";
         var document_path = "{{ Helper::images(config('constant.resource_document_url')) }}";
@@ -263,11 +266,12 @@ $(document).ready( function () {
         var resourceId = $('.resource_id').val();
         var oldSrc = $('.old_src').val(src);
         var oldDoc = $('.old_document_src').val(doc);
-        console.log(resourceId,'resourceId')
+        
         if(resourceId){
             $('.add_modal .dance_music_type').val(title);
             $('.add_modal #short_description').text(short_description);
             $('.add_modal #description').text(description);
+            $('#topic').val(topicId).trigger('change');
             CKEDITOR.instances.description.setData(description);
             $('.append-image').append('<a class="fancy-pop-image" data-fancybox="images" href='+final+'><img class="image-preview-logo mt-3 ml-2" name="previewpic" id="previewpic"  src='+final+'></a>');
             $('.append-image').css('display','block');
@@ -289,12 +293,14 @@ $(document).ready( function () {
             $('.add_modal .old_document_src').val('');
             $('.append-image').html('');
             $('.append-document').html('');
+            $('#topic').val('').trigger('change');
         }, 700);
     });
 
     $(document).on('click','.add_resource',function(){
         $('.resource_title').text('Add Resource');
         $('.resource_label').html('Add Resource: <span class="text-danger">*</span>');
+        // $('#topic').val('').trigger('change');
     })
 
     $(document).on('click','.edit_resource',function(){

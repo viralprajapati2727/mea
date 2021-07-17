@@ -44,6 +44,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
     Route::get('questions','CommunityController@questions')->name('page.questions');
     Route::get('questions/{question_id}/{like?}','CommunityController@detail')->name('community.questions-details');
     
+    Route::post('subscribe-email', 'GeneralController@subscriptionEmail')->name('subscribe-email');
 
     
     Route::group(['middleware' => ['verified','auth']], function () {
@@ -260,62 +261,66 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
         Route::post('change-sub-topic-status', 'Admin\SubTopicController@changeStatus')->name('admin.change-sub-topic-status');
         Route::post('check-unique-sub-topic','Admin\SubTopicController@checkUniqueSubTopic')->name('check_unique_sub_topic');
         Route::delete('topic-detail/sub-topic-delete/{id?}', 'Admin\SubTopicController@destroy')->name('sub-topic.delete');
+
+        /** Subscription Emails */
+        Route::get('email-subscriptions','Admin\SubscriptionController@index')->name('admin.email-subscriptions');
+        Route::post('email-subscriptions-filter', 'Admin\SubscriptionController@ajaxData')->name('admin.email-subscriptions-filter');
+        Route::post('send-subscription-mail', 'Admin\SubscriptionController@sendEmail')->name('admin.send-subscription-mail');
+
     });
 });
 
 
-
-
 //html only
-Route::get('html-all-pages',function () {
-    return view('html.all-pages');
-})->name('html.all-pages');
+// Route::get('html-all-pages',function () {
+//     return view('html.all-pages');
+// })->name('html.all-pages');
 
-Route::get('html-members',function (){
-    return view('html.members');
-});
-Route::get('html-profile',function (){
-    return view('html.profile');
-});
-Route::get('html-edit-profile',function (){
-    return view('html.edit-profile');
-});
-Route::get('html-business-ideas',function (){
-    return view('html.business-ideas');
-});
-Route::get('html-job-portal',function (){
-    return view('html.job-portal');
-});
-Route::get('html-resources',function (){
-    return view('html.resources');
-});
-Route::get('html-contact-us',function (){
-    return view('html.contact-us');
-});
-Route::get('html-about-us',function (){
-    return view('html.about-us');
-});
-Route::get('html-faq',function (){
-    return view('html.faq');
-});
-Route::get('html-job-detail',function (){
-    return view('html.job-detail');
-});
-Route::get('html-community',function (){
-    return view('html.community');
-});
-Route::get('html-our-team',function (){
-    return view('html.our-team');
-});
-Route::get('html-blog',function (){
-    return view('html.blog');
-});
-Route::get('html-questions',function (){
-    return view('pages.questions');
-});
-Route::get('html-fund',function (){
-    return view('pages.fund');
-});
-Route::get('html-resources-new',function (){
-    return view('html.resources-new');
-});
+// Route::get('html-members',function (){
+//     return view('html.members');
+// });
+// Route::get('html-profile',function (){
+//     return view('html.profile');
+// });
+// Route::get('html-edit-profile',function (){
+//     return view('html.edit-profile');
+// });
+// Route::get('html-business-ideas',function (){
+//     return view('html.business-ideas');
+// });
+// Route::get('html-job-portal',function (){
+//     return view('html.job-portal');
+// });
+// Route::get('html-resources',function (){
+//     return view('html.resources');
+// });
+// Route::get('html-contact-us',function (){
+//     return view('html.contact-us');
+// });
+// Route::get('html-about-us',function (){
+//     return view('html.about-us');
+// });
+// Route::get('html-faq',function (){
+//     return view('html.faq');
+// });
+// Route::get('html-job-detail',function (){
+//     return view('html.job-detail');
+// });
+// Route::get('html-community',function (){
+//     return view('html.community');
+// });
+// Route::get('html-our-team',function (){
+//     return view('html.our-team');
+// });
+// Route::get('html-blog',function (){
+//     return view('html.blog');
+// });
+// Route::get('html-questions',function (){
+//     return view('pages.questions');
+// });
+// Route::get('html-fund',function (){
+//     return view('pages.fund');
+// });
+// Route::get('html-resources-new',function (){
+//     return view('html.resources-new');
+// });

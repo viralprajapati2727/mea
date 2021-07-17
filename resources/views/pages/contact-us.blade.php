@@ -52,7 +52,9 @@
                                         <i class="fa fa-map-marker"></i>
                                     </div>
                                     <div class="contact-dtl-body">
-                                        <address>1 , Ganga, Indl Complex No , Tungareshwar Ind,<br/> Sativahi Road, Opp Satvahi Bus Stop, Vasai (west)</address>
+                                        <address>
+                                            New York, NY
+                                        </address>
                                     </div>
                                 </div>
                                 <div class="media">
@@ -60,7 +62,7 @@
                                         <i class="fa fa-phone"></i>
                                     </div>
                                     <div class="contact-dtl-body">
-                                        <a href="tel: 02228509618">02228509618</a>
+                                        <a href="tel: 516-308-6498">516-308-6498</a>
                                     </div>
                                 </div>
                                 <div class="media">
@@ -68,30 +70,31 @@
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                     <div class="contact-dtl-body">
-                                        <a href="mailto: info@gmail.com">info@gmail.com</a>
+                                        <a href="mailto: Info@MEA-Community.com ">Info@MEA-Community.com </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="contact-socials">
                             <ul>
-                                <li>
+                                {{-- <li>
                                     <a href="javascript:;" class="twitter"><i class="fa fa-twitter"></i></a>
-                                </li>
+                                </li> --}}
                                 <li>
-                                    <a href="javascript:;" class="facebook"><i class="fa fa-facebook"></i></a>
+                                    {{-- <a href="javascript:;" class="facebook"><i class="fa fa-facebook"></i></a> --}}
+                                    <a href="https://www.facebook.com/MEA.Global.Association" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="javascript:;" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                                </li>
+                                </li> --}}
                                 <li>
-                                    <a href="javascript:;" class="insta"><i class="fa fa-instagram"></i></a>
+                                    <a href="https://www.instagram.com/mea_network/" target="_blank" class="insta"><i class="fa fa-instagram"></i></a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="javascript:;" class="google"><i class="fa fa-google"></i></a>
-                                </li>
+                                </li> --}}
                                 <li>
-                                    <a href="javascript:;" class="youtube"><i class="fa fa-youtube-play"></i></a>
+                                    <a href="https://www.youtube.com/channel/UCb9Gu90KunkdKZ6vIqVErmw" target="_blank" class="youtube"><i class="fa fa-youtube-play"></i></a>
                                 </li>
                             </ul>
                         </div>

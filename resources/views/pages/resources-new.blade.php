@@ -46,6 +46,16 @@
                 </div>
                 <div class="resources-right-wraper">
                     @foreach ($resourcesNew as $key => $resource)
+                    @php
+                        $srcUrl = Helper::images(config('constant.resource_url'));
+                        $srcUrl = $srcUrl . $resource->src;
+                        $documentUrl = null;
+                        if ($resource->document) {
+                            $documentUrl = Helper::images(config('constant.resource_document_url'));
+                            $documentUrl = $documentUrl . $resource->document;
+                        }
+                    @endphp
+
                     <div class="resorces-article">
                         <div class="article-inner">
                             <div class="heading">
@@ -53,22 +63,17 @@
                             </div>
                             <div class="content">
                                 {{-- <h3 class="subtitle" id="competitive-analysis-template-excel">Competitive Analysis Template - Excel</h3> --}}
+                                
                                 <div class="text">
-                                    <p>{!! $resource->description ?? "" !!}</p>
+                                    <img src={{ $srcUrl }} height="350" alt="resource image" class="rounded" />
+                                    <p class="text-justified">{!! $resource->description ?? "" !!}</p>
                                     {{-- <p>Analyze multiple competitors based on the categories you want to compare, and use the results to identify your top rivals. This template contains several sheets to provide a comprehensive look at how your startup stacks up to the competition, the strengths of each company, and potential partnerships or opportunities.</p> --}}
-                                    @if ($resource->src !== "")
-                                    @php
-                                        $srcUrl = Helper::images(config('constant.resource_url'));
-                                        $srcUrl = $srcUrl . $resource->src;
-                                        $documentUrl = null;
-                                        if ($resource->document) {
-                                            $documentUrl = Helper::images(config('constant.resource_document_url'));
-                                            $documentUrl = $documentUrl . $resource->document;
-                                        }
-                                    @endphp
+                                    @if ($resource->document)
                                         <p class="text-center">
-                                            Download Resource Image/Document <br>
-                                            <a href="{{ $srcUrl }}" download>Image</a> @if($documentUrl != null) | <a href="{{ $documentUrl }}" download>Document</a> @endif
+                                            Download Resource Document <br>
+                                            {{-- <a href="{{ $srcUrl }}" download>Image</a> @if($documentUrl != null) |  --}}
+                                            <a href="{{ $documentUrl }}" download>Document</a>
+                                             {{-- @endif --}}
                                         </p>
                                     @endif
                                 </div>
