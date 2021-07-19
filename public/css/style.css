@@ -7,7 +7,7 @@ body{
     font-size: 15px;
 }
 
-@media screen and (min-width: 1470px){
+@media screen and (min-width: 320px){
     .container{
         max-width: 1470px;
     }
@@ -25,6 +25,9 @@ input:focus{
 }
 .required-star-color{
     color: red;
+}
+img {
+    max-width: 100%;
 }
 .error {
     color: red;
@@ -122,7 +125,12 @@ ul{
 .header-right {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
+}
+.header-login {
+    color: #0088FF;
+    font-weight: 600;
+    font-size: 16px;
 }
 .navbar-expand-lg .navbar-nav .nav-link {
     font-size: 16px;
@@ -131,6 +139,7 @@ ul{
     font-weight: 500;
     padding: 10px;
 }
+.navbar-expand-lg .navbar-nav .nav-link:hover {color: #0088FF;}
 .login-links {
     padding-left: 10px;
 }
@@ -221,34 +230,39 @@ ul{
     padding: 7px 0;
     display: inline-block;
 }
+
+.profile-overflow li a:hover {color: #41A0E1;}
 /*========================Footer CSS=========================*/
 .site-footer{
-    background-color: #F9F9F9;
-    padding: 35px 0;
+    background-color: #444444;
+    padding: 50px 0;
 }
 .site-footer .f-title{
     font-size: 20px;
     line-height: 27px;
-    color: #333333;
+    color: #FFFFFF;
     font-weight: 600;
     margin-bottom: 20px;
 }
 .site-footer .f-title img {
     max-width: 100px;
     display: block;
+    margin-bottom: 20px;
 }
 .footer-links li a{
-    font-size: 18px;
+    font-size: 16px;
     line-height: 27px;
-    color: #8C8C8C;
+    color: #FFFFFF;
     margin-bottom: 20px;
     display: inline-block;
 }
+.footer-links li a:hover {color: #0088FF;}
+.footer-links li {margin-bottom: 15px;}
 .footer-links li a{
     margin-bottom: 0;
 }
 .newsletter-wrap {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 .newsletter-wrap .form-control{
     background-color: transparent;
@@ -261,18 +275,19 @@ ul{
 .newsletter-wrap .form-control input {
     width: 100%;
     border: 0;
-    height: 35px;
+    height: 50px;
     padding: 5px 10px;
 }
 .newsletter-wrap .form-control button {
     position: absolute;
     right: 0;
-    width: 90px;
-    height: 35px;
+    width: 110px;
+    height: 50px;
     border: 0;
     background: #ffaf31;
     color: #fff;
     font-size: 14px;
+    font-weight: 600;
 }
 .footer-socials ul {
     display: flex;
@@ -280,7 +295,13 @@ ul{
 }
 .footer-socials li a {
     display: inline-block;
-    color: #0088FF;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    background: #333;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 46px;
 }
 .footer-socials li a i {
     font-size: 22px;
@@ -331,6 +352,9 @@ ul{
     border: 1px solid #e3e3e3;
     border-radius: 8px;
     padding: 25px 35px 30px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 .solutions-box:hover{
     border-color: #0088FF;
@@ -356,10 +380,12 @@ ul{
 }
 .solutions-box .more-link {
     display: inline-block;
-    padding: 5px 25px;
+    padding: 10px 25px;
     border: 2px solid #0088FF;
     color: #0088FF;
-    font-size: 16px;
+    font-size: 14px;
+    width: 170px;
+    margin: auto auto 0;
 }
 .solutions-box .more-link:hover{
     color: #fff;
@@ -388,7 +414,7 @@ ul{
     line-height: 34px;
     padding-right: 60px;
 }
-.home-features-inner {padding-bottom: 60px;}
+.home-features-inner {padding-bottom: 40px;}
 .home-features-inner:last-child{
     padding-bottom: 0;
 }
@@ -710,7 +736,7 @@ ul{
     padding: 50px 0;
 }
 .top-search input {
-    font-size: 20px;
+    font-size: 16px;
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
@@ -1088,6 +1114,7 @@ ul{
     font-size: 20px;
     color: #41A0E1;
     font-weight: 500;
+    margin: 0;
 }
 .recent-jobs .title h2{margin-bottom: 0px;}
 .recent-jobs .title{margin-bottom: 30px;}
@@ -1127,6 +1154,9 @@ ul{
 .job-lists-wrap {
     max-width: 1200px;
     margin: 0 auto;
+}
+.job-lists-wrap .job-actions {
+    text-align: right;
 }
 .job-lists-wrap .job-actions li a {
     width: 100%;
@@ -1524,7 +1554,13 @@ ul{
 .community-wraper .top-search input{
     max-width: 100%;
     width: calc(100% - 250px);
-    font-size: 16px;
+    font-size: 14px;
+    color: #333;
+}
+.community-wraper .top-search select {
+    font-size: 14px;
+    color: #333;
+    padding: 0 10px;
 }
 .community-wraper .top-search .search-btn{
     display: inline-block;
@@ -1978,24 +2014,25 @@ ul{
 .resources-wraper .resources-sidebar {
     padding: 70px 30px;
     border-right: 1px solid #ddd;
-    width: 400px;
+    width: 350px;
 }
 .resources-selection-list li a {
     font-size: 16px;
     color: #333;
-    font-weight: bold;
     line-height: 25px;
     padding: 13px 25px; 
     display: inline-block;
 }
+.resources-selection-list>li>a{font-weight: bold;}
 .second-level-selection {
     padding-left: 40px;
     display: none;
 }
 .resources-right-wraper {
-    width: calc(100% - 400px);
+    width: calc(100% - 350px);
     padding: 70px 100px;
 }
+.resources-right-wraper .content {padding: 0;}
 .resorces-article .atricle-title {
     font-size: 36px;
     font-weight: bold;
@@ -2048,12 +2085,13 @@ ul{
     .navbar-brand h1{font-size: 18px;}
     .header-right .collapse{justify-content: flex-end; flex-wrap: wrap;}
     .login-links li a{justify-content: flex-end; font-size: 16px;}
+    .resources-right-wraper {padding: 50px;}
+    .newsletter-wrap .form-control {width: 100%;}
 }
 @media screen and (max-width: 1199px){
     .navbar-brand h1{font-size: 16px;}
     .header-right{flex-wrap: wrap; justify-content: flex-end;}
     .header-right .collapse{justify-content: flex-end;}
-    .navbar-expand-lg .navbar-nav .nav-link{font-size: 14px; padding: 15px 4px;}
     .login-links li a{font-size: 14px;}
     .site-header .navbar{padding: 0;}
     .solutions-box{padding: 25px 20px 30px;}
@@ -2065,16 +2103,19 @@ ul{
     .get-started-wrap .right-button a{padding: 10px 40px; font-size: 18px;}
     .get-started-wrap .left-content h2{font-size: 24px;}
     .get-started-wrap{padding: 35px 0;}
+    .newsletter-wrap .form-control button {width: 85px;}
 }
 @media screen and (max-width: 991px){
+    .profile-menu {width: 100%;}
+    .login-links li a.profile-menu-link {display: none;}
     .navbar-toggler i{font-size: 32px;}
     .header-right .navbar-toggler{ position: absolute; top: -80px; }
     .navbar-expand-lg .navbar-nav .nav-link{padding: 6px 0; font-size: 17px;}
     .header-right .collapse{padding-left: 1.25rem;}
-    .login-links{margin-top: 20px;}
-    .profile-menu:hover > .profile-dropdown{position: inherit; top: inherit; left: inherit; min-width: inherit;}
+    .login-links{margin-top: 10px; padding-left: 0;}
+    .profile-menu .profile-dropdown{position: inherit; top: inherit; left: inherit; min-width: inherit; width: 100%; display: block; margin-bottom: 20px;}
     .solutions-box .desc{min-height: inherit;}
-    .solutions-box{margin-bottom: 20px;}
+    .solutions-box{margin-bottom: 20px; height: auto;} 
     .home-blog-section .blog-content h2{font-size: 16px;}
     .member-item{flex-wrap: wrap;}
     .member-detail, .contact-details{width: 100%;}
@@ -2099,7 +2140,7 @@ ul{
     .main-dropdown .text-center{text-align: left !important; margin-top: 10px;}
     .community-wraper .page-title{padding-top: 0; margin: 0;}
     .global-search .top-search select{border-left: 1px solid #707070;}
-    .community-wraper .top-search .search-btn{margin-top: 30px;}
+    .community-wraper .top-search .search-btn{margin-top: 30px; max-width: 250px;}
     .community-wraper .com-que-list .com-que.header{display: none;}
     .community-wraper .community-que, .community-wraper .views, .community-wraper .answer, .community-wraper .votes{padding: 10px 15px;}
     .community-wraper .views:before, .community-wraper .answer:before, .community-wraper .votes:before {font-size: 17px;font-weight: 600;color: #333;padding-right: 10px;}
@@ -2110,13 +2151,22 @@ ul{
     .community-wraper .com-que:nth-child(odd) { background: #f1f1f170;}
     .get-started-wrap .right-button a{padding: 10px 20px; font-size: 16px;}
     .table-title {font-weight: bold;padding-right: 10px;}
+    .job-lists-wrap .card {padding: 20px;}
+    .resources-right-wraper {padding: 50px 30px;} 
+    .resources-wraper .resources-sidebar {width: 270px; padding: 50px 20px;}
+    .resources-right-wraper {width: calc(100% - 270px);}
+    .resources-main .resources-top-wraper .text {
+        margin: 0 auto 50px;
+    }
+    .page-main {padding: 35px 0;}
+
 }
 @media screen and (max-width: 767px){
     .solutions-section .solution-content h2{font-size: 28px;}
     .solutions-section, .home-features-section, .home-blog-section{padding: 50px 0;}
     .blog-wrap{margin-bottom: 30px;}
     .footer-col{margin-bottom: 20px;}
-    .home-features-inner .features-content p{font-size: 17px; line-height: 30px;}
+    .home-features-inner .features-content p{font-size: 16px; line-height: 30px;}
     .home-features-inner .features-content h2{
         font-size: 23px;
         margin-bottom: 20px;
@@ -2134,7 +2184,7 @@ ul{
     .right-column{width: 100%;}
     .member-wraper{padding: 0;}
     .pagination { margin-bottom: 0 !important; } 
-    .footer-col-wrap{width: 50%;}
+    .footer-col-wrap{width: 50%; max-width: 100%; flex: auto;}
     .footer-col-wrap:last-child{width: 100%;}
     .member-list .member-item .media-left{margin-right: auto;}
     .jp-front-banner .jp-banner-content h1{font-size: 38px;}
@@ -2178,9 +2228,20 @@ ul{
     .business-ideas-wraper .top-title-wrap h1{font-size: 26px; padding-bottom: 10px; margin-bottom: 20px;}
     .our-process .process-bottom{padding-top: 30px;}
     .our-process{padding-bottom: 30px;}
+    .job-lists-wrap .job-actions {text-align: left;}
+    .resources-right-wraper, .resources-wraper .resources-sidebar {width: 100%; padding: 0;}
+    .resources-wraper .resources-sidebar {border-right: 0; padding: 0; margin-bottom: 15px;}
+    .resorces-article .atricle-title {font-size: 28px;}
+    .newsletter-wrap .form-control button {width: 100px;}
+    .solutions-section .solution-content p {font-size: 16px; line-height: 24px;}
+    .header-login {
+        position: absolute;
+        top: -55px;
+        right: -10px;
+    }
 }
 @media screen and (max-width: 575px){
-    .contact-details ul li a{width: 110px; height: 35px;}
+    .contact-details ul li a{width: 110px; height: 35px; line-height: 25px;}
     .jp-job-category .title h2, .recent-jobs .title h2{font-size: 26px; margin-bottom: 20px; line-height: 34px;}
     .jp-job-category-listing ul .jp-job-cat-lwrp{width: 50%;}
     .jp-job-category-listing ul .jp-job-cat-lwrp:nth-child(3n){border-right: 1px solid #d8d8d8;}
@@ -2201,13 +2262,16 @@ ul{
     .unique-radio .form-radio-group .radio-inline{flex-basis: inherit;}
     .community-wraper .top-search .search-btn{height: 45px; font-size: 17px;}
     .get-started-wrap .left-content h2{font-size: 20px; line-height: 26px;}
+    .quetions-lists-wraper .media {flex-wrap: wrap;}
+    .quetions-lists-wraper .media-body {flex: inherit; width: 100%;}
+    .job-lists-wrap .job-detail-left .job-media {margin-bottom: 15px; margin-right: 0;}
 }
 @media screen and (max-width: 380px){
     .navbar-brand img{width: 90px;}
     .navbar-brand h1{
         font-size: 12px;
     }
-    .header-right .navbar-toggler{top: -65px;}
+    .header-right .navbar-toggler{top: -75px;}
 }
 
 .job_shift_wrap .form-group .form-radio-group .radio-inline input[type="checkbox"] {
@@ -2217,8 +2281,9 @@ ul{
 
 .view-more-link {
     display: inline-block;
-    padding: 5px 25px;
+    padding: 10px 25px;
     border: 2px solid #0088FF;
     color: #0088FF;
-    font-size: 16px;
+    font-size: 14px;
+    min-width: 200px;
 }

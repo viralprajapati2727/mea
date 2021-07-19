@@ -10,35 +10,104 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-10">
-                    <div class="header-right">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        @if(Auth::check())
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('community.index') }}">Community</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('page.members') }}">Members</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('job.search-job') }}">Browse Requests</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('page.resources-new') }}">Resources</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('page.fund-requests') }}">Fund Request</a>
-                                </li>
-                            </ul>
-                        @endif
-                        <div class="login-links">
+                @auth
+                    <div class="col-lg-10">
+                        <div class="header-right">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            @if(Auth::check())
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('community.index') }}">Community</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('page.members') }}">Members</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('job.search-job') }}">Browse Requests</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('page.resources-new') }}">Resources</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('page.fund-requests') }}">Fund Request</a>
+                                    </li>
+                                </ul>
+                            @endif
+                            <div class="login-links">
+                                <ul>
+                                    <li>
+                                    @auth
+                                        <li>
+                                            <div class="logout-wrap">
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;" autocomplete="off">
+                                                    @csrf
+                                                </form>
+                                                @php
+                                                    $ProfileUrl = Helper::images(config('constant.profile_url'));
+                                                    $img_url = (isset(Auth::user()->logo) && Auth::user()->logo != '') ? $ProfileUrl . Auth::user()->logo : $ProfileUrl.'default.png';
+                                                @endphp
+                                                @if (Auth::check())
+                                                <div class="profile-menu">
+                                                    <a href="javascript:;" class="profile-menu-link">
+                                                        <div class="profile-image">
+                                                            <img src="{{ $img_url }}" alt="" class="w-100">
+                                                        </div>
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <div class="profile-dropdown dropdown-menu">
+                                                        <div class="card-body">
+                                                            <div class="media align-items-center d-flex d-lg-flex">
+                                                                <div class="profile-icon-menu pr-2">
+                                                                    <a href="{{ route('user.view-profile',['slug' => Auth::user()->slug]) }}" class="d-inline-block">
+                                                                        <div class="profile-bg-image" style="background-image: url({{ $img_url }});"></div>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="media-body mea-content">
+                                                                    <a href="#" class="d-inline-block">
+                                                                        <h3 class="text-black username">{{ Auth::user()->name }}</h3>
+                                                                    </a>
+                                                                    <div class="profile-links d-flex">
+                                                                        <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="">Edit Profile</a>
+                                                                        <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logoutconfirm">Logout</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-overflow">
+                                                            <ul>
+                                                                <li><a href="{{ route('user.change-password') }}">Change Password</a></li>
+                                                                <li><a href="{{ route('job.fill-job') }}">Post Job</a></li>
+                                                                <li><a href="{{ route('job.my-jobs') }}">My Jobs</a></li>
+                                                                @if (Auth::user()->type != config('constant.USER.TYPE.ADMIN') && Auth::user()->is_active == config('constant.USER.STATUS.Active'))
+                                                                    <li><a href="{{ route('startup-portal-request') }}">Startup Portal Request</a></li>
+                                                                @endif
+                                                                <li><a href="{{ route('page.drop-idea') }}">Drop Your Ideas</a></li>
+                                                                <li><a href="{{ route('page.questions') }}">My Questions</a></li>
+                                                                @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR'))
+                                                                    <li><a href="{{ route('startup-portal') }}">StartUp Portal</a></li>
+                                                                    <li><a href="{{ route('startup.raise-fund') }}">Startups To Raise Funds</a></li>
+                                                                @endif
+                                                                <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif 
+                                            </div>
+                                        </li>
+                                    @else
+                                    @endauth
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        {{-- <div class="login-links">
                             <ul>
                                 <li>
                                 @auth
@@ -50,8 +119,7 @@
                                             @php
                                                 $ProfileUrl = Helper::images(config('constant.profile_url'));
                                                 $img_url = (isset(Auth::user()->logo) && Auth::user()->logo != '') ? $ProfileUrl . Auth::user()->logo : $ProfileUrl.'default.png';
-                                            @endphp
-                                            @if (Auth::check())
+                                            @endphp 
                                             <div class="profile-menu">
                                                 <a href="javascript:;" class="profile-menu-link">
                                                     <div class="profile-image">
@@ -83,21 +151,11 @@
                                                             <li><a href="{{ route('user.change-password') }}">Change Password</a></li>
                                                             <li><a href="{{ route('job.fill-job') }}">Post Job</a></li>
                                                             <li><a href="{{ route('job.my-jobs') }}">My Jobs</a></li>
-                                                            @if (Auth::user()->type != config('constant.USER.TYPE.ADMIN') && Auth::user()->is_active == config('constant.USER.STATUS.Active'))
-                                                                <li><a href="{{ route('startup-portal-request') }}">Startup Portal Request</a></li>
-                                                            @endif
-                                                            <li><a href="{{ route('page.drop-idea') }}">Drop Your Ideas</a></li>
-                                                            <li><a href="{{ route('page.questions') }}">My Questions</a></li>
-                                                            @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR'))
-                                                                <li><a href="{{ route('startup-portal') }}">StartUp Portal</a></li>
-                                                                <li><a href="{{ route('startup.raise-fund') }}">Startups To Raise Funds</a></li>
-                                                            @endif
                                                             <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @endif 
                                         </div>
                                     </li>
                                 @else
@@ -105,66 +163,15 @@
                                 @endauth
                                 </li>
                             </ul>
+                        </div> --}}
+                    </div>
+                @else
+                    <div class="col-lg-10">
+                        <div class="header-right">
+                            <a href="{{ route('login') }}" class="header-login">Login Or Register</a>
                         </div>
                     </div>
-                    {{-- <div class="login-links">
-                        <ul>
-                            <li>
-                            @auth
-                                <li>
-                                    <div class="logout-wrap">
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;" autocomplete="off">
-                                            @csrf
-                                        </form>
-                                        @php
-                                            $ProfileUrl = Helper::images(config('constant.profile_url'));
-                                            $img_url = (isset(Auth::user()->logo) && Auth::user()->logo != '') ? $ProfileUrl . Auth::user()->logo : $ProfileUrl.'default.png';
-                                        @endphp 
-                                        <div class="profile-menu">
-                                            <a href="javascript:;" class="profile-menu-link">
-                                                <div class="profile-image">
-                                                    <img src="{{ $img_url }}" alt="" class="w-100">
-                                                </div>
-                                                <i class="fa fa-angle-down"></i>
-                                            </a>
-                                            <div class="profile-dropdown dropdown-menu">
-                                                <div class="card-body">
-                                                    <div class="media align-items-center d-flex d-lg-flex">
-                                                        <div class="profile-icon-menu pr-2">
-                                                            <a href="{{ route('user.view-profile',['slug' => Auth::user()->slug]) }}" class="d-inline-block">
-                                                                <div class="profile-bg-image" style="background-image: url({{ $img_url }});"></div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="media-body mea-content">
-                                                            <a href="#" class="d-inline-block">
-                                                                <h3 class="text-black username">{{ Auth::user()->name }}</h3>
-                                                            </a>
-                                                            <div class="profile-links d-flex">
-                                                                <a href="{{ Auth::user()->type == config('constant.USER.TYPE.SIMPLE_USER') ? route('user.fill-profile') : route('entrepreneur.fill-profile') }}" class="">Edit Profile</a>
-                                                                <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logoutconfirm">Logout</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-overflow">
-                                                    <ul>
-                                                        <li><a href="{{ route('user.change-password') }}">Change Password</a></li>
-                                                        <li><a href="{{ route('job.fill-job') }}">Post Job</a></li>
-                                                        <li><a href="{{ route('job.my-jobs') }}">My Jobs</a></li>
-                                                        <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            @else
-                                <a href="{{ route('login') }}">Login Or Register</a>
-                            @endauth
-                            </li>
-                        </ul>
-                    </div> --}}
-                </div>
+                @endauth
             </div>
         </nav>
     </div>

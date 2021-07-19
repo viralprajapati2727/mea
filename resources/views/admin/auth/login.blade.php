@@ -5,7 +5,7 @@
     <form class="login-form" method="POST" action="{{ route('admin.login') }}" autocomplete="off">
         @csrf
         <div class="text-center">
-            <a href="{{ url('/') }}" class="d-inline-block">
+            <a href="{{ url('/') }}" class="d-inline-block mb-2">
                 <img src="{{ Helper::assets('images/logo.png') }}" alt="logo" height="150" width="150">
             </a>
         </div>

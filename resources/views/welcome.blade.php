@@ -28,7 +28,7 @@
                     <div class="col-lg-4">
                         <div class="solutions-box text-center">
                             <div class="s-image">
-                               <img src="{{ Helper::assets('images/home/solutions01.png') }}" alt="">
+                               <img src="{{ Helper::assets('images/home/rocket.png') }}" alt="">
                             </div>
                             <h3 class="s-title"> Start a Company </h3>
                             <p class="desc"> Prepare for investment and growth with easy incorporation and legal tools. </p>
@@ -38,7 +38,7 @@
                     <div class="col-lg-4">
                         <div class="solutions-box text-center">
                             <div class="s-image">
-                               <img src="{{ Helper::assets('images/home/solutions02.png') }}" alt="">
+                               <img src="{{ Helper::assets('images/home/statistics.png') }}" alt="">
                             </div>
                             <h3 class="s-title">  Grow Your Startup  </h3>
                             <p class="desc">  Make your company more attractive to investors with personalized recommendations.  </p>
@@ -48,7 +48,7 @@
                     <div class="col-lg-4">
                         <div class="solutions-box text-center">
                             <div class="s-image">
-                               <img src="{{ Helper::assets('images/home/solutions03.png') }}" alt="">
+                               <img src="{{ Helper::assets('images/home/capital.png') }}" alt="">
                             </div>
                             <h3 class="s-title">  Raise Capital  </h3>
                             <p class="desc">  Discover your best sources for funding and find and apply for investment.  </p>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-md-6 features-image-wraper">
                         <div class="features-image">
-                        <img src="{{ Helper::assets('images/home/network.png') }}" alt="" class="w-100">
+                        <img src="{{ Helper::assets('images/home/jse.png') }}" alt="" class="w-100">
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="features-image">
-                        <img src="{{ Helper::assets('images/home/feedback.png') }}" alt="" class="w-100">
+                        <img src="{{ Helper::assets('images/home/feedback1.png') }}" alt="" class="w-100">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -106,7 +106,7 @@
                     </div>
                     <div class="col-md-6 features-image-wraper">
                         <div class="features-image">
-                            <img src="{{ Helper::assets('images/home/success.png') }}" alt="" class="w-100">
+                            <img src="{{ Helper::assets('images/home/success01.png') }}" alt="" class="w-100">
                         </div>
                     </div>
                 </div>

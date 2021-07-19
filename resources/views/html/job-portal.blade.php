@@ -116,7 +116,7 @@
                 <div class="card">
                     <div class="jobs-details-wrap">
                         <div class="row align-items-center">
-                            <div class="col-md-10">
+                            <div class="col-md-9">
                                 <div class="job-detail-left">
                                     <div class="job-media">
                                         <img src="{{ Helper::assets('images/job-portal/designer.jpg') }}" alt="">
@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="job-actions">
                                     <ul>
                                         <li><a href="#" class="job-detail-btn">Job Detail</a></li>
