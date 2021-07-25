@@ -541,6 +541,7 @@ ul{
     border-radius: .1875rem;
     cursor: pointer;
 }
+.unique-radio .form-radio-group .radio-inline:last-child {margin-right: 0;}
 .unique-radio  .form-radio-group .radio-inline input[type=radio]{
     opacity: 0;
     position: absolute;
@@ -1310,7 +1311,6 @@ ul{
 }
 .front-banner .content p {
     font-size: 22px;
-    text-transform: uppercase;
     color: #333;
 }
 .contact-outer-wraper{width: 100%; padding: 60px 0;}
@@ -1423,7 +1423,7 @@ ul{
     padding-left: 60px;
 }
 .our-vision.about-column .content-wraper {
-    padding-left: 0;
+    padding-left: 15px;
     padding-right: 60px;
 }
 .about-column .image-wrap img {
@@ -1633,8 +1633,9 @@ ul{
 .job-list-wraper .sidebar-left .card .card-header{border-bottom: 0; padding-bottom: 10px;}
 .job-list-wraper .sidebar-left .card .card-header h5 {font-size: 18px; font-weight: 600; color: #333;}
 .job-list-wraper .sidebar-left .card:not(:first-child) .card-header .header-elements {display: none !important;} 
-
-
+.fileinput-upload-button {
+    display: none;
+}
 
 /*==========Our Team=============*/
 .front-banner.our-team{
@@ -1788,7 +1789,7 @@ ul{
 }
 .blog-description{
     font-size: 16px;
-    line-height: 22px;
+    line-height: 30px;
 }
 /*Post Job*/
 .job_shift_wrap .form-group {
@@ -2159,6 +2160,15 @@ ul{
         margin: 0 auto 50px;
     }
     .page-main {padding: 35px 0;}
+    .who-we-are {padding: 50px 0;}
+    .header-login {
+        position: absolute;
+        top: -55px;
+        right: -10px;
+    }
+    .team-wraper .team-content {padding: 30px 20px;}
+    .team-wraper .team-content .title {font-size: 22px;}
+    .team-wraper .team-content .designation {font-size: 14px;}
 
 }
 @media screen and (max-width: 767px){
@@ -2234,11 +2244,14 @@ ul{
     .resorces-article .atricle-title {font-size: 28px;}
     .newsletter-wrap .form-control button {width: 100px;}
     .solutions-section .solution-content p {font-size: 16px; line-height: 24px;}
-    .header-login {
-        position: absolute;
-        top: -55px;
-        right: -10px;
-    }
+    .about-column .content-wraper {padding-left: 15px;}
+    .page-wraper .about-column {padding: 30px 0;}
+    .about-column .content-wraper {margin-top: 20px;}
+    .our-vision .row {flex-direction: column-reverse;}
+    .who-we-are {padding: 30px 0;}
+    .front-banner {height: 300px;}
+    .front-banner .content h1 {font-size: 42px;}
+    .front-banner .content p {font-size: 18px;}
 }
 @media screen and (max-width: 575px){
     .contact-details ul li a{width: 110px; height: 35px; line-height: 25px;}
@@ -2272,6 +2285,9 @@ ul{
         font-size: 12px;
     }
     .header-right .navbar-toggler{top: -75px;}
+}
+@media screen and (max-width: 349px) {
+    .unique-radio .form-radio-group .radio-inline{margin-right: 0; width: 100%;}
 }
 
 .job_shift_wrap .form-group .form-radio-group .radio-inline input[type="checkbox"] {

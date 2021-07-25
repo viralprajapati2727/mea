@@ -248,19 +248,19 @@ $(document).ready(function(){
                 required: is_profile_exists,
                 normalizer: function (value) { return $.trim(value); },
                 extension: 'jpg|jpeg|png',
-                filesize: 1048576,
+                filesize: 5120000,
             },
             cover: {
                 required: is_profile_cover_exists,
                 normalizer: function (value) { return $.trim(value); },
                 extension: 'jpg|jpeg|png',
-                filesize: 1048576,
+                filesize: 5120000,
             },
             resume: {
                 required: is_resume_exists,
                 normalizer: function (value) { return $.trim(value); },
                 extension: 'docx|doc|pdf',
-                filesize: 1048576,
+                filesize: 5120000,
             },
             name: {
                 required: true,
@@ -319,17 +319,17 @@ $(document).ready(function(){
             profile_image: {
                 required: "Please select profile picture",
                 extension: "Accepted file formats: jpg, jpeg, png.",
-                filesize: "file size must be less than 1 MB",
+                filesize: "file size must be less than 5 MB",
             },
             cover: {
                 required: "Please select cover picture",
                 extension: "Accepted file formats: jpg, jpeg, png.",
-                filesize: "file size must be less than 1 MB",
+                filesize: "file size must be less than 5 MB",
             },
             resume: {
                 required: "Please upload your updated cv",
                 extension: "Accepted file formats: docx, doc, pdf.",
-                filesize: "file size must be less than 1 MB",
+                filesize: "file size must be less than 5 MB",
             },
             name: {
                 required: "Please enter your name",

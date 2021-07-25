@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" name="SignupForm" class="SignupForm">
                         @csrf
-                        <div class="form-group row unique-radio">
+                        <div class="form-group unique-radio">
                             <div class="form-radio-group">
                                 <label class="radio-inline active">
                                     <i class="flaticon-employee"></i>

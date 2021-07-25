@@ -189,7 +189,7 @@
                             <div class="form-group">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input-styled" name="is_resume_public" value="1" data-fouc {{ ($profile->userProfile->is_resume_public && $profile->userProfile->is_resume_public > 0) ? 'checked' : '' }}>
+                                        <input type="checkbox" class="form-check-input-styled" name="is_resume_public" value="1" data-fouc {{ !empty($profile->userProfile) && isset($profile->userProfile->is_resume_public) ? ($profile->userProfile->is_resume_public > 0 ? 'checked' : '') : (old('is_resume_public') > 0 ? 'checked' : '') }}>
                                         Make Public
                                     </label>
                                 </div>
@@ -233,6 +233,7 @@
                                     @endforelse
                                 </div>
                             </div>
+                        </div>
                         @endif
                         <div class="mt-4 btn-section d-md-flex d-lg-flex align-items-center position-relative pb-2 text-center text-md-left justify-content-end">
                             <button type="submit" class="btn custom-btn member-login-btn justify-content-center text-white px-5 rounded-lg submit-btn"><i class="flaticon-save-file-option mr-2 submit-icon"></i>SAVE</button>

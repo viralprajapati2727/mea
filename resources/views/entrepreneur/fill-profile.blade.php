@@ -173,7 +173,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-control-label">About Myself</label>
-                                    <textarea name="about" id="about" rows="5" class="form-control" placeholder="Brief Your Skills Here">{{ old('about', isset($profile->userProfile->description)?$profile->userProfile->description:'' ) }}</textarea>
+                                    <textarea name="about" id="about" rows="5" class="form-control" placeholder="Brief Your Skills Here">{{ old('about', isset($profile->userProfile->description) ? $profile->userProfile->description:'' ) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
                                 <div class="form-group">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input-styled" name="is_resume_public" id="is_resume_public" value="1" data-fouc {{ ($profile->userProfil && $profile->userProfile->is_resume_public > 0) ? 'checked' : '' }}>
+                                            <input type="checkbox" class="form-check-input-styled" name="is_resume_public" id="is_resume_public" value="1" data-fouc {{ !empty($profile->userProfile) && isset($profile->userProfile->is_resume_public) ? ($profile->userProfile->is_resume_public > 0 ? 'checked' : '') : (old('is_resume_public') > 0 ? 'checked' : '') }}>
                                             Make Public
                                         </label>
                                     </div>
@@ -218,25 +218,26 @@
                             </div>
                         </div>
                         @if(!empty($questions))
-                        <div class="profile-inner">
-                            <div class="row mt-md-2">
-                                <div class="col-12">
-                                    <h2>Suevey Questions <span class="required-star-color">*</span></h2>
-                                </div>
-                                <div class="col-12 questions">
-                                    @forelse ($questions as $key => $question)
-                                    @php
-                                        $answer = "";
-                                        if(!empty($answers) && array_key_exists($question->id, $answers)){
-                                            $answer = $answers[$question->id];
-                                        }
-                                    @endphp
-                                        <div class="form-group">
-                                            <p>{{ $question->title }}</p>
-                                            <input type="text" class="form-control answer" name="ans[{{ $question->id }}]" id="ans{{ $question->id }}" placeholder="Enter Answer" value="{{ $answer }}" >
-                                        </div>
-                                    @empty
-                                    @endforelse
+                            <div class="profile-inner">
+                                <div class="row mt-md-2">
+                                    <div class="col-12">
+                                        <h2>Suevey Questions <span class="required-star-color">*</span></h2>
+                                    </div>
+                                    <div class="col-12 questions">
+                                        @forelse ($questions as $key => $question)
+                                            @php
+                                                $answer = "";
+                                                if(!empty($answers) && array_key_exists($question->id, $answers)){
+                                                    $answer = $answers[$question->id];
+                                                }
+                                            @endphp
+                                            <div class="form-group">
+                                                <p>{{ $question->title }}</p>
+                                                <input type="text" class="form-control answer" name="ans[{{ $question->id }}]" id="ans{{ $question->id }}" placeholder="Enter Answer" value="{{ $answer }}" >
+                                            </div>
+                                        @empty
+                                        @endforelse
+                                    </div>
                                 </div>
                             </div>
                         @endif
@@ -327,6 +328,14 @@
                                                         <div class="form-group">
                                                             <label class="col-form-label">Number of Years Employed <span class="font-color">*</span></label>
                                                             <input type="number" name="exp[{{ $exp_count }}][year]" placeholder="Number of Years Employed" class="form-control year">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Responsibilities <span class="font-color">*</span></label>
+                                                            <input type="text" name="exp[{{ $exp_count }}][responsibilities]" placeholder="Responsibilities" class="form-control responsibilities">
                                                         </div>
                                                     </div>
                                                 </div>
