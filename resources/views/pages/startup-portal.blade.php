@@ -116,7 +116,7 @@
                         <h2>Browse Business Plan/Idea
                     </div>
                     <div class="member-list">
-                        @forelse ($recentMembers as $member)
+                        {{-- @forelse ($recentMembers as $member)
                             <div class="card">
                                 <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
                                     <div class="media-left">
@@ -154,7 +154,51 @@
                                 </div>
                             </div>
                         @empty
-                        @endforelse
+                        @endforelse --}}
+                        <div class="card">
+                            <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
+                                <div class="media-left">
+                                    @php
+                                        $ProfileUrl = Helper::images(config('constant.profile_url'));
+                                        $img_url = (isset($member) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';
+                                    @endphp
+                                    <a href="#" class="profile-image">
+                                        <img src="{{ $img_url }}" alt="" class="w-100">
+                                    </a>
+                                </div>
+                                <div class="member-detail">
+                                    <h2 class="name">Rapportive</h2>
+                                    <label>Industry :</label>
+                                    <div class="skills">
+                                        <p>IT</p>
+                                    </div>
+                                    <label>Stage of Startup :</label>
+                                    <div class="skills">
+                                        <p>Startup Operational (obtaining revenue)</p>
+                                    </div>
+                                    <label>What’s the most important next step for your startup? :</label>
+                                    <div class="skills">
+                                        <p> Build your product </p>
+                                    </div>
+                                    <label>Website :</label>
+                                    <div class="skills">
+                                        <p> - </p>
+                                    </div>
+                                    <label>Details</label>
+                                    <div class="location">
+                                        <p>
+                                            Rapportive shows you everything about your contacts from inside your email inbox. A large screenshot placed on the left hand side of the home page allows you to easily see the product in action. A bright call-to-action inspires the visitor to take action and download the application.
+                                        </p>
+                                    </div>
+                                </div>
+                                {{-- <div class="contact-details">
+                                    <ul>
+                                        <li><a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}">Contact</a></li>
+                                        <li><a href="{{ route('member.message', ['user'=> $member->slug]) }}">Message</a></li>
+                                    </ul>
+                                </div> --}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -14,21 +14,21 @@
                 <div class="resources-sidebar">
                     <div class="resources-navigation">
                         <ul class="resources-selection-list">
-                            @foreach ($topics as $key => $topic)
+                            @foreach ($topics as $key => $val)
                             @php
-                                $subTopics = Helper::getSubTopics($topic->id);
+                                $subTopics = Helper::getSubTopics($val->topic->id);
                             @endphp
                             <li class="list-item text-capitalize">
-                                <a href="#s{{ $topic->id }}"
+                                <a href="#s{{ $val->topic->id }}"
                                     @if (sizeof($subTopics) > 0)
                                     class="has-subitem"
                                     @endif
-                                    >{{ $topic->title ?? "" }}</a>
+                                    >{{ $val->topic->title ?? "" }}</a>
                                     @if (sizeof($subTopics) > 0)
                                     @foreach ($subTopics as $sTopic)
                                             <ul class="second-level-selection">
                                                 <li>
-                                                    <a href="#s{{ $sTopic->id }}">{{ $sTopic->title  ?? '-' }}</a>
+                                                    <a href="#s{{ $sTopic->topic->id }}">{{ $sTopic->topic->title  ?? '-' }}</a>
                                                 </li>
                                             </ul>
                                         @endforeach

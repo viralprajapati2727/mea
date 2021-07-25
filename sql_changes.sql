@@ -51,3 +51,5 @@ DELETE FROM `users` WHERE `users`.`id` = 16
 UPDATE `users` SET `email` = 'infomuslimstartups@gmail.com' WHERE `users`.`id` = 1;
 
 UPDATE `users` SET `name` = 'MEA Admin', `slug` = 'mea-admin', `email_verified_at` = NULL, `deleted_at` = NULL WHERE `users`.`id` = 1;
+
+ALTER TABLE `resources` ADD `resource_order` INT(10) NULL DEFAULT NULL AFTER `topic_id`;

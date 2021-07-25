@@ -774,7 +774,10 @@ class Helper
     public static function getSubTopics($topic_id = null){
         $subtopics = [];
         if($topic_id != null) {
-            $subtopics = Topic::where('parent_id', $topic_id)->get();
+            // $subtopics = Topic::where('parent_id', $topic_id)->get();
+            $subtopics = Resource::with(['topic'])->whereHas('topic', function($Query) use ($topic_id) {
+                $Query->where("parent_id", $topic_id)->where("status", 1);
+            })->where('deleted_at',null)->orderBy('resource_order','ASC')->get();
         }
         return $subtopics;
     } 
@@ -784,7 +787,7 @@ class Helper
         if($topic_id != null) {
             $subtopics = Topic::where('parent_id', $topic_id)->pluck('id')->toArray();
             
-            $getSubTopicsResource = Resource::whereIn('topic_id', $subtopics)->get();
+            $getSubTopicsResource = Resource::whereIn('topic_id', $subtopics)->where('deleted_at',null)->get();
 
         }
         return $getSubTopicsResource;

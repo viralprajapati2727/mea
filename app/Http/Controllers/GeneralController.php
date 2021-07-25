@@ -129,13 +129,17 @@ class GeneralController extends Controller {
 	// 	return view('pages.resources',compact('resources'));
 	// }
 	public function resourceNew() {
-		$topics = Topic::whereNull("parent_id")->where("status", 1)->get();
+		// $topics = Topic::whereNull("parent_id")->where("status", 1)->get();
 
-		$resourcesNew = Resource::select('id','topic_id','slug','title','src','document','description','created_by','updated_at')->with([
+		$topics = Resource::with(['topic'])->whereHas('topic', function($Query) {
+			$Query->whereNull("parent_id")->where("status", 1);
+		})->where('deleted_at',null)->orderBy('resource_order','ASC')->get();
+
+		$resourcesNew = Resource::select('id','topic_id','slug','title','src','document','description','created_by','updated_at','resource_order','deleted_at')->with([
 			'topic'
-		])->whereIn('topic_id', $topics->pluck('id')->toArray())->where('deleted_at',null)->orderBy('id','ASC')->get();
+		])->where('deleted_at',null)->orderBy('resource_order','ASC')->get();
 		
-	return view('pages.resources-new', compact('resourcesNew', "topics"));
+		return view('pages.resources-new', compact('resourcesNew', "topics"));
 	}
 	public function resourceDetail($slug = null){
 		if(is_null($slug)){

@@ -31,7 +31,7 @@
                         <form action="{{ route('subscribe-email') }}" method="POST">
                             <div class="form-control">
                                 @csrf
-                                <input type="email" name="email" placeholder="Email"/>
+                                <input type="email" name="email" placeholder="Email" required />
                                 <button type="submit" class="submit">Subscribe</button>
                             </div>
                         </form>

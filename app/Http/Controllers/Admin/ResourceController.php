@@ -16,7 +16,7 @@ class ResourceController extends Controller
 {
     //View Dance/Music Type Listing Page
     public function index(){
-        $topics = Topic::select('id','parent_id','title')->where('status', 1)->orderBy('id','desc')->get();
+        $topics = Topic::select('id','parent_id','title')->orderBy('id','desc')->get();
 
         $resource = Resource::orderBy('created_at','desc')->get();
         return view('admin.resource.index',compact('resource', 'topics'));
@@ -31,7 +31,7 @@ class ResourceController extends Controller
             $keyword = $request->keyword;
         }
 
-        $Query = Resource::orderBy('id','desc');
+        $Query = Resource::orderBy('id','desc')->whereNull('deleted_at');
         if(!empty($keyword)){
             $Query->where('title','like','%'.$keyword.'%');
         }
@@ -39,6 +39,10 @@ class ResourceController extends Controller
         $data = datatables()->of($Query)
         ->addColumn('title', function ($Query) {
             return $Query->title;
+        })
+        ->addColumn('resource_order', function ($Query) {
+            $resourceData = $Query->resource_order ? $Query->resource_order : '-' ;
+            return $resourceData;
         })
         ->addColumn('src', function ($Query) {
             $icon = Helper::images(config('constant.resource_url')).$Query->src;
@@ -53,7 +57,7 @@ class ResourceController extends Controller
         })
         ->addColumn('action', function ($Query) {
             $action_link = "";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-is_url = '".$Query->is_url."' data-document = '".$Query->document."' data-ext = '".$Query->ext."' data-topic = '".$Query->topic_id."'><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-is_url = '".$Query->is_url."' data-document = '".$Query->document."' data-ext = '".$Query->ext."' data-topic = '".$Query->topic_id."' data-resource_order = '".$Query->resource_order."' ><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
             $action_link .= "<a href='javascript:;' class='resource_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })
@@ -79,7 +83,8 @@ class ResourceController extends Controller
                 'short_description' => $request->short_description,
                 'description' => $request->description,
                 'status' => $status,
-                "topic_id" => $request->topic
+                "topic_id" => $request->topic,
+                "resource_order" => $request->resource_order
             ];
 
             $is_url = $resourceData['is_url'] = 0;

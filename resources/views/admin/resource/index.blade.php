@@ -43,6 +43,7 @@
                 <th>Title</th>
                 <th>Icon</th>
                 <th>Status</th>
+                <th>Resource Order</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -127,12 +128,24 @@
                         <div class="input-group title-error-msg"></div>
                     </div>
                     <div class="form-group row">
-                        <label class="font-small font-light col-form-label pl-2 col-md-3">Status: </label>
-                        <div class="my-2">
-                            <div class="col-md-9">
-                                <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="status" class="custom-control-input" id="custom_checkbox_stacked_unchecked" value="1" checked>
-                                    <label class="custom-control-label" for="custom_checkbox_stacked_unchecked">Active</label>
+                        <div class="col-md-6">
+                            <label class="font-small font-light col-form-label pl-2 col-md-3">Status: </label>
+                            <div class="my-2">
+                                <div class="col-md-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="custom_checkbox_stacked_unchecked" value="1" checked>
+                                        <label class="custom-control-label" for="custom_checkbox_stacked_unchecked">Active</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="font-small font-light col-form-label pl-2">
+                                Resource Order
+                            </label>
+                            <div class="my-2">
+                                <div class="input-group custom-start col-md-12">
+                                    <input type="number" value="" name="resource_order" placeholder="Enter Resource Order Number" class="form-control resource_order"/>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +256,8 @@ $(document).ready( function () {
             { data: 'title', name: 'title' ,searchable:false, orderable:false},
             { data: 'src', name: 'src' ,searchable:false},
             { data: 'status', name: 'status' ,searchable:false},
-            { data: 'action', name: 'action', searchable:false, orderable:false }
+            { data: 'resource_order', name: 'resource_order', searchable: false },
+            { data: 'action', name: 'action', searchable:false, orderable:false },
         ]
     });
 
@@ -256,6 +270,7 @@ $(document).ready( function () {
         var src = $(this).data('src');
         var doc = $(this).data('document')
         var topicId = $(this).data('topic')
+        var resourceOrder = $(this).data('resource_order')
 
         $('.add_modal').modal({backdrop: 'static', keyboard: false});
         var path = "{{ Helper::images(config('constant.resource_url')) }}";
@@ -279,6 +294,7 @@ $(document).ready( function () {
                 $('.append-document').append(`<a class="mx-2" href="${finalDocument}" download>Download Your Resource Document/Video.</a>`);
             }
             $('.append-document').css('display','block');
+            $('.resource_order').val(resourceOrder);
         }
     })
 
@@ -294,6 +310,7 @@ $(document).ready( function () {
             $('.append-image').html('');
             $('.append-document').html('');
             $('#topic').val('').trigger('change');
+            $('.resource_order').val('');
         }, 700);
     });
 
