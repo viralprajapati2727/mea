@@ -47,10 +47,22 @@
                                             </ul>
                                         </div>
                                         @endisset
-                                        @isset($question->tags)
+                                        @isset($question->other_category)
+                                        <div class="quetion-category">
+                                            <ul>
+                                                <li>
+                                                    <p class="btn btn-primary">{{ ucfirst($question->other_category) ?? "-" }}</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        @endisset
+                                        @php
+                                            $communityTags = array_filter($question->tags)
+                                        @endphp
+                                        @if(!empty($question->tags) && count($communityTags) > 0)
                                             <div class="quetion-tags">
                                                 <ul>
-                                                    @foreach($question->tags as $tag)
+                                                    @foreach($communityTags as $tag)
                                                         <li>{{ $tag ?? "" }}</li>
                                                     @endforeach
                                                 </ul>

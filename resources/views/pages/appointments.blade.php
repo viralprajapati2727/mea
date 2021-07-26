@@ -2,7 +2,7 @@
 @section('content')
 @php $statuss = config('constant.appointment_status'); @endphp
 <div class="my-jobs">
-    <div class="container">
+    <div class="container mt-5">
         <div class="page-header page-header-light">
             <div class="header-elements-md-inline job-list-header my-job-list-header">
                 <div class="page-title d-flex p-0">

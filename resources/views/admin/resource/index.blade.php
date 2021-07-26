@@ -43,7 +43,7 @@
                 <th>Title</th>
                 <th>Icon</th>
                 <th>Status</th>
-                <th>Resource Order</th>
+                {{-- <th>Resource Order</th> --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -139,7 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <label class="font-small font-light col-form-label pl-2">
                                 Resource Order
                             </label>
@@ -148,7 +148,7 @@
                                     <input type="number" value="" name="resource_order" placeholder="Enter Resource Order Number" class="form-control resource_order"/>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -256,8 +256,8 @@ $(document).ready( function () {
             { data: 'title', name: 'title' ,searchable:false, orderable:false},
             { data: 'src', name: 'src' ,searchable:false},
             { data: 'status', name: 'status' ,searchable:false},
-            { data: 'resource_order', name: 'resource_order', searchable: false },
             { data: 'action', name: 'action', searchable:false, orderable:false },
+            // { data: 'resource_order', name: 'resource_order', searchable: false },
         ]
     });
 
@@ -270,7 +270,7 @@ $(document).ready( function () {
         var src = $(this).data('src');
         var doc = $(this).data('document')
         var topicId = $(this).data('topic')
-        var resourceOrder = $(this).data('resource_order')
+        // var resourceOrder = $(this).data('resource_order')
 
         $('.add_modal').modal({backdrop: 'static', keyboard: false});
         var path = "{{ Helper::images(config('constant.resource_url')) }}";
@@ -294,7 +294,7 @@ $(document).ready( function () {
                 $('.append-document').append(`<a class="mx-2" href="${finalDocument}" download>Download Your Resource Document/Video.</a>`);
             }
             $('.append-document').css('display','block');
-            $('.resource_order').val(resourceOrder);
+            // $('.resource_order').val(resourceOrder);
         }
     })
 
@@ -310,7 +310,7 @@ $(document).ready( function () {
             $('.append-image').html('');
             $('.append-document').html('');
             $('#topic').val('').trigger('change');
-            $('.resource_order').val('');
+            // $('.resource_order').val('');
         }, 700);
     });
 

@@ -46,10 +46,13 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    @isset($question->tags)
+                                    @php
+                                        $communityTags = array_filter($question->tags)
+                                    @endphp
+                                    @if(!empty($question->tags) && count($communityTags) > 0)
                                         <div class="quetion-tags">
                                             <ul>
-                                                @foreach($question->tags as $tag)
+                                                @foreach($communityTags as $tag)
                                                     <li>{{ $tag ?? "" }}</li>
                                                 @endforeach
                                             </ul>
