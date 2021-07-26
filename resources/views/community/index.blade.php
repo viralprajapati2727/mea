@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-lg-1">
                                 <div class="votes">
-                                    <h2>Votes</h2>
+                                    <h2>Likes</h2>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                                     {{  $question->title }}
                                                 </a>
                                             </h3>
-                                            <span>By {{ $question->user->name }}</span>
+                                            <span>By {{ $question->user->name ?? "-" }}</span>
                                         </div>
                                     </div>
                                 </div>

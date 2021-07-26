@@ -53,12 +53,14 @@
                             </div>
                         </div>
                         <div class="row">
+                            @if ($profile->userProfile->is_education > 0 || Auth::id() == $profile->id)
                             <div class="col-md-4 col-12">
                                 <div class="d-flex align-items-center">
                                     <p><i class="mr-2 flaticon-email"></i></p>
                                     <p>{{ $profile->email }} </p>
                                 </div>
                             </div>
+                            @endif
                             <div class="col-md-4 col-12">
                                 <div class="d-flex align-items-center">
                                     <p><i class="mr-2 flaticon-phone-call"></i></p>

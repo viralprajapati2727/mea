@@ -53,3 +53,7 @@ UPDATE `users` SET `email` = 'infomuslimstartups@gmail.com' WHERE `users`.`id` =
 UPDATE `users` SET `name` = 'MEA Admin', `slug` = 'mea-admin', `email_verified_at` = NULL, `deleted_at` = NULL WHERE `users`.`id` = 1;
 
 ALTER TABLE `resources` ADD `resource_order` INT(10) NULL DEFAULT NULL AFTER `topic_id`;
+
+ALTER TABLE `user_profiles` ADD `is_email_public` TINYINT NOT NULL DEFAULT '0' COMMENT '0:No, 1: Yes' AFTER `is_resume_public`;
+
+ALTER TABLE `user_profiles` ADD `is_education` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0:No, 1: Yes' AFTER `is_experience`;

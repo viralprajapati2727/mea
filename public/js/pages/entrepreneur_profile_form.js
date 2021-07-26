@@ -88,6 +88,12 @@ if(is_experience == 0){
     $('.btn-add-more-exp').hide();
 }
 
+if (is_education == 0) {
+    $('.or_edu_add').hide();
+    $('.education-details').hide();
+    $('.btn-add-more-edu').hide();
+}
+
 $(document).on('click','#is_experience',function(){
     if($(this).is(":checked")){
         $(".btn-add-more-exp,.or_add").hide();
@@ -95,6 +101,16 @@ $(document).on('click','#is_experience',function(){
     }else{
         $(".btn-add-more-exp,.or_add").show();
         $(".work-exp-details").fadeIn();
+    }
+});
+
+$(document).on('click', '#is_education', function () {
+    if($(this).is(":checked")){
+        $(".btn-add-more-edu,.or_edu_add").hide();
+        $(".education-details").fadeOut();
+    }else{
+        $(".btn-add-more-edu,.or_edu_add").show();
+        $(".education-details").fadeIn();
     }
 });
 
@@ -281,11 +297,11 @@ $(document).ready(function(){
                 noSpace: true,
             },
             phone: {
-                required: true,
+                required: false,
                 customphone: true,
                 maxlength: 15,
                 minlength: 10,
-                noSpace: true,
+                // noSpace: true,
                 normalizer: function (value) { return $.trim(value); },
             },
             fb_link: {
@@ -305,7 +321,7 @@ $(document).ready(function(){
                 alpha: true,
             },
             dob: {
-                required: true,
+                required: false,
             },
             skills: {
                 required: true,
@@ -407,7 +423,7 @@ $(document).ready(function(){
     });
 
     validateExtraField();
-    // validateEducationExtraField();
+    validateEducationExtraField();
 
 })    
 
@@ -491,7 +507,7 @@ $(document).on('click','.delete-work-exp',function(e){
 
 $(document).on('click','.delete-edu-exp',function(){
     var data_id = $(this).parents('.education-item').find("input[type='hidden'].id").val();
-    if($('.education-item').length > 1){
+    if($('#is_education').is(":checked") || $('.education-item').length > 1){
         $(this).parents('.education-item').remove();
 
         if(data_id != "") {
@@ -561,18 +577,19 @@ function validateExtraField(){
 function validateEducationExtraField(){
     $('.course_name').each(function() {
         $(this).rules('add', {
-            required: true,
+            // required: true,
+            required: { depends: function(element) { return !$('#is_education').is(":checked") } },
             normalizer: function(value) {return $.trim(value);},
             maxlength: 100,
             messages: {
-                required:  "Please enter course name",
+                required:  "Please enter Degree type ",
                 maxlength: "Maximum {0} characters are allowed",
             }
         });
     });
     $('.organization_name').each(function() {
         $(this).rules('add', {
-            required: true,
+            required: { depends: function(element) { return !$('#is_education').is(":checked") } },
             normalizer: function(value) {return $.trim(value);},
             maxlength: 100,
             messages: {
@@ -583,18 +600,18 @@ function validateEducationExtraField(){
     });
     $('.percentage').each(function() {
         $(this).rules('add', {
-            required: true,
+            required: { depends: function(element) { return !$('#is_education').is(":checked") } },
             normalizer: function(value) {return $.trim(value);},
             maxlength: 50,
             messages: {
-                required:  "Please enter your grade",
+                required:  "Please enter your GPA/Grade",
                 maxlength: "Maximum {0} characters are allowed",
             }
         });
     });
     $('.education-details .year1').each(function() {
         $(this).rules('add', {
-            required: true,
+            required: { depends: function(element) { return !$('#is_education').is(":checked") } },
             normalizer: function(value) {return $.trim(value);},
             maxlength: 50,
             messages: {
@@ -605,7 +622,7 @@ function validateEducationExtraField(){
     });
     $('.major').each(function() {
         $(this).rules('add', {
-            required: true,
+            required: { depends: function(element) { return !$('#is_education').is(":checked") } },
             normalizer: function(value) {return $.trim(value);},
             maxlength: 100,
             messages: {
@@ -616,7 +633,7 @@ function validateEducationExtraField(){
     });
     $('.minor').each(function() {
         $(this).rules('add', {
-            required: true,
+            required: { depends: function(element) { return !$('#is_education').is(":checked") } },
             normalizer: function(value) {return $.trim(value);},
             maxlength: 100,
             messages: {

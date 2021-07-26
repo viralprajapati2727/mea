@@ -35,8 +35,12 @@ class UserController extends Controller
         $responseData['errors'] = array();
         $responseData['data'] = [];
         DB::beginTransaction();
+
         try{
-            $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->format('Y-m-d');
+            $dob = null;
+            if ($request->dob) {
+                $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->format('Y-m-d');
+            }
             // $request['dob'] =  date('Y-m-d', strtotime($request->dob));
             $validationArray = [
                 // 'name' => 'required|min:2|max:255',

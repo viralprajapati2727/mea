@@ -5,13 +5,14 @@
     $ProfileUrl = Helper::images(config('constant.profile_url'));
     $resumeUrl = Helper::images(config('constant.resume_url'));
     $coverUrl = Helper::images(config('constant.profile_cover_url'));
-    $exp_count = $edu_count  =  $is_profile = $is_experience = 0;
+    $exp_count = $edu_count  =  $is_profile = $is_experience = $is_education = 0;
 
     $skills = $interests = "";
     $answers = [];
     if($profile->is_profile_filled == 1){
         $is_profile = 1;
         $is_experience = $profile->userProfile->is_experience;
+        $is_education = $profile->userProfile->is_education;
         $skillsArr = $profile->skills->pluck('title')->toArray();
         $skills = implode(', ',$skillsArr);
 
@@ -92,6 +93,14 @@
                                     <label class="form-control-label">Email</label>
                                     <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{ old('email', isset($profile->email) ? $profile->email : '' ) }}"  disabled readonly>
                                 </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input-styled" name="is_email_public" id="is_email_public" value="1" data-fouc {{ !empty($profile->userProfile) && isset($profile->userProfile->is_email_public) ? ($profile->userProfile->is_email_public > 0 ? 'checked' : '') : (old('is_email_public') > 0 ? 'checked' : '') }}>
+                                            Make Email Public
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row mt-md-2">
@@ -107,7 +116,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group position-relative">
-                                    <label class="form-control-label">Date of Birth <span class="required-star-color">*</span></label>
+                                    <label class="form-control-label">Date of Birth </label>
                                     <input type="text" class="form-control birthdate" name="dob" id="dob" placeholder="Select Your Date of Birth" value="{{ old('dob', isset($profile->userProfile->dob)? (\Carbon\Carbon::createFromFormat('Y-m-d',$profile->userProfile->dob)->format('d/m/Y')):'' ) }}" >
                                     <div class="date-of-birth-icon">
                                         <i class="flaticon-calendar"></i>
@@ -124,7 +133,7 @@
                         <div class="row mt-md-2">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label">Contact Number <span class="required-star-color">*</span></label>
+                                    <label class="form-control-label">Contact Number </label>
                                     <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Your Contact Number" value="{{ old('phone', isset($profile->userProfile->phone) ? $profile->userProfile->phone:'' ) }}" maxlength="15" >
                                 </div>
                             </div>
@@ -358,6 +367,20 @@
                                 <h2>Education Details <span class="required-star-color">*</span></h2>
                             </div>
                             <div class="col-lg-9 col-md-12 mt-2" id="education-details">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" name="is_education" id="is_education" class="form-check-input-styled" data-fouc="" value="1" {{ $is_education == 0 ? 'checked' : '' }}>I have no education
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row or_edu_add">
+                                    <div class="col-md-12 mt-2 mb-2">
+                                        <b>OR</b>
+                                    </div>
+                                </div>
                                 @php $edu_count = 0; @endphp
                                 <div class="education-details">
                                     @if(isset($EducationDetail) && !empty($EducationDetail))
@@ -501,6 +524,7 @@
     var ex_count = parseInt("{{ $exp_count }}");
     var ed_count = parseInt("{{ $edu_count }}");
     var is_experience = "{{ $is_experience }}";
+    var is_education = "{{ $is_education }}";
     var exists_resume = "{{ $exists_resume }}";
     var is_profile_exists = {!! $is_same_profile_photo ? 'false' : 'true' !!};
     var is_profile_cover_exists = {!! $is_same_profile_cover_photo ? 'false' : 'true' !!};

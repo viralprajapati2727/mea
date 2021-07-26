@@ -34,7 +34,10 @@ class EntrepreneurController extends Controller
         $responseData['data'] = [];
         DB::beginTransaction();
         try{
-            $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->format('Y-m-d');
+            $dob = null;
+            if ($request->dob) {
+                $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->format('Y-m-d');
+            }
             // $request['dob'] =  date('Y-m-d', strtotime($request->dob));
             $validationArray = [
                 // 'name' => 'required|min:2|max:255',
@@ -132,6 +135,11 @@ class EntrepreneurController extends Controller
                     $is_experience = 0;
                 }
                 
+                $is_education = 1;
+                if($request->has('is_education')){
+                    $is_education = 0;
+                }
+                
                 /*
                  * save user profile data
                  */
@@ -151,7 +159,9 @@ class EntrepreneurController extends Controller
                     'is_experience' => $is_experience,
                     "linkedin_link" => $request->linkedin_link,
                     "github_link" => $request->github_link,
-                    "is_resume_public" => $request->is_resume_public ?? 0
+                    "is_resume_public" => $request->is_resume_public ?? 0,
+                    "is_email_public" => $request->is_email_public ?? 0,
+                    "is_education" => $is_education
                 ]);
 
                 /*

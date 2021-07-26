@@ -273,11 +273,11 @@ $(document).ready(function(){
                 noSpace: true,
             },
             phone: {
-                required: true,
+                required: false,
                 customphone: true,
                 maxlength: 15,
                 minlength: 10,
-                noSpace: true,
+                // noSpace: true,
                 normalizer: function (value) { return $.trim(value); },
             },
             fb_link: {
@@ -297,7 +297,7 @@ $(document).ready(function(){
                 alpha: true,
             },
             dob: {
-                required: true,
+                required: false,
             },
             skills: {
                 required: true,

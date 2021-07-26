@@ -88,6 +88,14 @@
                                     <label class="form-control-label">Email</label>
                                     <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{ old('email', isset($profile->email) ? $profile->email : '' ) }}"  disabled readonly>
                                 </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input-styled" name="is_email_public" id="is_email_public" value="1" data-fouc {{ !empty($profile->userProfile) && isset($profile->userProfile->is_email_public) ? ($profile->userProfile->is_email_public > 0 ? 'checked' : '') : (old('is_email_public') > 0 ? 'checked' : '') }}>
+                                            Make Email Public
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row mt-md-2">
@@ -103,7 +111,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group position-relative">
-                                    <label class="form-control-label">Date of Birth <span class="required-star-color">*</span></label>
+                                    <label class="form-control-label">Date of Birth</label>
                                     <input type="text" class="form-control birthdate" name="dob" id="dob" placeholder="Select Your Date of Birth" value="{{ old('dob', isset($profile->userProfile->dob)? (\Carbon\Carbon::createFromFormat('Y-m-d',$profile->userProfile->dob)->format('m/d/Y')):'' ) }}" >
                                     <div class="date-of-birth-icon">
                                         <i class="flaticon-calendar"></i>
@@ -120,7 +128,7 @@
                         <div class="row mt-md-2">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label">Contact Number <span class="required-star-color">*</span></label>
+                                    <label class="form-control-label">Contact Number </label>
                                     <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Your Contact Number" value="{{ old('phone', isset($profile->userProfile->phone) ? $profile->userProfile->phone:'' ) }}" maxlength="15" >
                                 </div>
                             </div>
