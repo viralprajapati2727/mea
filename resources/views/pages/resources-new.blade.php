@@ -16,19 +16,19 @@
                         <ul class="resources-selection-list">
                             @foreach ($topics as $key => $val)
                             @php
-                                $subTopics = Helper::getSubTopics($val->topic->id);
+                                $subTopics = Helper::getSubTopics($val->id);
                             @endphp
                             <li class="list-item text-capitalize">
-                                <a href="#s{{ $val->topic->id }}"
+                                <a href="#s{{ $val->id }}"
                                     @if (sizeof($subTopics) > 0)
                                     class="has-subitem"
                                     @endif
-                                    >{{ $val->topic->title ?? "" }}</a>
+                                    >{{ $val->title ?? "" }}</a>
                                     @if (sizeof($subTopics) > 0)
                                     @foreach ($subTopics as $sTopic)
                                             <ul class="second-level-selection">
                                                 <li>
-                                                    <a href="#s{{ $sTopic->topic->id }}">{{ $sTopic->topic->title  ?? '-' }}</a>
+                                                    <a href="#s{{ $sTopic->id }}">{{ $sTopic->title  ?? '-' }}</a>
                                                 </li>
                                             </ul>
                                         @endforeach
@@ -67,7 +67,6 @@
                                 <div class="text">
                                     <img src={{ $srcUrl }} height="350" alt="resource image" class="rounded" />
                                     <p class="text-justified">{!! $resource->description ?? "" !!}</p>
-                                    {{-- <p>Analyze multiple competitors based on the categories you want to compare, and use the results to identify your top rivals. This template contains several sheets to provide a comprehensive look at how your startup stacks up to the competition, the strengths of each company, and potential partnerships or opportunities.</p> --}}
                                     @if ($resource->document)
                                         <p class="text-center">
                                             Download Resource Document <br>
@@ -81,7 +80,7 @@
                                     $subResource = Helper::getSubTopicsResource($resource->topic_id)
                                 @endphp
                                 @if (sizeof($subResource) > 0)
-                                    @foreach ($subResource as $item)
+                                    @foreach ($subResource as $key => $item)
                                         <h3 class="subtitle" id="s{{ $item->topic_id }}">{{ $item->title ?? "-" }}</h3>
                                         <div class="text">
                                             <p>{!! $item->description ?? "" !!}</p>

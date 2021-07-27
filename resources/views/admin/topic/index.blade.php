@@ -42,6 +42,7 @@
             <tr>
                 <th>Title</th>
                 <th>Status</th>
+                <th>Topic Order</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -66,13 +67,19 @@
                     </div>
                     <input type="hidden" name="id" class="topic_id" id="d_type_id" value="">
                     <div class="form-group row">
-                        <label class="font-small font-light col-form-label pl-2 col-md-3">Status: </label>
-                        <div class="my-2">
-                            <div class="col-md-9">
-                                <div class="custom-control custom-checkbox">
+                        <div class="col-md-6">
+                            <label class="font-small font-light col-form-label ">Status: </label>
+                            <div class="custom-control custom-checkbox">
                                 <input type="checkbox" name="status" class="custom-control-input" id="custom_checkbox_stacked_unchecked" value="1" checked>
-                                    <label class="custom-control-label" for="custom_checkbox_stacked_unchecked">Active</label>
-                                </div>
+                                <label class="custom-control-label" for="custom_checkbox_stacked_unchecked">Active</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="font-small font-light col-form-label">
+                                Topic Order
+                            </label>
+                            <div class="input-group custom-start">
+                                <input type="number" value="" name="topic_order" placeholder="Enter Topic Order Number" min={{ 0 }} class="form-control topic_order"/>
                             </div>
                         </div>
                     </div>
@@ -130,6 +137,7 @@ $(document).ready( function () {
         columns: [
             { data: 'title', name: 'title' ,searchable:false, orderable:false},
             { data: 'status', name: 'status' ,searchable:false},
+            { data: 'topic_order', name: 'topic_order' ,searchable:false},
             { data: 'action', name: 'action', searchable:false, orderable:false }
         ]
     });
@@ -139,6 +147,7 @@ $(document).ready( function () {
         var id = $(this).data('id');
         var title = $(this).data('title');
         var src = $(this).data('src');
+        var topicOrder = $(this).data('topic_order');
         $('.add_modal').modal({backdrop: 'static', keyboard: false});
         var path = "";
         var final = path+src;
@@ -149,6 +158,7 @@ $(document).ready( function () {
             $('.add_modal .topic').val(title);
             $('.append-image').append('<a class="fancy-pop-image" data-fancybox="images" href='+final+'><img class="image-preview-logo mt-3 ml-2" name="previewpic" id="previewpic"  src='+final+'></a>');
             $('.append-image').css('display','block');
+            $('.topic_order').val(topicOrder);
         }
     })
 
@@ -160,6 +170,7 @@ $(document).ready( function () {
             $('.add_modal .topic').val('');
             $('.add_modal .old_src').val('');
             $('.append-image').html('');
+            $('.topic_order').val('');
         }, 700);
     });
 

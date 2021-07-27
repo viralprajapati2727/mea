@@ -123,22 +123,30 @@ class GeneralController extends Controller {
 	public function team() {
 		return view('pages.our-team');
     }
-	// Old resource
-	// public function resource() {
-	// 	$resources = Resource::select('id','slug','title','src','short_description','created_by','updated_at')->where('deleted_at',null)->orderBy('id','ASC')->get();
-	// 	return view('pages.resources',compact('resources'));
-	// }
-	public function resourceNew() {
-		// $topics = Topic::whereNull("parent_id")->where("status", 1)->get();
 
-		$topics = Resource::with(['topic'])->whereHas('topic', function($Query) {
-			$Query->whereNull("parent_id")->where("status", 1);
-		})->where('deleted_at',null)->orderBy('resource_order','ASC')->get();
+	public function resourceNew() {
+		$topics = Topic::with('resources')->whereHas('resources', function($Query) {
+			$Query->whereNotNull('topic_id')->where('deleted_at',null);
+		},'>',0)->whereNull("parent_id")->where("status", 1)->orderBy('topic_order','ASC')->get();
+
+		// echo "<pre>"; print_r($topics->toArray()); exit;
+		// $topics = Resource::with(['topic'])->whereHas('topic', function($Query) {
+		// 	$Query->whereNull("parent_id")->where("status", 1)->orderBy('topic_order','ASC');
+		// })->where('deleted_at',null)->get();
 
 		$resourcesNew = Resource::select('id','topic_id','slug','title','src','document','description','created_by','updated_at','resource_order','deleted_at')->with([
-			'topic'
-		])->where('deleted_at',null)->orderBy('resource_order','ASC')->get();
-		
+			'topic' => function($query){
+				$query->whereNull("parent_id");
+			}
+		])->whereHas('topic', function($Query) {
+			$Query->whereNull("parent_id");
+		},'>',0)->where('deleted_at',null)->get();
+		 
+		// $resourcesColl = collect($resourcesNew);
+		// $resourcesNew = $resources->groupBy('topic.topic_order');
+
+		// dd($resourcesNew);
+
 		return view('pages.resources-new', compact('resourcesNew', "topics"));
 	}
 	public function resourceDetail($slug = null){

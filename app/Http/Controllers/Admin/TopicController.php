@@ -24,7 +24,7 @@ class TopicController extends Controller
             $keyword = $request->keyword;
         }
 
-        $Query = Topic::whereNull('parent_id')->orderBy('id','desc');
+        $Query = Topic::whereNull('parent_id')->orderBy('topic_order','asc');
         if(!empty($keyword)){
             $Query->where('title','like','%'.$keyword.'%');
         }
@@ -32,6 +32,9 @@ class TopicController extends Controller
         $data = datatables()->of($Query)
         ->addColumn('title', function ($Query) {
             return $Query->title;
+        })
+        ->addColumn('topic_order', function ($Query) {
+            return $Query->topic_order ? $Query->topic_order : "-" ;
         })
         ->addColumn('status', function ($Query) {
             $text = "<span class='badge badge-danger'><a href='javascript:;' class='type-status' data-active='1' data-id='".$Query->id."'>INACTIVE</a></span>";
@@ -43,7 +46,7 @@ class TopicController extends Controller
         ->addColumn('action', function ($Query) {
             $action_link = "";
             $action_link .= "<a href='".route('sub-topic.index',['id' => $Query->id])."' data-backdrop='static' class='' ><i class='icon-eye mr-3 text-primary'></i></a>&nbsp;&nbsp;";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_dance_type openTopicPopoup' data-title = '".$Query->title."' data-src ='".$Query->src."' data-id = '".$Query->id."' ><i class='icon-pencil7 mr-3 text-primary edit_jobtitle'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_dance_type openTopicPopoup' data-title = '".$Query->title."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-topic_order = '".  $Query->topic_order. "' ><i class='icon-pencil7 mr-3 text-primary edit_jobtitle'></i></a>&nbsp;&nbsp;";
             $action_link .= "<a href='javascript:;' class='topic_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })
@@ -61,12 +64,21 @@ class TopicController extends Controller
             if(isset($request->status)){
                 $status = 1;
             }
+
+            $maxId = Topic::max('topic_order');
+            $topic_order = $request->topic_order;
+            if(empty($request->topic_order) || $request->topic_order < 1 ){
+                $topic_order = $maxId + 1;
+            }
+
             $topicData = [
                 'title' => $request->title,
                 'status' => $status,
+                'topic_order' => $topic_order
             ];
 
-            Topic::updateOrCreate(['id' => $request->id], $topicData);
+            $topic = Topic::updateOrCreate(['id' => $request->id], $topicData);
+ 
             DB::commit();
             if($request->id){
                 return redirect()->route('topic.index')->with('success','Topic has been updated Successfully');
@@ -89,6 +101,7 @@ class TopicController extends Controller
             DB::beginTransaction();
             try{
                 $user = Auth::user();
+                $subTopic = Topic::where('parent_id', $id)->delete();
                 $topic = Topic::find($id);
                 $topic->delete();
                 DB::commit();

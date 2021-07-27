@@ -33,12 +33,14 @@
                     <div class="user-detials">
                         <h2>{{ $profile->name }}</h2>
                         <div class="row">
+                            @isset($profile->userProfile->dob)
                             <div class="col-md-4 col-12">
                                 <div class="d-flex align-items-center">
                                     <p><i class="mr-2 flaticon-cake"></i></p>
                                     <p>{{ Carbon\Carbon::parse($profile->userProfile->dob)->format('jS F Y') }} </p>
                                 </div>
                             </div>
+                            @endisset
                             <div class="col-md-4 col-12">
                                 <div class="d-flex align-items-center">
                                     <p><i class="mr-2 flaticon-placeholder"></i></p>

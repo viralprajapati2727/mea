@@ -775,9 +775,10 @@ class Helper
         $subtopics = [];
         if($topic_id != null) {
             // $subtopics = Topic::where('parent_id', $topic_id)->get();
-            $subtopics = Resource::with(['topic'])->whereHas('topic', function($Query) use ($topic_id) {
-                $Query->where("parent_id", $topic_id)->where("status", 1);
-            })->where('deleted_at',null)->orderBy('resource_order','ASC')->get();
+            $subtopics = Topic::with('resources')->whereHas('resources', function($Query) {
+                $Query->whereNotNull('topic_id')->where('deleted_at',null);
+            },'>',0)->where('parent_id', $topic_id)->where("status", 1)->orderBy('updated_at','DESC')->get();
+    
         }
         return $subtopics;
     } 
@@ -787,7 +788,7 @@ class Helper
         if($topic_id != null) {
             $subtopics = Topic::where('parent_id', $topic_id)->pluck('id')->toArray();
             
-            $getSubTopicsResource = Resource::whereIn('topic_id', $subtopics)->where('deleted_at',null)->get();
+            $getSubTopicsResource = Resource::whereIn('topic_id', $subtopics)->where('deleted_at',null)->orderBy('updated_at','DESC')->get();
 
         }
         return $getSubTopicsResource;
