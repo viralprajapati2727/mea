@@ -65,7 +65,7 @@ class TopicController extends Controller
                 $status = 1;
             }
 
-            $maxId = Topic::max('topic_order');
+            $maxId = Topic::whereNull('parent_id')->max('topic_order');
             $topic_order = $request->topic_order;
             if(empty($request->topic_order) || $request->topic_order < 1 ){
                 $topic_order = $maxId + 1;
