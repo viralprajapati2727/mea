@@ -140,12 +140,7 @@ class GeneralController extends Controller {
 			}
 		])->whereHas('topic', function($Query) {
 			$Query->whereNull("parent_id");
-		},'>',0)->where('deleted_at',null)->get();
-		 
-		// $resourcesColl = collect($resourcesNew);
-		// $resourcesNew = $resources->groupBy('topic.topic_order');
-
-		// dd($resourcesNew);
+		},'>',0)->where('deleted_at',null)->get()->sortBy('topic.topic_order');
 
 		return view('pages.resources-new', compact('resourcesNew', "topics"));
 	}

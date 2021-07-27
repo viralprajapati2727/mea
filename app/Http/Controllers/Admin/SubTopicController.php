@@ -24,7 +24,7 @@ class SubTopicController extends Controller
             $keyword = $request->keyword;
         }
 
-        $Query = Topic::where('parent_id', $request->parent_id)->orderBy('id','desc');
+        $Query = Topic::where('parent_id', $request->parent_id)->orderBy('topic_order','asc');
         if(!empty($keyword)){
             $Query->where('title','like','%'.$keyword.'%');
         }
@@ -39,6 +39,9 @@ class SubTopicController extends Controller
                 $text = "<span class='badge badge-success'><a href='javascript:;' class='type-status' data-active='0' data-id='".$Query->id."'>ACTIVE</a></span>";
             }
             return $text;
+        })
+        ->addColumn('topic_order', function ($Query) {
+            return $Query->topic_order ? $Query->topic_order : "-" ;
         })
         ->addColumn('action', function ($Query) {
             $action_link = "";
@@ -60,10 +63,18 @@ class SubTopicController extends Controller
             if(isset($request->status)){
                 $status = 1;
             }
+
+            $maxId = Topic::whereNotNull('parent_id')->max('topic_order');
+            $topic_order = $request->topic_order;
+            if(empty($request->topic_order) || $request->topic_order < 1 ){
+                $topic_order = $maxId + 1;
+            }
+            
             $topicData = [
                 'title' => $request->title,
                 'parent_id' => $request->parent_id,
                 'status' => $status,
+                'topic_order' => $topic_order
             ];
 
             Topic::updateOrCreate(['id' => $request->id], $topicData);
