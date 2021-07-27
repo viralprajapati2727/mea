@@ -27,6 +27,7 @@ use App\Models\RaiseFund;
 use App\Models\Topic;
 use App\Models\EmailSubscriptions;
 use Carbon\Carbon;
+use App\Models\StartUpPortal;
 
 class GeneralController extends Controller {
 	
@@ -407,8 +408,11 @@ class GeneralController extends Controller {
 		return redirect()->back()->with('success',trans('Sent Successfully!'));
 	}
 	public function getStartupPortal(){
-		$recentMembers = Helper::getRecentMembers();
-		return view('pages.startup-portal',compact('recentMembers'));
+		// $recentMembers = Helper::getRecentMembers();
+
+		$startups = StartUpPortal::whereNull('deleted_at')->where('status',1)->orderBy('id','DESC')->take(5)->get();
+
+		return view('pages.startup-portal',compact('startups'));
 	}
 	public function getFundRequests(){
 		$funds = RaiseFund::where('status',1)->paginate(10);

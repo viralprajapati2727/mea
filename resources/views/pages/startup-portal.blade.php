@@ -77,132 +77,224 @@
                     </div>
                 </div>
                 <div class="process-bottom">
-                    <p>A business begins with the plan and financial tools for success we help you shapw and define both. 
-                    Our process appropriately situates an entrepreneur to <strong>define and namage the business pan</strong> and <strong>avoid the pitfalls</strong> of getting buried in the details.</p>
+                    <p>A business begins with the plan and financial tools for success we help you shapw and define
+                        both.
+                        Our process appropriately situates an entrepreneur to <strong>define and namage the business
+                            pan</strong> and <strong>avoid the pitfalls</strong> of getting buried in the details.</p>
                 </div>
             </div>
         </div>
         <div class="building-plan">
             <div class="container">
-                <div class="title"><h2>Building Your Plan</h2></div>
-                <p>The fear concern, time and resources needed for setting up astartup seems daunting at first glance - but it doesn't have to be! 
-                    Startup Portal evolved from years of experience in capital raising cash management, financial reporting and managing the day to day.</p>
+                <div class="title">
+                    <h2>Building Your Plan</h2>
+                </div>
+                <p>The fear concern, time and resources needed for setting up astartup seems daunting at first glance -
+                    but it doesn't have to be!
+                    Startup Portal evolved from years of experience in capital raising cash management, financial
+                    reporting and managing the day to day.</p>
             </div>
         </div>
-        @auth    
-        @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR')) 
-            <div class="get-started-wrap">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-9">
-                            <div class="left-content">
-                                <h2>Ready to get started? Click here to schedule a free consultation.</h2>
-                            </div>
+        @auth
+        @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR'))
+        <div class="get-started-wrap">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <div class="left-content">
+                            <h2>Ready to get started? Click here to schedule a free consultation.</h2>
                         </div>
-                        <div class="col-md-3 justify-content-end">
-                            <div class="right-button">
-                                <a href="{{ route('startup-portal') }}">Click Here</a>
-                            </div>
+                    </div>
+                    <div class="col-md-3 justify-content-end">
+                        <div class="right-button">
+                            <a href="{{ route('startup-portal') }}">Click Here</a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         @endif
         @endauth
-        @if(!$recentMembers->isEmpty() && $recentMembers->count())
-            <div class="browse-plans">
-                <div class="container">
-                    <div class="title">
-                        <h2>Browse Business Plan/Idea
-                    </div>
-                    <div class="member-list">
-                        {{-- @forelse ($recentMembers as $member)
-                            <div class="card">
-                                <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
-                                    <div class="media-left">
-                                        @php
-                                            $ProfileUrl = Helper::images(config('constant.profile_url'));
-                                            $img_url = (isset($member->logo) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';
-                                        @endphp
-                                        <a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}" class="profile-image">
-                                            <img src="{{ $img_url }}" alt="" class="w-100">
-                                        </a>
+        @if(!$startups->isEmpty() && $startups->count())
+        <div class="browse-plans">
+            <div class="container">
+                <div class="title">
+                    <h2>Browse Business Plan/Idea
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        @forelse ($startups as $key => $startup)
+                        @php
+                        $businessUrl = Helper::images(config('constant.business_plan'));
+                        $financialUrl = Helper::images(config('constant.financial'));
+                        $pitchdeckUrl = Helper::images(config('constant.pitch_deck'));
+
+                        $exists_businessplan = "";
+                        $exists_financial = "";
+                        $exists_pitch_deck = "";
+
+                        if(isset($startup)){
+                        if($startup->business_plan != ""){
+                        $is_same_business_plan = true;
+                        $exists_businessplan = $businessUrl.$startup->business_plan;
+                        }
+                        if($startup->financial != ""){
+                        $is_same_financial = true;
+                        $exists_financial = $financialUrl.$startup->financial;
+                        }
+                        if($startup->pitch_deck != ""){
+                        $is_same_pitch_deck = true;
+                        $exists_pitch_deck = $pitchdeckUrl.$startup->pitch_deck;
+                        }
+                        }
+
+                        @endphp
+                        <div class="mt-2">
+                            <div class="p-2 my-2 border rounded">
+                                <div class="member-detail">
+                                    <h2 class="name">{{ $startup->name }}</h2>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <strong>Industry :</strong>
+                                            <div class="skills">
+                                                <p>{{ $startup->industry ?? '-' }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Stage of Startup :</strong>
+                                            <div class="font-normal">
+                                                <p>
+                                                    {{ config("constant.stage_of_startup")[$startup->stage_of_startup] }}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="member-detail">
-                                        <h2 class="name">{{ $member->name }}</h2>
-                                        <div class="skills">
-                                            <label>Skills</label>
-                                            @if (sizeof($member->skills) > 0)
-                                                @foreach ($member->skills as $skill)
-                                                    <p>{{ $skill->title }}</p>
-                                                @endforeach
-                                            @else
-                                                -
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <strong>What’s the most important next step for your startup? :</strong>
+                                            <div class="font-normal">
+                                                <p>
+                                                    {{ $startup->important_next_step > 0 ? config('constant.most_important_next_step_for_startup')[$startup->important_next_step] : $startup->other_important_next_step }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Website :</strong>
+                                            <div class="font-normal">
+                                                <p> {{ $startup->website ?? "-" }} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <strong>Details</strong>
+                                            <div class="location">
+                                                <p>
+                                                    {!! $startup->description ?? '-' !!}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Location </strong>
+                                            <div class="location">
+                                                <p>
+                                                    {{ $startup->location ?? '-' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="user-profile-wraper contact-details-wrap d-flex align-items-center row pl-3">
+                                        <ul class="socials d-flex">
+                                            @if(!empty($startup->fb_link))
+                                            <li class="facebook">
+                                                <a href="{{ $startup->fb_link }}" target="_blank" rel="noreferrer">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                            </li>
                                             @endif
-                                        </div>
-                                        <div class="location">
-                                            <label>City</label>
-                                            <p>{{ $member->userProfile ? $member->userProfile->city : '-' }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="contact-details">
-                                        <ul>
-                                            <li><a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}">Contact</a></li>
-                                            <li><a href="{{ route('member.message', ['user'=> $member->slug]) }}">Message</a></li>
+                                            @if(!empty($startup->insta_link))
+                                            <li class="instagram">
+                                                <a href="{{ $startup->insta_link }}" target="_blank" rel="noreferrer">
+                                                    <i class="fa fa-instagram"></i>
+                                                </a>
+                                            </li>
+                                            @endif
+                                            @if(!empty($startup->tw_link))
+                                            <li class="twitter">
+                                                <a href="{{ $startup->tw_link }}" target="_blank" rel="noreferrer">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                            @endif
+                                            @if(!empty($startup->linkedin_link))
+                                            <li class="twitter">
+                                                <a href="{{ $startup->linkedin_link }}" target="_blank"
+                                                    rel="noreferrer">
+                                                    <i class="fa fa-linkedin"></i>
+                                                </a>
+                                            </li>
+                                            @endif
+                                            @if(!empty($startup->tiktok_link))
+                                            <li class="twitter">
+                                                <a href="{{ $startup->tiktok_link }}" target="_blank" rel="noreferrer">
+                                                    <i class="fa fa-github"></i>
+                                                </a>
+                                            </li>
+                                            @endif
+                                            @if(!empty($startup->website))
+                                            <li class="web">
+                                                <a href="{{ $startup->website }}" target="_blank" rel="noreferrer">
+                                                    <i class="fa fa-external-link-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            @endif
                                         </ul>
                                     </div>
+                                    @if($startup->is_view > 0)
+                                    <div class="form-group row">
+                                        @if(isset($startup->business_plan) && $startup->business_plan != "")
+                                        <div class="col-lg-4">
+                                            <strong class="font-weight-bold label-before">Business Plan</strong>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <a href="{{ $exists_businessplan }}" target="_blank">Download Business
+                                                Plan</a>
+                                        </div>
+                                        @else
+                                        -
+                                        @endif
+                                    </div>
+                                    @if(isset($startup->financial) && $startup->financial != "")
+                                    <div class="form-group row">
+                                        <div class="col-lg-4">
+                                            <strong class="font-weight-bold label-before">Financial</strong>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <a href="{{ $exists_financial }}" target="_blank">Download Financial</a>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if(isset($startup->pitch_deck) && $startup->pitch_deck != "")
+                                    <div class="form-group row">
+                                        <div class="col-lg-4">
+                                            <strong class="font-weight-bold label-before">Pitch Deck</strong>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <a href="{{ $exists_pitch_deck }}" target="_blank">Download Pitch Deck</a>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @endif
                                 </div>
-                            </div>
-                        @empty
-                        @endforelse --}}
-                        <div class="card">
-                            <div class="member-item d-flex flex-column flex-sm-row p-2 align-items-center">
-                                <div class="media-left">
-                                    @php
-                                        $ProfileUrl = Helper::images(config('constant.profile_url'));
-                                        $img_url = (isset($member) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';
-                                    @endphp
-                                    <a href="#" class="profile-image">
-                                        <img src="{{ $img_url }}" alt="" class="w-100">
-                                    </a>
-                                </div>
-                                <div class="member-detail">
-                                    <h2 class="name">Rapportive</h2>
-                                    <label>Industry :</label>
-                                    <div class="skills">
-                                        <p>IT</p>
-                                    </div>
-                                    <label>Stage of Startup :</label>
-                                    <div class="skills">
-                                        <p>Startup Operational (obtaining revenue)</p>
-                                    </div>
-                                    <label>What’s the most important next step for your startup? :</label>
-                                    <div class="skills">
-                                        <p> Build your product </p>
-                                    </div>
-                                    <label>Website :</label>
-                                    <div class="skills">
-                                        <p> - </p>
-                                    </div>
-                                    <label>Details</label>
-                                    <div class="location">
-                                        <p>
-                                            Rapportive shows you everything about your contacts from inside your email inbox. A large screenshot placed on the left hand side of the home page allows you to easily see the product in action. A bright call-to-action inspires the visitor to take action and download the application.
-                                        </p>
-                                    </div>
-                                </div>
-                                {{-- <div class="contact-details">
-                                    <ul>
-                                        <li><a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}">Contact</a></li>
-                                        <li><a href="{{ route('member.message', ['user'=> $member->slug]) }}">Message</a></li>
-                                    </ul>
-                                </div> --}}
                             </div>
                         </div>
+                        @empty
+                        @endforelse
                     </div>
                 </div>
             </div>
-        @endif
+            @endif
+        </div>
     </div>
-</div>
-@endsection
+    @endsection
