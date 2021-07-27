@@ -252,7 +252,7 @@
                                         </ul>
                                     </div>
                                     @if($startup->is_view > 0)
-                                    <div class="form-group row">
+                                    <div class="form-group row mt-2">
                                         @if(isset($startup->business_plan) && $startup->business_plan != "")
                                         <div class="col-lg-4">
                                             <strong class="font-weight-bold label-before">Business Plan</strong>
@@ -266,7 +266,7 @@
                                         @endif
                                     </div>
                                     @if(isset($startup->financial) && $startup->financial != "")
-                                    <div class="form-group row">
+                                    <div class="form-group row mt-2">
                                         <div class="col-lg-4">
                                             <strong class="font-weight-bold label-before">Financial</strong>
                                         </div>
@@ -276,7 +276,7 @@
                                     </div>
                                     @endif
                                     @if(isset($startup->pitch_deck) && $startup->pitch_deck != "")
-                                    <div class="form-group row">
+                                    <div class="form-group row mt-2">
                                         <div class="col-lg-4">
                                             <strong class="font-weight-bold label-before">Pitch Deck</strong>
                                         </div>
