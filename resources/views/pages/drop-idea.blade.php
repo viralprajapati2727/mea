@@ -39,16 +39,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        {{-- <div class="col-6">
                             <div class="form-group">
                                 <label class="form-control-label">Century You Live In <span class="required-star-color">*</span></label>
                                 <input type="text" class="form-control" name="century" id="century" placeholder="Century You Live In" value="{{ old('century') }}" >
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="form-control-label">Phone Number <span class="required-star-color">*</span></label>
                                 <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" value="{{ old('phone') }}" >
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Occupation<span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control" name="occupation" id="occupation" placeholder="Occupation" value="{{ old('occupation') }}" >
                             </div>
                         </div>
                     </div>
@@ -74,12 +80,7 @@
                                 <input type="radio" class="gender" name="gender" value="female" checked="">Female
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Occupation<span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control" name="occupation" id="occupation" placeholder="Occupation" value="{{ old('occupation') }}" >
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="row">
                         <div class="col-12">

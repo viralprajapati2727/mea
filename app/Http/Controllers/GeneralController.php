@@ -180,7 +180,7 @@ class GeneralController extends Controller {
 			
 			$members = User::with('skills')->with(['userProfile'=>function($q){
 				$q->select('id', 'user_id', 'city');
-			}]);
+			}])->whereNull('deleted_at');
 
 			if (!empty($params['keyword'])) {
 				$members->where('name','LIKE', '%' .$params['keyword']. '%');
@@ -389,7 +389,7 @@ class GeneralController extends Controller {
 			'last_name' => $request->last_name,
 			'company_name' => $request->company_name,
 			'city' => $request->city,
-			'century' => $request->century,
+			// 'century' => $request->century,
 			'phone' => $request->phone,
 			'email'=> $request->email,
 			'age'=> $request->age,
@@ -400,7 +400,11 @@ class GeneralController extends Controller {
 
 		SendMailController::dynamicEmail($email_param);
 
-		return redirect()->back()->with('success',trans('Sent Successfully!'));
+		$responseData['status'] = 1;
+		$responseData['message'] = "Sent Successfully!";
+		return $this->commonResponse($responseData, 200);
+		
+		// return redirect()->back()->with('success',trans('Sent Successfully!'));
 	}
 	public function getStartupPortal(){
 		// $recentMembers = Helper::getRecentMembers();

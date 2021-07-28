@@ -65,7 +65,7 @@ class SendMailController extends Controller {
 				$email_body  = str_replace('{last_name}', $data['last_name'], $email_body);
 				$email_body  = str_replace('{company_name}', $data['company_name'], $email_body);
 				$email_body  = str_replace('{city}', $data['city'], $email_body);
-				$email_body  = str_replace('{century}', $data['century'], $email_body);
+				// $email_body  = str_replace('{century}', $data['century'], $email_body);
 				$email_body  = str_replace('{phone}', $data['phone'], $email_body);
 				$email_body  = str_replace('{email}', $data['email'], $email_body);
 				$email_body  = str_replace('{age}', $data['age'], $email_body);

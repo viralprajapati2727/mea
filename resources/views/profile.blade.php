@@ -93,7 +93,7 @@
                                     <a href="javascript:;" class="contact-link">Contact</a>
                                 </li>  --}}
                                 <li>
-                                    <a href="javascript:;" class="contact-link">Message</a>
+                                    <a href="{{ route('page.members') }}" class="contact-link">Message</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('appointment.index') }}" class="contact-link">Appointments</a>
