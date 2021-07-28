@@ -109,7 +109,8 @@
                     </div>
                     <div class="col-md-3 justify-content-end">
                         <div class="right-button">
-                            <a href="{{ route('startup-portal') }}">Click Here</a>
+                            {{-- <a href="{{ route('startup-portal') }}">Click Here</a> --}}
+                            <a href="javascript:;" data-toggle="modal" data-target="#appointment">Click Here</a>
                         </div>
                     </div>
                 </div>
@@ -154,7 +155,11 @@
                         <div class="mt-2">
                             <div class="p-2 my-2 border rounded">
                                 <div class="member-detail">
-                                    <h2 class="name">{{ $startup->name }}</h2>
+                                    <h2 class="name">
+                                        <a href="{{ route('start-statup-portal',['action'=>'view','portal_id' => $startup->id]) }}"> 
+                                            {{ $startup->name }}
+                                        </a>
+                                    </h2>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <strong>Industry :</strong>
@@ -163,131 +168,119 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <strong>Stage of Startup :</strong>
-                                            <div class="font-normal">
-                                                <p>
-                                                    {{ config("constant.stage_of_startup")[$startup->stage_of_startup] }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <strong>What’s the most important next step for your startup? :</strong>
-                                            <div class="font-normal">
-                                                <p>
-                                                    {{ $startup->important_next_step > 0 ? config('constant.most_important_next_step_for_startup')[$startup->important_next_step] : $startup->other_important_next_step }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <strong>Website :</strong>
-                                            <div class="font-normal">
-                                                <p> {{ $startup->website ?? "-" }} </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <strong>Details</strong>
+                                            <strong>Owner : </strong>
                                             <div class="location">
-                                                <p>
-                                                    {!! $startup->description ?? '-' !!}
-                                                </p>
+                                                <a
+                                                href="{{ route('user.view-profile', ['slug' => $startup->user['slug'] ]) }}">
+                                                    {{ $startup->user['name'] }}
+                                                </a>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-6">
-                                            <strong>Location </strong>
+                                            <strong>Location :</strong>
                                             <div class="location">
                                                 <p>
                                                     {{ $startup->location ?? '-' }}
                                                 </p>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div
+                                                class="user-profile-wraper contact-details-wrap d-flex align-items-center row pl-3">
+                                                <ul class="socials d-flex">
+                                                    @if(!empty($startup->fb_link))
+                                                    <li class="facebook">
+                                                        <a href="{{ $startup->fb_link }}" target="_blank"
+                                                            rel="noreferrer">
+                                                            <i class="fa fa-facebook"></i>
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                    @if(!empty($startup->insta_link))
+                                                    <li class="instagram">
+                                                        <a href="{{ $startup->insta_link }}" target="_blank"
+                                                            rel="noreferrer">
+                                                            <i class="fa fa-instagram"></i>
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                    @if(!empty($startup->tw_link))
+                                                    <li class="twitter">
+                                                        <a href="{{ $startup->tw_link }}" target="_blank"
+                                                            rel="noreferrer">
+                                                            <i class="fa fa-twitter"></i>
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                    @if(!empty($startup->linkedin_link))
+                                                    <li class="twitter">
+                                                        <a href="{{ $startup->linkedin_link }}" target="_blank"
+                                                            rel="noreferrer">
+                                                            <i class="fa fa-linkedin"></i>
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                    @if(!empty($startup->tiktok_link))
+                                                    <li class="twitter">
+                                                        <a href="{{ $startup->tiktok_link }}" target="_blank"
+                                                            rel="noreferrer">
+                                                            <i class="fa fa-github"></i>
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                    @if(!empty($startup->website))
+                                                    <li class="web">
+                                                        <a href="{{ $startup->website }}" target="_blank"
+                                                            rel="noreferrer">
+                                                            <i class="fa fa-external-link-square"
+                                                                aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                            @if($startup->is_view > 0)
+                                            <div class="form-group row mt-2">
+                                                @if(isset($startup->business_plan) && $startup->business_plan != "")
+                                                <div class="col-lg-4">
+                                                    <strong class="font-weight-bold label-before">Business Plan :</strong>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <a href="{{ $exists_businessplan }}" target="_blank">
+                                                        Download Business Plan
+                                                    </a>
+                                                </div>
+                                                @else
+                                                -
+                                                @endif
+                                            </div>
+                                            {{-- @if(isset($startup->financial) && $startup->financial != "")
+                                            <div class="form-group row mt-2">
+                                                <div class="col-lg-4">
+                                                    <strong class="font-weight-bold label-before">Financial</strong>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <a href="{{ $exists_financial }}" target="_blank">Download
+                                                        Financial</a>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @if(isset($startup->pitch_deck) && $startup->pitch_deck != "")
+                                            <div class="form-group row mt-2">
+                                                <div class="col-lg-4">
+                                                    <strong class="font-weight-bold label-before">Pitch Deck</strong>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <a href="{{ $exists_pitch_deck }}" target="_blank">Download Pitch
+                                                        Deck</a>
+                                                </div>
+                                            </div>
+                                            @endif --}}
+                                            @endif
+                                        </div>
                                     </div>
-                                    <div
-                                        class="user-profile-wraper contact-details-wrap d-flex align-items-center row pl-3">
-                                        <ul class="socials d-flex">
-                                            @if(!empty($startup->fb_link))
-                                            <li class="facebook">
-                                                <a href="{{ $startup->fb_link }}" target="_blank" rel="noreferrer">
-                                                    <i class="fa fa-facebook"></i>
-                                                </a>
-                                            </li>
-                                            @endif
-                                            @if(!empty($startup->insta_link))
-                                            <li class="instagram">
-                                                <a href="{{ $startup->insta_link }}" target="_blank" rel="noreferrer">
-                                                    <i class="fa fa-instagram"></i>
-                                                </a>
-                                            </li>
-                                            @endif
-                                            @if(!empty($startup->tw_link))
-                                            <li class="twitter">
-                                                <a href="{{ $startup->tw_link }}" target="_blank" rel="noreferrer">
-                                                    <i class="fa fa-twitter"></i>
-                                                </a>
-                                            </li>
-                                            @endif
-                                            @if(!empty($startup->linkedin_link))
-                                            <li class="twitter">
-                                                <a href="{{ $startup->linkedin_link }}" target="_blank"
-                                                    rel="noreferrer">
-                                                    <i class="fa fa-linkedin"></i>
-                                                </a>
-                                            </li>
-                                            @endif
-                                            @if(!empty($startup->tiktok_link))
-                                            <li class="twitter">
-                                                <a href="{{ $startup->tiktok_link }}" target="_blank" rel="noreferrer">
-                                                    <i class="fa fa-github"></i>
-                                                </a>
-                                            </li>
-                                            @endif
-                                            @if(!empty($startup->website))
-                                            <li class="web">
-                                                <a href="{{ $startup->website }}" target="_blank" rel="noreferrer">
-                                                    <i class="fa fa-external-link-square" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            @endif
-                                        </ul>
-                                    </div>
-                                    @if($startup->is_view > 0)
-                                    <div class="form-group row mt-2">
-                                        @if(isset($startup->business_plan) && $startup->business_plan != "")
-                                        <div class="col-lg-4">
-                                            <strong class="font-weight-bold label-before">Business Plan</strong>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <a href="{{ $exists_businessplan }}" target="_blank">Download Business
-                                                Plan</a>
-                                        </div>
-                                        @else
-                                        -
-                                        @endif
-                                    </div>
-                                    @if(isset($startup->financial) && $startup->financial != "")
-                                    <div class="form-group row mt-2">
-                                        <div class="col-lg-4">
-                                            <strong class="font-weight-bold label-before">Financial</strong>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <a href="{{ $exists_financial }}" target="_blank">Download Financial</a>
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @if(isset($startup->pitch_deck) && $startup->pitch_deck != "")
-                                    <div class="form-group row mt-2">
-                                        <div class="col-lg-4">
-                                            <strong class="font-weight-bold label-before">Pitch Deck</strong>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <a href="{{ $exists_pitch_deck }}" target="_blank">Download Pitch Deck</a>
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -299,4 +292,76 @@
             @endif
         </div>
     </div>
-    @endsection
+    
+<!-- appoinment modal -->
+<div id="appointment" class="modal fade" tabindex="-1" style="z-index: 99999">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Book Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <form class="appointment_form " action="{{ route('appointment.update-appointment') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+                @csrf
+                <div class="modal-body">
+                    <div class="row mt-md-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Name <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ old('name', isset($profile->name) ? $profile->name:'' ) }}" >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{ old('email', isset($profile->email) ? $profile->email : '' ) }}"  disabled readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-3">
+                            <div class="form-group position-relative">
+                                <label class="form-control-label">Date <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control birthdate" name="date" id="date" placeholder="Select Date of Appointment" value="" >
+                                <div class="date-of-birth-icon">
+                                    {{-- <i class="flaticon-calendar"></i> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group position-relative">
+                                <label class="form-control-label">Time <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control appointment_time" name="appointment_time" id="appointment_time" placeholder="Select Time of Appointment" value="" >
+                                <div class="date-of-birth-icon">
+                                    <i class="flaticon-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Time Intervel <span class="required-star-color">*</span></label>
+                                <input type="text" class="form-control" name="time" id="time" placeholder="Enter Time Intervel" value="" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-md-2">
+                        <label class="col-form-label">Appointment Details:<span class="required-star-color">*</span></label>
+                        <div class="input-group custom-start">
+                            <textarea name="description" id="description" rows="5" placeholder="Enter Appointment Details" class="form-control"></textarea>
+                        </div>
+                        <div class="input-group description-error-msg"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-primary">Submit form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+@section('footer_script')
+<script type="text/javascript" src="{{ Helper::assets('js/pages/appointment.js') }}"></script>
+@endsection

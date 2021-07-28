@@ -24,7 +24,7 @@ class AppointmentController extends Controller
             $keyword = $request->keyword;
         }
 
-        $Query = Appointment::orderBy('id','desc');
+        $Query = Appointment::orderBy('id','desc')->where('deleted_at',null);
         
         if(!empty($request->created_at_from) && !empty($request->created_at_to)){
             $posted_date_from = date('Y-m-d',strtotime($request->created_at_from));

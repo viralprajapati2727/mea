@@ -409,7 +409,7 @@ class GeneralController extends Controller {
 	public function getStartupPortal(){
 		// $recentMembers = Helper::getRecentMembers();
 
-		$startups = StartUpPortal::whereNull('deleted_at')->where('status',1)->orderBy('id','DESC')->take(5)->get();
+		$startups = StartUpPortal::with('user')->whereNull('deleted_at')->where('status',1)->orderBy('id','DESC')->take(5)->get();
 
 		return view('pages.startup-portal',compact('startups'));
 	}

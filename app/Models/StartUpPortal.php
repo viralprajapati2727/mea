@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ScheduleAppointment;
+use App\Models\StartupTeamMembers;
 
 class StartUpPortal extends Model
 {
@@ -19,4 +20,7 @@ class StartUpPortal extends Model
         return $this->hasMany(StartupTeamMembers::class, 'startup_id', 'id');
     }
 
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id','id');
+    }
 }
