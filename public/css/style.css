@@ -913,7 +913,7 @@ ul{
     border: 2px solid transparent;
     transition: all 0.5s;
 }
-.our-process .process-icon i {
+.our-process .process-icon i, .our-process .process-icon img {
     color: #fff;
 }
 .our-process .process-icon i:before {
@@ -926,6 +926,15 @@ ul{
 }
 .process-inner:hover .process-icon i {
     color: #5079d3;
+}
+.process-inner .process-icon img:last-child {
+    display: none;
+}
+.process-inner:hover .process-icon img:last-child {
+    display: inline-block;
+}
+.process-inner:hover .process-icon img:first-child {
+    display: none;
 }
 .our-process .proceess-step {
     max-width: 1200px;
@@ -1495,6 +1504,17 @@ ul{
     background: #41A0E1;
     color: #fff;
     margin: 0;
+}
+.job-inner-wrap .social-share {
+    display: flex;
+    align-items: center;
+}
+.jjob-inner-wrap .social-share li {
+    margin-top: 0;
+    margin-right: 20px;
+}
+.job-details-right .social-share li i {
+    font-size: 20px;
 }
 .job-description-wrap .title, .job-details .title {
     font-size: 21px;

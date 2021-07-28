@@ -67,7 +67,9 @@
                         <div class="col-sm-6 col-md-4 col-lg-2">
                             <div class="process-inner">
                                 <div class="process-icon">
-                                    <i class="flaticon-checklist"></i>
+                                    {{-- <i class="flaticon-checklist"></i> --}}
+                                    <img src="{{ Helper::assets('images/white-checklist.png') }}">
+                                    <img src="{{ Helper::assets('images/hover-checklist.png') }}">
                                 </div>
                                 <div class="process-title">
                                     <h3>We review your Business Plan</h3>
