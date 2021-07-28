@@ -59,20 +59,25 @@
                                         </div>
                                     @endisset
                                     <div class="view-likes-wrap">
-                                        <div class="likes">
-                                            <div class="fa fas fa-thumbs-up"></div> 
-                                            {{ $question->countCommunityTotalLikes($question->id) }} 
-                                            @guest
-                                                Likes
-                                            @else
+                                        {{ $question->countCommunityTotalLikes($question->id) }} 
+                                        @guest
+                                            Likes
+                                        @else
+                                        <div class="likes"> 
                                                 @if ($question->checkIsLikedByCurrentUser($question->id) == true)
                                                     <a href="{{ route('community.questions-details',[
                                                         'question_id'=> $question->slug,
-                                                        'like' => 10]) }}">Unlike </a>
+                                                        'like' => 10]) }}">
+                                                        <span class="fa fas fa-thumbs-up"></span>
+                                                        Unlike
+                                                     </a>
                                                 @else
-                                                    <a href="{{ route('community.questions-details',[
-                                                        'question_id'=> $question->slug,
-                                                        'like' => 1]) }}">Likes </a>
+                                                <a href="{{ route('community.questions-details',[
+                                                    'question_id'=> $question->slug,
+                                                    'like' => 1]) }}">
+                                                    <span class="fa fas fa-thumbs-up"></span>
+                                                        Likes
+                                                     </a>
                                                 @endif
                                             @endguest
                                         </div>
