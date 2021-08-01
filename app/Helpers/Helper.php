@@ -772,14 +772,7 @@ class Helper
     }
 
     public static function getSubTopics($topic_id = null){
-        $subtopics = [];
-        if($topic_id != null) {
-            // $subtopics = Topic::where('parent_id', $topic_id)->get();
-            $subtopics = Topic::with('resources')->whereHas('resources', function($Query) {
-                $Query->whereNotNull('topic_id')->where('deleted_at',null);
-            },'>',0)->where('parent_id', $topic_id)->where("status", 1)->orderBy('topic_order','ASC')->get();
-    
-        }
+        $subtopics = Topic::where('parent_id', $topic_id)->where('status', 1)->get();
         return $subtopics;
     } 
 
@@ -793,4 +786,8 @@ class Helper
         }
         return $getSubTopicsResource;
     } 
+
+    public static function getMenuTopics(){
+        return Topic::where('status', 1)->whereNull('parent_id')->get();
+    }
 }

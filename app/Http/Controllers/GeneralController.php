@@ -125,25 +125,15 @@ class GeneralController extends Controller {
 		return view('pages.our-team');
     }
 
-	public function resourceNew() {
-		$topics = Topic::with('resources')->whereHas('resources', function($Query) {
-			$Query->whereNotNull('topic_id')->where('deleted_at',null);
-		},'>',0)->whereNull("parent_id")->where("status", 1)->orderBy('topic_order','ASC')->get();
+	public function resource($id) {
+		if(empty($id)){
+			return redirect()->back();
+		}
 
-		// echo "<pre>"; print_r($topics->toArray()); exit;
-		// $topics = Resource::with(['topic'])->whereHas('topic', function($Query) {
-		// 	$Query->whereNull("parent_id")->where("status", 1)->orderBy('topic_order','ASC');
-		// })->where('deleted_at',null)->get();
+		$id = base64_decode($id);
+		$resources = Resource::where('topic_id', $id)->where('deleted_at',null)->orderBy('updated_at','DESC')->get();
 
-		$resourcesNew = Resource::select('id','topic_id','slug','title','src','document','description','created_by','updated_at','resource_order','deleted_at')->with([
-			'topic' => function($query){
-				$query->whereNull("parent_id");
-			}
-		])->whereHas('topic', function($Query) {
-			$Query->whereNull("parent_id");
-		},'>',0)->where('deleted_at',null)->get()->sortBy('topic.topic_order');
-
-		return view('pages.resources-new', compact('resourcesNew', "topics"));
+		return view('pages.resources', compact('resources'));
 	}
 	public function resourceDetail($slug = null){
 		if(is_null($slug)){

@@ -25,13 +25,17 @@ $(document).ready(function() {
     });
 
     jQuery(window).scroll(function(){
-        var navHeight = jQuery('.site-header').height();
-        var sticky = jQuery('.site-header');
-        if (jQuery(window).scrollTop() > 0) {
-            sticky.addClass("sticky")
+        var navHeight = $('.site-header').height();
+        if ($(window).scrollTop() > 115) {
+            $('.site-header').addClass("sticky")
+            $('#body').css('padding-top',navHeight+"px");
         } else {
-            sticky.removeClass("sticky");
+            $('.site-header').removeClass("sticky")
+            $('#body').css('padding-top',0);
         }
     });
     
+    $('.navbar-nav .site-nav--has-dropdown').click(function(){
+        $(this).toggleClass("active");
+    });
 });

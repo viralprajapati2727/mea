@@ -252,6 +252,73 @@ $(document).ready(function(){
         }, function (dismiss) {
         });
     });
+
+
+    $(document).on('click','.approve-reject', function() {
+        var $this = $(this);
+        var id = $this.attr('data-id');
+        var status = $this.attr('data-active');
+        var dialog_title = (status == 1 ? "Are you sure you want to approve this appointment?" : "Are you sure you want to reject this appointment?");
+
+        swal({
+            title: dialog_title,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false
+        }).then(function (confirm) {
+            if(confirm.value !== "undefined" && confirm.value){
+                $.ajax({
+                    url: approve_reject_link,
+                    type: 'POST',
+                    data: { id : id, status : status},
+                    beforeSend: function(){
+                        $('body').block({
+                            message: '<i class="icon-spinner4 spinner"></i><br>Please Wait...',
+                            overlayCSS: {
+                                backgroundColor: '#000',
+                                opacity: 0.15,
+                                cursor: 'wait'
+                            },
+                            css: {
+                                border: 0,
+                                padding: 0,
+                                backgroundColor: 'transparent'
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        if(response.status == 200){
+                            swal({
+                                title: response.msg_success,
+                                confirmButtonColor: "#66BB6A",
+                                type: "success",
+                                confirmButtonText: 'OK',
+                                confirmButtonClass: 'btn btn-success',
+                            }).then(function (m){
+                                window.location.reload();
+                                
+                            });
+                        }else{
+                            swal({
+                                title: response.msg_fail,
+                                confirmButtonColor: "#EF5350",
+                                confirmButtonClass: 'btn btn-danger',
+                                type: "error",
+                                confirmButtonText: 'OK',
+                            });
+                        }
+                    },
+                    complete: function(){
+                        $('body').unblock();
+                    }
+                });
+            }
+        });
+    });
 });    
 
 // pre-submit callback

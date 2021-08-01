@@ -35,7 +35,7 @@ class AppointmentController extends Controller
         $data = datatables()->of($Query)
         ->addColumn('name', function ($Query) {
             $title = $Query->name;
-            return "<a href='".route('admin.appointment.detail',['id' => $Query->id])."' class='detail'>".$title."</a>&nbsp;&nbsp;";
+            return $title;
         })
         ->addColumn('email', function ($Query) {
             return $Query->user->email;
@@ -46,50 +46,17 @@ class AppointmentController extends Controller
         ->addColumn('time', function ($Query) {
             return $Query->time;
         })
-        ->addColumn('action', function ($Query) {
-            $action_link = "";
-            if($Query->status == 0){
-                $action_link .= "<span class='translation-status'>";
-                $action_link .= "<a href='javascript:;' class='approve-reject' data-id='".$Query->id."' data-active='1'>APPROVE</a>&nbsp;/&nbsp;";
-                $action_link .= "<a href='javascript:;' class='approve-reject' data-id='".$Query->id."' data-active='2'>REJECT</a>&nbsp;&nbsp;";
-                $action_link .= "</span>";
-                
-                
-                $action_link .= "<span class='after_approve_reject'>";
-                $action_link .= "</span>";
-            }
+        ->addColumn('status', function ($Query) {
+            $statuss = config('constant.appointment_status');
 
-            if($Query->status == 1){
-                $action_link = "<span class='badge badge-success'><a href='javascript:;'>APPROVED</a></span>";
-            }
-
-            if($Query->status == 2){
-                $action_link = "<span class='badge badge-danger'><a href='javascript:;'>REJECTED</a></span>";
-            }
-
-            return $action_link;
+            return '<span class="badge badge-success">'.$statuss[$Query->status].'</span>';
         })
-        ->rawColumns(['action','name'])
+        ->addColumn('action', function ($Query) {
+            return "<a href='".route('admin.appointment.detail',['id' => $Query->id])."' class='detail'><i class='icon-eye mr-3 text-primary'></i></a>";
+        })
+        ->rawColumns(['status','name','action'])
         ->make(true);
         return $data;
-    }
-    public function appointmentStatus(Request $request) {
-        $admin_id = Auth::user()->id;
-        try {
-            $appointment = Appointment::whereId($request->id)->first();
-            $appointment->status = $request->status;
-            $appointment->update();
-
-            $statusText = "Approved";
-            if($request->status == 2){
-                $statusText = "Rejected";
-            }
-            return array('status' => '200', 'msg_success' => "Appointment has been ".$statusText." successfully");
-		} catch (Exception $e) {
-			Log::info($e);
-            return response()->json(['status' => 400,'msg_fail' => 'Something Went Wrong']);
-		}
-		exit;
     }
     public function detail($id){
         $appointment = Appointment::whereId($id)->first();

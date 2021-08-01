@@ -1,7 +1,7 @@
 <header class="site-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg">
-            <div class="row w-100 align-items-center">
+            <div class="row align-items-center">
                 <div class="col-lg-2">
                     <a class="nav-link" href="{{ url('/') }}">
                         <div class="navbar-brand">
@@ -28,9 +28,37 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('job.search-job') }}">Browse Requests</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('page.resources-new') }}">Resources</a>
-                                    </li>
+                                    @if(!empty(Helper::getMenuTopics()) && Helper::getMenuTopics()->count())
+                                        <li class="nav-item site-nav--has-dropdown">
+                                            <a class="nav-link" href="javascript:;">Resources</a>
+                                            <div class="site-nav__dropdown">
+                                                <div class="site-nav__childlist">
+                                                    <ul class="site-nav__childlist-grid">
+                                                        @forelse (Helper::getMenuTopics() as $topic)
+                                                            <li class="site-nav__childlist-item">
+                                                                <a class="site-nav__link site-nav__child-link site-nav__child-link--parent" href="{{ route('page.resources', ['id' => base64_encode($topic->id)]) }}">
+                                                                    <span class="site-nav__label">{{ $topic->title }}</span>
+                                                                </a>
+                                                                <ul>
+                                                                    @if(!empty(Helper::getSubTopics()) && Helper::getSubTopics()->count())
+                                                                        @forelse (Helper::getSubTopics($topic->id) as $sub_topic)
+                                                                            <li>
+                                                                                <a href="{{ route('page.resources', ['id' => base64_encode($topic->id)]) }}" class="site-nav__link site-nav__child-link">
+                                                                                    <span class="site-nav__label">{{ $sub_topic->title }}</span>
+                                                                                </a>
+                                                                            </li>
+                                                                        @empty
+                                                                        @endforelse
+                                                                    @endif
+                                                                </ul>
+                                                            </li>
+                                                        @empty
+                                                        @endforelse
+                                                    </ul> 
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endif
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('page.startup-portal') }}">Startup Portal</a>
                                     </li>
@@ -65,7 +93,9 @@
                                                             <div class="media align-items-center d-flex d-lg-flex">
                                                                 <div class="profile-icon-menu pr-2">
                                                                     <a href="{{ route('user.view-profile',['slug' => Auth::user()->slug]) }}" class="d-inline-block">
-                                                                        <div class="profile-bg-image" style="background-image: url({{ $img_url }});"></div>
+                                                                        <div class="profile-bg-image">
+                                                                            <img src="{{ $img_url }}" >
+                                                                        </div>
                                                                     </a>
                                                                 </div>
                                                                 <div class="media-body mea-content">

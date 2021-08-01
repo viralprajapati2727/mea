@@ -59,3 +59,9 @@ ALTER TABLE `user_profiles` ADD `is_email_public` TINYINT NOT NULL DEFAULT '0' C
 ALTER TABLE `user_profiles` ADD `is_education` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0:No, 1: Yes' AFTER `is_experience`;
 
 ALTER TABLE `topics` ADD `topic_order` INT(10) NULL DEFAULT NULL AFTER `status`;
+
+
+
+
+
+ALTER TABLE `appointments` ADD `receiver_id` INT(11) NULL DEFAULT NULL AFTER `user_id`;

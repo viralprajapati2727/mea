@@ -21,9 +21,15 @@ class AppointmentController extends Controller
 {
     public function index(){
 
-        $appointments = Appointment::where('deleted_at',null)->where('user_id', Auth::id())->orderBy('id','DESC')->paginate(10);
+        $appointments = Appointment::where('deleted_at',null)->where('receiver_id', Auth::id())->orderBy('id','DESC')->paginate(10);
+        $type = "received";
+        return view('pages.appointments',compact('appointments','type'));
+    }
+    public function sent(){
 
-        return view('pages.appointments',compact('appointments'));
+        $appointments = Appointment::where('deleted_at',null)->where('user_id', Auth::id())->orderBy('id','DESC')->paginate(10);
+        $type = "sent";
+        return view('pages.appointments',compact('appointments','type'));
     }
     public function updateAppointment(Request $request){
 
@@ -48,7 +54,7 @@ class AppointmentController extends Controller
                 $message_text = "updated";
             }
             
-            $param2 = ["user_id" => $user_id, "name" => $request->name, "email" => Auth::user()->email, "time" => $request->time, "appointment_date" => $appointment_date,"description" => $request->description, "appointment_time" => $request->appointment_time ];
+            $param2 = ["user_id" => $user_id, "receiver_id" => $request->receiver_id, "name" => $request->name, "email" => Auth::user()->email, "time" => $request->time, "appointment_date" => $appointment_date,"description" => $request->description, "appointment_time" => $request->appointment_time ];
 
             $appointment = Appointment::create($param2);
 
@@ -105,5 +111,23 @@ class AppointmentController extends Controller
             DB::rollback();
             return array('status' => '0', 'msg_fail' => 'Something went wrong');
         }
+    }
+    public function appointmentStatus(Request $request) {
+        $admin_id = Auth::user()->id;
+        try {
+            $appointment = Appointment::whereId($request->id)->first();
+            $appointment->status = $request->status;
+            $appointment->update();
+
+            $statusText = "Approved";
+            if($request->status == 2){
+                $statusText = "Rejected";
+            }
+            return array('status' => '200', 'msg_success' => "Appointment has been ".$statusText." successfully");
+		} catch (Exception $e) {
+			Log::info($e);
+            return response()->json(['status' => 400,'msg_fail' => 'Something Went Wrong']);
+		}
+		exit;
     }
 }

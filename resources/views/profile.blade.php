@@ -98,9 +98,11 @@
                                 <li>
                                     <a href="{{ route('appointment.index') }}" class="contact-link">Appointments</a>
                                 </li>
-                                <li>
-                                    <a href="javascript:;" class="contact-link" data-toggle="modal" data-target="#appointment">Request Appointment</a>
-                                </li>
+                                @if(Auth::check() && Auth::id() != $profile->id)
+                                    <li>
+                                        <a href="javascript:;" class="contact-link" data-toggle="modal" data-target="#appointment">Request Appointment</a>
+                                    </li>
+                                @endif
                             </ul>
                             <ul class="socials d-flex">
                                 @if(!empty($profile->userProfile->fb_link))
@@ -231,8 +233,6 @@
                     </div>
                 </div>
             @endif
-
-
         </div>
     </div>
 </div>
@@ -245,8 +245,6 @@
                 <h5 class="modal-title">Book Appointment</h5>
                 <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
-
-            
             <form class="appointment_form " action="{{ route('appointment.update-appointment') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
                 @csrf
                 <div class="modal-body">
@@ -297,6 +295,7 @@
                         </div>
                         <div class="input-group description-error-msg"></div>
                     </div>
+                    <input type="hidden" name="receiver_id" value="{{ $profile->id }}">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>

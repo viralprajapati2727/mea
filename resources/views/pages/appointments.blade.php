@@ -4,13 +4,16 @@
 <div class="my-jobs">
     <div class="page-main">
         <div class="container">
+            <div class="appoitnments-btns">
+                <div class="job-header-elements d-sm-flex justify-content-center">
+                    <a href="{{ route('appointment.index') }}" class="btn-primary jb_btn jb_nav_btn_link post-job-btn mr-3">Received Appointments</a>
+                    <a href="{{ route('appointment.sent') }}" class="btn-primary jb_btn jb_nav_btn_link post-job-btn">Sent Appointments</a>
+                </div>
+            </div>
             <div class="page-header page-header-light">
                 <div class="header-elements-md-inline job-list-header my-job-list-header">
                     <div class="page-title d-flex p-0">
                         <h2 class="font-color page-title">Appointments</h2>
-                    </div>
-                    <div class="job-header-elements d-sm-flex">
-                        <a href="javascript:;" class="btn-primary jb_btn jb_nav_btn_link post-job-btn" data-toggle="modal" data-target="#appointment">Request Appointment</a>
                     </div>
                 </div>
             </div>
@@ -72,6 +75,10 @@
                                                 <span class="tooltip-arrow"></span>
                                                 <div class="dropdown-menu dropdown-menu-right jb_company_dropdown_nav" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(30px, 30px, 0px);">
                                                     <a href="javascript:;" class="dropdown-item delete-appointment" data-id="{{ $appointment->id }}" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Appointment</a>
+                                                    @if($appointment->status == 0)
+                                                        <a href="javascript:;" class="dropdown-item approve-reject" data-id="{{ $appointment->id }}" data-active='1'><span class="main-icon-span"><i class="flaticon-trash"></i></span> Approve Appointment</a>
+                                                        <a href="javascript:;" class="dropdown-item approve-reject" data-id="{{ $appointment->id }}" data-active='2'><span class="main-icon-span"><i class="flaticon-trash"></i></span> Reject Appointment</a>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -89,77 +96,6 @@
                 <div class="pagination my-5">No Appointments Found!!</div>
                 @endif
             </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- appoinment modal -->
-<div id="appointment" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Book Appointment</h5>
-                <button type="button" class="close" data-dismiss="modal">×</button>
-            </div>
-
-            
-            <form class="appointment_form " action="{{ route('appointment.update-appointment') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
-                @csrf
-                <div class="modal-body">
-                    <div class="row mt-md-2">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Name <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ old('name', (Auth::check()) ? Auth::user()->name :'' ) }}" >
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{ old('email', (Auth::check()) ? Auth::user()->email : '' ) }}"  disabled readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-md-2">
-                        <div class="col-md-3">
-                            <div class="form-group position-relative">
-                                <label class="form-control-label">Date <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control birthdate" name="date" id="date" placeholder="Select Date of Appointment" value="" >
-                                <div class="date-of-birth-icon">
-                                    {{-- <i class="flaticon-calendar"></i> --}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group position-relative">
-                                <label class="form-control-label">Time <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control appointment_time" name="appointment_time" id="appointment_time" placeholder="Select Time of Appointment" value="" >
-                                <div class="date-of-birth-icon">
-                                    <i class="flaticon-clock"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Time Intervel <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control" name="time" id="time" placeholder="Enter Time Intervel" value="" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group mt-md-2">
-                        <label class="col-form-label">Appointment Details:<span class="required-star-color">*</span></label>
-                        <div class="input-group custom-start">
-                            <textarea name="description" id="description" rows="5" placeholder="Enter Appointment Details" class="form-control"></textarea>
-                        </div>
-                        <div class="input-group description-error-msg"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn bg-primary">Submit form</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
@@ -231,6 +167,7 @@
 <script type="text/javascript">
     var appointment_detail_link = "{{ route('appointment.detail') }}";
     var appointment_delete_link = "{{ route('appointment.delete') }}";
+    var approve_reject_link = "{{ route('appointment.approve-reject') }}";
 </script>
 <script type="text/javascript" src="{{ Helper::assets('js/pages/appointment.js') }}"></script>
 @endsection
