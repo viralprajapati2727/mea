@@ -47,21 +47,21 @@ $statuss = config('constant.job_status');
                 @if(!$jobs->isEmpty())
                     <div class="col pt-4 jb_border_bottm_gray px-0 d-none d-md-block">
                         <div class="row">
-                            <div class="col-8  text-center">
+                            <div class="col-6  text-center">
                                 <h5 class="font-black">Job Title</h5>
                             </div>
-                            <div class="col-4 text-center">
+                            <div class="col-3 text-center">
                                 <h5 class="font-black">Status</h5>
                             </div>
-                            {{-- <div class="col-3 col-lg-2 text-center">
+                            <div class="col-3 col-lg-2 text-center">
                                 <h5 class="font-black text-center">Action</h5>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                     @forelse ($jobs as $job)
                     <div class="col jb_border_bottm_gray job-item">
                         <div class="row">
-                            <div class="col-lg-8 col-12 d-lg-block header-elements-inline align-items-baseline ">
+                            <div class="col-lg-6 col-12 d-lg-block header-elements-inline align-items-baseline ">
                                 <div class="jb_company_myjob_title">
                                     <h4 class="font-weight-semibold">
                                         <a href="{{ route('job.job-detail',['id' => $job->job->job_unique_id]) }}"
@@ -85,14 +85,27 @@ $statuss = config('constant.job_status');
                                     <div class="d-inline-block mr-1 mr-sm-2 main-status">
                                         <span class="status-{{ strtolower(config('constant.job_status')[$job->job->job_status]) }}">{{ config('constant.job_status')[$job->job->job_status] }}</span>
                                     </div>
-                                    <div class="d-block"></div>
+                                    <div class="d-block">
+                                        <h4 class="font-weight-semibold text-center">
+                                            <a href="{{ route('job.cancel-job',['id' => $job->id]) }}" class="text-danger">
+                                                Cancel
+                                            </a>
+                                        </h4>
+                                    </div>
                                 </div>
                                 <!--end mobile only -->
                             </div>
-                            <div class="col-lg-4 col-12 d-none d-lg-block main-status">
+                            <div class="col-lg-3 col-12 d-none d-lg-block main-status">
                                 <div class="text-center">
                                     <span class="text-center status-{{ strtolower($statuss[$job->job->job_status]) }}">{{ config('constant.job_status')[$job->job->job_status] }}</span>
                                 </div>
+                            </div>
+                            <div class="col-lg-3 col-12 d-none d-lg-block main-status">
+                                <h4 class="font-weight-semibold text-center">
+                                    <a href="{{ route('job.cancel-job',['id' => $job->id]) }}" class="text-danger">
+                                        Cancel
+                                    </a>
+                                </h4>
                             </div>
                             <!-- end desktop only -->
                         </div>

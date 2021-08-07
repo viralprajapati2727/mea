@@ -43,7 +43,7 @@
                                                                     @if(!empty(Helper::getSubTopics()) && Helper::getSubTopics()->count())
                                                                         @forelse (Helper::getSubTopics($topic->id) as $sub_topic)
                                                                             <li>
-                                                                                <a href="{{ route('page.resources', ['id' => base64_encode($topic->id)]) }}" class="site-nav__link site-nav__child-link">
+                                                                                <a href="{{ route('page.resources', ['id' => base64_encode($sub_topic->id)]) }}" class="site-nav__link site-nav__child-link">
                                                                                     <span class="site-nav__label">{{ $sub_topic->title }}</span>
                                                                                 </a>
                                                                             </li>

@@ -131,7 +131,10 @@ class GeneralController extends Controller {
 		}
 
 		$id = base64_decode($id);
-		$resources = Resource::where('topic_id', $id)->where('deleted_at',null)->orderBy('updated_at','DESC')->get();
+		
+		$subtopics = Topic::where('parent_id', $id)->select('id')->get();
+
+		$resources = Resource::whereIn('topic_id', $subtopics)->where('deleted_at',null)->orderBy('updated_at','DESC')->orderBy('resource_order')->get();
 
 		return view('pages.resources', compact('resources'));
 	}
