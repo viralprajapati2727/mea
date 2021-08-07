@@ -169,8 +169,6 @@ class GeneralController extends Controller {
 				$params['city'] = $city;
 			}
 
-			// \Debugbar::warning($params);
-			
 			$members = User::with('skills')->with(['userProfile'=>function($q){
 				$q->select('id', 'user_id', 'city');
 			}])->whereNull('deleted_at');

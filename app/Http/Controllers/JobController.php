@@ -439,10 +439,21 @@ class JobController extends Controller
 
     public function cancelJob($id) {
 
+        $responseData = array();
+        $responseData['status'] = 0;
+        $responseData['message'] = '';
+        $responseData['errors'] = array();
+        $responseData['data'] = [];
+
         if ($id) {
             JobApplied::where('id', $id)->where('user_id',Auth::id())->delete();
         }
 
-        return redirect()->back()->withSuccess('Applied job cancelled successfully');
+        $responseData['status'] = 200;
+        $responseData['message'] = 'Applied job cancelled successfully';
+
+        Session::flash('success', $responseData['message']);
+        
+        return $this->commonResponse($responseData, 200);
     }
 }

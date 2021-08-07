@@ -61,7 +61,7 @@ $statuss = config('constant.job_status');
                     @forelse ($jobs as $job)
                     <div class="col jb_border_bottm_gray job-item">
                         <div class="row">
-                            <div class="col-lg-6 col-12 d-lg-block header-elements-inline align-items-baseline ">
+                            <div class="col-md-6 col-12 header-elements-inline align-items-baseline ">
                                 <div class="jb_company_myjob_title">
                                     <h4 class="font-weight-semibold">
                                         <a href="{{ route('job.job-detail',['id' => $job->job->job_unique_id]) }}"
@@ -80,31 +80,31 @@ $statuss = config('constant.job_status');
                                         @endif
                                     </div>
                                 </div>
-                                <!-- mobile only -->
-                                <div class="d-block d-lg-none main-dropdown text-center">
-                                    <div class="d-inline-block mr-1 mr-sm-2 main-status">
-                                        <span class="status-{{ strtolower(config('constant.job_status')[$job->job->job_status]) }}">{{ config('constant.job_status')[$job->job->job_status] }}</span>
-                                    </div>
-                                    <div class="d-block">
-                                        <h4 class="font-weight-semibold text-center">
-                                            <a href="{{ route('job.cancel-job',['id' => $job->id]) }}" class="text-danger">
-                                                Cancel
-                                            </a>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <!--end mobile only -->
                             </div>
-                            <div class="col-lg-3 col-12 d-none d-lg-block main-status">
+                            <!-- mobile only -->
+                            {{-- <div class="d-block d-lg-none main-dropdown text-center">
+                                <div class="d-inline-block mr-1 mr-sm-2 main-status">
+                                    <span class="status-{{ strtolower(config('constant.job_status')[$job->job->job_status]) }}">{{ config('constant.job_status')[$job->job->job_status] }}</span>
+                                </div>
+                                <div class="d-block">
+                                    <h4 class="font-weight-semibold text-center">
+                                        <p data-href="{{ route('job.cancel-job',['id' => $job->id]) }}" data-id={{ $job->id }} class="text-danger cancel-job cursor-pointer">
+                                            Cancel
+                                        </p>
+                                    </h4>
+                                </div>
+                            </div> --}}
+                            <!--end mobile only -->
+                            <div class="col-md-3 col-12 main-status">
                                 <div class="text-center">
                                     <span class="text-center status-{{ strtolower($statuss[$job->job->job_status]) }}">{{ config('constant.job_status')[$job->job->job_status] }}</span>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-12 d-none d-lg-block main-status">
+                            <div class="col-md-3 col-12 main-status">
                                 <h4 class="font-weight-semibold text-center">
-                                    <a href="{{ route('job.cancel-job',['id' => $job->id]) }}" class="text-danger">
+                                    <p data-href="{{ route('job.cancel-job',['id' => $job->id]) }}" data-id={{ $job->id }} class="text-danger cancel-job cursor-pointer">
                                         Cancel
-                                    </a>
+                                    </p>
                                 </h4>
                             </div>
                             <!-- end desktop only -->
@@ -127,103 +127,73 @@ $statuss = config('constant.job_status');
 @endsection
 @section('footer_script')
 <script>
-    var status_url = "{{ route('job.change-applicant-status') }}";
     $(document).ready(function(){
-        // Initialize
-        var $select = $('.form-control-select2').select2({
-            // minimumResultsForSearch: Infinity,
-            width: '100%',
         
+        $(document).on('click','.cancel-job',function(){
+            _this = $(this);
+            
+            if(_this.data('id') != ""){
+                swal({
+                    title: "Are you sure you want to cancel job ?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    confirmButtonClass: 'btn btn-primary',
+                    cancelButtonClass: 'btn btn-grey',
+                    buttonsStyling: false
+                }).then(function (confirm) {
+                    if(confirm.value !== "undefined" && confirm.value){
+                        $.ajax({
+                            url: _this.data("href"),
+                            type: 'POST',
+                            data: {
+                                id : _this.data('id'),
+                                status : _this.val(),
+                            },
+                            beforeSend: function(){
+                                $('body').block({
+                                    message: '<i class="icon-spinner4 spinner"></i><br>'+ "Please Wait..",
+                                    overlayCSS: {
+                                        backgroundColor: '#000',
+                                        opacity: 0.15,
+                                        cursor: 'wait'
+                                    },
+                                    css: {
+                                        border: 0,
+                                        padding: 0,
+                                        backgroundColor: 'transparent'
+                                    }
+                                });
+                            },
+                            success: function(response) {
+                                if(response.status == 200){
+                                    swal({
+                                        title: response.message,
+                                        type: "success",
+                                        confirmButtonText: "OK",
+                                        confirmButtonClass: 'btn btn-primary',
+                                    }).then(function (){
+                                        window.location.reload(true);
+                                    });
+                                }else{
+                                    swal({
+                                        title: response.msg_fail,
+                                        confirmButtonClass: 'btn btn-primary',
+                                        type: "error",
+                                        confirmButtonText: "OK",
+                                    });
+                                }
+                            },
+                            complete: function(){
+                                $('body').unblock();
+                            }
+                        });
+                    }
+                }, function (dismiss) {
+                });
+            }
         });
-
-        // Trigger value change when selection is made
-        $select.on('change', function() {
-            $(this).trigger('blur');
-        });
-
-        // $("#search-form").submit(function(){
-        //     if($("input.job-status:checkbox:checked").length > 0){
-        //         return true;
-        //     }else{
-        //         swal({
-        //             title: PLEASE_SELECT_ATLEAST_ONE_STATUS_FOR_FILTER,
-        //             type: 'warning',
-        //             confirmButtonText: Btn_Ok,
-        //             confirmButtonClass: 'btn btn-primary',
-        //             cancelButtonClass: 'btn btn-danger',
-        //             // confirmButtonColor: "#ff7043",
-        //         });
-        //         return false;
-        //     }
-        // });
-
-        // $(document).on('change','.apply-status',function(){
-        //     _this = $(this);
-        //     if(_this.val() != "" && _this.data('id') != "" && _this.val() != _this.data('current')){
-        //         swal({
-        //             title: "Are you sure you want to change status ?",
-        //             type: 'warning',
-        //             showCancelButton: true,
-        //             confirmButtonText: "Yes",
-        //             cancelButtonText: "No",
-        //             confirmButtonClass: 'btn btn-primary',
-        //             cancelButtonClass: 'btn btn-grey',
-        //             buttonsStyling: false
-        //         }).then(function (confirm) {
-        //             if(confirm.value !== "undefined" && confirm.value){
-        //                 $.ajax({
-        //                     url: status_url,
-        //                     type: 'POST',
-        //                     data: {
-        //                         id : _this.data('id'),
-        //                         status : _this.val(),
-        //                     },
-        //                     beforeSend: function(){
-        //                         $('body').block({
-        //                             message: '<i class="icon-spinner4 spinner"></i><br>'+ "Please Wait..",
-        //                             overlayCSS: {
-        //                                 backgroundColor: '#000',
-        //                                 opacity: 0.15,
-        //                                 cursor: 'wait'
-        //                             },
-        //                             css: {
-        //                                 border: 0,
-        //                                 padding: 0,
-        //                                 backgroundColor: 'transparent'
-        //                             }
-        //                         });
-        //                     },
-        //                     success: function(response) {
-        //                         if(response.status == 200){
-        //                             swal({
-        //                                 title: response.msg_success,
-        //                                 type: "success",
-        //                                 confirmButtonText: "OK",
-        //                                 confirmButtonClass: 'btn btn-primary',
-        //                             }).then(function (){
-        //                                 window.location.reload(true);
-        //                             });
-        //                         }else{
-        //                             swal({
-        //                                 title: response.msg_fail,
-        //                                 confirmButtonClass: 'btn btn-primary',
-        //                                 type: "error",
-        //                                 confirmButtonText: "OK",
-        //                             });
-        //                         }
-        //                     },
-        //                     complete: function(){
-        //                         $('body').unblock();
-        //                     }
-        //                 });
-        //             }else{
-        //                 _this.val(_this.data('current')).change();
-        //                 return;
-        //             }
-        //         }, function (dismiss) {
-        //         });
-            // }
-        // });
     });
 </script>
 @endsection
