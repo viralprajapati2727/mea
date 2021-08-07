@@ -53,7 +53,7 @@ $statuss = config('constant.job_status');
                             <div class="col-3 text-center">
                                 <h5 class="font-black">Status</h5>
                             </div>
-                            <div class="col-3 col-lg-2 text-center">
+                            <div class="col-3 text-center">
                                 <h5 class="font-black text-center">Action</h5>
                             </div>
                         </div>

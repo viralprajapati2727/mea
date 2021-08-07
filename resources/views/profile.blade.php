@@ -107,42 +107,42 @@
                             <ul class="socials d-flex">
                                 @if(!empty($profile->userProfile->fb_link))
                                     <li class="facebook">
-                                        <a href="{{ $profile->userProfile->fb_link }}" target="_blank"  rel="noreferrer">
+                                        <a href="{{ Helper::checkSecureUrl($profile->userProfile->fb_link) }}" target="_blank"  rel="noreferrer">
                                             <i class="fa fa-facebook"></i>
                                         </a>
                                     </li>
                                 @endif
                                 @if(!empty($profile->userProfile->insta_link))
                                     <li class="instagram">
-                                        <a href="{{ $profile->userProfile->insta_link }}" target="_blank"  rel="noreferrer">
+                                        <a href="{{ Helper::checkSecureUrl($profile->userProfile->insta_link) }}" target="_blank"  rel="noreferrer">
                                             <i class="fa fa-instagram"></i>
                                         </a>
                                     </li>
                                 @endif
                                 @if(!empty($profile->userProfile->tw_link))
                                     <li class="twitter">
-                                        <a href="{{ $profile->userProfile->tw_link }}" target="_blank"  rel="noreferrer">
+                                        <a href="{{ Helper::checkSecureUrl($profile->userProfile->tw_link) }}" target="_blank"  rel="noreferrer">
                                             <i class="fa fa-twitter"></i>
                                         </a>
                                     </li>
                                 @endif
                                 @if(!empty($profile->userProfile->linkedin_link))
                                 <li class="twitter">
-                                    <a href="{{ $profile->userProfile->linkedin_link }}" target="_blank" rel="noreferrer">
+                                    <a href="{{ Helper::checkSecureUrl($profile->userProfile->linkedin_link) }}" target="_blank" rel="noreferrer">
                                         <i class="fa fa-linkedin"></i>
                                     </a>
                                 </li>
                                 @endif
                                 @if(!empty($profile->userProfile->github_link))
                                 <li class="twitter">
-                                    <a href="{{ $profile->userProfile->github_link }}" target="_blank"  rel="noreferrer">
+                                    <a href="{{ Helper::checkSecureUrl($profile->userProfile->github_link) }}" target="_blank"  rel="noreferrer">
                                         <i class="fa fa-github"></i>
                                     </a>
                                 </li>
                                 @endif
                                 @if(!empty($profile->userProfile->web_link))
                                     <li class="web">
-                                        <a href="{{ $profile->userProfile->web_link }}" target="_blank"  rel="noreferrer">
+                                        <a href="{{ Helper::checkSecureUrl($profile->userProfile->web_link) }}" target="_blank"  rel="noreferrer">
                                             <i class="fa fa-external-link-square" aria-hidden="true"></i>
                                         </a>
                                     </li>

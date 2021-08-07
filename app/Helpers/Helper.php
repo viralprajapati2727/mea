@@ -779,4 +779,11 @@ class Helper
     public static function getMenuTopics(){
         return Topic::where('status', 1)->whereNull('parent_id')->orderBy('topic_order')->get();
     }
+    public static function checkSecureUrl($var){
+        if(strpos($var, 'http') !== 0) {
+            return 'http' . $var;
+          } else {
+            return $var;
+          }
+    }
 }

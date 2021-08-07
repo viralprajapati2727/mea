@@ -57,7 +57,7 @@ $job_apply_status = config('constant.job_apply_status');
                 <!-- Content area -->
                 <div class="">
                     @if(!$applicants->isEmpty())
-                    <div class="col pt-4 jb_border_bottm_gray px-0 d-none d-md-block">
+                    <div class="col jb_border_bottm_gray d-none d-md-block applicants-header">
                         <div class="row">
                             <div class="col-5">
                                 <h5 class="font-black">Applicant List</h5>
@@ -77,7 +77,7 @@ $job_apply_status = config('constant.job_apply_status');
                         </div>
                     </div>
                     @forelse ($applicants as $applicant)
-                    <div class="col jb_border_bottm_gray px-0">
+                    <div class="col jb_border_bottm_gray applicants-item">
                         <div class="row">
                             <div class="col-md-5 col-12 d-lg-block header-elements-inline align-items-baseline">
                                 <div class="jb_company_myjob_title">
@@ -87,7 +87,7 @@ $job_apply_status = config('constant.job_apply_status');
                                         $img_url = Helper::images(config('constant.profile_url') . $applicant->user->logo);
                                     }
                                     @endphp
-                                    <div class="media">
+                                    <div class="media-main">
                                         <div class="ml-3 profile-bg-logo border-rounded profile-width-80" style="background-image:url('{{ $img_url }}')"></div>
                                         <div class="media-body">
                                             <h4 class="m-0"><a href="#" class="font-black">{{ $applicant->user->name }}</a></h4>

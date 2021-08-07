@@ -160,10 +160,11 @@ ul{
     display: flex;
     align-items: center;
 }
-.header-right .collapse{
+.header-right .navbar-collapse{
     padding-left: 30px;
     padding-right: 0;
     justify-content: flex-end;
+    margin: 0;
 }
 .logout-wrap {
     display: flex;
@@ -259,6 +260,9 @@ ul{
     display: none;
     transition: all 0.5s;
 }
+.home-page .site-nav__dropdown {
+    background: rgb(0 0 0 / 50%);
+}
 .site-nav--has-dropdown.active .site-nav__dropdown{
     display: block;
 }
@@ -282,17 +286,21 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
 .site-nav__child-link--parent {
     font-size: 18px;
     color: #474747;
-    font-weight: 500;
+    font-weight: bold;
     margin-bottom: 10px;
     display: inline-block;
 }
+.home-page .site-nav__child-link--parent {color: #FFFFFF;}
 .site-nav__childlist ul li ul a {
     font-size: 14px;
     color: #7e7878;
     display: inline-block;
     padding: 5px 0;
     margin-bottom: 5px;
+    font-weight: 600;
 }
+
+.home-page .site-nav__childlist ul li ul a {color: #FFFFFF;}
 
 .site-nav--has-dropdown>a {
     position: relative;
@@ -1834,12 +1842,16 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
 .my-jobs .job-item:nth-child(odd) {
     background: #f9f9f9;
 }
-.my-jobs .jobs-header { 
+.my-jobs .jobs-header,
+.applicants .applicants-header { 
     background: #2196f3 !important;
     color: #fff;
     padding: 10px 15px;
-    text-align: center;
 }
+.my-jobs .jobs-header {text-align: center;}
+.applicants .applicants-header h5 {margin-bottom: 0;}
+.applicants .applicants-item {padding: 10px;}
+.applicants .applicants-item:nth-child(odd){background-color: #f9f9f9;}
 /*================Blog Detail Page===============
 
 ===============================================*/
@@ -2269,9 +2281,9 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
     .profile-menu {width: 100%;}
     .login-links li a.profile-menu-link {display: none;}
     .navbar-toggler i{font-size: 32px;}
-    .header-right .navbar-toggler{ position: absolute; top: -80px; right: 24px;}
+    .header-right .navbar-toggler{ position: absolute; top: -95px; right: 24px;}
     .navbar-expand-lg .navbar-nav .nav-link{padding: 10px 0; font-size: 17px;}
-    .header-right .collapse{padding-left: 0;}
+    .header-right .navbar-collapse{padding-left: 0;}
     .navbar-nav .nav-item {border-top: 1px solid #f4f4f4;}
     .login-links{margin-top: 10px; padding-left: 0;}
     .profile-menu .profile-dropdown{position: inherit; top: inherit; left: inherit; min-width: inherit; width: 100%; display: block; margin-bottom: 20px;}
@@ -2333,6 +2345,10 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
     .sticky {position: static;}
     .body {padding-top: 0 !important;}
     .navbar-collapse {margin-left: 0; margin-right: 0;}
+    .site-nav__dropdown {background-color: transparent;}
+    .site-nav__child-link--parent, .site-nav__childlist ul li ul a {color: #fff;}
+    .home-page .site-header {background-color: #82cef8; position: static;}
+    .home-page .site-nav__dropdown {background-color: transparent;}
 }   
 @media screen and (max-width: 767px){
     .solutions-section .solution-content h2{font-size: 28px;}
