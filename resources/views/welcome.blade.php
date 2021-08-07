@@ -31,7 +31,7 @@
                             </div>
                             <h3 class="s-title"> Start a Company or New Career </h3>
                             <p class="desc"> Prepare for personal development with our advanced tools. </p>
-                            <a href="javascript:;" class="more-link">Learn More</a>
+                            <a href="{{ route('login') }}" class="more-link">Learn More</a>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -41,7 +41,7 @@
                             </div>
                             <h3 class="s-title">  Grow Your Startup or Personal Brand  </h3>
                             <p class="desc">  Scale your company and personal brand with help from our global network  </p>
-                            <a href="javascript:;" class="more-link">Learn More</a>
+                            <a href="{{ route('login') }}" class="more-link">Learn More</a>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -51,7 +51,7 @@
                             </div>
                             <h3 class="s-title">  Raise Capital  </h3>
                             <p class="desc">  Secure various funding opportunities for your business or startup  </p>
-                            <a href="javascript:;" class="more-link">Learn More</a>
+                            <a href="{{ route('login') }}" class="more-link">Learn More</a>
                         </div>
                     </div>
                 </div>

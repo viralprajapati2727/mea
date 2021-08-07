@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            @if ($profile->userProfile->is_education > 0 || Auth::id() == $profile->id)
+                            @if ($profile->userProfile->is_email_public > 0 || Auth::id() == $profile->id)
                             <div class="col-md-4 col-12">
                                 <div class="d-flex align-items-center">
                                     <p><i class="mr-2 flaticon-email"></i></p>
@@ -252,13 +252,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Name <span class="required-star-color">*</span></label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ old('name', isset($profile->name) ? $profile->name:'' ) }}" >
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ Auth::user()->name ?? ''  }}" >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{ old('email', isset($profile->email) ? $profile->email : '' ) }}"  disabled readonly>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter Your Email" value="{{  Auth::user()->email ?? '' }}"  disabled readonly>
                             </div>
                         </div>
                     </div>
