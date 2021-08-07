@@ -12,7 +12,8 @@
                         <h2 class="font-color page-title">Jobs</h2>
                     </div>
                     <div class="job-header-elements d-sm-flex">
-                        <a href="{{ route('job.fill-job') }}" class="btn-primary jb_btn jb_nav_btn_link post-job-btn"><i class="flaticon-bag"></i>Post a Job</a>
+                        <a href="{{ route('job.applied-job') }}" class="btn btn-primary mr-2">Applied Job</a>
+                        <a href="{{ route('job.fill-job') }}" class="btn-primary jb_btn jb_nav_btn_link post-job-btn">Post a Job</a>
                     </div>
                 </div>
             </div>

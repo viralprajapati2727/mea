@@ -428,4 +428,13 @@ class JobController extends Controller
             return array('status' => '0', 'msg_fail' => trans('app.Something_went_wrong'));
         }
     }
+
+    public function appliedJob(Request $request) {
+        $jobs = JobApplied::with(['user', 'job'])->where('user_id',Auth::id())->paginate(10);
+
+        // dd($jobs);
+
+        return view('job.applied-jobs',compact('jobs'));
+    }
+
 }
