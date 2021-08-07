@@ -64,12 +64,14 @@
                             </div>
                             @endif
                             @isset($profile->userProfile->phone)
+                            @if ($profile->userProfile->is_phone_public > 0 || Auth::id() == $profile->id)
                             <div class="col-md-4 col-12">
                                 <div class="d-flex align-items-center">
                                     <p><i class="mr-2 flaticon-phone-call"></i></p>
                                     <p>{{ $profile->userProfile->phone }}</p>
                                 </div>
                             </div>
+                            @endif
                             @endisset
                             @if ($profile->userProfile->is_resume_public > 0 || Auth::id() == $profile->id)
                             <div class="col-md-4 col-12">

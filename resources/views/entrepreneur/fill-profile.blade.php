@@ -136,6 +136,14 @@
                                     <label class="form-control-label">Contact Number </label>
                                     <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Your Contact Number" value="{{ old('phone', isset($profile->userProfile->phone) ? $profile->userProfile->phone:'' ) }}" maxlength="15" >
                                 </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input-styled" name="is_phone_public" id="is_phone_public" value="1" data-fouc {{ !empty($profile->userProfile) && isset($profile->userProfile->is_phone_public) ? ($profile->userProfile->is_phone_public > 0 ? 'checked' : '') : (old('is_phone_public') > 0 ? 'checked' : '') }}>
+                                            Make Contact Public
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">

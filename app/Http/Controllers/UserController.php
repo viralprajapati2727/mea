@@ -153,7 +153,9 @@ class UserController extends Controller
                     'is_experience' => $is_experience,   
                     "linkedin_link" => $request->linkedin_link,
                     "github_link" => $request->github_link,
-                    "is_resume_public" => $request->is_resume_public ?? 0
+                    "is_resume_public" => $request->is_resume_public ?? 0,
+                    "is_phone_public" => $request->is_phone_public ?? 0,
+                    "is_email_public" => $request->is_email_public ?? 0,
                 ]);
 
                 /*

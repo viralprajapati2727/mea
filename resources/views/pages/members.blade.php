@@ -92,7 +92,11 @@
                                             </a>
                                         </div>
                                         <div class="member-detail">
-                                            <h2 class="name">{{ $member->name }}</h2>
+                                            <h2 class="name">
+                                                <a href="{{ route("user.view-profile", ["slug" => $member->slug]) }}">
+                                                    {{ $member->name }}
+                                                </a>
+                                            </h2>
                                             <div class="skills">
                                                 <label>Skills</label>
                                                 @if (sizeof($member->skills) > 0)

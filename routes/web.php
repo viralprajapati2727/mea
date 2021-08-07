@@ -86,7 +86,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
             Route::get('my-jobs', 'JobController@index')->name('job.my-jobs');
             Route::get('job/detail/{id}', 'JobController@detail')->name('job.job-detail');
             Route::get('applied-job', 'JobController@appliedJob')->name('job.applied-job');
-            Route::get('cancel-job/{id}', 'JobController@cancelJob')->name('job.cancel-job');
+            Route::post('cancel-job/{id}', 'JobController@cancelJob')->name('job.cancel-job');
 
             Route::post('apply-job', 'JobController@applyJob')->name('job.apply-job');
             Route::post('check-apply-job', 'JobController@checkAppliedJob')->name('job.check-apply-job');

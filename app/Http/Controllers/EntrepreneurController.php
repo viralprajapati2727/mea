@@ -161,6 +161,7 @@ class EntrepreneurController extends Controller
                     "github_link" => $request->github_link,
                     "is_resume_public" => $request->is_resume_public ?? 0,
                     "is_email_public" => $request->is_email_public ?? 0,
+                    "is_phone_public" => $request->is_phone_public ?? 0,
                     "is_education" => $is_education
                 ]);
 
