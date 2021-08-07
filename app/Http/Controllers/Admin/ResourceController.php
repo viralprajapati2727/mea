@@ -40,10 +40,10 @@ class ResourceController extends Controller
         ->addColumn('title', function ($Query) {
             return $Query->title;
         })
-        // ->addColumn('resource_order', function ($Query) {
-        //     $resourceData = $Query->resource_order ? $Query->resource_order : '-' ;
-        //     return $resourceData;
-        // })
+        ->addColumn('resource_order', function ($Query) {
+            $resourceData = $Query->resource_order ? $Query->resource_order : '-' ;
+            return $resourceData;
+        })
         ->addColumn('src', function ($Query) {
             $icon = Helper::images(config('constant.resource_url')).$Query->src;
             return "<a class='fancy-pop-image' data-fancybox='images".$Query->id."'  href='".$icon."'><img class='custom-image' src='".$icon."'></a>";

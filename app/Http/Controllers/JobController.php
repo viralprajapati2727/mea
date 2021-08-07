@@ -437,4 +437,12 @@ class JobController extends Controller
         return view('job.applied-jobs',compact('jobs'));
     }
 
+    public function cancelJob($id) {
+
+        if ($id) {
+            JobApplied::where('id', $id)->where('user_id',Auth::id())->delete();
+        }
+
+        return redirect()->back()->withSuccess('Applied job cancelled successfully');
+    }
 }
