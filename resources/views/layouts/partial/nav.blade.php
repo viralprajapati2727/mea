@@ -114,6 +114,7 @@
                                                                 <li><a href="{{ route('user.change-password') }}">Change Password</a></li>
                                                                 <li><a href="{{ route('job.fill-job') }}">Post Job</a></li>
                                                                 <li><a href="{{ route('job.my-jobs') }}">My Jobs</a></li>
+                                                                <li><a href="{{ route('job.applied-job') }}">Applied Jobs</a></li>
                                                                 @if (Auth::user()->type != config('constant.USER.TYPE.ADMIN') && Auth::user()->is_active == config('constant.USER.STATUS.Active'))
                                                                     <li><a href="{{ route('startup-portal-request') }}">Startup Portal Request</a></li>
                                                                 @endif
