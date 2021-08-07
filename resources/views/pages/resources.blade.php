@@ -11,41 +11,50 @@
                 </div>
             </div>
             <div class="resources-wraper">
-                <div class="resources-right-wraper">
-                    @foreach ($resources as $key => $resource)
-                    @php
-                        $srcUrl = Helper::images(config('constant.resource_url'));
-                        $srcUrl = $srcUrl . $resource->src;
-                        $documentUrl = null;
-                        if ($resource->document) {
-                            $documentUrl = Helper::images(config('constant.resource_document_url'));
-                            $documentUrl = $documentUrl . $resource->document;
-                        }
-                    @endphp
+                @if(!empty($resources) && $resources->count())
+                    <div class="resource-category">
+                        <h2 class="cat-title">{{ $resources[0]->topic->title ? $resources[0]->topic->title :  "" }}'s Resources</h2>
+                    </div>
+                    <div class="resources-right-wraper">
+                        @foreach ($resources as $key => $resource)
+                        @php
+                            $srcUrl = Helper::images(config('constant.resource_url'));
+                            $srcUrl = $srcUrl . $resource->src;
+                            $documentUrl = null;
+                            if ($resource->document) {
+                                $documentUrl = Helper::images(config('constant.resource_document_url'));
+                                $documentUrl = $documentUrl . $resource->document;
+                            }
+                        @endphp
 
-                    <div class="resorces-article">
-                        <div class="article-inner">
-                            <div class="heading">
-                                <h2 class="atricle-title" id="s{{ $resource->topic_id }}">{{ $resource->title ?? "" }}</h2>
-                            </div>
-                            <div class="content">
-                                <div class="text">
-                                    <img src={{ $srcUrl }} height="350" alt="resource image" class="rounded" />
-                                    <p class="text-justified">{!! $resource->description ?? "" !!}</p>
-                                    @if ($resource->document)
-                                        <p class="text-center">
-                                            Download Resource Document <br>
-                                            {{-- <a href="{{ $srcUrl }}" download>Image</a> @if($documentUrl != null) |  --}}
-                                            <a href="{{ $documentUrl }}" download>Document</a>
-                                             {{-- @endif --}}
-                                        </p>
-                                    @endif
+                        <div class="resorces-article">
+                            <div class="article-inner">
+                                <div class="heading">
+                                    <h2 class="atricle-title" id="s{{ $resource->topic_id }}">{{ $resource->title ?? "" }}</h2>
+                                </div>
+                                <div class="content">
+                                    <div class="text">
+                                        <img src={{ $srcUrl }} height="350" alt="resource image" class="rounded" />
+                                        <p class="text-justified">{!! $resource->description ?? "" !!}</p>
+                                        @if ($resource->document)
+                                            <p class="text-center">
+                                                {{-- <a href="{{ $srcUrl }}" download>Image</a> @if($documentUrl != null) |  --}}
+                                                <a href="{{ $documentUrl }}" download class="download-link">
+                                                    <img src="{{ Helper::assets('images/resources/down-arrow.png') }}">
+                                                    Download Resource Document
+                                                </a>
+                                                {{-- @endif --}}
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
-                </div>
+                @else
+                    <h2>No Resources found!</h2>    
+                @endif
             </div>
         </div>
     </div>

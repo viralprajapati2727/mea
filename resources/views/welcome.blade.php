@@ -17,9 +17,8 @@
             <div class="solution-content">
                 <div class="row">
                     <div class="offset-md-2 col-md-8 text-center">
-                        <h2> Helping founders build investable companies </h2>
-                        <p class="lg"> Mission-critical business tools. Powerful performance benchmarks. Trusted fundraising recommendations. 
-                        Muslim Entrepreneur supports you at every point along your entrepreneurial journey so when it’s time to raise money, you have the best shot at investment. Get started on the path to fundraising success: </p>
+                        <h2> Helping professionals and entrepreneurs connect, grow and achieve their dreams! </h2>
+                        <p class="lg"> Our virtual incubator helps you connect with Muslim Professionals and Entrepreneurs from all over the world to exchange ideas, collaborate and grow! You have the ability to post questions and gain different perspectives, find members with a particular skill set or in a specific location, set up appointments with members, post and apply for both jobs and business requests and raise capital for your venture all on the platform! </p>
                     </div>
                 </div>
             </div>
@@ -30,8 +29,8 @@
                             <div class="s-image">
                                <img src="{{ Helper::assets('images/home/rocket.png') }}" alt="">
                             </div>
-                            <h3 class="s-title"> Start a Company </h3>
-                            <p class="desc"> Prepare for investment and growth with easy incorporation and legal tools. </p>
+                            <h3 class="s-title"> Start a Company or New Career </h3>
+                            <p class="desc"> Prepare for personal development with our advanced tools. </p>
                             <a href="javascript:;" class="more-link">Learn More</a>
                         </div>
                     </div>
@@ -40,8 +39,8 @@
                             <div class="s-image">
                                <img src="{{ Helper::assets('images/home/statistics.png') }}" alt="">
                             </div>
-                            <h3 class="s-title">  Grow Your Startup  </h3>
-                            <p class="desc">  Make your company more attractive to investors with personalized recommendations.  </p>
+                            <h3 class="s-title">  Grow Your Startup or Personal Brand  </h3>
+                            <p class="desc">  Scale your company and personal brand with help from our global network  </p>
                             <a href="javascript:;" class="more-link">Learn More</a>
                         </div>
                     </div>
@@ -51,7 +50,7 @@
                                <img src="{{ Helper::assets('images/home/capital.png') }}" alt="">
                             </div>
                             <h3 class="s-title">  Raise Capital  </h3>
-                            <p class="desc">  Discover your best sources for funding and find and apply for investment.  </p>
+                            <p class="desc">  Secure various funding opportunities for your business or startup  </p>
                             <a href="javascript:;" class="more-link">Learn More</a>
                         </div>
                     </div>
@@ -67,9 +66,8 @@
                 <div class="row">
                     <div class="col-md-6 features-content-wraper">
                         <div class="features-content">
-                            <h2> The world’s largest startup network. </h2>
-                            <p> With over 800,000 founders and 85,000 investment professionals on our platform, we’ll connect you to the whole startup ecosystem. 
-                            We understand what investors want to see from a startup, and we can help you put your best foot forward. </p>
+                            <h2> The world’s largest muslim startup and professional network </h2>
+                            <p> With thousands of members worldwide, MEA is your personal network to help you grow your career, business or startup. We strive to empower our members with all the tools and knowledge to succeed in their careers and see their passions become a reality! </p>
                         </div>
                     </div>
                     <div class="col-md-6 features-image-wraper">
@@ -88,9 +86,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="features-content">
-                            <h2>Feedback and tools personalized to your journey.</h2>
-                            <p>With powerful performance benchmarks, tailored feedback, and clear next steps for your startup, you’ll learn where to focus your efforts 
-                            and find the tools you need to execute right at your fingertips. </p>
+                            <h2>Feedback and tools personalized for your growth.</h2>
+                            <p>With powerful collaboration tools, custom feedback and guidance on the next steps for your startup or career path, you’ll learn where to focus your efforts and find the strategies you need to execute right at your fingertips. </p>
                         </div>
                     </div>
                 </div>
@@ -100,8 +97,7 @@
                     <div class="col-md-6 features-content-wraper">
                         <div class="features-content">
                             <h2>Designed to help you succeed.</h2>
-                            <p>Our mission is to help founders win. Whether your next milestone is initially setting up your company the right way or successfully closing a 
-                            Series C, we are here to help you hit it.  </p>
+                            <p>Our mission is to help our members succeed. Whether your next milestone is initially setting up your company the right way, raising capital or planning your next career move, we are here to help make it happen.  </p>
                         </div>
                     </div>
                     <div class="col-md-6 features-image-wraper">

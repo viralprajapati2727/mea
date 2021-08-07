@@ -470,7 +470,7 @@ $(document).ready( function () {
                     },
                     alpha: true,
                     minlength: 2,
-                    maxlength: 20,
+                    maxlength: 50,
                 },
             },
             // debug: true,

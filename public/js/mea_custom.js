@@ -24,16 +24,16 @@ $(document).ready(function() {
         // minimumResultsForSearch: Infinity
     });
 
-    jQuery(window).scroll(function(){
-        var navHeight = $('.site-header').height();
-        if ($(window).scrollTop() > 115) {
-            $('.site-header').addClass("sticky")
-            $('#body').css('padding-top',navHeight+"px");
-        } else {
-            $('.site-header').removeClass("sticky")
-            $('#body').css('padding-top',0);
-        }
-    });
+    // jQuery(window).scroll(function(){
+    //     var navHeight = $('.site-header').height();
+    //     if ($(window).scrollTop() > 115) {
+    //         $('.site-header').addClass("sticky")
+    //         $('#body').css('padding-top',navHeight+"px");
+    //     } else {
+    //         $('.site-header').removeClass("sticky")
+    //         $('#body').css('padding-top',0);
+    //     }
+    // });
     
     $('.navbar-nav .site-nav--has-dropdown').click(function(){
         $(this).toggleClass("active");

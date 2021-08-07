@@ -4,7 +4,7 @@
         @include('layouts.partial.head')
         @yield('header-style')
     </head>
-    <body class="body" id="body">
+    <body class="body {{ request()->route()->getName() == 'index' ? 'home-page' : 'inner-page' }}" id="body">
         @include('layouts.partial.nav')
         <div id="loading">
             <i class="icon-spinner10 spinner mx-auto" id="loading-image"></i><br>

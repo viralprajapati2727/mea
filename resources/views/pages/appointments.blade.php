@@ -74,8 +74,10 @@
                                                 <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="flaticon-menu"></i></a>
                                                 <span class="tooltip-arrow"></span>
                                                 <div class="dropdown-menu dropdown-menu-right jb_company_dropdown_nav" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(30px, 30px, 0px);">
-                                                    <a href="javascript:;" class="dropdown-item delete-appointment" data-id="{{ $appointment->id }}" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Appointment</a>
-                                                    @if($appointment->status == 0)
+                                                    @if(Auth::id() == $appointment->user_id)
+                                                        <a href="javascript:;" class="dropdown-item delete-appointment" data-id="{{ $appointment->id }}" data-status="delete"><span class="main-icon-span"><i class="flaticon-trash"></i></span> Delete Appointment</a>
+                                                    @endif
+                                                    @if($appointment->status == 0 && Auth::id() == $appointment->receiver_id)
                                                         <a href="javascript:;" class="dropdown-item approve-reject" data-id="{{ $appointment->id }}" data-active='1'><span class="main-icon-span"><i class="flaticon-trash"></i></span> Approve Appointment</a>
                                                         <a href="javascript:;" class="dropdown-item approve-reject" data-id="{{ $appointment->id }}" data-active='2'><span class="main-icon-span"><i class="flaticon-trash"></i></span> Reject Appointment</a>
                                                     @endif
