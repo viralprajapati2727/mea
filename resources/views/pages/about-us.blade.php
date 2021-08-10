@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="content">
                     <h1>About us</h1>
-                    <p>Our business is matching smart prople with great jobs</p>
+                    <p>Our goal is to build a global community of professionals and entrepreneurs!</p>
                 </div>
             </div>
         </div>
@@ -15,12 +15,10 @@
         <div class="who-we-are">
             <div class="container">
                 <div class="heading text-center">
-                    <h2>Who We Are</h2>
+                    <h2>Who Are We?</h2>
                 </div>
                 <div class="content">
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or 
-                    randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything 
-                    embarrassing hidden in the middle of text.</p>
+                    <p>We are comprised of diverse professionals, entrepreneurs, students and community leaders looking to make a positive impact in the world. From striving to be at the top of our professions in healthcare, technology, financial, real estate and various industries to; creating and running successful startups, we want to both empower and make a positive impact in our global communities.</p>
                 </div>
             </div>
         </div>
@@ -36,8 +34,7 @@
                         <div class="content-inner">
                             <h2 class="title">Our Mission</h2>
                             <div class="text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 
-                                dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+                                <p>We at MEA are on a mission to build a global team of entrepreneurs and professionals. This platform provides the space and tools to assist with collaborating on different ventures, gain insightful feedback, post jobs and find team members while also helping those just starting out with their business or startup with the resources they need, and to raise capital to help their dream become a reality! </p>
                             </div>
                         </div>
                     </div>
@@ -51,8 +48,7 @@
                         <div class="content-inner">
                             <h2 class="title">Our Vision</h2>
                             <div class="text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 
-                                dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+                                <p>We strive to see the next latest companies, apps, startups and ventures be built, run and funded by members of our community. It is time for us collectively to come together and help others achieve their goals so we can add value and make an impact! </p>
                             </div>
                         </div>
                     </div>
@@ -76,8 +72,15 @@
                         <div class="content-inner">
                             <h2 class="title">Our Values</h2>
                             <div class="text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 
-                                dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+                                <p>As we all strive to be our best and make our dreams a reality we come to realize that this road is extremely tough and riddles with obstacles. We must always believe in ourselves, our team and our vision even when all seems hopeless. </p>
+                                <p>Every successful person, entrepreneur, business, startup, etc can equate their success down to these main fundamentals which we want all of our members to master: </p>
+                                <ol>
+                                    <li>Control</li>
+                                    <li>Discipline</li>
+                                    <li>Hard Work</li>
+                                    <li>Consistency</li>
+                                    <li>Resiliency</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
@@ -90,9 +93,7 @@
                     <h2>Why Us?</h2>
                 </div>
                 <div class="content">
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or 
-                    randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything 
-                    embarrassing hidden in the middle of text.</p>
+                    <p>We at MEA come from all walks of life and professional backgrounds. We all had to endure different challenges and overcome difficult obstacles, which is why we would like to help others on their path towards success. As passion led us here it will be our collective effort and core values that will help all of us reach our goals and make a positive impact!</p>
                 </div>
             </div>
         </div>

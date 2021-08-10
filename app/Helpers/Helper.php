@@ -781,7 +781,7 @@ class Helper
     }
     public static function checkSecureUrl($var){
         if(strpos($var, 'http') !== 0) {
-            return 'http' . $var;
+            return 'http://' . $var;
           } else {
             return $var;
           }

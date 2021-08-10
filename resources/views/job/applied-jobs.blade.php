@@ -47,7 +47,7 @@ $statuss = config('constant.job_status');
                 @if(!$jobs->isEmpty())
                     <div class="col pt-4 jb_border_bottm_gray px-0 d-none d-md-block">
                         <div class="row">
-                            <div class="col-6  text-center">
+                            <div class="col-6">
                                 <h5 class="font-black">Job Title</h5>
                             </div>
                             <div class="col-3 text-center">
@@ -59,7 +59,7 @@ $statuss = config('constant.job_status');
                         </div>
                     </div>
                     @forelse ($jobs as $job)
-                    <div class="col jb_border_bottm_gray job-item">
+                    <div class="jb_border_bottm_gray job-item">
                         <div class="row">
                             <div class="col-md-6 col-12 header-elements-inline align-items-baseline ">
                                 <div class="jb_company_myjob_title">

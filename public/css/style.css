@@ -137,6 +137,17 @@ ul{
     font-weight: bold;
     font-size: 16px;
 }
+.home-page .header-login {
+    padding: 10px 20px;
+    background-color: #2196f3;
+    font-size: 16px;
+    transition: all 0.5s;
+}
+
+.home-page .header-login:hover {
+    color: #2196f3;
+    background: #fff;
+}
 .navbar-expand-lg .navbar-nav .nav-link {
     font-size: 16px;
     line-height: 34px;
@@ -1761,21 +1772,54 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
     background-color: #f4f4f5;
     margin-bottom: 30px;
 }
+.team-media {
+    padding-top: 120%;
+    position: relative;
+}
+
+.team-media img {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+.team-desc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #82cef8;
+    padding: 30px;
+    color: #FFF;
+    font-size: 16px;
+    line-height: 30px;
+    opacity: 0;
+    transition: all 0.5s;
+    overflow-y: auto;
+}
+.text-white{
+    color: #fff;
+}
+.our-team-wraper .team-wraper:hover .team-desc {
+    opacity: 1;
+}
 .team-wraper .team-content{
     padding: 50px 55px;
     text-align: center;
 }
 .team-wraper .team-content .title{
-    font-size: 26px;
+    font-size: 22px;
     color: #333;
     font-weight: 500;
     margin-bottom: 5px;
+    text-transform: uppercase;
 }
 .team-wraper .team-content .designation{
-    font-size: 16px;
+    font-size: 14px;
     color: #0088FF;
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 1.2px;
     margin-bottom: 15px;
 }

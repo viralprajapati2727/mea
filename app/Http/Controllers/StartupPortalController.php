@@ -120,12 +120,17 @@ class StartupPortalController extends Controller
                 }
             }
 
+            $team_members = "";
+            if(isset($request->team_members) && !empty($request->team_members)){
+                $team_members = implode(",",$request->team_members);
+            }
+
             $param2 = [
                 "name" => $request->name,
                 "description" => $request->description,
                 "industry" => $request->industry,
                 "location" => $request->location,
-                "team_members" => implode(",",$request->team_members),
+                "team_members" => $team_members,
                 "stage_of_startup" => $request->startup_stage,
                 "important_next_step" => $request->important_next_step,
                 "other_important_next_step" => $request->other_important_next_step,
@@ -156,12 +161,14 @@ class StartupPortalController extends Controller
             $user_status = 0;
             if($startup_portal != null){
                 StartupTeamMembers::where('startup_id',$startup_portal->id)->delete();
-                foreach ($request->team_members as $key => $team_member) {
-                    StartupTeamMembers::create([
-                        'startup_id' => $startup_portal->id, 
-                        'user_id' => $team_member,
-                        'status' => $user_status
-                    ]);
+                if(isset($request->team_members) && !empty($request->team_members)){
+                    foreach ($request->team_members as $key => $team_member) {
+                        StartupTeamMembers::create([
+                            'startup_id' => $startup_portal->id, 
+                            'user_id' => $team_member,
+                            'status' => $user_status
+                        ]);
+                    }
                 }
             }
 

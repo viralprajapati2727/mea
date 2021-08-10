@@ -40,7 +40,7 @@
                                     <i class="flaticon-accounting"></i>
                                 </div>
                                 <div class="process-title">
-                                    <h3>We work on a financial projection model</h3>
+                                    <h3>We review your financial and help with projections</h3>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                     <i class="flaticon-cloud"></i>
                                 </div>
                                 <div class="process-title">
-                                    <h3>We set up a cloud based syatem (if needed)</h3>
+                                    <h3>We review your technology and assist with any updates needed</h3>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                     <i class="flaticon-deal"></i>
                                 </div>
                                 <div class="process-title">
-                                    <h3>Receive financial statements</h3>
+                                    <h3>We setup an initial meeting</h3>
                                 </div>
                             </div>
                         </div>
@@ -72,17 +72,14 @@
                                     <img src="{{ Helper::assets('images/hover-checklist.png') }}">
                                 </div>
                                 <div class="process-title">
-                                    <h3>We review your Business Plan</h3>
+                                    <h3>We evaluate your startup for capital investment opportunities</h3>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="process-bottom">
-                    <p>A business begins with the plan and financial tools for success we help you shapw and define
-                        both.
-                        Our process appropriately situates an entrepreneur to <strong>define and namage the business
-                            pan</strong> and <strong>avoid the pitfalls</strong> of getting buried in the details.</p>
+                    <p>A successful startup begins with a roadmap, vision statement and scalability plan. We help evaluate your business on what it needs to help it take it to the next level and raise capital from our team of investors!</p>
                 </div>
             </div>
         </div>
@@ -91,10 +88,7 @@
                 <div class="title">
                     <h2>Building Your Plan</h2>
                 </div>
-                <p>The fear concern, time and resources needed for setting up astartup seems daunting at first glance -
-                    but it doesn't have to be!
-                    Startup Portal evolved from years of experience in capital raising cash management, financial
-                    reporting and managing the day to day.</p>
+                <p>We know the metrics, research and due diligence required to raise funds. It can seem like a daunting task to put together however our team of experts have years of experience across different industries. We will work with you to take your startup to the next level and become a game changer! </p>
             </div>
         </div>
         @auth
@@ -122,7 +116,7 @@
         <div class="browse-plans">
             <div class="container">
                 <div class="title">
-                    <h2>Browse Business Plan/Idea
+                    <h2>Browse Startup Plan/Idea
                 </div>
                 <div class="card">
                     <div class="card-body">

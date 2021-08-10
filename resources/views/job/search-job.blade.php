@@ -5,7 +5,7 @@
     <div class="jp-front-banner">
         <div class="container">
             <div class="jp-banner-content text-center">
-                <h1>Find Your Desire Job</h1>
+                <h1>Find Your Desired Opportunity</h1>
                 <p>Jobs, Employment & Future Career Opportunities</p>
             </div>
             <form class="global-search-form" action="{{ route('job.global-search') }}">
@@ -37,7 +37,7 @@
     <div class="jp-job-category">
         <div class="container">
             <div class="title">
-                <h2>Choose Your Desire Category</h2>
+                <h2>Choose Your Interest</h2>
             </div>
             <div class="jp-job-category-listing">
                 <ul class="m-auto">

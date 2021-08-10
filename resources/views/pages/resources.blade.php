@@ -4,10 +4,10 @@
     <div class="resources-main">
         <div class="container">
             <div class="resources-top-wraper">
-                <h2 class="title">Free Startup Plan, Budget & Cost Templates</h2>
+                <h2 class="title">Free Business and Startups Resources & Templates</h2>
                 <div class="text">
-                    <p>A business plan describes how a new business will meet its primary objectives over a given period of time. It is both a strategic document that can act as a roadmap and a tool for securing funding and communicating with stakeholders. For a startup business, planning is key to developing a thorough understanding of the target market, competition, market conditions, and financing opportunities.</p>
-                    <p>Included on this page, you'll find a variety of helpful, free startup business planning templates, like a SWOT analysis template, a competitive analysis template, a business startup checklist template, and more.</p>
+                    <p>Any new startup or business has to formulate and map out their goals, competition, financial costs and projections and scalability models. Creating your roadmap and vision plan can assist when attracting new team members/employees or when raising funds from potential investors. Planning and research are key to developing a thorough understanding of the target market, competition, market conditions, and financing opportunities.</p>
+                    <p>Included on this page, you'll find a variety of helpful, free startup business planning templates, like financial analysis templates, marketing research templates, business planning resources, legal templates, and more.</p>
                 </div>
             </div>
             <div class="resources-wraper">
