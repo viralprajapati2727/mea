@@ -1802,6 +1802,9 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
 .text-white{
     color: #fff;
 }
+.about-content{
+    max-width: 750px;
+}
 .our-team-wraper .team-wraper:hover .team-desc {
     opacity: 1;
 }

@@ -13,7 +13,7 @@
             <div class="resources-wraper">
                 @if(!empty($resources) && $resources->count())
                     <div class="resource-category">
-                        <h2 class="cat-title">{{ $resources[0]->topic->title ? $resources[0]->topic->title :  "" }}'s Resources</h2>
+                        <h2 class="cat-title">{{ $topic->title }}'s Resources</h2>
                     </div>
                     <div class="resources-right-wraper">
                         @foreach ($resources as $key => $resource)
@@ -30,7 +30,7 @@
                         <div class="resorces-article">
                             <div class="article-inner">
                                 <div class="heading">
-                                    <h2 class="atricle-title" id="s{{ $resource->topic_id }}">{{ $resource->title ?? "" }}</h2>
+                                    <h2 class="atricle-title">{{ $resource->title ?? "" }}</h2>
                                 </div>
                                 <div class="content">
                                     <div class="text">

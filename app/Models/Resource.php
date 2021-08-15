@@ -28,8 +28,8 @@ class Resource extends Model
         return $this->belongsTo('App\User', 'created_by','id');
     }
 
-    public function topic()
+    public function topics()
     {
-        return $this->belongsTo("App\Models\Topic", 'topic_id', 'id');
+        return $this->hasMany("App\Models\ResourceTopic", 'resource_id', 'id');
     }   
 }

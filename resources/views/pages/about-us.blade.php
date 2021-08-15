@@ -4,7 +4,7 @@
     <div class="front-banner about-us">
         <div class="content-wraper">
             <div class="container">
-                <div class="content">
+                <div class="content about-content">
                     <h1>About us</h1>
                     <p>Our goal is to build a global community of professionals and entrepreneurs!</p>
                 </div>

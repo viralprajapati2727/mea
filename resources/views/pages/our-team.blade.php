@@ -18,6 +18,82 @@
                         <div class="col-md-4 col-sm-6">
                             <div class="team-wraper">
                                 <div class="team-media">
+                                    <img src="{{ Helper::assets('images/our-team/abdul.jpg') }}" alt="" class="w-100">
+                                    <div class="team-desc">
+                                        <p>The President of MEA is Abdul Rahman. Abdul was born and raised in Queens, NY with his parents originally from Pakistan. Abdul had shown great leadership skills in College becoming the First Muslim President of the Economics Honor Society at Queens College, being a founder of the Trading & Investing Competition and launching his first startup FixMe which had its office in Queens College Technology Incubator. Abdul has given much back to his community and is very involved with his Alma Mater Queens College. He sits on the Young Alumni Board and both organized and led the QC Business & Tech Expo for 3 years where both Global and Local companies would come to Queens College Campus to take part in the yearly expo event. Currently, Abdul is pursuing his passion for both Finance & Tech where he is working full time as a VP for a Hedge Fund, managing teams globally and performing risk and operations across multi-assets and multi-million valued portfolios. Abdul also runs a software and digital marketing firm, DeployMe. The company has a global team that builds websites, mobile apps, SEO, Social Media Marketing, IT, cybersecurity, Online Marketing and other technology services for their clients. They also consult small businesses on how to grow their online footprint, expand their brand and take their business to the next level using technology.</p>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h4 class="title">Abdul Rahman</h4>
+                                    <p class="designation">President</p>
+                                    <div class="team-social-icons">
+                                        <ul class="m-0 p-0">
+                                            <li><a href="mailto:Abdul.Rahman@MEA-Community.com"><i class="fa fa-envelope"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="team-wraper">
+                                <div class="team-media">
+                                    <img src="{{ Helper::assets('images/our-team/shiekh.jpg') }}" alt="" class="w-100">
+                                    <div class="team-desc">
+                                        <p>The Vice President of MEA is Sheikh Galib Rahman. Sheikh is from Bangladesh and came to NY during his College years in order to pursue his passion for IT & Tech. Sheikh has had a robust career in IT & Technology, from working for JPM, Capgemini, Homeland Security, and the Federal Reserve Sheikh had hired and led multiple teams around the world. He recently left his job at Accenture where he was the Global Program Manager for QA in order to run his IT Training School Full Time in Queens Called Transfotech. Sheikh is highly active in the community and most recently returned from a trip to Bangladesh where he helped organize a visit by 5 US Senators to discuss ideas and possible synergies.</p>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h4 class="title">Sheikh Galib Rahman</h4>
+                                    <p class="designation">Vice President</p>
+                                    <div class="team-social-icons">
+                                        <ul class="m-0 p-0">
+                                            <li><a href="mailto:Galib.Rahman@MEA-Community.com"><i class="fa fa-envelope"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="team-wraper">
+                                <div class="team-media">
+                                    <img src="{{ Helper::assets('images/our-team/zaman.jpeg') }}" alt="" class="w-100">
+                                    <div class="team-desc">
+                                        <p>Mohammed Zaman is currently the Treasurer for MEA and an accounting manager at SSTL Inc, an ecommerce firm specializing in furniture sales and CRM software licencing. He's also founder of Swiftpark, an app that helps users find and share parking spots. Previously he used to day trade futures with Topsteptrader. He graduated from Baruch college in 2012 with BBA in Finance, Magna Cum Laude. He also trades options, and reads books as a hobby.</p>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h4 class="title">Mohammad Zaman</h4>
+                                    <p class="designation">Treasurer</p>
+                                    <div class="team-social-icons">
+                                        <ul class="m-0 p-0">
+                                            <li><a href="mailto:zaman@mea-community.com"><i class="fa fa-envelope"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="team-wraper">
+                                <div class="team-media">
+                                    <img src="{{ Helper::assets('images/our-team/rizwana.jpeg') }}" alt="" class="w-100">
+                                    <div class="team-desc">
+                                        <p>Rizwana Rahim Bashir, is General Secretary of MEA. Born and brought up in Bangladesh, Rizwana moved to USA recently with family for better future of her children. Rizwana had a promising career in the fast moving and dynamic banking industry of Bangladesh, having almost 12 years of work experience with HSBC, a leading multi-national British Bank operating in Bangladesh. She worked her way from an Associate to Vice President, Business Development, Global Trade and Receivables Finance. She has worked closely with Senior Management in various capacities including working a number of years with the present CEO of HSBC Bangladesh. Rizwana has gathered valuable knowledge and practical experience in commercial banking customer handling, leadership and corporate culture. She has been an advocate of women’s rights and empowerment issues. Born to entrepreneurial parents, entrepreneurship is close to her heart.</p>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h4 class="title">Rizwana Rahim</h4>
+                                    <p class="designation">General Secretary</p>
+                                    <div class="team-social-icons">
+                                        <ul class="m-0 p-0">
+                                            <li><a href="mailto:rizwana@mea-community.com"><i class="fa fa-envelope"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="team-wraper">
+                                <div class="team-media">
                                     <img src="{{ Helper::assets('images/our-team/Zahra.jpg') }}" alt="" class="w-100">
                                     <div class="team-desc">
                                         <p>Zahra Khan is a New York City General Education and English language teacher, writing tutor, career coach, and owner of ResumesbyZahra.com. She also boasts experience as a Human Resources Supervisor, Writing professor at Queensborough Community College, as well as a background in the Fashion, Art, and Beauty industries.</p>
@@ -178,7 +254,7 @@
                                     <div class="team-desc">
                                         <p>A lawyer experienced winning difficult yet rewarding cases. Seasoned with courtroom and trial experience, especially in front of the the Immigration Courts of New York, New Jersey and Connecticut. Additionally, experienced handling and winning immigration cases before United States Citizenship and Immigration Services. Also successfully handled real estate, personal injury, civil litigation and divorce cases.</p>
                                     </div>
-                                </div>
+                                </div>                        
                                 <div class="team-content">
                                     <h4 class="title">Shafi Chowdhury </h4>
                                     <p class="designation">Director - MEA</p>
@@ -204,82 +280,6 @@
                                     <div class="team-social-icons">
                                         <ul class="m-0 p-0">
                                             <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="team-wraper">
-                                <div class="team-media">
-                                    <img src="{{ Helper::assets('images/our-team/abdul.jpg') }}" alt="" class="w-100">
-                                    <div class="team-desc">
-                                        <p>The President of MEA is Abdul Rahman. Abdul was born and raised in Queens, NY with his parents originally from Pakistan. Abdul had shown great leadership skills in College becoming the First Muslim President of the Economics Honor Society at Queens College, being a founder of the Trading & Investing Competition and launching his first startup FixMe which had its office in Queens College Technology Incubator. Abdul has given much back to his community and is very involved with his Alma Mater Queens College. He sits on the Young Alumni Board and both organized and led the QC Business & Tech Expo for 3 years where both Global and Local companies would come to Queens College Campus to take part in the yearly expo event. Currently, Abdul is pursuing his passion for both Finance & Tech where he is working full time as a VP for a Hedge Fund, managing teams globally and performing risk and operations across multi-assets and multi-million valued portfolios. Abdul also runs a software and digital marketing firm, DeployMe. The company has a global team that builds websites, mobile apps, SEO, Social Media Marketing, IT, cybersecurity, Online Marketing and other technology services for their clients. They also consult small businesses on how to grow their online footprint, expand their brand and take their business to the next level using technology.</p>
-                                    </div>
-                                </div>
-                                <div class="team-content">
-                                    <h4 class="title">Abdul Rahman</h4>
-                                    <p class="designation">President</p>
-                                    <div class="team-social-icons">
-                                        <ul class="m-0 p-0">
-                                            <li><a href="mailto:Abdul.Rahman@MEA-Community.com"><i class="fa fa-envelope"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="team-wraper">
-                                <div class="team-media">
-                                    <img src="{{ Helper::assets('images/our-team/shiekh.jpg') }}" alt="" class="w-100">
-                                    <div class="team-desc">
-                                        <p>The Vice President of MEA is Sheikh Galib Rahman. Sheikh is from Bangladesh and came to NY during his College years in order to pursue his passion for IT & Tech. Sheikh has had a robust career in IT & Technology, from working for JPM, Capgemini, Homeland Security, and the Federal Reserve Sheikh had hired and led multiple teams around the world. He recently left his job at Accenture where he was the Global Program Manager for QA in order to run his IT Training School Full Time in Queens Called Transfotech. Sheikh is highly active in the community and most recently returned from a trip to Bangladesh where he helped organize a visit by 5 US Senators to discuss ideas and possible synergies.</p>
-                                    </div>
-                                </div>
-                                <div class="team-content">
-                                    <h4 class="title">Sheikh Galib Rahman</h4>
-                                    <p class="designation">Vice President</p>
-                                    <div class="team-social-icons">
-                                        <ul class="m-0 p-0">
-                                            <li><a href="mailto:Galib.Rahman@MEA-Community.com"><i class="fa fa-envelope"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="team-wraper">
-                                <div class="team-media">
-                                    <img src="{{ Helper::assets('images/our-team/rizwana.jpeg') }}" alt="" class="w-100">
-                                    <div class="team-desc">
-                                        <p>Rizwana Rahim Bashir, is General Secretary of MEA. Born and brought up in Bangladesh, Rizwana moved to USA recently with family for better future of her children. Rizwana had a promising career in the fast moving and dynamic banking industry of Bangladesh, having almost 12 years of work experience with HSBC, a leading multi-national British Bank operating in Bangladesh. She worked her way from an Associate to Vice President, Business Development, Global Trade and Receivables Finance. She has worked closely with Senior Management in various capacities including working a number of years with the present CEO of HSBC Bangladesh. Rizwana has gathered valuable knowledge and practical experience in commercial banking customer handling, leadership and corporate culture. She has been an advocate of women’s rights and empowerment issues. Born to entrepreneurial parents, entrepreneurship is close to her heart.</p>
-                                    </div>
-                                </div>
-                                <div class="team-content">
-                                    <h4 class="title">Rizwana Rahim</h4>
-                                    <p class="designation">General Secretary</p>
-                                    <div class="team-social-icons">
-                                        <ul class="m-0 p-0">
-                                            <li><a href="mailto:rizwana@mea-community.com"><i class="fa fa-envelope"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="team-wraper">
-                                <div class="team-media">
-                                    <img src="{{ Helper::assets('images/our-team/zaman.jpeg') }}" alt="" class="w-100">
-                                    <div class="team-desc">
-                                        <p>Mohammed Zaman is currently the Treasurer for MEA and an accounting manager at SSTL Inc, an ecommerce firm specializing in furniture sales and CRM software licencing. He's also founder of Swiftpark, an app that helps users find and share parking spots. Previously he used to day trade futures with Topsteptrader. He graduated from Baruch college in 2012 with BBA in Finance, Magna Cum Laude. He also trades options, and reads books as a hobby.</p>
-                                    </div>
-                                </div>
-                                <div class="team-content">
-                                    <h4 class="title">Mohammad Zaman</h4>
-                                    <p class="designation">Treasurer</p>
-                                    <div class="team-social-icons">
-                                        <ul class="m-0 p-0">
-                                            <li><a href="mailto:zaman@mea-community.com"><i class="fa fa-envelope"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

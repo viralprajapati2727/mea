@@ -41,6 +41,7 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Topic/SubTopic</th>
                 <th>Icon</th>
                 <th>Status</th>
                 <th>Resource Order</th>
@@ -68,8 +69,7 @@
                     </div>
                     <div class="form-group row px-2">
                         <label class="col-form-label pl-2">Select Topic/Subtopic:<span class="text-danger">*</span> </label>
-                        <select class="form-control form-control-select2" name="topic" id="topic">
-                            <option value="" class="text-secondary">Select Topic/Subtpic</option>
+                        <select class="form-control form-control-select2" placeholder="Select Topic/Subtpic" name="topic[]" id="topic" multiple>
                             @foreach ($topics as $topic)
                                 <option value="{{ $topic->id }}">{{ $topic->title }}</option>
                             @endforeach
@@ -254,6 +254,7 @@ $(document).ready( function () {
         columns: [
             // { data: 'sr_no', name: '' ,searchable:false, orderable:false},
             { data: 'title', name: 'title' ,searchable:false, orderable:false},
+            { data: 'topic_id', name: 'topic_id' ,searchable:false, orderable:false},
             { data: 'src', name: 'src' ,searchable:false},
             { data: 'status', name: 'status' ,searchable:false},
             { data: 'resource_order', name: 'resource_order', searchable: false },
@@ -270,6 +271,7 @@ $(document).ready( function () {
         var src = $(this).data('src');
         var doc = $(this).data('document')
         var topicId = $(this).data('topic')
+        topicId = topicId.split(',');
         var resourceOrder = $(this).data('resource_order')
 
         $('.add_modal').modal({backdrop: 'static', keyboard: false});
@@ -637,7 +639,7 @@ $(document).ready( function () {
                 //     minlength: 20,
                 //     maxlength: 350,
                 // },
-                topic :{
+                "topic[]" :{
                     required: true,
                 },
                 description: {
@@ -668,7 +670,7 @@ $(document).ready( function () {
                 //     minlength: jQuery.validator.format("At least {0} characters required"),
                 //     maxlength: jQuery.validator.format("Maximum {0} characters allowed"),
                 // },
-                topic : {
+                "topic[]" : {
                     required: "Please select Topic/Subtopic"
                 },
                 description: {

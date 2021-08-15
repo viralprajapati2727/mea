@@ -11,27 +11,25 @@ use Helper;
 use Illuminate\Support\Str;
 use Validator;
 use App\Models\Topic;
+use App\Models\ResourceTopic;
 
 class ResourceController extends Controller
 {
     //View Dance/Music Type Listing Page
     public function index(){
         $topics = Topic::select('id','parent_id','title')->orderBy('id','desc')->get();
-
         $resource = Resource::orderBy('created_at','desc')->get();
         return view('admin.resource.index',compact('resource', 'topics'));
     }
 
     //Filter the dance and music types
     public function ajaxData(Request $request){
-        // dd($request->all());
-
         $keyword = "";
         if(!empty($request->keyword)){
             $keyword = $request->keyword;
         }
 
-        $Query = Resource::orderBy('id','desc')->whereNull('deleted_at');
+        $Query = Resource::orderBy('resource_order')->whereNull('deleted_at');
         if(!empty($keyword)){
             $Query->where('title','like','%'.$keyword.'%');
         }
@@ -39,6 +37,16 @@ class ResourceController extends Controller
         $data = datatables()->of($Query)
         ->addColumn('title', function ($Query) {
             return $Query->title;
+        })
+        ->addColumn('topic_id', function ($Query) {
+            $text = "";
+            if(isset($Query->topics) && !empty($Query->topics)){
+                foreach ($Query->topics as $key => $value) {
+                    $text .= '<span class="badge badge-primary mr-1">'.$value->topic->title.'</span>';
+                }
+            }
+
+            return $text;
         })
         ->addColumn('resource_order', function ($Query) {
             $resourceData = $Query->resource_order ? $Query->resource_order : '-' ;
@@ -56,12 +64,19 @@ class ResourceController extends Controller
             return $text;
         })
         ->addColumn('action', function ($Query) {
+            $topics = "";
+            if(isset($Query->topics) && !empty($Query->topics)){
+                foreach ($Query->topics as $key => $value) {
+                    $topics = implode(',',$Query->topics->pluck('topic_id')->toArray()); 
+                }
+            }
+
             $action_link = "";
-            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-is_url = '".$Query->is_url."' data-document = '".$Query->document."' data-ext = '".$Query->ext."' data-topic = '".$Query->topic_id."' data-resource_order = '".$Query->resource_order."' ><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
+            $action_link .= "<a href='.add_modal' data-backdrop='static' data-keyboard='false' data-toggle ='modal' class='edit_resource openResourcePopoup' data-title = '".$Query->title."' data-short_description = '".$Query->short_description."' data-description = '".$Query->description."' data-src ='".$Query->src."' data-id = '".$Query->id."' data-is_url = '".$Query->is_url."' data-document = '".$Query->document."' data-ext = '".$Query->ext."' data-topic = '".$topics."' data-resource_order = '".$Query->resource_order."' ><i class='icon-pencil7 mr-3 text-primary edit_resource'></i></a>&nbsp;&nbsp;";
             $action_link .= "<a href='javascript:;' class='resource_deleted' data-id='".$Query->id . "' data-active='2' data-inuse=''><i class='icon-trash mr-3 text-danger'></i></a>";
             return $action_link;
         })
-        ->rawColumns(['action','status','src'])
+        ->rawColumns(['action','status','src','topic_id'])
         ->make(true);
         return $data;
     }
@@ -70,7 +85,6 @@ class ResourceController extends Controller
     //Add Dance/Music Type
     public function store(Request $request){
 
-        // echo "<pre>"; print_r($request->all()); exit;
         DB::beginTransaction();
         try{
             $status = 0;
@@ -83,7 +97,6 @@ class ResourceController extends Controller
                 'short_description' => $request->short_description,
                 'description' => $request->description,
                 'status' => $status,
-                "topic_id" => $request->topic,
                 "resource_order" => $request->resource_order
             ];
 
@@ -125,8 +138,18 @@ class ResourceController extends Controller
                 }
             }
 
-            Resource::updateOrCreate(['id' => $request->id], $resourceData);
+            $resource = Resource::updateOrCreate(['id' => $request->id], $resourceData);
+            if(isset($request->topic) && !empty($request->topic)){
+                ResourceTopic::where('resource_id', $resource->id)->delete();
+                foreach ($request->topic as $key => $topic) {
+                    ResourceTopic::create(
+                        [ 'resource_id' => $resource->id, 'topic_id' => $topic]
+                    );
+                }
+            }
+
             DB::commit();
+
             if($request->id){
                 return redirect()->route('resource.index')->with('success','Resource has been updated Successfully');
             }

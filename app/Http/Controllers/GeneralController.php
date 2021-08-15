@@ -131,12 +131,14 @@ class GeneralController extends Controller {
 		}
 
 		$id = base64_decode($id);
+
+		$topic = Topic::find($id);
 		
-		$subtopics = Topic::where('parent_id', $id)->select('id')->get();
+		$resources = Resource::whereHas('topics', function($query) use($id){
+			$query->where('topic_id', $id);
+		})->where('deleted_at',null)->orderBy('resource_order')->get();
 
-		$resources = Resource::whereIn('topic_id', $subtopics)->where('deleted_at',null)->orderBy('updated_at','DESC')->orderBy('resource_order')->get();
-
-		return view('pages.resources', compact('resources'));
+		return view('pages.resources', compact('resources','topic'));
 	}
 	public function resourceDetail($slug = null){
 		if(is_null($slug)){

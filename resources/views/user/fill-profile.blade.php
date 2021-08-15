@@ -231,7 +231,7 @@
                         <div class="profile-inner">
                             <div class="row mt-md-2">
                                 <div class="col-12">
-                                    <h2>Suevey Questions <span class="required-star-color">*</span></h2>
+                                    <h2>Survey Questions <span class="required-star-color">*</span></h2>
                                 </div>
                                 <div class="col-12 questions">
                                     @forelse ($questions as $key => $question)
