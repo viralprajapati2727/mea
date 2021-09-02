@@ -159,7 +159,7 @@ $(document).ready(function () {
                                 confirmButtonClass: 'btn btn-success',
                             }).then(function (){
                                 if(deactive == 0){
-                                    $this.parent('span').removeClass('badge-danger');
+                                    $this.parent('span').removeClass('badge-danger').removeClass('badge-info');
                                     $this.parent('span').addClass('badge-success');
                                 }else{
                                     $this.parent('span').addClass('badge-danger');
