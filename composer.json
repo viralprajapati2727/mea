@@ -20,6 +20,7 @@
         "laravel/ui": "^2.4",
         "laravelcollective/html": "^6.2",
         "laravelista/comments": "^3.6.1",
+        "stripe/stripe-php": "^7.94",
         "yajra/laravel-datatables-oracle": "^9.14"
     },
     "require-dev": {
