@@ -12,57 +12,95 @@
     <div class="page-content">
         <div class="content-wrapper">
             <div class="chat-section section-spacer">
-                <div class="container">
-                    <div class="section-header-header my-3">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a href="{{ route('page.members') }}" class="btn btn-secondary font-medium"></i><i
-                                        class="fa fa-arrow-left"></i> Back</a>
-                            </div>
+                <div class="row ">
+                    <div class="col-md-4 col-lg-4 pt-3">
+                        <div class="member-item p-2 border d-flex justify-content-between">
+                            <a href="#" class="profile-image">
+                                {{-- @php
+                                    $ProfileUrl = Helper::images(config('constant.profile_url'));
+                                    $img_url = (isset($member->logo) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';
+                                @endphp --}}
+                                <img src="http://127.0.0.1:8000/images/profile/default.png" alt="profile" height="80" >
+                            </a>
+                            <h2 class="name">
+                                <a href="#">
+                                   John Deo
+                                </a>
+                            </h2>
+                            <p class="">
+                                02 Sep
+                            </p>
+                        </div>
+                        <div class="member-item p-2 border d-flex justify-content-between">
+                                <a href="#" class="profile-image">
+                                    {{-- @php
+                                        $ProfileUrl = Helper::images(config('constant.profile_url'));
+                                        $img_url = (isset($member->logo) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';
+                                    @endphp --}}
+                                    <img src="http://127.0.0.1:8000/images/profile/default.png" alt="profile" height="80" >
+                                </a>
+                                <h2 class="name">
+                                    <a href="#">
+                                       John Deo
+                                    </a>
+                                </h2>
+                                <p class="">
+                                    02 Sep
+                                </p>
                         </div>
                     </div>
-                    <div class="border-1 radius-normal my-3">
-                        <div class="chat-header border-bottom-1 p-3">
-                            <div class="row">
+                    <div class="col-md-8 col-lg-8">
+                        <div class="section-header-header my-3">
+                            {{-- <div class="row">
                                 <div class="col-md-12">
-                                    <div class="normal-content d-flex align-items-center">
-                                        <div class="left-content">
-                                            <p class="font-light m-0">Name : <strong class="text-black font-regular">{{ $user->name ?? "" }}</strong></p>
-                                        </div>
-                                    </div>
+                                    <a href="{{ route('page.members') }}" class="btn btn-secondary font-medium"></i><i
+                                            class="fa fa-arrow-left"></i> Back</a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
-                        <div>
-                            <div class="chat-block-content">
-                                <div class="message-box p-3" id="chat_box">
-                                    @include('message.ajax.message-list')
+                        <div class="border-1 radius-normal my-3">
+                            <div class="chat-header border-bottom-1 p-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="normal-content d-flex align-items-center">
+                                            <div class="left-content">
+                                                <p class="font-light m-0">Name : <strong class="text-black font-regular">{{ $user->name ?? "" }}</strong></p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="chat-footer px-3 py-2 border-top-1 custom-forms">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <form id="f-send-message" method="POST" action="{{ route('member.send-message') }}"
-                                            enctype="multipart/form-data" autocomplete="off">
-                                            @method('POST')
-                                            @csrf
-                                            <input type="hidden" name="group_id" value="{{ $new_group_id ?? "" }}">
-                                            <input type="hidden" name="receiver_id" value="{{ $user->id ?? "" }}">
-                                            <div class="form-group m-0">
-                                                <textarea class="form-control text-black border-0 " rows="2"
-                                                    name="type_msg" placeholder="Please type message"
-                                                    required="">{{ old('type_msg') }}</textarea>
-                                            </div>
-                                            <ul class="fileList pl-1 m-0"></ul>
+                            <div>
+                                <div class="chat-block-content">
+                                    <div class="message-box p-3" id="chat_box">
+                                        @include('message.ajax.message-list')
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary submit-btn">
-                                                <i class="fa fa-paper-plane mr-2 submit-icon"></i>
-                                                Send
-                                            </button>
+                                </div>
+                                <div class="chat-footer px-3 py-2 border-top-1 custom-forms">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <form id="f-send-message" method="POST" action="{{ route('member.send-message') }}"
+                                                enctype="multipart/form-data" autocomplete="off">
+                                                @method('POST')
+                                                @csrf
+                                                <input type="hidden" name="group_id" value="{{ $new_group_id ?? "" }}">
+                                                <input type="hidden" name="receiver_id" value="{{ $user->id ?? "" }}">
+                                                <div class="form-group m-0">
+                                                    <textarea class="form-control text-black border-0 " rows="2"
+                                                        name="type_msg" placeholder="Please type message"
+                                                        required="">{{ old('type_msg') }}</textarea>
+                                                </div>
+                                                <ul class="fileList pl-1 m-0"></ul>
                                         </div>
-                                        </form>
+                                        <div class="col-md-2">
+                                            <div class="d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary submit-btn">
+                                                    <i class="fa fa-paper-plane mr-2 submit-icon"></i>
+                                                    Send
+                                                </button>
+                                            </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
