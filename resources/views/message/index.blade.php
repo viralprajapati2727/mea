@@ -13,7 +13,16 @@
         <div class="content-wrapper">
             <div class="chat-section section-spacer">
                 <div class="row ">
-                    <div class="col-md-4 col-lg-4 pt-3">
+                    <div class="col-md-4 col-lg-4 pt-3 pl-5">
+                        <div class="member-item p-2 border d-flex justify-content-between">
+                            <form action="/search-member" method="post" class="input-group">
+                                <input type="text" name="keyword" id="keyword" placeholder="Search member" class="form-control mb-2" required title="Please enter member name" oninvalid="this.setCustomValidity('Please enter member name')" oninput="this.setCustomValidity('')" >
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary mb-2">Search</button>
+                                    </div>
+                            </form>
+                        </div>
+
                         <div class="member-item p-2 border d-flex justify-content-between">
                             <a href="#" class="profile-image">
                                 {{-- @php
@@ -24,7 +33,7 @@
                             </a>
                             <h2 class="name">
                                 <a href="#">
-                                   John Deo
+                                    John Deo
                                 </a>
                             </h2>
                             <p class="">
@@ -32,21 +41,21 @@
                             </p>
                         </div>
                         <div class="member-item p-2 border d-flex justify-content-between">
-                                <a href="#" class="profile-image">
-                                    {{-- @php
-                                        $ProfileUrl = Helper::images(config('constant.profile_url'));
-                                        $img_url = (isset($member->logo) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';
-                                    @endphp --}}
-                                    <img src="http://127.0.0.1:8000/images/profile/default.png" alt="profile" height="80" >
+                            <a href="#" class="profile-image">
+                                {{-- @php
+                                    $ProfileUrl = Helper::images(config('constant.profile_url'));
+                                    $img_url = (isset($member->logo) && $member->logo != '') ? $ProfileUrl . $member->logo : $ProfileUrl.'default.png';
+                                @endphp --}}
+                                <img src="http://127.0.0.1:8000/images/profile/default.png" alt="profile" height="80" >
+                            </a>
+                            <h2 class="name">
+                                <a href="#">
+                                    John Deo
                                 </a>
-                                <h2 class="name">
-                                    <a href="#">
-                                       John Deo
-                                    </a>
-                                </h2>
-                                <p class="">
-                                    02 Sep
-                                </p>
+                            </h2>
+                            <p class="">
+                                02 Sep
+                            </p>
                         </div>
                     </div>
                     <div class="col-md-8 col-lg-8">
