@@ -271,7 +271,10 @@ $(document).ready( function () {
         var src = $(this).data('src');
         var doc = $(this).data('document')
         var topicId = $(this).data('topic')
-        topicId = topicId.split(',');
+        topicId = topicId.toString();
+        if (topicId.indexOf(',') > -1){
+            topicId = topicId.split(',');
+        }
         var resourceOrder = $(this).data('resource_order')
 
         $('.add_modal').modal({backdrop: 'static', keyboard: false});

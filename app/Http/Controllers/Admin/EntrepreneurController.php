@@ -72,7 +72,7 @@ class EntrepreneurController extends Controller
                 }
                 $class="change-status";
                 if($Query->is_active == 0){
-                    $class="";
+                    $is_active = 1;
                 }
                 $text = "<span class='badge badge-".$statusArr[$Query->is_active]."'><a href='javascript:;' class=".$class." data-active=".$is_active." data-id='".$Query->id."'>".$status."</a></span>";
                 return $text;
@@ -105,7 +105,7 @@ class EntrepreneurController extends Controller
             $questions = ProfileQuestion::where('deleted_at',null)->get();
             
             if(empty($profile)){
-                return redirect()->route('index')->with('error', 'No user details found!');
+                return redirect()->route('admin.entrepreneur.index')->with('error', 'No user details found!');
             }
 
             return view('admin.entrepreneur.detail',compact('profile','questions'));
