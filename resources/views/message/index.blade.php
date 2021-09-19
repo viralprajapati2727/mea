@@ -37,12 +37,12 @@
                                 </div> --}}
                             </div>
                             <div class="border-1 radius-normal my-3">
-                                <div class="chat-header border-bottom-1 p-3">
+                                <div class="chat-header border-bottom-1 p-2">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="normal-content d-flex align-items-center">
                                                 <div class="left-content">
-                                                    <p class="font-light m-0">Name : <strong class="text-black font-regular">{{ $user->name ?? "" }}</strong></p>
+                                                    <p class="font-light m-0 user-title"><strong class="text-black font-regular">{{ $user->name ?? "" }}</strong></p>
                                                 </div>
                                             </div>
                                         </div>

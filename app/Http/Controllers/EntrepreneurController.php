@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Session;
 use Carbon\Carbon;
 use stdClass;
+use Illuminate\Support\Str;
 
 
 class EntrepreneurController extends Controller
@@ -76,8 +77,9 @@ class EntrepreneurController extends Controller
                 $file = $logo_name = "";
                 if($request->file('profile_image') != ''){
                     $file = $request->file('profile_image');                    
-                    $ext = $file->getClientOriginalName();
-                    $logo_name = uniqid('profile_', true) . time() . '.' . $ext;
+                    $random = Str::random(10);
+                    $extension = $file->extension();
+                    $logo_name = uniqid('profile_', true) . time() . $random . '.' . $extension;
                 } else {
                     $logo_name = $request->old_logo;
                 }
@@ -86,7 +88,9 @@ class EntrepreneurController extends Controller
                 if($request->file('cover') != ''){
                     $coverfile = $request->file('cover');                    
                     $ext = $coverfile->getClientOriginalName();
-                    $cover_name = uniqid('cover_', true) . time() . '.' . $ext;
+                    $random = Str::random(10);
+                    $extension = $coverfile->extension();
+                    $cover_name = uniqid('cover_', true) . time() . $random . '.' . $extension;
                 } else {
                     $cover_name = $request->old_cover;
                 }
@@ -95,7 +99,9 @@ class EntrepreneurController extends Controller
                 if($request->file('resume') != ''){
                     $cvfile = $request->file('resume');                    
                     $ext = $cvfile->getClientOriginalName();
-                    $cv_name = uniqid('resume_', true) . time() . '.' . $ext;
+                    $random = Str::random(10);
+                    $extension = $cvfile->extension();
+                    $cv_name = uniqid('resume_', true) . time() . $random . '.' . $extension;
                 } else {
                     $cv_name = $request->old_resume;
                 }

@@ -93,7 +93,7 @@ ul{
 .home-page .site-header {
     background-color: transparent;
     position: absolute;
-    top: 0;
+    top: 40px;
 }
 /* .sticky {
     position: fixed;
@@ -1851,7 +1851,19 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
 .team-wraper .team-social-icons ul li:nth-child(2) a:hover{background-color: #00abef;}
 .team-wraper .team-social-icons ul li:last-child a:hover{background-color: #3371b7;}
 /*=====================Pagination=========================*/
-
+body > .skiptranslate {
+    display: none;
+}
+body {
+    top: 0px !important; 
+}
+.goog-logo-link {
+    display:none !important;
+} 
+    
+.goog-te-gadget{
+    color: transparent !important;
+}
 .pagination nav{
     margin: 0 auto;
 }
@@ -2296,6 +2308,130 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
 .my-job-company .job-apply-text-div {
     width: 100%;
 }
+/*===============Chat===========*/
+.chat-left-wraper {
+    border: 1px solid #e1e1e1;
+    padding: 20px;
+    height: 97%;
+}
+.chat-left-wraper .user-band a {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e1e1e1;
+}
+.chat-left-wraper .user-band a:hover {
+    background-color: #82cef8;
+    color: #FFFFFF !important;
+}
+.chat-left-wraper .user-band a.active {
+    background-color: #82cef8;
+}
+.chat-left-wraper .profile-image-wrap {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+.chat-left-wraper .profile-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+.chat-left-wraper  .user-name {
+    font-size: 16px;
+    font-weight: 500;
+}
+.chat-header .user-title {
+    color: #000000;
+    font-size: 24px;
+    font-weight: 500;
+}
+.chat-normal-content {
+    padding: 10px;
+    border-radius: 6px 6px 0 6px;
+}
+.chat-normal-content.after-left {
+    border-radius: 0 6px 6px 6px;
+}
+.block-content .m-title {font-size: 12px;}
+.message-list .sender-message,
+.message-list .reciver-message {
+    max-width: 80%;
+}
+.message-list .sender-message {
+    margin-left: auto;
+}
+.top-bar-right select {
+    height: 30px;
+    width: 200px;
+    color: #707070;
+    border: 1px solid #707070;
+    background: transparent;
+}
+.top-bar-left ul {
+    display: flex;
+    align-items: center;
+}
+
+.top-bar-left li:first-child {
+    margin-right: 10px;
+}
+
+.top-bar-left li {
+    display: flex;
+    align-items: center;
+}
+
+.top-bar-left li i {
+    color: #0088FF;
+    margin-right: 5px;
+}
+.top-bar-left li i:before {
+    font-size: 16px;
+}
+.top-bar-left li a {
+    color: #707070;
+    font-size: 13px;
+}
+.goog-te-gadget {
+    font-size: 0 !important;
+}
+.goog-te-gadget .goog-te-combo {
+    margin: 0 !important;
+}
+.page-top-bar {
+    padding: 5px 0;
+}
+.message-count i {
+    font-size: 23px;
+}
+.message-count span {
+    position: absolute;
+    right: 12px;
+    bottom: 55px;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*==============================================Meadia Query====================================
 
 ==============================================================================================*/
@@ -2482,6 +2618,8 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
     .navbar-collapse .nav-item {border-top: 1px solid #f4f4f4;}
     .site-nav__dropdown ul ul {padding-left: 15px;}
     .site-nav--has-dropdown>a:after {position: absolute; top: 15px; right: 0;}
+    .top-bar-left ul {justify-content: center;}
+    .top-bar-right {text-align: center !important; margin-top: 5px;}
 }
 @media screen and (max-width: 575px){
     .contact-details ul li a{width: 110px; height: 35px; line-height: 25px;}
@@ -2515,6 +2653,7 @@ ul.site-nav__childlist-grid>.site-nav__child-link--parent {
         font-size: 12px;
     }
     .header-right .navbar-toggler{top: -75px;}
+    .top-bar-left ul {flex-direction: column;}
 }
 @media screen and (max-width: 349px) {
     .unique-radio .form-radio-group .radio-inline{margin-right: 0; width: 100%;}

@@ -264,6 +264,10 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
         Route::post('email-subscriptions-filter', 'Admin\SubscriptionController@ajaxData')->name('admin.email-subscriptions-filter');
         Route::post('send-subscription-mail', 'Admin\SubscriptionController@sendEmail')->name('admin.send-subscription-mail');
 
+        Route::get('messages','Admin\MessageController@index')->name('admin.messages');
+        Route::post('messages-filter', 'Admin\MessageController@ajaxData')->name('admin.messages-filter');
+        Route::get('messages/detail/{id}', 'Admin\MessageController@detail')->name('admin.message.detail');
+
     });
 });
 

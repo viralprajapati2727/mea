@@ -105,10 +105,12 @@ class MessageController extends Controller {
         }
 
 		
-		if(!empty($currentChats)){
+		if(!empty($currentChats) && $currentChats->count()){
 			$firstGroupMemberCollection = collect($currentChats[0]->members);
 			$oppMember = $firstGroupMemberCollection->whereNotIn('user_id', [Auth::id()])->first();
 			$user = User::find($oppMember->id);
+		} else {
+			return redirect('/')->with('error','No User found');
 		}
 
 		//this ajax response use only in message pagination

@@ -39,5 +39,8 @@ class ChatGroup extends Model
     public function groupUsers() {
         return $this->hasManyThrough('App\User', 'App\Models\ChatMasters','group_id', 'id', 'user_id');
     }
+    public function createdBy() {
+        return $this->hasOne('App\User', 'id', 'created_by');
+    }
     
 }

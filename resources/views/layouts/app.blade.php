@@ -23,7 +23,7 @@
                 );
             }
         </script>
-        <script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
         {{-- {{ TawkTo::widgetCode() }} --}}
         <!--Start of Tawk.to Script-->
@@ -37,6 +37,10 @@
         s1.setAttribute('crossorigin','*');
         s0.parentNode.insertBefore(s1,s0);
         })();
+        $(window).load(function(){
+    $(".goog-logo-link").empty();
+    $('.goog-te-gadget').html($('.goog-te-gadget').children());
+})
     </script>
     <!--End of Tawk.to Script-->
     </body>

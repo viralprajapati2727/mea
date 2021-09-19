@@ -1,3 +1,28 @@
+<div class="page-top-bar">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="top-bar-left">
+                    <ul>
+                        <li>
+                            <i class="flaticon-phone-call"></i>
+                            <a href="tel: 202 555 0191">202 555 0191</a>
+                        </li>
+                        <li>
+                            <i class="flaticon-email"></i>
+                            <a href="mailto: infomuslimstartups@gmail.com">infomuslimstartups@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="top-bar-right text-right">
+                    <div id="google_translate_element"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <header class="site-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg">
@@ -66,7 +91,7 @@
                                         <a class="nav-link" href="{{ route('page.fund-requests') }}">Fund Request</a>
                                     </li>
                                     <li class="nav-item message-count">
-                                        <a class="nav-link" href="{{ route('member.message') }}"><i class="mr-2 flaticon-email"></i><span>{{ Helper::messageCount(Auth::id()) }}</span></a>
+                                        <a class="nav-link" href="{{ route('member.message') }}"><i class="mr-2 fa fa-comment-o"></i><span>{{ Helper::messageCount(Auth::id()) }}</span></a>
                                     </li>
                                 </ul>
                             @endif

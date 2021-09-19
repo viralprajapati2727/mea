@@ -60,7 +60,7 @@ class Helper
             return self::images($return_path);
         }
         if ($is_image) {
-            return self::images($original_path . 'default.png');
+            return self::images($return_path . 'default.png');
         }
         return true;
     }
@@ -390,6 +390,18 @@ class Helper
                 "short_title" => "Email Subscriptions",
                 "icon" => "icon-envelop2",
                 "active_menu" => array('admin.email-subscriptions'),
+                "child" => array(),
+            ),
+            "21" => array( // Messages
+                "is_menu" => TRUE,
+                "url" => route('admin.messages'),
+                "is_access" => TRUE,
+                "privilege_key" => "21",
+                "privilege_require" => "1",
+                "full_title" => "Messages",
+                "short_title" => "Messages",
+                "icon" => "icon-envelop2",
+                "active_menu" => array('admin.messages'),
                 "child" => array(),
             ),
 
