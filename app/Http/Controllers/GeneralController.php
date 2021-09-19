@@ -419,10 +419,18 @@ class GeneralController extends Controller {
 						$stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
 						$message = "";
             $fund = null;
+						$donors = 0;
+						$justDonors = 0;
 
             if($id != null){
                 $fund = RaiseFund::where('id',$id)->first();
-            }
+                $donors = PaymentLogs::where('raise_fund_id',$id)->where('payment_status', 'paid')->count(); // get total donors
+                $justDonors = PaymentLogs::where('raise_fund_id',$id)->where('payment_status', 'paid')->where('updated_at', ">", Carbon::now()->subMinutes(30)->toDateTimeString())->count(); //  get recent 30 mins donors count 
+            
+								RaiseFund::where('id',$id)->update([
+									'views' => $fund->views + 1
+								]);
+							}
 
 						if ($status != null) {
 							$retrieve  =  $stripe->checkout->sessions->retrieve(
@@ -432,18 +440,26 @@ class GeneralController extends Controller {
 
 							if($retrieve['payment_status'] == 'paid') {
 								$message = "Thanks you";
-								// dd($request->session()->get('paymentLog')->id);
+								
 								$paymentLog = PaymentLogs::updateOrCreate([
 											"id" => $request->session()->get('paymentLog')->id
 									], [
+											"payment_status" => $retrieve->payment_status,
 											"payment_object" => json_encode($retrieve)
 									]);
 
+									$raiseFund = RaiseFund::where("id", $paymentLog->raise_fund_id)->first();
+									$receivedAmount = 0;
+
+									if (!is_null($raiseFund)) {
+										$receivedAmount = $raiseFund->received_amount;
+									}
 
 									RaiseFund::updateOrCreate([
 										"id" => $paymentLog->raise_fund_id
 									], [
-										"received_amount" => $paymentLog->amount
+										"received_amount" => $receivedAmount + $paymentLog->amount,
+										"donors" => $donors
 									]);
 							} else {
 								$message = "Something went wrong";
@@ -451,9 +467,11 @@ class GeneralController extends Controller {
 
 							$request->session()->forget('payment_session');
 							$request->session()->forget('paymentLog');
+
+							return redirect(route('page.fund-requests.view', ['id'=> $id]));
 						}
 
-            return view('pages.view-fund-request',compact('fund', "message"));
+            return view('pages.view-fund-request',compact('fund', "message", "donors", "justDonors"));
 
         }catch(Exception $e){
             DB::rollback();

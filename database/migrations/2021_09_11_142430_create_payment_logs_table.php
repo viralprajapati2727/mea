@@ -19,6 +19,7 @@ class CreatePaymentLogsTable extends Migration
             $table->string('stripe_acc_id');
             $table->string('raise_fund_id');
             $table->string('amount');
+            $table->string('payment_status');
             $table->text('payment_object')->nullable();
             $table->timestamps();
 

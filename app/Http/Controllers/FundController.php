@@ -15,6 +15,7 @@ use App\Models\StartUpPortal;
 use App\Models\ScheduleAppointment;
 use App\Models\StartupTeamMembers;
 use App\Models\RaiseFund;
+use App\Models\PaymentLogs;
 
 class FundController extends Controller
 {
@@ -105,5 +106,12 @@ class FundController extends Controller
             $responseData['message'] = trans('common.something_went_wrong');
             return $this->commonResponse($responseData, $code);
         }
+    }
+
+    public function viewDonorList($id)
+    {
+        $payments = PaymentLogs::where('raise_fund_id', $id)->paginate(10);
+
+        return view('pages.view-donors', compact('payments', 'id'));
     }
 }

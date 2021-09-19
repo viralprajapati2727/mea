@@ -123,6 +123,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
                 
                 Route::get('raise-fund','FundController@index')->name('startup.raise-fund');
                 Route::get('raise-fund/{action?}/{id?}','FundController@create')->name('startup.raise-fund.create');
+                Route::get('raise-fund/view/{id}/donor-list','FundController@viewDonorList')->name('startup.donor-list');
                 Route::post('store-raise-fund','FundController@store')->name('startup-raise-fund.store');
             }); 
         }); 
@@ -245,6 +246,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
         Route::post('fund-filter', 'Admin\FundController@ajaxData')->name('admin.fund-filter');
         Route::post('fund-status', 'Admin\FundController@fundStatus')->name('admin.fund.approve-reject');
         Route::get('fund-details/{id}','Admin\FundController@detail')->name("admin.fund.detail");
+        Route::post('fund-donor-list','Admin\FundController@donorList')->name('admin.fund-donor-list');
 
         //Topic Management
         Route::resource('topic','Admin\TopicController');

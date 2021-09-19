@@ -29,12 +29,12 @@
                                 <div class="fund-amount">
                                     <h3>{{ $fund->currency }} {{ $fund->received_amount ? $fund->received_amount : 0 }}</h3><span>raised of {{ $fund->currency }} {{ $fund->amount }} goal</span>
                                 </div>
-                                <progress id="file" value="3" max="100"> 3% </progress>
+                                <progress id="file" value="{{  round((($fund->received_amount ?? 0) / $fund->amount * 100), 2) }}" title="{{  round((($fund->received_amount ?? 0) / $fund->amount * 100), 2) }} %" max="100"> {{ round((($fund->received_amount ?? 0) / $fund->amount * 100), 2) }}% </progress>
                             </div>
                             <div class="donate-info">
                                 <ul>
                                     <li>
-                                        <p>{{ $fund->donors }}</p>
+                                        <p>{{ $donors ?? 0 }}</p>
                                         <span>Donors</span>
                                     </li>
                                     {{-- <li> 
@@ -55,7 +55,7 @@
                                 <ul>
                                     <li>
                                         <div class="icon"><img src="{{  Helper::images('images/fund/').'graph_icon.png' }}"></div>
-                                        <span>{{ $fund->donors }} people just donated</span>
+                                        <span>{{ $justDonors ?? 0 }} people just donated</span>
                                     </li>
                                 </ul>
                             </div>
@@ -77,6 +77,7 @@
                 @csrf
                 {!! Form::hidden('user_id', $fund->user_id) !!}
                 {!! Form::hidden('raise_fund_id', $fund->id) !!}
+                {!! Form::hidden('title', $fund->title) !!}
                 <div class="modal-body">
                     <div class="row mt-md-2">
                         <div class="col-md-12">

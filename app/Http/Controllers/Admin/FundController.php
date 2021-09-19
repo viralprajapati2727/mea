@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RaiseFund;
 use Auth;
+use App\Models\PaymentLogs;
 
 class FundController extends Controller
 {
@@ -100,5 +101,39 @@ class FundController extends Controller
         }else{
             return redirect()->route('admin.fund.index');
         }
+    }
+
+    public function donorList(Request $request)
+    {
+        $keyword = "";
+        if(!empty($request->keyword)){
+            $keyword = $request->keyword;
+        }
+
+        $Query = PaymentLogs::orderBy('id','desc');
+        
+        if($keyword != ""){
+            $Query->where('payment_object', $keyword);
+        }
+
+        $data = datatables()->of($Query)
+        ->addColumn('payment_id', function ($Query) {
+            $paymentObject = json_decode($Query->payment_object);
+            return $paymentObject->id;
+        })
+        ->addColumn('email', function ($Query) {
+            $paymentObject = json_decode($Query->payment_object);
+            return $paymentObject->customer_details->email ?? "-";
+        })
+        ->addColumn('amount', function ($Query) {
+            return $Query->amount ?? '-';
+        })
+        ->addColumn('payment_status', function ($Query) {
+            return $Query->payment_status ?? '-';
+        })
+        ->rawColumns(['action','title'])
+        ->make(true);
+        
+        return $data;
     }
 }

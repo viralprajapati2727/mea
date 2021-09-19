@@ -34,7 +34,8 @@ class PaymentController extends Controller
         $account = \Stripe\Account::create([
             'country' => 'US',
             'type' => 'express',
-            'email' => Auth::user()->email
+            'email' => Auth::user()->email,
+            // 'source_type' => 'bank_account'
         ]);
        
         /**
@@ -108,7 +109,7 @@ class PaymentController extends Controller
         $newSession = $stripe->checkout->sessions->create([
             'payment_method_types' => ['card'],
                 'line_items' => [[
-                    'name' => 'Nikunj payment',
+                    'name' => $request->title ?? "MEA Fund Raise Request" ,
                     'amount' => $request->amount * 100,
                     'currency' => 'usd',
                     'quantity' => 1,
@@ -124,14 +125,12 @@ class PaymentController extends Controller
                 'cancel_url' => "{$referer}/cancel",
           ]);
           
-          $paymentLog = PaymentLogs::updateOrCreate(
-            [
-                "user_id" => Auth::user()->id
-            ],
-            [
+          $paymentLog = PaymentLogs::Create([
+                "user_id" => Auth::user()->id,
                 "stripe_acc_id" => $getAccId->id, // stripe account table id
                 "raise_fund_id" => $request->raise_fund_id,
                 'amount' => $request->amount,
+                "payment_status" => $newSession->payment_status,
                 "payment_object" => json_encode($newSession),
             ]);
 

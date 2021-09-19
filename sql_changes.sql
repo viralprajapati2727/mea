@@ -74,6 +74,7 @@ CREATE TABLE `payment_logs` (
   `stripe_acc_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `raise_fund_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `payment_object` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
