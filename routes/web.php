@@ -65,8 +65,9 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
             Route::post('entrepreneur-store-profile', 'EntrepreneurController@updateProfile')->name('entrepreneur.store-profile');
         });
 
-        Route::get('members/message/{user?}','GeneralController@getMessages')->name('member.message');
-        Route::post('members/send-message','GeneralController@sendMessage')->name('member.send-message');
+        Route::get('members/message/{user?}','MessageController@index')->name('member.message');
+        Route::post('members/send-message','MessageController@sendMessage')->name('member.send-message');
+        Route::post('get_message_list', 'MessageController@getMessageList')->name('get_message_list');
 
         // fund request 
         Route::get('fund-requests','GeneralController@getFundRequests')->name('page.fund-requests');

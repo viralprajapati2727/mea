@@ -117,7 +117,7 @@
                             <div class="col-md-4">
                                 <div class="form-group position-relative">
                                     <label class="form-control-label">Date of Birth </label>
-                                    <input type="text" class="form-control birthdate" name="dob" id="dob" placeholder="Select Your Date of Birth" value="{{ old('dob', isset($profile->userProfile->dob)? (\Carbon\Carbon::createFromFormat('Y-m-d',$profile->userProfile->dob)->format('d/m/Y')):'' ) }}" >
+                                    <input type="text" class="form-control birthdate" name="dob" id="dob" placeholder="Select Your Date of Birth" value="{{ old('dob', isset($profile->userProfile->dob)? (\Carbon\Carbon::createFromFormat('Y-m-d',$profile->userProfile->dob)->format('m/d/Y')):'' ) }}" >
                                     <div class="date-of-birth-icon">
                                         <i class="flaticon-calendar"></i>
                                     </div>

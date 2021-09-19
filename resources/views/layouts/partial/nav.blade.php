@@ -65,6 +65,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('page.fund-requests') }}">Fund Request</a>
                                     </li>
+                                    <li class="nav-item message-count">
+                                        <a class="nav-link" href="{{ route('member.message') }}"><i class="mr-2 flaticon-email"></i><span>{{ Helper::messageCount(Auth::id()) }}</span></a>
+                                    </li>
                                 </ul>
                             @endif
                             <div class="login-links">

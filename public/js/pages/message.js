@@ -1,4 +1,26 @@
 $(document).ready(function () {
+    
+    getActiveUserMessages();
+    
+    $(document).on('click', '.chat-section .user-band', function(){
+        getActiveUserMessages()
+    })
+
+    $('.message-list').on("scroll", function() {
+        var group_id = $('.chat-section .user-band .active').attr('data-group');
+
+        var scrollHeight = $("#chat"+group_id+" .message-list").height();
+        var scrollPosition = $("#chat"+group_id+" .message-list").height() + $("#chat"+group_id+" .message-list").scrollTop();
+        // console.log('scrollHeight',scrollHeight);
+        // console.log('scrollPosition',scrollPosition);
+        if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+            // when scroll to bottom of the page
+            // console.log('at top');   
+            loadMessages(group_id);
+        }
+    });
+    
+    
     $("#f-send-message").validate({
         ignore: "input[type=hidden]",
         errorElement: "span",
@@ -125,6 +147,50 @@ $(document).ready(function () {
     }
 
     $('#f-send-message').submit( function(){
-        $('.submit-btn').attr("disabled", "disabled");
+        
+        // $('.submit-btn').attr("disabled", "disabled");
     })
 });
+
+function getActiveUserMessages(){
+    var group_id = $('.chat-section .user-band .active').attr('data-group');
+    $('#f-send-message .g_id').val(group_id);
+    loadMessages(group_id)
+}
+
+function loadMessages(group_id){
+    var page = $("#chat"+group_id+" .group-options .page").val();
+    $.ajax(
+    {
+        url: get_ajax_message_list,
+        type: "POST",
+        data:{group_id:group_id, page: page},
+        beforeSend: function()
+        {                    
+            // blockContentBody(); 
+        }
+    })
+    .done(function(data)
+    {                
+        if(data.html == ""){
+            //   $(".no-record").show();
+            //   unBlockContentBody();
+            return;
+        }else{
+            // unBlockContentBody();
+            $("#chat"+group_id+" .message-list").prepend(data.html);
+            // $("#chat"+group_id+" .message-list").scrollBy(0, 500);
+            if(page == 1){
+                $("#chat"+group_id+" .message-list").animate({ scrollTop: $("#chat"+group_id+" .message-list").height() }, 500);
+            }
+            $("#chat"+group_id+" .group-options .page").val(data.next_page);
+        }
+    })
+    .fail(function(jqXHR, ajaxOptions, thrownError)
+    {
+        console.log(jqXHR);
+        console.log(ajaxOptions);
+        console.log(thrownError);                
+    // unBlockContentBody();
+    });
+}

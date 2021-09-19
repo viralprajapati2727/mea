@@ -30,6 +30,7 @@ use App\Models\PostJob;
 use App\Models\JobApplied;
 use App\Models\Topic;
 use App\Models\Resource;
+use App\Models\ChatMessagesReceiver;
 
 class Helper
 {
@@ -175,18 +176,18 @@ class Helper
                     ),
                 ),
             ),
-            "5" => array( // Staff
-                "is_menu" => TRUE,
-                "url" => '',//route('staff.index'),
-                "is_access" => FALSE,
-                "privilege_key" => "5",
-                "privilege_require" => "1",
-                "full_title" => "Staff Management",
-                "short_title" => "Staff",
-                "icon" => "icon-users4",
-                "active_menu" => array(),//array('staff.index','staff.create','staff.edit'),
-                "child" => array(),
-            ),
+            // "5" => array( // Staff
+            //     "is_menu" => FALSE,
+            //     "url" => '',//route('staff.index'),
+            //     "is_access" => FALSE,
+            //     "privilege_key" => "5",
+            //     "privilege_require" => "1",
+            //     "full_title" => "Staff Management",
+            //     "short_title" => "Staff",
+            //     "icon" => "icon-users4",
+            //     "active_menu" => array(),//array('staff.index','staff.create','staff.edit'),
+            //     "child" => array(),
+            // ),
             "6" => array( // Category (Ask a question)
                 "is_menu" => TRUE,
                 "url" => route('question-category.index'),
@@ -785,5 +786,10 @@ class Helper
           } else {
             return $var;
           }
+    }
+    public static function messageCount($user_id){
+        $messageCount = ChatMessagesReceiver::where('receiver_id', $user_id)->where('unreadable_count','>', 0)->groupBy('group_id')->get();
+        $messageCount = $messageCount->sum('unreadable_count');
+        return $messageCount;
     }
 }

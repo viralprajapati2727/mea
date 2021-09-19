@@ -10,13 +10,24 @@
             <i class="icon-spinner10 spinner mx-auto" id="loading-image"></i><br>
         </div>
         @include('layouts.flash-message')
+        <div id="google_translate_element"></div>
         @yield('content')
         @include('layouts.partial.footer')
         @yield('footer_script')
 
+        <script>
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement(
+                    {pageLanguage: 'en'},
+                    'google_translate_element'
+                );
+            }
+        </script>
+        <script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
         {{-- {{ TawkTo::widgetCode() }} --}}
         <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
+        <script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
         (function(){
         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
