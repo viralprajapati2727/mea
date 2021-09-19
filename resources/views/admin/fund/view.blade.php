@@ -145,8 +145,8 @@
         },
         columns: [
             { data: 'payment_id', name: 'payment_id' ,searchable:false, orderable:false},
-            { data: 'amount', name: 'amount' ,searchable:false, orderable:false},
             { data: 'email', name: 'email' ,searchable:false, orderable:false},
+            { data: 'amount', name: 'amount' ,searchable:false, orderable:false},
             { data: 'payment_status', name: 'payment_status', searchable:false, orderable:false }
         ]
     });
