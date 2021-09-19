@@ -11,16 +11,21 @@
             <div class="container">
                 <div class="job-inner-wrap">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-12">
                             <div class="job-details-left">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-10">
                                         <div class="job-details-inner">
                                             <h2 class="job-title">{{ $fund->title ?? ""}}</h2>
                                             <div class="mr-3 mt-2">
                                                 <span class="job-status status-{{ strtolower($statuss[$fund->status]) }} mr-2">{{ $statuss[$fund->status] }}</span>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="{{ route('startup.donor-list', ["id" => $fund->id]) }}" class="btn btn-primary job-details-inner">
+                                            View Donor List
+                                        </a>
                                     </div>
                                 </div>
                             </div>

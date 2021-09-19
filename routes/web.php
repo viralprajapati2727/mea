@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get("/checkout", "PaymentController@index");
-Route::post("/create-account", "PaymentController@create");
+Route::get("/create-account", "PaymentController@create")->name('create-account');
 Route::get("/success", "PaymentController@success");
-Route::post('/payment', "PaymentController@payment");
+Route::post('/payment', "PaymentController@payment")->name('payment');
+Route::get("/bank-account", "PaymentController@bankAccount")->name('bank-account');
+Route::get("/bank-account/{action?}", "PaymentController@success");
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', 'GeneralController@index')->name('home');
@@ -71,7 +73,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
 
         // fund request 
         Route::get('fund-requests','GeneralController@getFundRequests')->name('page.fund-requests');
-        Route::get('fund-requests/view/{id?}','GeneralController@viewFundRequest')->name('page.fund-requests.view');
+        Route::get('fund-requests/view/{id?}/{status?}','GeneralController@viewFundRequest')->name('page.fund-requests.view');
 
         Route::group(['middleware' => ['fill-profile-access']], function () {
 
@@ -122,6 +124,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
                 
                 Route::get('raise-fund','FundController@index')->name('startup.raise-fund');
                 Route::get('raise-fund/{action?}/{id?}','FundController@create')->name('startup.raise-fund.create');
+                Route::get('raise-fund/view/{id}/donor-list','FundController@viewDonorList')->name('startup.donor-list');
                 Route::post('store-raise-fund','FundController@store')->name('startup-raise-fund.store');
             }); 
         }); 
@@ -244,6 +247,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
         Route::post('fund-filter', 'Admin\FundController@ajaxData')->name('admin.fund-filter');
         Route::post('fund-status', 'Admin\FundController@fundStatus')->name('admin.fund.approve-reject');
         Route::get('fund-details/{id}','Admin\FundController@detail')->name("admin.fund.detail");
+        Route::post('fund-donor-list','Admin\FundController@donorList')->name('admin.fund-donor-list');
 
         //Topic Management
         Route::resource('topic','Admin\TopicController');

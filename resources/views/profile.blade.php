@@ -100,6 +100,11 @@
                                 <li>
                                     <a href="{{ route('appointment.index') }}" class="contact-link">Appointments</a>
                                 </li>
+                                @if(Auth::check() && Auth::id() == $profile->id)
+                                    <li>
+                                        <a href="{{ route('bank-account') }}" class="contact-link">Bank Account</a>
+                                    </li>
+                                @endif
                                 @if(Auth::check() && Auth::id() != $profile->id)
                                     <li>
                                         <a href="javascript:;" class="contact-link" data-toggle="modal" data-target="#appointment">Request Appointment</a>

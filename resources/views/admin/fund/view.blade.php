@@ -82,6 +82,85 @@
         </div>
     </div>
 </div>
+
+<div class="card">
+    <div class="card-body">
+        <h4>Donors List</h4>
+        <div class="row">
+            <div class="col-2">
+                <div class="controls">
+                    <label class="text-secondary">Email</label>
+                    <input type="text" name="keyword" placeholder="Email" class="form-control" id="keyword">
+                </div>
+            </div>
+            <div class="col-3 mt-3">
+                <label class="text-secondary"></label>
+                <button type="text" id="btnFilter" class="btn btn-primary rounded-round">APPLY</button>
+                <button type="text" id="btnReset" class="btn btn-primary rounded-round">RESET</button>
+            </div>
+        </div>
+    </div>
+    <table class="table datatable-save-state dataTable no-footer" role="grid" id="datatable">
+        <thead>
+            <tr>
+                <th>Payment Id</th>
+                <th>Email</th>
+                <th>Amount</th>
+                <th>Payment Status</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
 <script>
+    var filter = "{{ route('admin.fund-donor-list') }}";
+
+    $(document).ready( function () {
+    fundRequest = $('#datatable').DataTable({
+        serverSide: true,
+        bFilter:false,
+        ajax: {
+            url: filter,
+            type: 'POST',
+            beforeSend: function(){
+                $('body').block({
+                    message: '<div id="loading"><i class="icon-spinner6 spinner id="loading-image""></i></div><br>Please Wait...',
+                    overlayCSS: {
+                        backgroundColor: '#000',
+                        opacity: 0.15,
+                        cursor: 'wait'
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: 'transparent'
+                    }
+                });
+            },
+            data: function (d) {
+                d.keyword = $('#keyword').val();
+            },
+            complete: function(){
+                $('body').unblock();
+            },
+        },
+        columns: [
+            { data: 'payment_id', name: 'payment_id' ,searchable:false, orderable:false},
+            { data: 'email', name: 'email' ,searchable:false, orderable:false},
+            { data: 'amount', name: 'amount' ,searchable:false, orderable:false},
+            { data: 'payment_status', name: 'payment_status', searchable:false, orderable:false }
+        ]
+    });
+
+    $('#btnFilter').click(function(){
+        $('#datatable').DataTable().draw(true);
+    });
+
+    $('#btnReset').click(function(){
+        $('#keyword').val('').change();
+        $('#datatable').DataTable().draw(true);
+    });
+     
+});
 </script>
 @endsection

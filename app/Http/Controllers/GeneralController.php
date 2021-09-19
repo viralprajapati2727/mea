@@ -28,6 +28,10 @@ use App\Models\Topic;
 use App\Models\EmailSubscriptions;
 use Carbon\Carbon;
 use App\Models\StartUpPortal;
+use App\Models\StripeAccount;
+use App\Models\PaymentLogs;
+use Stripe\Stripe;
+use Stripe\Checkout;
 
 class GeneralController extends Controller {
 	
@@ -290,15 +294,64 @@ class GeneralController extends Controller {
 		$funds = RaiseFund::where('status',1)->paginate(10);
 		return view('pages.fund-requests',compact('funds'));
 	}
-	public function viewFundRequest($id = null){
+	public function viewFundRequest(Request $request, $id = null, $status = null){
 		try{
+						$stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+						$message = "";
             $fund = null;
+						$donors = 0;
+						$justDonors = 0;
 
             if($id != null){
                 $fund = RaiseFund::where('id',$id)->first();
-            }
+                $donors = PaymentLogs::where('raise_fund_id',$id)->where('payment_status', 'paid')->count(); // get total donors
+                $justDonors = PaymentLogs::where('raise_fund_id',$id)->where('payment_status', 'paid')->where('updated_at', ">", Carbon::now()->subMinutes(30)->toDateTimeString())->count(); //  get recent 30 mins donors count 
+            
+								RaiseFund::where('id',$id)->update([
+									'views' => $fund->views + 1
+								]);
+							}
 
-            return view('pages.view-fund-request',compact('fund'));
+						if ($status != null) {
+							$retrieve  =  $stripe->checkout->sessions->retrieve(
+								$request->session()->get('payment_session')['id'],
+								[]
+							);
+
+							if($retrieve['payment_status'] == 'paid') {
+								$message = "Thanks you";
+								
+								$paymentLog = PaymentLogs::updateOrCreate([
+											"id" => $request->session()->get('paymentLog')->id
+									], [
+											"payment_status" => $retrieve->payment_status,
+											"payment_object" => json_encode($retrieve)
+									]);
+
+									$raiseFund = RaiseFund::where("id", $paymentLog->raise_fund_id)->first();
+									$receivedAmount = 0;
+
+									if (!is_null($raiseFund)) {
+										$receivedAmount = $raiseFund->received_amount;
+									}
+
+									RaiseFund::updateOrCreate([
+										"id" => $paymentLog->raise_fund_id
+									], [
+										"received_amount" => $receivedAmount + $paymentLog->amount,
+										"donors" => $donors
+									]);
+							} else {
+								$message = "Something went wrong";
+							}
+
+							$request->session()->forget('payment_session');
+							$request->session()->forget('paymentLog');
+
+							return redirect(route('page.fund-requests.view', ['id'=> $id]));
+						}
+
+            return view('pages.view-fund-request',compact('fund', "message", "donors", "justDonors"));
 
         }catch(Exception $e){
             DB::rollback();
