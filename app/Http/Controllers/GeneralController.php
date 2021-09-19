@@ -28,6 +28,10 @@ use App\Models\Topic;
 use App\Models\EmailSubscriptions;
 use Carbon\Carbon;
 use App\Models\StartUpPortal;
+use App\Models\StripeAccount;
+use App\Models\PaymentLogs;
+use Stripe\Stripe;
+use Stripe\Checkout;
 
 class GeneralController extends Controller {
 	
@@ -410,15 +414,46 @@ class GeneralController extends Controller {
 		$funds = RaiseFund::where('status',1)->paginate(10);
 		return view('pages.fund-requests',compact('funds'));
 	}
-	public function viewFundRequest($id = null){
+	public function viewFundRequest(Request $request, $id = null, $status = null){
 		try{
+						$stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+						$message = "";
             $fund = null;
 
             if($id != null){
                 $fund = RaiseFund::where('id',$id)->first();
             }
 
-            return view('pages.view-fund-request',compact('fund'));
+						if ($status != null) {
+							$retrieve  =  $stripe->checkout->sessions->retrieve(
+								$request->session()->get('payment_session')['id'],
+								[]
+							);
+
+							if($retrieve['payment_status'] == 'paid') {
+								$message = "Thanks you";
+								// dd($request->session()->get('paymentLog')->id);
+								$paymentLog = PaymentLogs::updateOrCreate([
+											"id" => $request->session()->get('paymentLog')->id
+									], [
+											"payment_object" => json_encode($retrieve)
+									]);
+
+
+									RaiseFund::updateOrCreate([
+										"id" => $paymentLog->raise_fund_id
+									], [
+										"received_amount" => $paymentLog->amount
+									]);
+							} else {
+								$message = "Something went wrong";
+							}
+
+							$request->session()->forget('payment_session');
+							$request->session()->forget('paymentLog');
+						}
+
+            return view('pages.view-fund-request',compact('fund', "message"));
 
         }catch(Exception $e){
             DB::rollback();

@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get("/checkout", "PaymentController@index");
-Route::post("/create-account", "PaymentController@create");
+Route::get("/create-account", "PaymentController@create")->name('create-account');
 Route::get("/success", "PaymentController@success");
-Route::post('/payment', "PaymentController@payment");
+Route::post('/payment', "PaymentController@payment")->name('payment');
+Route::get("/bank-account", "PaymentController@bankAccount")->name('bank-account');
+Route::get("/bank-account/{action?}", "PaymentController@success");
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', 'GeneralController@index')->name('home');
@@ -70,7 +72,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
 
         // fund request 
         Route::get('fund-requests','GeneralController@getFundRequests')->name('page.fund-requests');
-        Route::get('fund-requests/view/{id?}','GeneralController@viewFundRequest')->name('page.fund-requests.view');
+        Route::get('fund-requests/view/{id?}/{status?}','GeneralController@viewFundRequest')->name('page.fund-requests.view');
 
         Route::group(['middleware' => ['fill-profile-access']], function () {
 

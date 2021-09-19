@@ -29,7 +29,7 @@
                                 <div class="fund-amount">
                                     <h3>{{ $fund->currency }} {{ $fund->received_amount ? $fund->received_amount : 0 }}</h3><span>raised of {{ $fund->currency }} {{ $fund->amount }} goal</span>
                                 </div>
-                                <progress id="file" value="32" max="100"> 32% </progress>
+                                <progress id="file" value="3" max="100"> 3% </progress>
                             </div>
                             <div class="donate-info">
                                 <ul>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="fund-actions">
                                 <button class="btn share-btn">Share</button>
-                                <button class="btn donate-btn">Donate now</button>
+                                <button class="btn donate-btn" data-toggle="modal" data-target="#donate" >Donate now</button>
                             </div>
                             <div class="sidebar-footer">
                                 <ul>
@@ -63,6 +63,35 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div id="donate" class="modal fade" tabindex="-1" style="z-index: 99999">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Donate</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <form class="appointment_form " action="{{ route('payment') }}" class="form-horizontal" data-fouc method="POST" autocomplete="off">
+                @csrf
+                {!! Form::hidden('user_id', $fund->user_id) !!}
+                {!! Form::hidden('raise_fund_id', $fund->id) !!}
+                <div class="modal-body">
+                    <div class="row mt-md-2">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-control-label">Please enter amount <span class="required-star-color">*</span></label>
+                                <input type="number" class="form-control" name="amount" id="Amount" placeholder="0" required min="1" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-primary">Donate</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
