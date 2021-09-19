@@ -67,3 +67,27 @@ ALTER TABLE `topics` ADD `topic_order` INT(10) NULL DEFAULT NULL AFTER `status`;
 ALTER TABLE `appointments` ADD `receiver_id` INT(11) NULL DEFAULT NULL AFTER `user_id`;
 
 ALTER TABLE `user_profiles` ADD `is_phone_public` TINYINT NOT NULL DEFAULT '0' COMMENT '0:No, 1: Yes' AFTER `is_email_public`
+
+CREATE TABLE `payment_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `stripe_acc_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `raise_fund_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_object` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `stripe_accounts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `stripe_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `details_submitted` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_holder_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `routing_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last4` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stripe_object` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
