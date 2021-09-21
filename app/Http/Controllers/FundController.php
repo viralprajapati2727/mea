@@ -16,12 +16,15 @@ use App\Models\ScheduleAppointment;
 use App\Models\StartupTeamMembers;
 use App\Models\RaiseFund;
 use App\Models\PaymentLogs;
+use App\Models\StripeAccount;
 
 class FundController extends Controller
 {
     public function index(){
         $funds = RaiseFund::where('user_id',Auth::id())->orderBy('id','DESC')->paginate(10);
-        return view('fund.index',compact('funds'));    
+        $stripeAccountExists = StripeAccount::where('user_id', Auth::id())->where('details_submitted', 'true')->exists();
+        
+        return view('fund.index',compact('funds', 'stripeAccountExists'));    
     }
 
     public function create($action = null,$id = null)
