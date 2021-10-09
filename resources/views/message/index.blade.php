@@ -15,17 +15,17 @@
                 <div class="container">
                     <div class="row ">
                         <div class="col-md-4 col-lg-4 pt-3">
-                        <div class="chat-left-wraper">
-                            <div class="member-item d-flex justify-content-between">
-                                <form action="/search-member" method="post" class="input-group">
-                                    <input type="text" name="keyword" id="keyword" placeholder="Search member" class="form-control mb-2" required title="Please enter member name" oninvalid="this.setCustomValidity('Please enter member name')" oninput="this.setCustomValidity('')" >
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-primary mb-2">Search</button>
-                                        </div>
-                                </form>
+                            <div class="chat-left-wraper">
+                                {{-- <div class="member-item d-flex justify-content-between">
+                                    <form action="/search-member" method="post" class="input-group">
+                                        <input type="text" name="keyword" id="keyword" placeholder="Search member" class="form-control mb-2" required title="Please enter member name" oninvalid="this.setCustomValidity('Please enter member name')" oninput="this.setCustomValidity('')" >
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary mb-2">Search</button>
+                                            </div>
+                                    </form>
+                                </div> --}}
+                                @include('message.chats-list')
                             </div>
-                            @include('message.chats-list')
-                        </div>
                         </div>
                         <div class="col-md-8 col-lg-8">
                             <div class="section-header-header my-3">
@@ -42,7 +42,7 @@
                                         <div class="col-md-12">
                                             <div class="normal-content d-flex align-items-center">
                                                 <div class="left-content">
-                                                    <p class="font-light m-0 user-title"><strong class="text-black font-regular">{{ $user->name ?? "" }}</strong></p>
+                                                    <p class="font-light m-0 user-title"><strong class="text-black font-regular activated-user-name">{{ $user->name ?? "" }}</strong></p>
                                                 </div>
                                             </div>
                                         </div>

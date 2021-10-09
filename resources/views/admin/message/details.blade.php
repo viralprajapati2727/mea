@@ -7,11 +7,11 @@ $statuss = config('constant.job_status');
 <!-- Page header -->
 <div class="page-header page-header-light">
     <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-        <div class="d-flex">
+        <div class="d-flex justify-content-space-between w-100">
             <div class="breadcrumb">
                 <span class="breadcrumb-item active">Chat List</span>
             </div>
-            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+            <a href="{{ route('admin.message.download',['type' => 'pdf', 'id' => base64_encode($group_id)]) }}" class="download-link text-default text-right pr-5"><i class="icon-file-pdf" style="color: red"></i> Download pdf</a>
         </div>
     </div>
 </div>

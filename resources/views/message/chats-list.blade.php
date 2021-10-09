@@ -7,8 +7,22 @@
                         @php
                             $ProfileUrl = Helper::images(config('constant.profile_url'));
                             $img_url = (isset($member->user->logo) && $member->user->logo != '') ? $ProfileUrl . $member->user->logo : $ProfileUrl.'default.png';
+
+
+                            $activated = "";
+                            if((!empty($user) && $user->id == $member->user->id) || (!empty($activated_group) && $activated_group == $group->id)){
+                                $activated = "active show";
+                            }
+
+
+                            if(empty($user) && empty($activated_group)){
+                                if($key == 0){
+                                    $activated = "active show";
+                                }
+                            }
+
                         @endphp
-                        <a class="nav-link {{ $key == 0 ? 'active show' : '' }}" data-toggle="pill" href="#chat{{ $group->id }}" role="tab" data-group="{{ $group->id }}">
+                        <a class="nav-link {{ $activated }}" data-toggle="pill" href="#chat{{ $group->id }}" role="tab" data-group="{{ $group->id }}">
                             <div class="profile-image-wrap">
                                 <img class="chat-icons profile-image" height="50" src="{{  $img_url }}">
                             </div>

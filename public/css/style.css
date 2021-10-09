@@ -264,7 +264,7 @@ ul{
     position: absolute;
     width: 100%;
     left: 0;
-    top: 115px;
+    top: 200px;
     background: #FFFFFF;
     padding: 40px 0;
     z-index: 9;
@@ -2416,7 +2416,14 @@ body {
     font-weight: 500;
     font-size: 12px;
 }
+.chat-section .profile-image{
+    width: 50px;
+    height: 50px;
+}
 
+.chat-section .profile-image img{
+    border-radius: 100%;
+}
 
 
 

@@ -7,6 +7,23 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
+Route::get('/view-clear', function() {
+    $exitCode = Artisan::call('view:clear');
+    return 'View cache cleared';
+});
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    return 'Application cache cleared';
+});
+Route::get('/route-cache', function() {
+    $exitCode = Artisan::call('route:cache');
+    return 'Routes cache cleared';
+});
+Route::get('/config-cache', function() {
+    $exitCode = Artisan::call('config:clear');
+    return 'Config cache cleared';
+});
+
 Route::get("/checkout", "PaymentController@index");
 Route::get("/create-account", "PaymentController@create")->name('create-account');
 Route::get("/success", "PaymentController@success");
@@ -271,7 +288,8 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
         Route::get('messages','Admin\MessageController@index')->name('admin.messages');
         Route::post('messages-filter', 'Admin\MessageController@ajaxData')->name('admin.messages-filter');
         Route::get('messages/detail/{id}', 'Admin\MessageController@detail')->name('admin.message.detail');
-
+        Route::get('messages/download/{type}/{id}', 'Admin\MessageController@download')->name('admin.message.download');
+        
     });
 });
 

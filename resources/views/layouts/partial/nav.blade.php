@@ -6,7 +6,7 @@
                     <ul>
                         <li>
                             <i class="flaticon-phone-call"></i>
-                            <a href="tel: 202 555 0191">202 555 0191</a>
+                            <a href="tel: 516 308 6498">516 308 6498</a>
                         </li>
                         <li>
                             <i class="flaticon-email"></i>

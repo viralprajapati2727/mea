@@ -78,9 +78,13 @@
                                     {{ __('Register') }}
                                 </button>   
                                 <span>Or</span>
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register with Google') }}
-                                </button> 
+                                <a href="{{ url('login/google') }}" style="margin-top: 20px;background:linear-gradient(-150deg, #4285f4, #34a853, #fbbc05, #ea4335);" class="btn btn-lg btn-success btn-block">
+                                    <strong>Login With Google</strong>
+                                </a>
+                                <br />
+                                <a href="{{ url('login/facebook') }}" style="background-color: #4267B2" class="btn btn-lg btn-warning btn-block">
+                                    <strong>Login With Facebook</strong>
+                                </a>
                                 <div class="login-link text-right">
                                     <p>Already a MEA member? <a href="{{ route('login') }}">Login</a></p>
                                 </div>

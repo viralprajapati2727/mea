@@ -16,6 +16,7 @@ use App\Models\ChatMessage;
 use App\Models\ChatMessagesReceiver;
 use App\Http\Controllers\SendMailController;
 use Carbon\Carbon;
+use PDF;
 
 class MessageController extends Controller
 {
@@ -83,6 +84,41 @@ class MessageController extends Controller
             ->orderBy('id', 'ASC')
             ->get();
         return view('admin.message.details', compact('group_id','messages'));
+    }
+    public function download($type, $id = null){
+        if(is_null($id)){
+            return redirect()->back();
+        }
+
+        $group_id = base64_decode($id);
+
+        $groupData = ChatGroup::with(['members','messages'])->
+			whereHas('members',function($query){
+				
+			})->where('id', $group_id)->first();
+
+        $messages = $groupData->messages()->orderBy('id','asc')->get();
+
+
+        $group = "";
+        foreach ($groupData->members as $key => $member) {
+            if($key == 1){
+                $group .= " VS ".$member->user->name;
+            } else {
+                $group .= $member->user->name;
+            }
+        }
+        
+        $data = [
+            'title' => $group,
+            'date' => date('m/d/Y'),
+            'messages' => $messages
+        ];
+        
+        if($type == 'pdf'){
+            $pdf = PDF::loadView('admin/message/chat', $data);
+            return $pdf->download('chat.pdf');
+        }
     }
 }
 

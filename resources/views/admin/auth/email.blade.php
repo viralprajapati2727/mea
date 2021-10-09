@@ -7,11 +7,11 @@
         <div class="text-center">
             <a href="{{ url('/') }}" class="d-inline-block">
                 <a href="{{ route('index') }}" class="d-inline-block">
-                    <img src="{{ Helper::assets('images/logo.png') }}" alt="">
+                    <img src="{{ Helper::assets('images/logo.png') }}" alt="" height="150" width="150">
                 </a>
             </a>
         </div>
-        <div class="card mb-0">
+        <div class="card mb-0 mt-3">
             <div class="card-body">
                 <div class="text-center mb-3">
                     <h5 class="mb-0">Forgot Password</h5>

@@ -36,8 +36,14 @@ class MessageController extends Controller {
 	 */
 	public function index(Request $request,$user = null)
     {
+
+		$activated_group = "";
+		if(isset($_GET['g'])){
+			$activated_group = $_GET['g'];
+		}
         $currentUser = Auth::user();
 		if(!is_null($user)){
+
         	$user = User::where('slug',$user)->select('id', 'slug', 'name', 'email', 'logo')->first();
 		}
         $new_group_id = null;
@@ -108,7 +114,7 @@ class MessageController extends Controller {
 		if(!empty($currentChats) && $currentChats->count()){
 			$firstGroupMemberCollection = collect($currentChats[0]->members);
 			$oppMember = $firstGroupMemberCollection->whereNotIn('user_id', [Auth::id()])->first();
-			$user = User::find($oppMember->id);
+			// $user = User::find($oppMember->id);
 		} else {
 			return redirect('/')->with('error','No User found');
 		}
@@ -118,8 +124,8 @@ class MessageController extends Controller {
         //     $view = view('message.ajax.message-list',compact('messages'))->render();
         //     return response()->json(['html'=>$view]);
         // }
-		
-        return view('message.index',compact('new_group_id','user','currentChats','currentUser'));
+
+        return view('message.index',compact('new_group_id','user','currentChats','currentUser','activated_group'));
 
     }
 	public function getMessageList(Request $request){
@@ -198,6 +204,7 @@ class MessageController extends Controller {
 
 		// return redirect()->back();
 		$responseData['status'] = 1;
+		$responseData['redirect'] = route('member.message', ['g' => $request->g_id]);
 		$responseData['message'] = "success";
 		return $this->commonResponse($responseData, 200);
 		

@@ -41,9 +41,16 @@
 			@php $user = Auth::user(); @endphp
 			<li class="nav-item dropdown dropdown-user admin-nav-dropdown">
 				<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-					{{-- <img src="{{ $profilePhoto }}" class="rounded-circle" alt="Profile">
-					<span>&nbsp;</span> --}}
-					<div class="profile-image-nav" style="background-image:url(''); height:50px; width:50px;background-size:cover;border-radius:50%"></div>
+					@php $ProfileUrl = Helper::images(config('constant.profile_url')); $img_url = $ProfileUrl.'default.png'; @endphp
+                        @if($user->logo != "")
+                            @php
+                                if($profile->logo != "")
+                                    $is_same_profile_photo = true;
+
+                                $img_url = (isset($user->logo) && $user->logo != '') ? $ProfileUrl . $user->logo : $ProfileUrl.'default.png';
+                            @endphp
+                        @endif
+					<div class="profile-image-nav" style="background-image:url({{ $img_url }}); height:50px; width:50px;background-size:cover;border-radius:50%"></div>
 				</a>
 
 				<div class="dropdown-menu dropdown-menu-right">
