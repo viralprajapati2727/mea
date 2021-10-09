@@ -13,8 +13,7 @@ class PaymentController extends Controller
 {
     protected $stripe;
 
-    public function __construct() 
-    {    
+    public function __construct() {
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $this->stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
     }
@@ -27,38 +26,51 @@ class PaymentController extends Controller
     public function create(Request $request)
     {
         // Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        /**
+         * Check if account is already created or not
+         */
+
+         $isExists = StripeAccount::where("user_id" , Auth::user()->id)->select('id', 'stripe_id', 'details_submitted')->first();
       
         /**
          * Creating account in stripe portal
          */
-        $account = \Stripe\Account::create([
-            'country' => 'US',
-            'type' => 'express',
-            'email' => Auth::user()->email,
-            // 'source_type' => 'bank_account'
-        ]);
-       
+        $account = $isExists;
+        $stripeId = '';
+        if(is_null($account)) {
+            $account = \Stripe\Account::create([
+                'country' => 'US',
+                'type' => 'express',
+                'email' => Auth::user()->email
+            ]);
+            $stripeId = $account->id; 
+        } else {
+            $stripeId = $account->stripe_id;
+            $account->id = $account->stripe_id;
+        }
+
         /**
          * Storing stripe account details in DB
          */
+
 
         StripeAccount::updateOrCreate(
         [
             "user_id" => Auth::user()->id
         ],
         [
-            "stripe_id" => $account->id,
+            "stripe_id" =>  $stripeId,
             "account_status" => "incomplete",
-            "details_submitted" => json_encode($account->details_submitted),
+            "details_submitted" => $account->details_submitted,
             "stripe_object" => json_encode($account),
         ]);
 
         $request->session()->put('account', $account);
-        $request->session()->put('stripe_acc_id', $account->id);
+        $request->session()->put('stripe_acc_id', $stripeId);
         
         $origin = $request->headers->get('referer') ?? $request->headers->get('origin');
       
-        $account_link_url =  self::generate_account_link($account->id, $origin);
+        $account_link_url =  self::generate_account_link($stripeId, $origin);
 
         return redirect($account_link_url);
     }
@@ -78,10 +90,10 @@ class PaymentController extends Controller
                 "account_status" => "completed",
                 "details_submitted" => json_encode($account->details_submitted),
                 "stripe_object" => json_encode($account),
-                "bank_name" => $account->external_accounts->data[0]['bank_name'],
-                "account_holder_name" => $account->external_accounts->data[0]['account_holder_name'],
-                "routing_number" => $account->external_accounts->data[0]['routing_number'],
-                "last4" => $account->external_accounts->data[0]['last4']
+                "bank_name" => $account->external_accounts->data[0]['bank_name'] ?? "",
+                "account_holder_name" => $account->external_accounts->data[0]['account_holder_name'] ?? "",
+                "routing_number" => $account->external_accounts->data[0]['routing_number'] ?? "",
+                "last4" => $account->external_accounts->data[0]['last4'] ?? ""
             ]);
 
         // $account_retrieve = $stripe->checkout->sessions->retrieve(

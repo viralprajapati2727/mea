@@ -92,3 +92,6 @@ CREATE TABLE `stripe_accounts` (
   `last4` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `stripe_object` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE `stripe_accounts` CHANGE `id` `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`);
+ALTER TABLE `payment_logs` CHANGE `id` `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`);
