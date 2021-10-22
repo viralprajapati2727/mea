@@ -44,7 +44,10 @@ class SendMailController extends Controller {
 			case 2:
 				//Welcome message after successfully verify
 				$email_body = str_replace('{user_name}', $user_name, $email_body);
-				break;
+				// $attachment = Helper::assets('images/MEA-User-Guide.pdf');
+				// $attachment = base_path().'/public/images/MEA-User-Guide.pdf';
+				$attachment = public_path('images/MEA-User-Guide.pdf');
+					break;
 			case 3:
 				//Forgot Password- Password Reset Link
                 $email_body = str_replace('{link}', $data['verificationUrl'], $email_body);
