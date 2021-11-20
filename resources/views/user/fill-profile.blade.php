@@ -27,7 +27,7 @@
         $exists_resume = $resumeUrl.$profile->userProfile->resume;
     }
     $exists_cover = "";
-    if(isset($profile->userProfile->resume) && $profile->userProfile->cover != ""){
+    if(isset($profile->userProfile->cover) && $profile->userProfile->cover != ""){
         $is_same_profile_cover_photo = true;
         $exists_cover = $coverUrl.$profile->userProfile->cover;
     }
