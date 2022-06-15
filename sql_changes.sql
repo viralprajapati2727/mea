@@ -95,3 +95,6 @@ CREATE TABLE `stripe_accounts` (
 
 ALTER TABLE `stripe_accounts` CHANGE `id` `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`);
 ALTER TABLE `payment_logs` CHANGE `id` `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`);
+
+
+ALTER TABLE `chat_masters` ADD `is_blocked` TINYINT NOT NULL DEFAULT '0' COMMENT '0 = No, 1 = Yes' AFTER `clear_chat_time`;

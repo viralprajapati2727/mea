@@ -94,6 +94,7 @@ class SendMailController extends Controller {
 				$finalData['manager_email'] =  (isset($manager_email))?$manager_email:'';
 				$finalData['admin_email'] =  (isset($admin_email))?$admin_email:'';
 				$finalData['param'] =  $param;
+
 				SendMailController::finalMailSend($finalData);
 			}
 			return;			
@@ -128,8 +129,8 @@ class SendMailController extends Controller {
 		if(isset($data['admin_email']) && !empty($data['admin_email'])){
 			$message->bcc($data['admin_email']);
 		}
-		$message->send(new DynamicEmail($content,$data['param']));
-		return;
+		return $message->send(new DynamicEmail($content,$data['param']));
+		
 	}
 }
 	

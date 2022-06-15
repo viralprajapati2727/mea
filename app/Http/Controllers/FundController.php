@@ -23,8 +23,8 @@ class FundController extends Controller
     public function index(){
         $funds = RaiseFund::where('user_id',Auth::id())->orderBy('id','DESC')->paginate(10);
         $stripeAccountExists = StripeAccount::where('user_id', Auth::id())->where('details_submitted', 'true')->exists();
-        
-        return view('fund.index',compact('funds', 'stripeAccountExists'));    
+        $startupCount = StartUpPortal::where('user_id',Auth::id())->whereNull('deleted_at')->count();
+        return view('fund.index',compact('funds', 'stripeAccountExists','startupCount'));    
     }
 
     public function create($action = null,$id = null)

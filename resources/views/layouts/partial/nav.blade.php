@@ -148,9 +148,9 @@
                                                                 @endif
                                                                 <li><a href="{{ route('page.drop-idea') }}">Drop Your Ideas</a></li>
                                                                 <li><a href="{{ route('page.questions') }}">My Questions</a></li>
+                                                                <li><a href="{{ route('startup-portal') }}">StartUp Portal</a></li>
+                                                                <li><a href="{{ route('startup.raise-fund') }}">Startups To Raise Funds</a></li>
                                                                 @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR'))
-                                                                    <li><a href="{{ route('startup-portal') }}">StartUp Portal</a></li>
-                                                                    <li><a href="{{ route('startup.raise-fund') }}">Startups To Raise Funds</a></li>
                                                                 @endif
                                                                 <li><a class="logoutconfirm" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
                                                             </ul>

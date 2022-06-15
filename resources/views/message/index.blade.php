@@ -40,9 +40,12 @@
                                 <div class="chat-header border-bottom-1 p-2">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="normal-content d-flex align-items-center">
+                                            <div class="normal-content d-flex align-items-center justify-content-between">
                                                 <div class="left-content">
                                                     <p class="font-light m-0 user-title"><strong class="text-black font-regular activated-user-name">{{ $user->name ?? "" }}</strong></p>
+                                                </div>
+                                                <div class="right-content chat-extra-icons pr-2">
+                                                    <a href="javascript:;" class="block-user"><i class="fa fas fa-ban"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,5 +94,6 @@
 <script type="text/javascript" src="{{ Helper::assets('js/pages/message.js') }}"></script>
 <script>
     var get_ajax_message_list = "{{ route('get_message_list') }}";
+    var block_user = "{{ route('chat-block-user') }}";
 </script>
 @endsection

@@ -15,7 +15,7 @@ class ChatMasters extends Model
 		'left_group',
 		'created_at',	
     ];
-	// public $timestamps = false;
+	public $timestamps = false;
 	
 	public function messages() {
 		return $this->hasMany('App\Models\ChatMessage', 'group_id', 'id')->orderBy('id','DESC');

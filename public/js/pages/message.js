@@ -149,10 +149,74 @@ $(document).ready(function () {
     $('#f-send-message').submit( function(){
         
         // $('.submit-btn').attr("disabled", "disabled");
-    })
+    });
+
+    $(document).on('click', '.block-user', function(){
+        var _text = $(this).hasClass('blocked') ? 'unblock' : 'block';
+        swal({
+            title: "Are you sure you want to "+_text+" this user ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-grey',
+            buttonsStyling: false
+        }).then(function (confirm) {
+            if(confirm.value !== "undefined" && confirm.value){
+                var group_id = $('.chat-section .user-band .active').attr('data-group');
+                $.ajax({
+                    url: block_user,
+                    type: 'POST',
+                    data: {
+                        group_id : group_id,
+                    },
+                    beforeSend: function(){
+                        $('body').block({
+                            message: '<i class="icon-spinner4 spinner"></i><br>'+ "Please Wait..",
+                            overlayCSS: {
+                                backgroundColor: '#000',
+                                opacity: 0.15,
+                                cursor: 'wait'
+                            },
+                            css: {
+                                border: 0,
+                                padding: 0,
+                                backgroundColor: 'transparent'
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        if(response.status == 200){
+                            swal({
+                                title: response.message,
+                                type: "success",
+                                confirmButtonText: "OK",
+                                confirmButtonClass: 'btn btn-primary',
+                            }).then(function (){
+                                location.href = response.redirect;
+                            });
+                        }else{
+                            swal({
+                                title: response.msg_fail,
+                                confirmButtonClass: 'btn btn-primary',
+                                type: "error",
+                                confirmButtonText: "OK",
+                            });
+                        }
+                    },
+                    complete: function(){
+                        $('body').unblock();
+                    }
+                });
+            }
+        });
+    });
 });
 
 function getActiveUserMessages(){
+    $('.chat-left-wrapper .user-band').removeClass('li-active');
+    $('.chat-section .user-band .active').parent('li').addClass('li-active');
     var group_id = $('.chat-section .user-band .active').attr('data-group');
     var activated_user_name = $('.chat-section .user-band .active .user-name').text();
     $('.activated-user-name').text(activated_user_name);
@@ -173,7 +237,22 @@ function loadMessages(group_id){
         }
     })
     .done(function(data)
-    {                
+    {    
+        $('.already-blocked').addClass('block-user').removeClass('already-blocked');
+        $('.block-user .blocked').remove();
+        $('.block-user').html('<i class="fa fas fa-ban" title="Block User"></i>');
+        $('.chat-footer').show();
+        if(data.is_blocked_user > 0){
+            $('.block-user').addClass('already-blocked').removeClass('block-user');
+            $('.already-blocked i').remove();
+            if(data.is_current_user_blocked > 0){
+                $('.already-blocked').html('<span class="blocked">Blocked</span>');
+            } else {
+                $('.already-blocked').html('<span class="blocked block-user" title="Unblock User">Unblock</span>');
+            }
+            $('.chat-footer').hide();
+        }
+        
         if(data.html == ""){
             //   $(".no-record").show();
             //   unBlockContentBody();

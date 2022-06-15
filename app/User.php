@@ -66,12 +66,12 @@ class User extends Authenticatable implements MustVerifyEmail, ShouldQueue
     }
 
     public function sendEmailVerificationNotification(){
-        $verificationUrl = $this->verificationUrl($this);
-        SendMailController::dynamicEmail([
-            'email_id' => 1,
-            'user_id' => $this->id,
-            'verificationUrl' => $verificationUrl
-        ]);
+        // $verificationUrl = $this->verificationUrl($this);
+        // SendMailController::dynamicEmail([
+        //     'email_id' => 1,
+        //     'user_id' => $this->id,
+        //     'verificationUrl' => $verificationUrl
+        // ]);
     }
 
     /**

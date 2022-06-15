@@ -38,6 +38,7 @@ return [
     'Seems_you_couldnt_submit_form' => "Oops! Seems you couldn't submit form for a long time. Please try again.",
     'Please_enter_the_same_password_as_above' => "Please enter the same password as above",
     'login_first' => "Please login first",
+    'registerd_successfully' => "Congratulations, your account has been successfully created",
 
     "Token_expired" => "Token expired",
     "Token_invalid" => "Token invalid",

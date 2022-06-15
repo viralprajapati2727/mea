@@ -49,9 +49,9 @@ class MessageController extends Controller
                 foreach ($Query->members as $key => $member) {
                     if($key == 1){
                         $group .= " <strong>VS</strong> ";
-                        $group .= " VS ".$member->user->name;
+                        $group .= " VS ".$member->user->name.($member->is_blocked ? '(<span style="color:red">Blocked</span>)' : '');
                     } else {
-                        $group .= $member->user->name;
+                        $group .= $member->user->name.($member->is_blocked ? '(<span style="color:red">Blocked</span>)' : '');
                     }
                 }
 

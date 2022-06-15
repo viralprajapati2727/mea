@@ -141,7 +141,6 @@ class MessageController extends Controller {
 				// ->get();
 				->paginate(config('constant.rpp'));
 				
-				
 				ChatMessagesReceiver::where(['group_id'=> $request->group_id,'receiver_id'=> $user->id])->update(['unreadable_count' => 0]);
 				
 				$currentPage = $messages->currentPage();
@@ -151,8 +150,20 @@ class MessageController extends Controller {
 				$total = isset($lastPage) ? $lastPage : 0;
 				$messages = $messages->reverse();
 				$message_list_html = view('message.ajax.message-list')->with(compact('messages', 'user', 'currentPage','lastPage'))->render();
-				
-				return response()->json(['status' => '200', 'msg_success' => 'successfully run','html' => $message_list_html,'next_page' => $next_page, 'total' => $total]);
+
+				// $receiverData = ChatMasters::where('group_id', $request->group_id)->whereNotIn('user_id', [Auth::id()])->first();
+				$is_blocked_user = ChatMasters::where('group_id', $request->group_id)->where('is_blocked', 1)->count();
+				$is_current_user_blocked = ChatMasters::where('group_id', $request->group_id)->where('user_id', Auth::id())->where('is_blocked', 1)->count();
+
+				return response()->json([
+					'status' => '200', 
+					'msg_success' => 'successfully run', 
+					'html' => $message_list_html, 
+					'next_page' => $next_page, 
+					'total' => $total, 
+					'is_blocked_user' => $is_blocked_user,
+					'is_current_user_blocked' => $is_current_user_blocked
+				]);
 			}else{
 				return;
 			}
@@ -209,5 +220,15 @@ class MessageController extends Controller {
 		return $this->commonResponse($responseData, 200);
 		
         // return request()->json(['status'=>200,'message'=>'message sent successfully']);
+	}
+	public function blockUser(Request $request){
+		$receiverData = ChatMasters::where('group_id', $request->group_id)->whereNotIn('user_id', [Auth::id()])->first();
+		$receiverData->is_blocked = $receiverData->is_blocked == 1 ? 0 : 1;
+		$receiverData->save();
+		$responseData['status'] = 200;
+		$_text = $receiverData->is_blocked == 0 ? 'unblocked' : 'blocked';
+		$responseData['message'] = "Successfully ".$_text;
+		$responseData['redirect'] = route('member.message', ['g' => $request->group_id]);
+		return $this->commonResponse($responseData, 200);
 	}
 }

@@ -92,7 +92,7 @@
             </div>
         </div>
         @auth
-        @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR'))
+        {{-- @if (Auth::user()->type == config('constant.USER.TYPE.ENTREPRENEUR')) --}}
         <div class="get-started-wrap">
             <div class="container">
                 <div class="row align-items-center">
@@ -110,7 +110,7 @@
                 </div>
             </div>
         </div>
-        @endif
+        {{-- @endif --}}
         @endauth
         @if(!$startups->isEmpty() && $startups->count())
         <div class="browse-plans">

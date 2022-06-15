@@ -42,7 +42,7 @@
                 <div class="com-que-list"> 
                     <div class="com-que header">
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-8">
                                 <div class="community-que">
                                     <h2>Questions</h2>
                                 </div>
@@ -62,12 +62,17 @@
                                     <h2>Likes</h2>
                                 </div>
                             </div>
+                            <div class="col-lg-1">
+                                <div class="votes">
+                                    <h2>Action</h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     @foreach ($questions as $question)
                         <div class="com-que">
                             <div class="row">
-                                <div class="col-lg-9">
+                                <div class="col-lg-8">
                                     <div class="community-que">
                                         @php
                                             $ProfileUrl = Helper::images(config('constant.profile_url'));
@@ -99,6 +104,13 @@
                                 <div class="col-lg-1">
                                     <div class="votes">
                                         <span>{{ $question->countCommunityTotalLikes($question->id) }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="votes">
+                                        <p data-href="{{ route('community.delete-question',['id' => $question->id]) }}" data-id={{ $question->id }} class="text-danger delete-question cursor-pointer">
+                                            Delete
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -202,4 +214,74 @@
     });
 </script>
 <script type="text/javascript" src="{{ Helper::assets('js/pages/community.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        
+        $(document).on('click','.delete-question',function(){
+            _this = $(this);
+            
+            if(_this.data('id') != ""){
+                swal({
+                    title: "Are you sure you want to delete question ?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    confirmButtonClass: 'btn btn-primary',
+                    cancelButtonClass: 'btn btn-grey',
+                    buttonsStyling: false
+                }).then(function (confirm) {
+                    if(confirm.value !== "undefined" && confirm.value){
+                        $.ajax({
+                            url: _this.data("href"),
+                            type: 'POST',
+                            data: {
+                                id : _this.data('id'),
+                                status : _this.val(),
+                            },
+                            beforeSend: function(){
+                                $('body').block({
+                                    message: '<i class="icon-spinner4 spinner"></i><br>'+ "Please Wait..",
+                                    overlayCSS: {
+                                        backgroundColor: '#000',
+                                        opacity: 0.15,
+                                        cursor: 'wait'
+                                    },
+                                    css: {
+                                        border: 0,
+                                        padding: 0,
+                                        backgroundColor: 'transparent'
+                                    }
+                                });
+                            },
+                            success: function(response) {
+                                if(response.status == 200){
+                                    swal({
+                                        title: response.message,
+                                        type: "success",
+                                        confirmButtonText: "OK",
+                                        confirmButtonClass: 'btn btn-primary',
+                                    }).then(function (){
+                                        window.location.reload(true);
+                                    });
+                                }else{
+                                    swal({
+                                        title: response.msg_fail,
+                                        confirmButtonClass: 'btn btn-primary',
+                                        type: "error",
+                                        confirmButtonText: "OK",
+                                    });
+                                }
+                            },
+                            complete: function(){
+                                $('body').unblock();
+                            }
+                        });
+                    }
+                }, function (dismiss) {
+                });
+            }
+        });
+    });
+</script>
 @endsection

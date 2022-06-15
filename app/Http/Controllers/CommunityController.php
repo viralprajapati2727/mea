@@ -26,7 +26,7 @@ class CommunityController extends Controller
     public function index(Request $request){
         $categories = QuestionCategory::select('id','title','status')->where('deleted_at',null)->where('status',1)->orderBy('id','DESC')->get();
         $tags = Tags::where('status',1)->select('title')->get()->pluck('title');
-        $questions = Community::with('communityTags')->where('deleted_at',null)->where('status',1);
+        $questions = Community::with('communityTags')->where('deleted_at',null)->where('status',1)->where('user_id',Auth::id());
 
         // if (Auth::check()) {
         //     $questions = $questions->where('user_id',Auth::id());
@@ -157,7 +157,7 @@ class CommunityController extends Controller
         try{
             $questions = Community::with(['communityTags', 'communityCategory'])
                     ->where('status',1)
-                    ->where('user_id',Auth::id())
+                    // ->where('user_id',Auth::id())
                     ->where('deleted_at',null);
                     
             if(isset($request->category_id) && $request->category_id != null){
@@ -174,5 +174,23 @@ class CommunityController extends Controller
             DB::rollback();
             return array('status' => '0', 'msg_fail' => 'Something went wrong');
         }
+    }
+    public function deleteQuestion($id){
+        $responseData = array();
+        $responseData['status'] = 0;
+        $responseData['message'] = '';
+        $responseData['errors'] = array();
+        $responseData['data'] = [];
+
+        if ($id) {
+            Community::where('id', $id)->where('user_id',Auth::id())->delete();
+        }
+
+        $responseData['status'] = 200;
+        $responseData['message'] = 'Question has been deleted successfully';
+
+        Session::flash('success', $responseData['message']);
+        
+        return $this->commonResponse($responseData, 200);
     }
 }

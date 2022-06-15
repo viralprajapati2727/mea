@@ -2314,27 +2314,36 @@ body {
     padding: 20px;
     height: 97%;
 }
-.chat-left-wraper .user-band a {
+.chat-left-wraper .user-band {
     padding: 5px 0;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #e1e1e1;
 }
-.chat-left-wraper .user-band a:hover {
+.chat-left-wraper .user-band:hover {
     background-color: #82cef8;
     color: #FFFFFF !important;
 }
-.chat-left-wraper .user-band a.active {
+.chat-left-wraper .user-band:hover a {color: #FFFFFF;}
+.chat-left-wraper .user-band.li-active {
     background-color: #82cef8;
 }
+.chat-left-wraper .user-band a {width: 100%;}
+.chat-left-wraper .user-band.li-active a,
+.chat-left-wraper .user-band:hover a {
+    color: #FFFFFF !important;
+    background-color: transparent;
+}
 .chat-left-wraper .profile-image-wrap {
+   margin-right: 15px;
+}
+.chat-left-wraper .profile-image-wrap a {
     width: 50px;
     height: 50px;
     border-radius: 100%;
-    margin-right: 15px;
     overflow: hidden;
+    display: block;
 }
-
 .chat-left-wraper .profile-image-wrap img {
     width: 100%;
     height: 100%;
@@ -2525,7 +2534,7 @@ body {
     .who-we-are {padding: 50px 0;}
     .header-login {
         position: absolute;
-        top: -55px;
+        top: -90fvpx;
         right: 15px;
     }
     .team-wraper .team-content {padding: 30px 20px;}

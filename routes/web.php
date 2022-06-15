@@ -87,6 +87,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
         Route::get('members/message/{user?}','MessageController@index')->name('member.message');
         Route::post('members/send-message','MessageController@sendMessage')->name('member.send-message');
         Route::post('get_message_list', 'MessageController@getMessageList')->name('get_message_list');
+        Route::post('chat-block-user', 'MessageController@blockUser')->name('chat-block-user');
 
         // fund request 
         Route::get('fund-requests','GeneralController@getFundRequests')->name('page.fund-requests');
@@ -119,6 +120,7 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
             //community
             Route::get('community', 'CommunityController@index')->name('community.index');
             Route::post('update-community', 'CommunityController@updateCommunity')->name('community.update-community');
+            Route::post('delete-question/{id}', 'CommunityController@deleteQuestion')->name('community.delete-question');
             
             Route::get('drop-your-idea','GeneralController@idea')->name('page.drop-idea');
             Route::post('drop-your-ideas', 'GeneralController@sendIdea')->name('idea.send-idea');
@@ -132,18 +134,20 @@ Route::group(['middleware' => 'prevent-back-history'] , function () {
             });
     
             Route::group(['middleware' => ['entrepreneur-access']], function () {
-                // Startup portal
-                Route::get('create-startup-portal','StartupPortalController@index')->name('startup-portal');
-                Route::get('startup-portal/{action?}/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
-                Route::post('store-startup-portal','StartupPortalController@store')->name('startup-portal.store');
-                Route::post('store-appointment','StartupPortalController@storeAppoinment')->name('store-appoinment');
-                Route::post('delete-portal','StartupPortalController@deletePortal')->name('delete-portal');
-                
-                Route::get('raise-fund','FundController@index')->name('startup.raise-fund');
-                Route::get('raise-fund/{action?}/{id?}','FundController@create')->name('startup.raise-fund.create');
-                Route::get('raise-fund/view/{id}/donor-list','FundController@viewDonorList')->name('startup.donor-list');
-                Route::post('store-raise-fund','FundController@store')->name('startup-raise-fund.store');
-            }); 
+               
+            });
+            
+             // Startup portal
+             Route::get('create-startup-portal','StartupPortalController@index')->name('startup-portal');
+             Route::get('startup-portal/{action?}/{portal_id?}','StartupPortalController@create')->name('start-statup-portal');
+             Route::post('store-startup-portal','StartupPortalController@store')->name('startup-portal.store');
+             Route::post('store-appointment','StartupPortalController@storeAppoinment')->name('store-appoinment');
+             Route::post('delete-portal','StartupPortalController@deletePortal')->name('delete-portal');
+             
+             Route::get('raise-fund','FundController@index')->name('startup.raise-fund');
+             Route::get('raise-fund/{action?}/{id?}','FundController@create')->name('startup.raise-fund.create');
+             Route::get('raise-fund/view/{id}/donor-list','FundController@viewDonorList')->name('startup.donor-list');
+             Route::post('store-raise-fund','FundController@store')->name('startup-raise-fund.store');
         }); 
     }); 
     

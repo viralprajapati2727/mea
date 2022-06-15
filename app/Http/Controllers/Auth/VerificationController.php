@@ -55,24 +55,24 @@ class VerificationController extends Controller
     public function verify(Request $request){
         $user = User::findOrFail($request->route('id'));
 
-        // if (! hash_equals((string) $request->route('id'), (string) $user->getKey())) {
-        //     throw new AuthorizationException;
-        // }
+        if (! hash_equals((string) $request->route('id'), (string) $user->getKey())) {
+            throw new AuthorizationException;
+        }
 
-        // if (! hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
-        //     throw new AuthorizationException;
-        // }
+        if (! hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
+            throw new AuthorizationException;
+        }
 
-        // if ($user->hasVerifiedEmail()) {
-        //     if(Auth::check())
-        //         return redirect($this->redirectPath())->with('status',trans('auth.account_already_verified_after_login'));
-        //     else
-        //         return redirect($this->redirectPath())->with('status',trans('auth.account_already_verified'));
-        // }
+        if ($user->hasVerifiedEmail()) {
+            if(Auth::check())
+                return redirect($this->redirectPath())->with('status',trans('auth.account_already_verified_after_login'));
+            else
+                return redirect($this->redirectPath())->with('status',trans('auth.account_already_verified'));
+        }
 
-        // if ($user->markEmailAsVerified()) {
-        //     event(new Verified($user));
-        // }
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+        }
 
         SendMailController::dynamicEmail([
             'email_id' => 2,
